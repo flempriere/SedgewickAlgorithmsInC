@@ -67,5 +67,4 @@ int main(int argc, char *argv[argc + 1]) {
 
 void printGraph(size_t start, size_t len, size_t a[len]) {
     while(start++ < len) printf("%zu : %zu\n", start - 1, a[start - 1]);
-
 }
