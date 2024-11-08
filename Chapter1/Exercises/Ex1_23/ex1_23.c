@@ -7,23 +7,63 @@ generated each time.
 */
 
 #include <stdio.h>
-#include <stddef.h>
 #include <time.h>
 #include <stdlib.h>
 
+/**
+ * @brief maximum value of a vertex across all runs
+ * 
+ */
 #define MAX_VERTEX 1000
+/**
+ * @brief smallest maximum value for any run.
+ * @see MAX_VERTEX
+ * 
+ */
 #define MIN_VERTEX 100
 
+/**
+ * @brief generates a random number between 0 and @N
+ * @param N unsigned integer <= RAND_MAX 
+ * 
+ */
 #define RAND_INT(N) rand() % (N)
 
+/**
+ * @brief swap's x and y
+ * 
+ * @param x first item to be swapped
+ * @param y second item to be swapped
+ * 
+ * Uses C23 typeof_unqual operator to
+ * determine types of @x and @y for
+ * temporary variable _t.
+ */
 #define SWAP(x,y) do {  \
-    size_t _t = x;      \
+    typeof_unqual(x) _t = x;      \
     x = y;              \
     y = _t;             \
 } while(0)              \
 
+/**
+ * @brief Plots the number of edges needed to connect N items
+ * for start <= N < len
+ * 
+ * @param start min value of N
+ * @param len  max value of N
+ * @param a array storing results, indexes start -> len must be
+ * valid
+ */
 void printGraph(size_t start, size_t len, size_t a[len]);
 
+
+/**
+ * @brief Generates a table of the number of edges needed to connect
+ * N items for 100 <= N <= 1000 using Weighted Union with path compression
+ * by halving assuming random input pairs.
+ * 
+ * @return EXIT_SUCCESS
+ */
 int main(int argc, char *argv[argc + 1]) {
 
     size_t id[MAX_VERTEX];
@@ -62,7 +102,7 @@ int main(int argc, char *argv[argc + 1]) {
         result[N] = n_edges;
     }
     printGraph(MIN_VERTEX, MAX_VERTEX + 1, result);
-    return 0; 
+    return EXIT_SUCCESS; 
 }
 
 void printGraph(size_t start, size_t len, size_t a[len]) {

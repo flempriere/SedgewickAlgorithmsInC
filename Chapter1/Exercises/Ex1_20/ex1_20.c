@@ -1,12 +1,9 @@
 /*
-Program 1.4
-
-Improves Weighted Quick Union by implementing path compression by halving
-for find operations.
-
-Path compression by halving: During find operations every node touched is has
-its parent replaced by its grandparent.
+Exercise 1-20:
+    - Modify Weighted Union to use the 'height' of the tree
+    - Compare the timing of this with Program 1.3
 */
+
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -17,11 +14,12 @@ its parent replaced by its grandparent.
  */
 #define N 10000
 
+
 /**
  * @brief swap's x and y
  * 
  * @param x first item to be swapped
- * @param y first item to be swapped
+ * @param y second item to be swapped
  * 
  * Uses C23 typeof_unqual operator to
  * determine types of @x and @y for
@@ -33,6 +31,24 @@ its parent replaced by its grandparent.
     y = _t;             \
 } while(0)              \
 
+/**
+ * @brief Compares the max of two elements
+ * 
+ * @param x first item to be compared
+ * @param y second item to be compared
+ * 
+ * @warning x and y must support the > operator.
+ * @return 
+ */
+#define MAX(x,y) ((x) > (y)) ? (x) : (y) 
+
+/**
+ * @brief Prints the first @len elements of an array a
+ * 
+ * @param len size_t type, length of the array
+ * @param a size_t type, must be of size at least len.
+ */
+void printArr(size_t len, size_t a[len]);
 
 /**
  * @brief Reads input pairs `p,q < N` from 
@@ -49,26 +65,32 @@ its parent replaced by its grandparent.
 int main(int argc, char *argv[argc + 1]) {
     size_t id[N];
     size_t sz[N];
-    size_t p, q;
+    size_t p, q, n_acc = 0;
 
     for (size_t i = 0; i < N; i++) {
         id[i] = i;
-        sz[i] = 1;
+        sz[i] = 0;
     }
     while (scanf("%zu %zu\n", &p , &q) == 2) {
-
-        if (p >= N || q >= N) continue;
-
         size_t i, j;
-        for (i = p; i != id[i]; i = id[i]) {id[i] = id[id[i]];}
-        for (j = q; j != id[j]; j = id[j]) {id[j] = id[id[j]];}
+        for (i = p; n_acc++, i != id[i]; i = id[i], n_acc++);
+        for (j = q; n_acc++, j != id[j]; j = id[j], n_acc++);
 
         if (i == j) continue;
 
         if (sz[i] < sz[j]) SWAP(i, j);
         id[j] = i;
-        sz[i] += sz[j];
+        sz[i] = MAX(sz[i], sz[j] + 1);
+        n_acc++;
         printf(" %zu %zu\n", p, q);
+        printArr(N, id);
     }
-    return EXIT_SUCCESS; 
+    printf("Number of id array accesses: %zu\n", n_acc);
+    return EXIT_SUCCESS;
+}
+
+void printArr(size_t len, size_t a[len])
+{
+    for (size_t i = 0; i < len; i++) printf(" %zu", a[i]);
+    printf("\n");
 }

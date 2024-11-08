@@ -1,5 +1,5 @@
 /*
-Quick Union solution
+Program 1.2: Quick Union solution to the connectivity problem
 
 - Unions are constant time
 - finds are linear time
@@ -10,11 +10,27 @@ Quick Union solution
 - all array.
 */
 
+#include <stdlib.h>
 #include <stdio.h>
-#include <stddef.h>
 
-#define N 10000
+/**
+ * @brief Input pair values must be less than N
+ * 
+ */
+#define N 10000u
 
+/**
+ * @brief Reads input pairs `p,q < N` from 
+ * standard input and performs a union operation. If
+ * `p` and `q` where not already connected they are
+ * printed to output.
+ * 
+ * @exception if p or q is not less than N the input
+ * pair is ignored
+ * 
+ * @return EXIT_SUCCESS on exit.
+ * 
+ */
 int main(void) {
     size_t p;
     size_t q;
@@ -22,7 +38,7 @@ int main(void) {
 
     for (size_t i = 0; i < N; i++) id[i] = i;
     while(scanf("%zu %zu\n", &p, &q) == 2) {
-
+        if (p >= N || q >= N) continue; //bounds checking
         size_t i, j;
 
         for (i = p; i != id[i]; i = id[i]);
@@ -31,5 +47,5 @@ int main(void) {
         id[i] = j;
         printf(" %zu %zu\n", p, q);
     }
-    return 0;
+    return EXIT_SUCCESS;
 }

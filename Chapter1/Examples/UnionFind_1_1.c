@@ -1,4 +1,6 @@
 /*
+Program 1.1: Quick-find solution to connectivity problem
+
 Reads a sequence of pairs of no-negative integers less than N
 from standard input.
 
@@ -14,10 +16,26 @@ we have to update all entries
 */
 
 #include <stdio.h>
-#include <stddef.h>
+#include <stdlib.h>
 
-#define N 10000
+/**
+ * @brief Input pair values must be less than N
+ * 
+ */
+#define N 10000u
 
+/**
+ * @brief Reads input pairs `p,q < N` from 
+ * standard input and performs a union operation. If
+ * `p` and `q` where not already connected they are
+ * printed to output.
+ * 
+ * @exception if p or q is not less than N the input
+ * pair is ignored
+ * 
+ * @return EXIT_SUCCESS on exit.
+ * 
+ */
 int main() {
     size_t p;
     size_t q;
@@ -25,6 +43,7 @@ int main() {
 
     for (size_t i = 0; i < N; i++) id[i] = i;
     while(scanf("%zu %zu\n", &p, &q) == 2) {
+        if (p >= N || q >= N) continue; //bounds checking
         if (id[p] == id[q]) continue;
         size_t t = id[p];
         for (size_t i = 0; i < N; i++) {
@@ -32,4 +51,5 @@ int main() {
         }
         printf(" %zu %zu\n", p, q);
     }
+    return EXIT_SUCCESS;
 }
