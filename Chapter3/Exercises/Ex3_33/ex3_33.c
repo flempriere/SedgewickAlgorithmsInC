@@ -1,46 +1,56 @@
 /*
-Exercise 3.31
-Run Program 3.9 plot the results for M = 10, with N = 2 to 1000.
+Exercise 3.33
+Modify Program 3.9 that uses an array of indices to implement
+the linked list
 */
 
-#include <stdlib.h>
 #include <stdio.h>
+#include <stdlib.h>
 
-#define N_MAX 9
+#define MAX_N 100
 
-typedef size_t node;
+typedef size_t key;
+typedef size_t link;
 
-size_t item[N_MAX];
-node next[N_MAX];
-
-void printState(size_t i);
+void printState(size_t N, key it[N], link nxt[N]);
 
 int main(int argc, char* argv[argc+1]) {
+    //idx i holds the i-th node.
+    //zero the arrays
+    key item[MAX_N] = {};
+    link next[MAX_N] = {};
 
-    size_t M = 5;
+    if (argc != 3) {
+        fprintf(stderr, "Error: requires args N M\n");
+        return EXIT_FAILURE;
+    }
+    size_t N = strtoull(argv[1], nullptr, 0);
+    size_t M = strtoull(argv[2], nullptr, 0);
 
-    for (size_t i = 0; i < N_MAX; i++) {
-        item[i] = N_MAX -  i;
-        next[i] = (i + 1) % N_MAX;
+    for (key i = 0; i < N; i++) {
+        item[i] = N - i;
+        next[i] = (i + 1) % N;
     }
-    size_t i = 0;
-    while (i != next[i]) {
-        for (size_t k = 1; k < M; k++) i = next[i];
-        next[i] = next[next[i]];
-        printState(i);
+    link x = N;
+    size_t n = N;
+    while (x != next[x]) {
+        printState(n, item, next);
+        for (link i = 1; i < M; i++) x = next[x];
+        printf("%2zu\n", item[next[x]]);
+        next[x] = next[next[x]];
+        N--;
     }
-    return 0;
+    return EXIT_SUCCESS
 }
 
-void printState(size_t i) {
-
-    printf("%4zu\t", i);
-    for (size_t j = 0; j < N_MAX; j++) {
-        printf("%zu ", item[j]);
+void printState(size_t N, key it[N], link nxt[N]) {
+    printf("Item: ");
+    for (size_t i = 0; i < N; i++) {
+        printf("%2zu ", it[i]);
     }
-    printf("\n%4s\t", "");
-    for (size_t j = 0; j < N_MAX; j++) {
-        printf("%zu ", next[j]);
+    printf("\nNext: ");
+    for (size_t i = 0; i < N; i++) {
+        printf("%2zu ", nxt[i]);
     }
     printf("\n");
 }
