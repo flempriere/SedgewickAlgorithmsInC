@@ -1,0 +1,12 @@
+Optimisation level: None
+N: 10, time: 0.000002 seconds
+N: 100, time: 0.001870 seconds
+N: 1000, time: 1.855390 seconds
+Optimisation level: O1
+N: 10, time: 0.000002 seconds
+N: 100, time: 0.000338 seconds
+N: 1000, time: 0.264780 seconds
+Optimisation level: O2
+N: 10, time: 0.000000 seconds
+N: 100, time: 0.000000 seconds
+N: 1000, time: 0.000000 seconds

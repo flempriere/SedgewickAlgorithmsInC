@@ -4,11 +4,18 @@ Exercise 2-2:
 */
 
 #include <time.h>
-#include <stddef.h>
+#include <stdlib.h>
 #include <stdio.h>
 
 #define N_SCALES 3
 
+/**
+ * @brief times the runtime of a triple nested
+ * for loop each iterating N = 10, 100, 1000
+ * times. The results printed to stdout. 
+ * 
+ * @return EXIT_SUCCESS on success completion
+ */
 int main(int argc, char *argv[argc + 1]) {
     size_t LIMITS[N_SCALES] = {10, 100, 1000};
 
@@ -27,5 +34,5 @@ int main(int argc, char *argv[argc + 1]) {
 
         printf("N: %zu, time: %lf seconds\n", LIMITS[i], (double)(toc - tic) / CLOCKS_PER_SEC);
     }
-    return 0;
+    return EXIT_SUCCESS;
 }
