@@ -18,7 +18,8 @@ into
 2. Exercises - Solutions to Exercises
 
 Each Chapter has a markdown file `index.md` to describe the exercises
-contained within. Where useful each chapter may be further subdivided
+contained within. This file may also contain solutions to mathematical
+exercises. Where useful each chapter may be further subdivided
 into different sections such as `Chapter 3`, where `Arrays`, `Linked Lists`
 and `Strings` are treated as their own components.
 
