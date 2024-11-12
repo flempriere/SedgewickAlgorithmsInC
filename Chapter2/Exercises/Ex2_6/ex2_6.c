@@ -14,11 +14,47 @@ Exercise 2-6:
 
 #include <tgmath.h>
 #include <stdio.h>
+#include <stdlib.h>
 
+/**
+ * @brief Tolerance value for root finding
+ * with newtons_method.
+ * 
+ * @see newtons_method
+ */
 #define eps 1e-6
+
+/**
+ * @brief Finds a root of the the function @f
+ * using [newtons method](https://en.wikipedia.org/wiki/Newton%27s_method) 
+ * with an initial guess of x
+ * 
+ * Stops once f(x) < eps
+ * 
+ * @param f 
+ * @param x 
+ * @return long double, root of f if found
+ * 
+ * @see eps
+ */
 long double newtons_method(long double (*f)(long double), long double x);
-long double fn1(long double x); 
+
+/**
+ * @brief Calculates N(lg(N)^2/2) - N^(3/2)
+ * 
+ * @param x 
+ * @return long double 
+ */
+long double fn1(long double x);
+
+/**
+ * @brief Calculates 2N(lg(N)^2)
+ * 
+ * @param x 
+ * @return long double 
+ */
 long double fn2(long double x);
+
 
 int main(int argc, char *argv[argc + 1]) {
     long double N_0 = 1.0L;
