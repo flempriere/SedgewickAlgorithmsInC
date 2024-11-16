@@ -9,11 +9,34 @@ there are slight discrepancies between the two for low n.
 #include <tgmath.h>
 #include <stdio.h>
 
+/**
+ * @brief Harmonic number to calculate up to.
+ * 
+ */
 #define N 10
+
+/**
+ * @brief largest harmonic number to cache results
+ * for.
+ */
 #define MAX_CACHE 15000
-long double Harmonic_N(size_t x); 
+
+/**
+ * @brief Calculates the N-th harmonic approximately.
+ */
+long double Harmonic_N(size_t x);
+
+/**
+ * @brief Calculates the N-th harmonic exactly.
+ * 
+ */
 long double Harmonic_N_Exact(size_t x);
 
+/**
+ * @brief Calculate the smallest values of
+ * N such that floor(H_n) = i for 1 <= N <= 10
+ * 
+ */
 int main(int argc, char *argv[argc + 1]) {
     size_t n = 1;
     for (size_t i = 1; i <= N; i++) {

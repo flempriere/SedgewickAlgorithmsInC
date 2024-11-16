@@ -55,7 +55,12 @@ long double fn1(long double x);
  */
 long double fn2(long double x);
 
-
+/**
+ * @brief Finds the regions where N^(3/2) is
+ * between Nlg(N)^2/2 and 2Nlg(N)^2.
+ * 
+ * @return EXIT_SUCCESS on completion
+ */
 int main(int argc, char *argv[argc + 1]) {
     long double N_0 = 1.0L;
     long double N_1 = 8.0L;
@@ -70,11 +75,12 @@ int main(int argc, char *argv[argc + 1]) {
 
     printf("N^(3/2) > 2Nlg(N)^2 for %Lf ~< N ~< %Lf\n", f2N_0, f2N_1);
 
-    long double lb = (f1N_0 > f2N_0) ? f1N_0 : f2N_0;
-    long double ub = (f1N_1 < f2N_0) ? f1N_1 : f2N_1;
 
-    printf("N^(3/2) mutually largest for %Lf ~< N ~< %Lf\n", lb, ub);
+    printf("N^(3/2) between Nlg(N)^2/2 and 2Nlg(N)^2"
+        " in the intervals:\n(%Lg, %Lg) and (%Lg, %Lg)\n", 
+        f1N_0, f2N_0, f2N_1, f1N_1);
 
+    return EXIT_SUCCESS;
 }
 
 long double fn1(long double x) {

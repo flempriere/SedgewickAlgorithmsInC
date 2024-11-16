@@ -9,24 +9,82 @@
     Play around with changing the typedef and corresponding KEY_MAX to different
     size integers.
  */
-#include <stddef.h>
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
 
+/**
+ * @brief Maximum number of random integers to generate
+ * for testing
+ */
 #define MAX_N 100000
+
+/**
+ * @brief Maximum number of random integers to store 
+ * 
+ */
 #define MAX_M 100000
 
+/**
+ * @brief Number of test cases to generate.
+ * 
+ */
 #define CASES 5
 
+/**
+ * @brief Array key values
+ * 
+ */
 typedef uint16_t key;
+
+/**
+ * @brief Largest valid key value
+ * 
+ */
 #define KEY_MAX UINT16_MAX
 
+/**
+ * @brief Fills an array of a of length
+ * len with random integers from 0 to KEY_MAX
+ * 
+ * @see KEY_MAX
+ */
 void fill_array(size_t len, key a[len]);
+
+/**
+ * @brief Generate n random integers and
+ * test how many are contained in the array
+ * a of size m
+ * 
+ * @return size_t number of matches
+ */
 size_t countMatches(size_t n, size_t m, key a[m]);
+
+/**
+ * @brief Value representing a value not in search 
+ * 
+ */
+#define NOT_FOUND SIZE_MAX
+
+/**
+ * @brief Finds the index of v in a searching
+ * from l to r.
+ * 
+ * @return idx of v if found else NOT_FOUND
+ * 
+ * @see NOT_FOUND
+ */
 size_t search(key v, size_t l, size_t r, key a[r+1]);
 
+/**
+ * @brief Generates M random integers and puts them in
+ * an array, then counts the number of N random integers
+ * that matches one of the numbers in the array, using
+ * sequential search. Repeats for M = 10, 100, 1000 and
+ * N = 10, 100, 1000. 
+ * 
+ */
 int main(int argc, char* argv[argc + 1]) {
 
     key random_ints[MAX_M];

@@ -6,27 +6,51 @@
 
     returns the index of v if found, else SIZE_MAX
  */
-#include <stddef.h>
+#include <stdlib.h>
 #include <stdint.h>
 #include <stdio.h>
 
+/**
+ * @brief size of the test search array
+ * 
+ */
 #define N 10
 
+/**
+ * @brief value indicating search failed to
+ * find the given value.
+ */
+#define NOT_FOUND SIZE_MAX
+
+/**
+ * @brief Find the index of v in the array a
+ * searching from start index l to stop index r.
+ * 
+ * @return idx of v if found else NOT_FOUND
+ * 
+ * @see NOT_FOUND
+ */
 size_t search(int v, size_t l, size_t r, int a[r+1]);
 
+/**
+ * @brief Test driver for search
+ *
+ * @return EXIT_SUCCESS
+ */
 int main(int argc, char* argv[argc + 1]) {
     int a[N] = {0,9,1,8,2,7,3,6,4,5};
     for (int i = 0; i <= N; i++) {
         size_t idx = search(i, 0, N-1, a);
-        if (idx != SIZE_MAX) {
+        if (idx != NOT_FOUND) {
             printf("v: %d, i: %zu, a[i]: %d\n", i, idx, a[idx]);
         } else {
             printf("v: %d, i: NOT_FOUND\n", i);
         }
     }
+    return EXIT_SUCCESS;
 }
 
 size_t search(int v, size_t l, size_t r, int a[r+1]) {
     for (; l <= r; l++) {if (v == a[l]) return l;}
-    return SIZE_MAX;
+    return NOT_FOUND;
 }
