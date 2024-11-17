@@ -23,6 +23,14 @@ exercises. Where useful each chapter may be further subdivided
 into different sections such as `Chapter 3`, where `Arrays`, `Linked Lists`
 and `Strings` are treated as their own components.
 
+### Contents
+
+#### Fundamentals
+1. [Chapter 1](./Chapter1/index.md) Introduction
+2. [Chapter 2](./Chapter2/index.md) Principles of Algorithm Analysis
+#### Data Structures
+3. [Chapter 3](./Chapter3/index.md) Elementary Data Structures
+
 ## Portability
 
 These programs have been compiled on Ubuntu LTS 24.04 using GCC 14. 
