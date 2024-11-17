@@ -167,7 +167,7 @@ $$
     \bar{d}_{2^n} & = \frac{n}{2}.
 \end{align}
 $$
-For fun lets check, $n = 3$, by formula $\bar{d} = 3$. By first principles $\bar{d} = \frac{1}{8}\left(0 + 3 \times 1 + 3 \times 2 + 3\right) = \frac{12}{8} = \frac{3}{2}$. 
+For fun lets check, $n = 3$, by formula $\bar{d} = \frac{3}{2}$. By first principles $\bar{d} = \frac{1}{8}\left(0 + 3 \times 1 + 3 \times 2 + 3\right) = \frac{12}{8} = \frac{3}{2}$. 
 
 ## [Exercise 1.14](./Exercises/Ex1_14/ex1_14.dat)
 
