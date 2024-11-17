@@ -135,7 +135,7 @@ Note $2000$ seconds is rougly $33$ minutes.
 
 ## Exercise 1.12
 
-*Compute the **average** distance from a node to the root in a worst case tree of $2^n$ nodes built by [Weighted QuickUnion](#program-13).
+*Compute the **average** distance from a node to the root in a worst case tree of $2^n$ nodes built by [Weighted QuickUnion](#program-13).*
 
 **Solution**
 Recall the worst case occurs when we link two trees of equal size. So to have a worst case tree of size $2^n$ we must merge two worst-case trees of size $2^{n - 1}$ etc. So we can focus on trees of size $2^M$.
