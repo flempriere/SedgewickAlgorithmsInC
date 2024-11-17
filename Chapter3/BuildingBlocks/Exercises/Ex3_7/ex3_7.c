@@ -8,9 +8,21 @@ closest to the first.
 #include <tgmath.h> //for infinity macro
 #include "point.h"
 #include <stdio.h>
+#include <stdlib.h>
 
+/**
+ * @brief Maximum size of an input line.
+ * 
+ */
 #define MAX_LINE 1000
 
+/**
+ * @brief Reads in points from standard
+ * input and prints out the first point
+ * and the closest of the subsequent points.
+ * 
+ * @return EXIT_SUCCESS
+ */
 int main(int argc, char* [argc+1]) {
 
     bool first_set = true;
@@ -40,12 +52,11 @@ int main(int argc, char* [argc+1]) {
                     closest.x = candidate.x;
                     closest.y = candidate.y;
                 }
-                //print after every point for debugging
-                printf("First point: (%f, %f)\nClosest point: (%f, %f)\n",
-                    first.x, first.y, closest.x, closest.y);
                 break;
         }
 
     }
-    return 0;
+    printf("First point: (%f, %f)\nClosest point: (%f, %f)\n",
+        first.x, first.y, closest.x, closest.y);
+    return EXIT_SUCCESS;
 }

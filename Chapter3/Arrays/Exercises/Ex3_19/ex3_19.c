@@ -11,23 +11,47 @@ argument.
 #include <tgmath.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <stddef.h>
+#include <time.h>
 
-#define MAXLINE 5
+/**
+ * @brief largest number we can generate
+ * 
+ */
 #define MAX_NUM 1000
 
+/**
+ * @brief Generates a random nonnegative
+ * integer less than @ub.
+ * 
+ * @param ub size_t <= RAND_MAX
+ * @return size_t 
+ */
 size_t randNum(size_t ub);
 
+/**
+ * @brief Generates random positive integers
+ * up to MAX_NUM until all values are generated.
+ * 
+ * This process is repeated @M times and the
+ * average and std. dev computed.
+ * 
+ * @param argv[1] M 
+ * @return EXIT_SUCCESS on successful execution else
+ * @return EXIT_FAILURE
+ * 
+ * @see MAX_NUM
+ */
 int main(int argc, char* argv[argc + 1]) {
 
     if (argc != 2) {
         fprintf(stderr, "Error: call structure is ./ex3_18 M\n");
-        return 1;
+        return EXIT_FAILURE;
     }
     size_t a[MAX_NUM];
     size_t M = strtoull(argv[1], NULL, 0);
     double m1 = 0.0;
     double m2 = 0.0;
+    srand(time(nullptr));
 
     for (size_t k = 0; k < M; k++) {
         size_t nGen = 0;
@@ -43,6 +67,7 @@ int main(int argc, char* argv[argc + 1]) {
         m1 += ((double) nGen) / M;
         m2 += ((double) nGen * nGen) / M;
     }
+    printf("===== Results, M = %zu =====\n", M);
     printf("       Average: %f\n", m1);
     printf("Std. deviation: %f\n", sqrt(m2 - m1*m1));
     return 0;

@@ -1,0 +1,82 @@
+Testing rand() with modulus
+Results for N: 10000, R: 2
+       Average: 0.505300
+Std. deviation: 0.499972
+Results for N: 10000, R: 4
+       Average: 1.479900
+Std. deviation: 1.110944
+Results for N: 10000, R: 16
+       Average: 7.501200
+Std. deviation: 4.591666
+
+Results for N: 100000, R: 2
+       Average: 0.501980
+Std. deviation: 0.499996
+Results for N: 100000, R: 4
+       Average: 1.495090
+Std. deviation: 1.114772
+Results for N: 100000, R: 16
+       Average: 7.501760
+Std. deviation: 4.611555
+
+Results for N: 1000000, R: 2
+       Average: 0.499999
+Std. deviation: 0.500000
+Results for N: 1000000, R: 4
+       Average: 1.500385
+Std. deviation: 1.117804
+Results for N: 1000000, R: 16
+       Average: 7.502248
+Std. deviation: 4.611556
+
+Results for N: 10000000, R: 2
+       Average: 0.499970
+Std. deviation: 0.500000
+Results for N: 10000000, R: 4
+       Average: 1.500772
+Std. deviation: 1.117994
+Results for N: 10000000, R: 16
+       Average: 7.503304
+Std. deviation: 4.609144
+
+Testing rand() via rescaled doubles
+Results for N: 10000, R: 2
+       Average: 0.497000
+Std. deviation: 0.499991
+Results for N: 10000, R: 4
+       Average: 1.508300
+Std. deviation: 1.123357
+Results for N: 10000, R: 16
+       Average: 7.494400
+Std. deviation: 4.587305
+
+Results for N: 100000, R: 2
+       Average: 0.499070
+Std. deviation: 0.499999
+Results for N: 100000, R: 4
+       Average: 1.500180
+Std. deviation: 1.116906
+Results for N: 100000, R: 16
+       Average: 7.498180
+Std. deviation: 4.602673
+
+Results for N: 1000000, R: 2
+       Average: 0.500070
+Std. deviation: 0.500000
+Results for N: 1000000, R: 4
+       Average: 1.500322
+Std. deviation: 1.116905
+Results for N: 1000000, R: 16
+       Average: 7.495732
+Std. deviation: 4.609623
+
+Results for N: 10000000, R: 2
+       Average: 0.499992
+Std. deviation: 0.500000
+Results for N: 10000000, R: 4
+       Average: 1.499730
+Std. deviation: 1.118157
+Results for N: 10000000, R: 16
+       Average: 7.499522
+Std. deviation: 4.609426
+

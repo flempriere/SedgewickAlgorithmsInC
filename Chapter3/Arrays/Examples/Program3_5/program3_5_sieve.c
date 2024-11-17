@@ -8,22 +8,32 @@ yet to examine and set all a[j*p] to 0 for all j > 2 s.t jp <= N
 
 */
 #include <stdio.h>
+#include <stdlib.h>
 
+/**
+ * @brief largest number to check for primality.
+ * 
+ */
 #define N 10000
 
+/**
+ * @brief Determines all the primes up to N
+ * 
+ * @return EXIT_SUCCESS
+ */
 int main(int argc, char* argv[argc + 1]) {
 
-    bool a[N];
-    for (size_t i = 2; i < N; i++) a[i] = true;
+    bool a[N+1];
+    for (size_t i = 2; i <= N; i++) a[i] = true;
 
-    for (size_t i = 2; i < N; i++) {
+    for (size_t i = 2; i <= N; i++) {
         if (a[i]) {
-            for (size_t j = i; i*j < N; j++) a[i*j] = 0;
+            for (size_t j = i; i*j <= N; j++) a[i*j] = false;
         }
     }
-    for (size_t i = 2; i < N; i++) {
+    for (size_t i = 2; i <= N; i++) {
         if (a[i]) printf("%4zu ", i);
     }
     printf("\n");
-    return 0;
+    return EXIT_SUCCESS;
 }

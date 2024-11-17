@@ -1,0 +1,8 @@
+N: 10000, Time for guarded: 0.000021, Time for unguarded: 0.000016
+Approaches agree
+N: 100000, Time for guarded: 0.000256, Time for unguarded: 0.000286
+Approaches agree
+N: 1000000, Time for guarded: 0.002126, Time for unguarded: 0.004143
+Approaches agree
+N: 10000000, Time for guarded: 0.049649, Time for unguarded: 0.164052
+Approaches agree

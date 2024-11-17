@@ -1,0 +1,15 @@
+N = 10
+       Average: 0.300000
+Std. deviation: 0.458258
+N = 100
+       Average: 0.520000
+Std. deviation: 0.499600
+N = 1000
+       Average: 0.507000
+Std. deviation: 0.499951
+N = 10000
+       Average: 0.508700
+Std. deviation: 0.499924
+N = 100000
+       Average: 0.502440
+Std. deviation: 0.499994

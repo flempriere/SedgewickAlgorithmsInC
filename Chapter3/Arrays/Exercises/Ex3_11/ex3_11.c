@@ -7,7 +7,16 @@ Program 3.11
 */
 
 #include <stdio.h>
+#include <stdlib.h>
 
+/**
+ * @brief Perform one pass over the array a
+ * settings a[i] to 98-i, then pass again
+ * setting a[i] to a[a[i]]. Then prints
+ * the array contents.
+ * 
+ * @return EXIT_SUCCESS
+ */
 int main(int argc, char* argv[argc + 1]) {
 
     int a[99];
@@ -20,7 +29,8 @@ int main(int argc, char* argv[argc + 1]) {
     printf("\n");
 
     for (size_t i = 0; i < 99; i++) {
-        printf("%3d", a[i]);
+        printf(" %d ", a[i]);
     }
     printf("\n");
+    return EXIT_SUCCESS;
 }

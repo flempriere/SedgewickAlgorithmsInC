@@ -1,4 +1,6 @@
 /*
+Program 3.4
+
 Provides the implementation for the distance function provided in point.h
 */
 

@@ -10,21 +10,32 @@ and the function definition which provides a concrete implementation.
 */
 
 #include <stdio.h>
-#include <stddef.h>
+#include <stdlib.h>
 
-int lg(int x);
+/**
+ * @brief Computes log2(x) for integer
+ * arguments
+ * 
+ */
+size_t lg(size_t x);
 
+/**
+ * @brief Tabulate N, lg(N) and Nlg(N)
+ * for N = 1 to 6.
+ *
+ * @return EXIT_SUCCESS
+ */
 int main(int argc, char* argv[argc + 1]) {
     int N = 10;
     for (size_t i = 1; i <= 6; i++, N *= 10) {
-        printf("%7d %2d %9d\n", N, lg(N), N*lg(N));
+        printf("%7zu %2zu %9zu\n", N, lg(N), N*lg(N));
     }
-    return 0;
+    return EXIT_SUCCESS;
 }
 
-int lg(int N) {
+size_t lg(size_t N) {
     
-    int i;
+    size_t i;
     for (i = 0; N > 0; i++, N /= 2);
     return i;
 }

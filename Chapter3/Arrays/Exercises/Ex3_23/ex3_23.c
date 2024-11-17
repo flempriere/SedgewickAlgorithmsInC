@@ -7,15 +7,34 @@ Modify Program 3.8 to work for a d-dimensional point.
 #include <tgmath.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 #include "point.h"
 
+/**
+ * @brief Generates a random double
+ * between 0 and 1.
+ * 
+ * @return double 
+ */
 double randFloat(void);
 
+/**
+ * @brief Generates N points in d
+ * dimensions and counts the number that
+ * can be connected by a line segment of
+ * length less than d
+ * 
+ * @param argv[1] dim, dimensions of points 
+ * @param argv[2] N, number of points to generate
+ * @param argv[3] d, distance to check points 
+ * @return EXIT_SUCCESS on successful completion else
+ * @return EXIT_FAILURE
+ */
 int main(int argc, char* argv[argc + 1]) {
 
     if (argc != 4) {
         fprintf(stderr, "Error: requires args dim, N, d\n");
-        return 1;
+        return EXIT_FAILURE;
     }
 
     Dimension dim = strtoull(argv[1], NULL, 0);
@@ -41,7 +60,7 @@ int main(int argc, char* argv[argc + 1]) {
     }
     printf("%zu edges shorter than %f\n", count, d);
 
-    return 0;
+    return EXIT_SUCCESS;
 }
 
 double randFloat(void) {

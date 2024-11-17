@@ -1,4 +1,6 @@
 /*
+Exercise 3.12
+
 Implement the seive of eratosthenes using an array of char and an array of bits.
 Compare the differences in time and space.
 
@@ -21,11 +23,25 @@ yet to examine and set all a[j*p] to 0 for all j > 2 s.t jp <= N
 #include <limits.h>
 #include <time.h>
 
-#define N 10000
+/**
+ * @brief Largest Number we check for primality
+ * 
+ */
+#define N 100000
 
+/**
+ * @brief Sieve of Eratosthenes array
+ * 
+ */
+bool a[N];
+/**
+ * @brief Compares a bit-indexed implementation of
+ * the sieve with a bool based implementation.
+ * 
+ * @return EXIT_SUCCESS
+ */
 int main(int argc, char* argv[argc + 1]) {
 
-    bool a[N];
     for (size_t i = 2; i < N; i++) a[i] = true;
 
     clock_t tic = clock();
@@ -74,5 +90,5 @@ int main(int argc, char* argv[argc + 1]) {
     printf("\n");
     printf("Time taken for bit implementation array: %f\n", time_spent);
 
-    return 0;
+    return EXIT_SUCCESS;
 }

@@ -1,4 +1,6 @@
 /*
+Exercise 3.22
+
 Program 3.8 closest point computation.
 
 This utilises an array of structures. We count the number of pairs of N
@@ -11,13 +13,26 @@ straight line of length < d using the point datatype introduced earlier.
 #include <stdlib.h>
 #include "point.h"
 
+/**
+ * @brief Generates a random
+ * double between 0 and 1.
+ * 
+ * @return double 
+ */
 double randFloat(void);
 
+/**
+ * @brief Generates N points in the plane
+ * then prints out the closest two.
+ * 
+ * @param argv[1] N 
+ * @return EXIT_SUCCESS
+ */
 int main(int argc, char* argv[argc + 1]) {
 
     if (argc != 2) {
         fprintf(stderr, "Error: requires args N\n");
-        return 1;
+        return EXIT_FAILURE;
     }
 
     size_t N = strtoull(argv[1], NULL, 0);

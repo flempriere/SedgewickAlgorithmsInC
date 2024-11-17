@@ -16,7 +16,7 @@ double slope(point p, point q) {
 }
 
 bool isCollinear(point p, point q, point r) {
-    double m_pq = (q.y - p.y) / (q.x - p.x);
-    double m_qr = (r.y - q.y) / (r.x - q.x);
+    double m_pq = slope(p, q);
+    double m_qr = slope(p, q);
     return (fabs(m_pq - m_qr) < TOLERANCE);
 }

@@ -1,0 +1,7 @@
+Test Results: 
+Case 1, Expected: Collinear 
+The points (0.000000, 0.000000), (1.000000, 1.000000) and (2.000000, 2.000000) are  collinear
+Case 2, Expected: Not Collinear 
+The points (0.000000, 0.000000), (1.000000, 1.000000) and (1.000000, 2.000000) are not collinear
+Case 3, Expected: Collinear 
+The points (0.000000, 0.000000), (0.000000, 0.000000) and (1.000000, 1.000000) are  collinear

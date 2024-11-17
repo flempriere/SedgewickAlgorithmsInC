@@ -1,0 +1,15 @@
+Running using N: 10
+       Average: 0.038144
+Std. deviation: 0.040995
+Running using N: 100
+       Average: 0.067851
+Std. deviation: 0.060981
+Running using N: 1000
+       Average: 0.079139
+Std. deviation: 0.071424
+Running using N: 10000
+       Average: 0.077752
+Std. deviation: 0.068193
+Running using N: 100000
+       Average: 0.076527
+Std. deviation: 0.067892

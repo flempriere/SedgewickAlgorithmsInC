@@ -6,10 +6,26 @@ if three points are collinear to within a tolerance of 10^(-4).
 #include <tgmath.h> //for infinity macro
 #include "point.h"
 #include <stdio.h>
+#include <stdlib.h>
 
+/**
+ * @brief maximum size of a line.
+ * 
+ */
 #define MAX_LINE 1000
+
+/**
+ * @brief number of points to check if collinear
+ * 
+ */
 #define N_POINTS 3
 
+/**
+ * @brief Reads in three points from stdin
+ * and then reports if they are collinear
+ * 
+ * @return EXIT_SUCCESS on success, else EXIT_FAILURE
+ */
 int main(int argc, char* [argc+1]) {
 
     point points[N_POINTS];
@@ -20,8 +36,8 @@ int main(int argc, char* [argc+1]) {
         i++) {
         Number x, y;
         if (sscanf(line, "%lf %lf", &x, &y) != 2) {
-            printf("Error: must input pairs of points\n");
-            return 1;
+            printf("Error: must input points as pairs of numbers\n");
+            return EXIT_FAILURE;
         }
         points[i] = (point) {.x = x, .y = y};
     }
@@ -29,5 +45,5 @@ int main(int argc, char* [argc+1]) {
         points[0].x, points[0].y, points[1].x, points[1].y, 
         points[2].x, points[2].y,
         (isCollinear(points[0], points[1], points[2])) ? "" : "not");
-    return 0;
+    return EXIT_SUCCESS;
 }

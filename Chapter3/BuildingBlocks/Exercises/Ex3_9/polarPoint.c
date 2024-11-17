@@ -12,6 +12,10 @@ Provides the implementation for the distance function provided in point.h
 #include "point.h"
 #include <stdio.h>
 
+static bool isEqual(point p, point q) {
+    return distance(p, q) < TOLERANCE;
+}
+
 static double getXcoord(point p) {
     return p.r * cos(p.theta);
 }
@@ -27,6 +31,10 @@ double distance(point p, point q) {
 }
 
 bool isCollinear(point p, point q, point r) {
+    //if two points equal, collinear
+    if (isEqual(p, q) || isEqual(q, r)) {
+        return true;
+    }
     double m_pq = (getYcoord(q) - getYcoord(p)) / (getXcoord(q) - getXcoord(p));
     double m_qr = (getYcoord(q) - getYcoord(r)) / (getXcoord(q) - getXcoord(r));
     return (fabs(m_pq - m_qr) < TOLERANCE);

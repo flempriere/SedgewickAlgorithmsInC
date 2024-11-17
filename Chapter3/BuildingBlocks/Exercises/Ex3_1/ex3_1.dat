@@ -1,0 +1,26 @@
+CHAR range: 
+char: -128 - 127 
+signed char: -128 - 127 
+unsigned char: 0 - 255
+
+SHORT range: 
+short: -32768 - 32767 
+unsigned short: 0 - 65535
+
+INT range: 
+int: -2147483648 - 2147483647
+unsigned int: 0 - 4294967295
+
+LONG range: 
+long: -9223372036854775808 - 9223372036854775807
+unsigned long: 0 - 18446744073709551615
+
+LONG LONG range: 
+long long: -9223372036854775808 - 9223372036854775807
+unsigned long long: 0 - 18446744073709551615
+
+FLOAT and DOUBLE range: 
+smallest float: 1.175494e-38
+largest float: 3.402823e+38
+smallest double: 2.225074e-308
+largest double: 1.797693e+308

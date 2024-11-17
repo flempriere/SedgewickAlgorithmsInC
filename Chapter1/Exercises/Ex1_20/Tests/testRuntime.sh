@@ -18,6 +18,7 @@ done
 #function to calculate average time
 avg_time() {
     test_executable=$1;
+    tests=$2;
     echo "=====$test_executable=====" >> results.txt
     for i in $(seq 0 9);
     do
@@ -34,15 +35,15 @@ avg_time() {
 }
 
 touch results.txt
-avg_time $sz_file
-avg_time $hgt_file
+avg_time $sz_file $n_tests
+avg_time $hgt_file $n_tests
 
 #move results to storage
 today=$(date +%Y%m%d)
 number=0
 
 dirname=$today
-while [ -e "$fname" ]; do
+while [ -e "$dirname" ]; do
     printf -v dirname '%s-%02d' "$today" "((++number))"
 done
 

@@ -5,18 +5,48 @@ based on the implementations in exercise 3.2 and exercise 3.3
 #include <tgmath.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <time.h>
 #include "num.h"
 
+/**
+ * @brief Number of test cases for N
+ * 
+ */
 #define N_CASES 4
+/**
+ * @brief Number of test cases for r
+ * 
+ */
 #define R_CASES 3
 
+/**
+ * @brief Starting value for N
+ * 
+ */
 #define N_INIT 10000
+
+/**
+ * @brief Starting value for R
+ * 
+ */
 #define R_INIT 2
 
+/**
+ * @brief Test the random number generator
+ * using both the methods given in Exercise 3.2
+ * and Exercise 3.3.
+ * 
+ * Starts and R = R_INIT, and N = N_INIT, and
+ * each successive N case is 10x larger. Each
+ * successive R case is squared.
+ * 
+ * @return EXIT_SUCCESS
+ */
 int main(int argc, char* argv[argc + 1]) {
 
     int n = N_INIT;
     int r = R_INIT;
+    srand(time(nullptr));
 
     printf("Testing rand() with modulus\n");
     for (size_t i = 0; i < N_CASES; n *= 10, i++) { //iterate over N values
@@ -57,5 +87,5 @@ int main(int argc, char* argv[argc + 1]) {
         r = R_INIT;
     }
 
-    return 0;
+    return EXIT_SUCCESS;
 }

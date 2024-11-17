@@ -1,0 +1,40 @@
+Results for N: 10000, R: 10
+       Average: 4.496300
+Std. deviation: 2.892955
+Results for N: 10000, R: 100
+       Average: 49.819100
+Std. deviation: 28.841470
+Results for N: 10000, R: 1000
+       Average: 498.244700
+Std. deviation: 290.188951
+
+Results for N: 100000, R: 10
+       Average: 4.480460
+Std. deviation: 2.868836
+Results for N: 100000, R: 100
+       Average: 49.543830
+Std. deviation: 28.855646
+Results for N: 100000, R: 1000
+       Average: 499.252510
+Std. deviation: 288.989479
+
+Results for N: 1000000, R: 10
+       Average: 4.499743
+Std. deviation: 2.872352
+Results for N: 1000000, R: 100
+       Average: 49.498856
+Std. deviation: 28.872355
+Results for N: 1000000, R: 1000
+       Average: 499.310829
+Std. deviation: 288.706811
+
+Results for N: 10000000, R: 10
+       Average: 4.500563
+Std. deviation: 2.872548
+Results for N: 10000000, R: 100
+       Average: 49.502172
+Std. deviation: 28.865188
+Results for N: 10000000, R: 1000
+       Average: 499.406808
+Std. deviation: 288.664489
+

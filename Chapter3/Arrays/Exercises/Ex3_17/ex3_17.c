@@ -10,9 +10,28 @@ in an input stream.
 #include <stdlib.h>
 #include <stddef.h>
 
+/**
+ * @brief Maximum length of a line
+ * 
+ */
 #define MAXLINE 5
+
+/**
+ * @brief Largest valid input number
+ * 
+ */
 #define MAX_NUM 1000
 
+/**
+ * @brief Counts the number of different
+ * integers less than 1000 that appear in
+ * an input stream.
+ * 
+ * Prints out the counts for all non-zero entries
+ * after end of input
+ * 
+ * @return EXIT_SUCCESS
+ */
 int main(int argc, char* argv[argc + 1]) {
 
     char line[MAXLINE];
@@ -24,7 +43,7 @@ int main(int argc, char* argv[argc + 1]) {
         a[i]++;
     }
     for (size_t i = 0; i < MAX_NUM; i++) {
-        printf("%4zu:%4zu\n", i, a[i]);
+        if (a[i]) printf("%4zu:%4zu\n", i, a[i]);
     }
-    return 0;
+    return EXIT_SUCCESS;
 }

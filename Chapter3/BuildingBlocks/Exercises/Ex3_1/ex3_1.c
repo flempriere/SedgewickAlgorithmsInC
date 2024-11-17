@@ -9,8 +9,14 @@ reference to <limits.h> and <float.h> and integer types by hand.
 #include <stdio.h>
 #include <limits.h>
 #include <float.h>
+#include <stdlib.h>
 
-
+/**
+ * @brief prints out the representable ranges
+ * for integer and floating point types.
+ * 
+ * @return EXIT_SUCCESS 
+ */
 int main() 
 {
     printf("CHAR range: \n");
@@ -40,5 +46,5 @@ int main()
     printf("smallest double: %e\n", DBL_MIN);
     printf("largest double: %e\n", DBL_MAX);
 
-    return 0;
+    return EXIT_SUCCESS;
 }

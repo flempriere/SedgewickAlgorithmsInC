@@ -11,13 +11,29 @@ straight line of length < d using the point datatype introduced earlier.
 #include <stdlib.h>
 #include "point.h"
 
+/**
+ * @brief Generates a random double between
+ * 0 and 1.
+ * 
+ * @return double 
+ */
 double randFloat(void);
 
+/**
+ * @brief Generates N random points
+ * and counts how many can be connected with
+ * a straight line of length less than d.
+ * 
+ * @param argv[1] N
+ * @param argv[2] d
+ * @return EXIT_SUCCESS if successful else
+ * @return EXIT_FAILURE
+ */
 int main(int argc, char* argv[argc + 1]) {
 
     if (argc != 3) {
         fprintf(stderr, "Error: requires args N d\n");
-        return 1;
+        return EXIT_FAILURE;
     }
     
     double d = atof(argv[2]);
@@ -35,6 +51,7 @@ int main(int argc, char* argv[argc + 1]) {
         }
     }
     printf("%zu edges shorter than %f\n", cnt, d);
+    return EXIT_SUCCESS;
 }
 
 double randFloat(void) {
