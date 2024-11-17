@@ -94,7 +94,7 @@ test `if (a[i])` that guards the inner loop of
 See the results in [ex3_15.dat](./Exercises/Ex3_15/ex3_15.dat). For small $N$ the unguarded and guarded
 have comparable runtimes. But the runtime of the unguarded approach grows much faster.
 
-### [Exercise 3.16]
+### Exercise 3.16
 
 *Analyse [Program 3.5](#program-35) to explain the
 observed effect*
