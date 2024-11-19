@@ -122,25 +122,21 @@ void printList(node* head) {
 }
 
 void moveNode(node* x, node* t) {
-    node* t_nxt = t->next;
 
-    //c1 (t == x)
-    // t->(t_nxt_nxt)->(t_nxt)
-    if (t == x) {
+    //edge case: (x == t)
+    //t->(t_nxt_nxt)->(t_nxt)->...
+    if (x == t) {
+
         node* t_nxt = t->next;
         t->next = t_nxt->next;
-        t_nxt->next = t_nxt;
-    } 
-    /* edge case 2: t->next = x;
-    t->(t_nxt_nxt)->(t_nxt)*/
-    else if (t->next = x) {
+        t_nxt->next = t->next->next;
+        t->next->next = t_nxt;
+    } else {
         node* t_nxt = t->next;
+        node* x_nxt = x->next;
+
         t->next = t_nxt->next;
-        t_nxt->next = t_nxt;
-
-    }
-    //edge case 1: t->next = x
-    if (t_nxt = x) {
-
+        t_nxt->next = x_nxt->next;
+        x_nxt->next = t_nxt;
     }
 }

@@ -55,5 +55,60 @@ two disjoint circular lists, inserts the list pointed to by
 *Given pointers `x` and `t` to nodes on a circular list, write
 a code fragment that node following `t` to the position following the node following `x` on the list.*
 
+**Solution**: Pretty straight forward link manipulation. But we do have to be careful of ensuring the edge cases `x == t`
+`x->next = t` and `t->next = x` work correctly.
 
+In our solution this requires us to treat the first edge case
+seperately.
 
+### [Exercise 3.28](./Exercises/Ex3_28/ex3_28.c)
+
+*Modify [Program 3.9](#program-39) to remove the etraneous
+connections made when building the initial list due to
+preserving a circular list after every insert*
+
+**Solution**: Maintain a pointer to the head node `t`, then only perform the connection `x->t` for every `x` inserted if
+`x` is the last node.
+
+### Exercise 3.29
+
+*Give the running time of the Josephus function in Big-O notation*. 
+
+**Note**: The question specifically states to give the run time
+up to *a* constant factor.
+
+**Solution**: 
+- At each step we eliminate one node, and we do so until all
+but one node remains. So there are $\mathcal{O}(N)$ iterations
+of the outer loop.
+- During the inner loop we move around the list $\mathcal{O}(M)$ times.
+- Eliminating a node is a constant time operation.
+
+So approximate runtime is $\mathcal{O}(MN)$.
+
+### [Exercise 3.30](./Exercises/Ex3_30/ex3_30.c)
+
+*Use [Program 3.9](#program-39) to determine the value of the
+Josephus function for $M = 2,3,5,10$ and $N = 10^3, 10^4, 10^5, 10^6$.*
+
+See the sample output in [ex3_30.dat](./Exercises/Ex3_30/ex3_30.dat).
+
+### [Exercise 3.31](./Exercises/Ex3_31/ex3_31.c)
+
+*Use [Program 3.9](#program-39) to plot the Josephus function
+vs $N$ for $M = 10$ and $2 <= N <= 1000$.*
+
+See the sample output in [ex3_31.dat](./Exercises/Ex3_31/ex3_31.dat).
+
+### [Exercise 3.32](./Exercises/Ex3_32/ex3_32.txt)
+
+*Give a table of the `item` and `next` array as well as the
+value of the `item` eliminated at each step of the Josephus
+Problem when the value of the `N-i`th node is `i` (counting from 0) for `N = 9, M = 5`.*
+
+See the output in [ex3_32.txt](./Exercises/Ex3_32/ex3_32.txt) obtained by modifying the key initialisation of [Exercise 3.33](#exercise-333) as required.
+
+### [Exercise 3.33](./Exercises/Ex3_33/ex3_33.c)
+
+*Develop a version of [Program 3.9](#program-39) that uses
+an array of indices to implement the linked list*.
