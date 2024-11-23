@@ -12,7 +12,77 @@ until only one node is left.*
 
 **Note:** The solution as provided by Sedgewick leads to a memory leak on performing elimination of the $M$-th node.
 
+### [Program 3.10](./Examples/Program3_10/program3_10_list_reversal.c)
+#### List Reversal
 
+*Function that reverses the links in a list, returning a pointer to the node, which then points to the next-to-final node, and so forth, with the link in the first node of the
+original list set to `nullptr`. To accomplish this, links are
+maintained to three consecutive nodes in the list.*
+
+### [Program 3.11](./Examples/Program3_11/program3_11_list_insertion_sort.c)
+
+*This code generates $N$ random integers between $0$ and $999$,
+builds a linked list with one number per node and then sorts
+the list such that the numbers appear in order when we traverse the list.*
+
+*This program maintains a **sorted** and **unsorted** list, one each iteration a node is removed from the **unsorted** list and placed in the correct position in the **sorted**
+list.
+
+*In this case the linked lists use dummy head nodes*
+
+### [Program 3.12-14](./Examples/Program3_12-14_ListImplementation/list.c)
+
+#### List Processing Interface and Implementation
+
+*A sample interface and implementation of the fundamental list processing operations:*
+
+```
+typedef struct node node;
+
+void initNodes(int);
+node* newNode(int);
+void freeNode(node*);
+void insertNext(node*, node*);
+node* deleteNext(node*, node*);
+node* next(node*);
+int Item(node*);
+```
+
+### [Program 3.13](./Examples/Program3_13_Josephus/josephus.c)
+
+*Modified version of [Program 3.9](#program-39) utilising
+the list-processing interface of [Program 3.12-14](#program-312-14)*.
+
+## Linked List Implementation Table
+
+*This table covers conventions for standard linked list representations and the standard operations*.
+
+**Circular, never empty**
+- *first insert*: `head->next = head`.
+- *insert t after x*: `t->next; x->next = t;`
+- *delete after x*: `x->next = x->next->next`
+- *traversal loop*: `t = head; do {..., t = t->next;} while(t != head);`
+
+**Head pointer, nullptr tail**
+- *initialise*: `head == nullptr`
+- *insert t after x*: `if (x == nullptr) {head = t; head->next = nullptr} else {t->next = x->next; x->next = t}`
+- *delete after x*: `t = x->next;  x->next = t->next;`
+- *traversal loop*: `for (t = head; t != nullptr; t = t->next)`
+- *test if empty*: `if (head == nullptr)`
+
+**Dummy head, nullptr tail**
+- *initialise*: `head == malloc(sizeof (*head)); head->next = nullptr`
+- *insert t after x*: `t->next = x->next; x->next = t;`
+- *delete after x*: `t = x->next; x->next = t->next`
+- *traversal loop*: `for (t = head; t != nullptr; t = t->next)`
+- *test if empty*: `if (head->next == nullptr)`.
+
+**Dummy head, and tail**
+- *initialise*: `head == malloc(sizeof (*head)); z = malloc(sizeof (*z)); head->next = z;` 
+- *insert t after x*: `t->next = x->next; x->next = t;`
+- *delete after x*: `x->next = x->next->next`
+- *traversal loop*: `for (t = head; t != z; t = t->next)`
+- *test if empty*: `if (head->next == z)`.
 
 ## Exercises
 
@@ -112,3 +182,4 @@ See the output in [ex3_32.txt](./Exercises/Ex3_32/ex3_32.txt) obtained by modify
 
 *Develop a version of [Program 3.9](#program-39) that uses
 an array of indices to implement the linked list*.
+

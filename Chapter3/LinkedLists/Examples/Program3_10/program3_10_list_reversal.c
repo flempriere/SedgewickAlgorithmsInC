@@ -1,19 +1,43 @@
 /*
 This function reverses a list, returning a pointer to the final node,
-which is now the new head node. The first node now points to NULL.
+which is now the new head node. The first node link is now a nullptr.
 */
 #include <stdlib.h>
 #include <stdio.h>
 
+/**
+ * @brief Key type for node structure
+ * 
+ */
 typedef size_t key;
+
+/**
+ * @brief LinkedList node
+ * consisting of a @key
+ * and next node.
+ * 
+ * @see key
+ */
 typedef struct node node;
 struct node {
     key k;
     node* next;
 };
 
+/**
+ * @brief Reverse a linkedList. This modifies
+ * the linkedlist in place.
+ * 
+ * @param x head of the linked list to reverse
+ * @return node*, head of the reversed list.
+ */
 node* reverse(node* x);
 
+/**
+ * @brief Demonstrates linkedList reversal
+ * 
+ * @return EXIT_SUCCESS on successful completion
+ */
 int main(int argc, char* argv[argc+1]) {
 
     size_t N = 10;

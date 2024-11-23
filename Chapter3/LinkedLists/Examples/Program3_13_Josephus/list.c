@@ -3,8 +3,6 @@ Program 3.14
 
 Implements the list-processing interface for Program 3.12.
 
-The list is represented using a dummy head node and a nullptr-terminated tail
-
 This implementation relies on the nodes being a fixed-size. A free list is
 initialised to the maximum number of nodes that our program uses, all linked.
 
@@ -20,6 +18,10 @@ conventions protect against undefined parameters.
 #include <stdlib.h>
 #include "list.h"
 
+/**
+ * @brief list of allocated, unused nodes
+ * for use in lists.
+ */
 ListNode* freeList;
 
 void initNodes(size_t N) {
@@ -38,28 +40,28 @@ ListNode *newNode(ListItem k)
     return x;
 }
 
-void freeNode(ListNode *n) {
+void freeNode(ListNode* n) {
     insertNext(freeList, n);    
 }
 
-void insertNext(ListNode *x, ListNode *y) {
+void insertNext(ListNode* x, ListNode* y) {
     y->next = x->next;
     x->next = y;
 }
 
-ListNode* deleteNext(ListNode *x)
+ListNode* deleteNext(ListNode* x)
 {
     ListNode* t = x->next;
     x->next = t->next;
     return t;
 }
 
-ListNode* next(ListNode *x)
+ListNode* next(ListNode* x)
 {
     return x->next;
 }
 
-ListItem Item(ListNode *x)
+ListItem Item(ListNode* x)
 {
     return x->item;
 }

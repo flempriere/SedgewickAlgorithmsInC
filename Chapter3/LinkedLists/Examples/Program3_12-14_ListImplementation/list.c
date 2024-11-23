@@ -18,6 +18,10 @@ conventions protect against undefined parameters.
 #include <stdlib.h>
 #include "list.h"
 
+/**
+ * @brief list of allocated, unused nodes
+ * for use in lists.
+ */
 ListNode* freeList;
 
 void initNodes(size_t N) {
@@ -36,28 +40,28 @@ ListNode *newNode(ListItem k)
     return x;
 }
 
-void freeNode(ListNode *n) {
-    insertNext(freeList);    
+void freeNode(ListNode* n) {
+    insertNext(freeList, n);    
 }
 
-void insertNext(ListNode *x, ListNode *y) {
+void insertNext(ListNode* x, ListNode* y) {
     y->next = x->next;
     x->next = y;
 }
 
-ListNode* deleteNext(ListNode *x)
+ListNode* deleteNext(ListNode* x)
 {
     ListNode* t = x->next;
     x->next = t->next;
     return t;
 }
 
-ListNode* next(ListNode *x)
+ListNode* next(ListNode* x)
 {
     return x->next;
 }
 
-ListItem Item(ListNode *x)
+ListItem Item(ListNode* x)
 {
     return x->item;
 }

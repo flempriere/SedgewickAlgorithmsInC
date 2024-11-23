@@ -9,6 +9,17 @@ the list interface from Program 3.12 and the Program 3.14 implementation.
 #include <stdio.h>
 #include <stdlib.h>
 
+/**
+ * @brief Determine the final person eliminated
+ * in the Josephus problem consisting of N people
+ * eliminating after M hops.
+ * 
+ * @param argv[1] N - number of nodes > 0
+ * @param argv[2] M - number of skips > 0
+ * 
+ * @return EXIT_SUCCESS on successful termination else
+ * @return EXIT_FAILURE 
+ */
 int main(int argc, char* argv[argc+1]) {
     if (argc != 3) {
         fprintf(stderr, "Usage is ./josephus N M");
@@ -16,6 +27,10 @@ int main(int argc, char* argv[argc+1]) {
     }
     size_t N = strtoull(argv[1], nullptr, 0);
     size_t M = strtoull(argv[2], nullptr, 0);
+    if (!(N && M)) {
+        fprintf(stderr, "Error: N and M must be > 0\n");
+        return EXIT_FAILURE;
+    }
 
     initNodes(N);
     ListNode* x = newNode(1);
@@ -29,4 +44,5 @@ int main(int argc, char* argv[argc+1]) {
         freeNode(deleteNext(x));
     }
     printf("%zu\n", Item(x));
+    return EXIT_SUCCESS;
 }

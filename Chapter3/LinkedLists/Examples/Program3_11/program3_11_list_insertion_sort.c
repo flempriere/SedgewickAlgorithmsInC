@@ -14,22 +14,63 @@ We use dummy head nodes that point to the first true node of the list.
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <time.h>
 
+/**
+ * @brief Key type for node structure
+ * 
+ */
 typedef size_t key;
+/**
+ * @brief LinkedList node
+ * consisting of a @key
+ * and next node.
+ * 
+ * @see key
+ */
 typedef struct node node;
 struct node {
     key k;
     node* next;
 };
 
-node head_i, head_o;
+/**
+ * @brief Dummy head for the input (unsorted) linkedList
+ */
+node head_i;
+/**
+ * @brief Dummy head the for the output (sorted) linkedList
+ * 
+ */
+node head_o;
 
+/**
+ * @brief Number of random numbers to generate
+ * 
+ */
 #define N 10
+/**
+ * @brief Exclusive upper bound on valid key values
+ * 
+ */
 #define MAX_KEY 1000
 
+/**
+ * @brief Generates an unsorted linked list on
+ * N nodes with random integers from 0 up to MAX_KEY-1.
+ * 
+ * The resulting list is then sorted to produce a
+ * second sorted list.
+ * 
+ * @return EXIT_SUCCESS
+ *
+ * @see N, @see MAX_KEY
+ */
 int main(int argc, char* argv[argc+1]) {
     node* a = &head_i;
     node* t = a;
+    srand(time(nullptr));
+
     for (size_t i = 0; i < N; i++) {
         t->next = malloc(sizeof(typeof_unqual(*t)));
         t = t->next;

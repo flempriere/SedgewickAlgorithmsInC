@@ -49,6 +49,11 @@ int main(int argc, char* argv[argc+1]) {
     }
     size_t N = strtoull(argv[1], NULL, 0);
     size_t M = strtoull(argv[2], NULL, 0);
+    
+    if (!(N && M)) {
+        fprintf(stderr, "Error: N and M must be > 0\n");
+        return EXIT_FAILURE;
+    }
 
     node* t = malloc(sizeof(*t));
     node* x = t;
