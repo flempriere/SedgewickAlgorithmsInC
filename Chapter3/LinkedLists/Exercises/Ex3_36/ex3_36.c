@@ -21,6 +21,7 @@ relative order of both the evens and the odds.
  */
 #define MAX_NUM 100
 
+/
 #define ISEVEN(x) (((x) % 2) == 0)
 
 typedef struct node node;
