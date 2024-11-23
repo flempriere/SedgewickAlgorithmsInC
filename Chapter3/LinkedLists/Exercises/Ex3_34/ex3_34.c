@@ -9,9 +9,20 @@ the final node on a list.
 #include <stdlib.h>
 #include <time.h>
 
+/**
+ * @brief Number of random nodes to generate for test driver
+ * 
+ */
 #define DEFAULT_N 10
+/**
+ * @brief Exlusive upper bound for random node key values
+ * 
+ */
 #define MAX_NUM 100
-
+/**
+ * @brief Linked List node with
+ * key and next element.
+ */
 typedef struct node node;
 
 struct node {
@@ -19,9 +30,40 @@ struct node {
     node* next;
 };
 
+/**
+ * @brief Print out the LinkedList starting
+ * from the node head.
+ * 
+ * @param head 
+ */
 void printList(node* head);
+/**
+ * @brief move the largest element of the list
+ * starting at h to the end of the list.
+ * 
+ * @param h 
+ */
 void moveLargestToEnd(node* h);
 
+/**
+ * @brief Checks that the largest element of the list
+ * starting at h is at the end.
+ * 
+ * @return true if the last element is the largest else
+ * @return false 
+ */
+bool assertLargestAtEnd(node* h);
+
+/**
+ * @brief Test driver for moveLargestToEnd, generates
+ * either default_N or up to N nodes depending on if
+ * N is provided as a command line argument, then moves
+ * the largest to the end.
+ * 
+ * @param argc 
+ * @param argv 
+ * @return int 
+ */
 int main(int argc, char* argv[argc+1]) {
     
     //generate a list of N random numbers with a dummy head
@@ -41,6 +83,8 @@ int main(int argc, char* argv[argc+1]) {
     moveLargestToEnd(nodes);
     printf("List after largest moved to end:\n");
     printList(nodes);
+    printf("Largest at the end?: %s\n", 
+        (assertLargestAtEnd(nodes) ? "true" : "false"));
 
     return EXIT_SUCCESS;
 }
@@ -63,4 +107,12 @@ void moveLargestToEnd(node* h) {
     max_pred->next = max->next;
     h->next = max;
     max->next = nullptr;
+}
+
+bool assertLargestAtEnd(node* h) {
+    size_t largestSeen = 0;
+    for (h = h->next; h->next != nullptr; h = h->next) {
+        largestSeen = (largestSeen > h->k) ? largestSeen : h->k;
+    }
+    return ((h->k >= largestSeen) ? true : false);
 }

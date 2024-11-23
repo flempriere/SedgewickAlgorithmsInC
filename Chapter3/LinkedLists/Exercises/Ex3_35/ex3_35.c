@@ -7,20 +7,52 @@ first node on a list
 */
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdint.h>
 #include <time.h>
 
+/**
+ * @brief Number of random nodes to generate for test driver
+ * 
+ */
 #define DEFAULT_N 10
+/**
+ * @brief Exlusive upper bound for random node key values
+ * 
+ */
 #define MAX_NUM 100
-
+/**
+ * @brief Linked List node with
+ * key and next element.
+ */
 typedef struct node node;
 
 struct node {
     size_t k;
     node* next;
 };
-
+/**
+ * @brief Print out the LinkedList starting
+ * from the node head.
+ * 
+ * @param head 
+ */
 void printList(node* head);
+/**
+ * @brief move the smallest element of the list
+ * starting at h to the start of the list.
+ * 
+ * @param h 
+ */
 void moveSmallestToFront(node* h);
+
+/**
+ * @brief Checks that the smallest element of the list
+ * starting at h is at the end.
+ * 
+ * @return true if the first element is the smallest else
+ * @return false 
+ */
+bool assertSmallestAtFront(node* h);
 
 int main(int argc, char* argv[argc+1]) {
     
@@ -41,6 +73,8 @@ int main(int argc, char* argv[argc+1]) {
     moveSmallestToFront(nodes);
     printf("List after largest moved to end:\n");
     printList(nodes);
+    printf("Smallest at the front?: %s\n", 
+        (assertSmallestAtFront(nodes) ? "true" : "false"));
 
     return EXIT_SUCCESS;
 }
@@ -64,4 +98,14 @@ void moveSmallestToFront(node* h) {
     min_pred->next = min->next;
     min->next = h->next;
     h->next = min;
+}
+
+bool assertSmallestAtFront(node* h) {
+    h = h->next;
+    size_t smallest = h->k;
+    for (h=h->next; h != nullptr; h = h->next) {
+        if (h->k < smallest) return false;
+    }
+
+    return true;
 }

@@ -10,7 +10,15 @@ relative order of both the evens and the odds.
 #include <stdlib.h>
 #include <time.h>
 
+/**
+ * @brief Number of random nodes to generate for test driver
+ * 
+ */
 #define DEFAULT_N 10
+/**
+ * @brief Exlusive upper bound for random node key values
+ * 
+ */
 #define MAX_NUM 100
 
 #define ISEVEN(x) (((x) % 2) == 0)
