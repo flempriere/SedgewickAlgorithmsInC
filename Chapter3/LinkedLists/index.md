@@ -26,7 +26,7 @@ builds a linked list with one number per node and then sorts
 the list such that the numbers appear in order when we traverse the list.*
 
 *This program maintains a **sorted** and **unsorted** list, one each iteration a node is removed from the **unsorted** list and placed in the correct position in the **sorted**
-list.
+list.*
 
 *In this case the linked lists use dummy head nodes*
 
@@ -182,4 +182,94 @@ See the output in [ex3_32.txt](./Exercises/Ex3_32/ex3_32.txt) obtained by modify
 
 *Develop a version of [Program 3.9](#program-39) that uses
 an array of indices to implement the linked list*.
+
+### [Exercise 3.34](./Exercises/Ex3_34/ex3_34.c)
+*Write a function that moves the largest item on a given
+list to be the final node on the list.*
+
+See sample output in [ex3_34.dat](./Exercises/Ex3_34/ex3_34.dat).
+
+### [Exercise 3.35](./Exercises/Ex3_35/ex3_35.c)
+*Write a function that moves the smallest item on a given
+list to be the final node on the list*
+
+See sample output in [ex3_35.dat](./Exercises/Ex3_35/ex3_35.dat).
+
+### [Exercise 3.36](./Exercises/Ex3_36/ex3_36.c)
+*Write a function that rearranges a linked list to put the
+nodes in even positions after the nodes in odd positions
+in the list, preserving the relative order of both the
+evens and the odds.*
+
+See sample output in [ex3_36.dat](./Exercises/Ex3_36/ex3_36.dat).
+
+### [Exercise 3.37](./Exercises/Ex3_37/ex3_37.c)
+*Implement a code fragment for a linked list that exchanges
+the positions of the nodes after the nodes referenced by
+two given links `t` and `u`.*
+
+See sample output in [ex3_37.dat](./Exercises/Ex3_37/ex3_37.dat).
+
+### [Exercise 3.38](./Exercises/Ex3_38/ex3_38.c)
+*Write a function that takes a link to a list as argument and returns a link to a copy of the list (a new list that contains
+the same items, in the same order)*
+
+In our implementation we make the assumption that the copy is
+a deep copy. i.e. that a new unique instance of each key is
+generated.
+
+See sample output in [ex3_38.dat](./Exercises/Ex3_38/ex3_38.dat).
+
+### [Exercise 3.39](./Exercises/Ex3_39/ex3_39.c)
+*Write a function that takes two arguments - a link to a list and a function that takes a link as argument - and removes
+all items on the given list for which the function returns a nonzero value.*
+
+Our solution demonstrates this with a test function eliminating even keyed nodes. See [ex3_39.dat](./Exercises/Ex3_39/ex3_39.dat).
+
+### [Exercise 3.40](./Exercises/Ex3_40/ex3_40.c)
+*Solve [Exercise 3.39](#exercise-339), but makes copies of the nodes that pass the test and returns a link to a list containing those nodes, in the order that they appear in the original list.*
+
+See sample output in [ex3_40.dat](./Exercises/Ex3_40/ex3_40.dat).
+
+### [Exercise 3.41](./Exercises/Ex3_41/ex3_41.c)
+*Implement a version of [Program 3.10](#program-310) that
+uses a head node*.
+
+See sample output in [ex3_41.dat](./Exercises/Ex3_41/ex3_41.dat).
+
+We can see that our implementation requires little modification. `Reverse` is modified to skip over the initial
+dummy head, then proceed as usual.
+
+Finally as the last step the dummy head is then reattached to
+the new reversed list.
+
+
+
+### [Exercise 3.42](./Exercises/Ex3_42/ex3_42.c)
+
+*Implement a version of [Program 3.11](#program-311) that does
+not use head nodes*.
+
+See sample output in [ex3_42.dat](./Exercises/Ex3_42/ex3_42.dat). Observe that we have to deal with two edge cases:
+
+1. Adding the first node to a list
+2. Inserting a node as the new first node i.e. changing the head.
+
+Neither of these have to do be done in the case of a dummy node implementation.
+
+Ideally if we did have to return a non-dummy node list then it would be best to use a dummy node for the construction and then remove this prior to returning the sorted list.
+
+### [Exercise 3.43](./Exercises/Ex3_43/ex3_43.c)
+
+*Implement a version of Program 3.9 that uses a head node.*
+
+Observe that the implementation is now less elegant as we have to account for the case while counting to $M$ that we run
+off the end of the list (and need to reset to the start), 
+and the case that once we reach $M$ we are at the end of the
+list (and need to adjust what the dummy head points to.)
+
+**The lesson?:** Use a list implementation that suits the architecture of the problem.
+
+
+
 

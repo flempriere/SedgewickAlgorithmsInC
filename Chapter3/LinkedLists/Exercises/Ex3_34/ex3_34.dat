@@ -1,0 +1,5 @@
+Initial List:
+38->7->3->0->74->16->53->95->74->54->X
+List after largest moved to end:
+38->7->3->0->74->16->53->74->54->95->X
+Largest at the end?: true

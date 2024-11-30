@@ -8,43 +8,61 @@ relative order of both the evens and the odds.
 */
 #include <stdio.h>
 #include <stdlib.h>
-#include <time.h>
 
 /**
  * @brief Number of random nodes to generate for test driver
  * 
  */
-#define DEFAULT_N 10
+#define N 10
+
 /**
- * @brief Exlusive upper bound for random node key values
- * 
+ * @brief Returns if a number is even
+ * @param x
+ * @return true if even else @return false.
  */
-#define MAX_NUM 100
-
-/
 #define ISEVEN(x) (((x) % 2) == 0)
-
+/**
+ * @brief Linked List node with
+ * key and next element.
+ */
 typedef struct node node;
 
 struct node {
     size_t k;
     node* next;
 };
-
+/**
+ * @brief Print out the LinkedList starting
+ * from the node head.
+ * 
+ * @param head 
+ */
 void printList(node* head);
+/**
+ * @brief Rearrange a linked list to put
+ * the sublist of even indices before the
+ * sublist of odd indices. The relative
+ * order of each sublist is preserved.
+ * 
+ * @param h 
+ */
 void partitionOddsAndEvens(node* h);
 
+/**
+ * @brief Driver program to demonstrate PartitionOddsAndEvens.
+ * We generate a list containing N elements keyed by their
+ * position and then partition.
+ * 
+ * @return int 
+ */
 int main(int argc, char* argv[argc+1]) {
     
     //generate a list of N random numbers with a dummy head
-    size_t N = (argc == 2) ? strtoull(argv[1], nullptr, 0) : DEFAULT_N;
     node* nodes = malloc((N+1)*sizeof(typeof_unqual(*nodes)));
 
-    srand(time(NULL));
     for (size_t i = 1; i <= N; i++) {
-        size_t k = rand() % MAX_NUM;
         nodes[i-1].next = &nodes[i];
-        nodes[i].k = k;
+        nodes[i].k = i;
     }
     nodes[N].next = nullptr;
 
@@ -71,8 +89,9 @@ void partitionOddsAndEvens(node* h) {
     node* evenTail = evenHead;
 
     //build two lists, one for odd, one for even
-    for (node* cur = h->next; cur != nullptr; cur = cur->next) {
-        if (ISEVEN(cur->k)) {
+    node* cur = h->next;
+    for (size_t idx = 0; cur != nullptr; cur = cur->next, idx++) {
+        if (ISEVEN(idx)) {
             evenTail->next = cur;
             evenTail = cur;
         } else {

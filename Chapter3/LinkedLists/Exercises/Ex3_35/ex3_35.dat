@@ -1,0 +1,5 @@
+Initial List:
+21->39->52->23->74->52->23->99->37->49->X
+List after largest moved to end:
+21->39->52->23->74->52->23->99->37->49->X
+Smallest at the front?: true
