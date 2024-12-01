@@ -84,6 +84,20 @@ the list-processing interface of [Program 3.12-14](#program-312-14)*.
 - *traversal loop*: `for (t = head; t != z; t = t->next)`
 - *test if empty*: `if (head->next == z)`.
 
+**Never empty, self-pointing tail**
+- *first insert*: `head->next = head`.
+- *insert t after x*: `if (x->next = x) t->next = t; else {t->next = x->next;} x->next = t;`
+- *delete after x*: `if (x->next->next == x->next) x->next = x;else x->next = x->next->next;`
+- *traversal loop* `for (x = nullptr, t = head; t != x; x = t; t = t->next)`
+- *test if one item* `if (head->next == head)`
+
+**Circular list, combined dummy head and tail**
+- *initialise*: `head = malloc(sizeof(*head)); tail = head; head->next = head;`
+- *insert t after x*: `t->next = x->next; x->next = t`
+- *delete after x*: `x->next = x->next->next`.
+- *traversal loop*: `for (t = head->next; t != head; t = t->next)` 
+- *test if empty*: `if (head->next == head)`.
+
 ## Exercises
 
 ### [Exercise 3.24](./Exercises/Ex3_24/ex3_24.c)
@@ -270,6 +284,136 @@ list (and need to adjust what the dummy head points to.)
 
 **The lesson?:** Use a list implementation that suits the architecture of the problem.
 
+### [Exercise 3.44](./Exercises/Ex3_44/ex3_44.c)
+
+*Implement a function that exchanges two given nodes on a
+doubly linked list.*
+
+See sample output in [ex3_44.dat](./Exercises/Ex3_44/ex3_44.dat). We have to account for the edge cases that the two nodes
+are equal or adjacent.
+
+
+### [Exercise 3.45](#linked-list-implementation-table)
+
+*Give an entry for the linked list implementation table for
+a list that is never empty, referred to with a pointer to the
+first node, and for which the final node has a pointer to itself.* 
+
+See the row in the table linked.
+
+
+### [Exercise 3.46](#linked-list-implementation-table)
+
+*Give an entry for the linked list implementation table for
+a list that is never emptty, referred to with a pointer to
+the first node, and for which the final node has a pointer to
+itself.*
+
+
+### [Exercise 3.47](./Exercises/Ex3_47/ex3_47.c)
+
+*Write a program that  frees (calls `free` with a pointer to)
+all the nodes on a given linked list*
+
+We use the implementation of the interface in [Ex3.50](#exercise-350) to allow us to alloc and free individual nodes.
+
+The additional function `freeAllNodes` is then added to the
+interface and implementation.
+
+### [Exercise 3.48](./Exercises/Ex3_48/ex3_48.c)
+
+*Write a program that frees the nodes in positions that are
+divisible by `5` in a linked list*
+
+We again write this as an additional function `freeEveryFifthNode` in the interface and implementation from
+[Ex3.50](#exercise-350).
+
+We also make the implementation easier by changing from a
+circular list a nullptr terminated list.
+
+
+### [Exercise 3.49](./Exercises/Ex3_49/ex3_49.c)
+
+*Write a program that frees the nodes in even positions in
+a linked list*
+
+We follow the approach in [Ex3.49](#exercise-348) but use
+a boolean flag we toggle back and forth each step rather
+than performing a modulus operation.
+
+
+### [Exercise 3.50](./Exercises/Ex3_50/list.c)
+
+*Implement the interface in [Program 3.12](#program-312-14)
+using `malloc` and `free` directly in `newNode` and `freeNode`
+respectively.*
+
+### [Exercise 3.51](./Exercises/Ex3_51/ex3_51.c)
+
+*Run empirical studies comparing the running times of the memory allocation functions in [Program 3.14](#program-312-14)
+with `malloc` and `free` (see [Ex3.50](#exercise-350)) for
+[Program 3.13](#program-313) with $M$ = 2 and $N$ = $10^3, 10^4, 10^5, 10^6$.*
+
+See the sample output in [ex3_51.dat](./Exercises/Ex3_51/ex3_51.dat). Note the implementation needs to be slightly
+modified for each interface. On my machine the `malloc` and
+`free` implementation takes roughly twice the time.
+
+### [Exercise 3.52](./Exercises/Ex3_52/ex3_52.c)
+
+*Implement the interface in [Program 3.12](#program-312-14)
+using array indices (and no head node) rather than pointers.
+Demonstrate the trace of the free list.*
+
+Our implementation allocates and `item` and `next` array. The
+`freeList` is stored as an index to the first index in the
+`freeList` inside the `next` array, with a sentinel value to
+denote when we are out of space.
+
+See the sample output in [ex3_52.dat](./Exercises/Ex3_52/ex3_52.dat).
+
+
+### Exercise 3.53
+
+*Suppose that you have a set of nodes with no null pointers
+(each node points to itself or some other node in the set). Prove that you ultimately get into a cycle if you start at any
+given node and follow links.*
+
+**Solution**: Let the set be of size $N$, pick an arbitrary node and follow $N + 1$ links. No since there are only $N$ nodes, by the pigeonhole principle we must have revisited at least one node and therefore entered a cycle.
+
+
+### [Exercise 3.54](./Exercises/Ex3_54/ex3_54.c)
+
+*Under the conditions of [Exercise 3.53](#exercise-353), write a code fragment that, given a pointer to a node, finds the number of different nodes that it ultimately reaches by following links from that node, without modifying any nodes. Do not use more than a constant amount of extra memory space.*
+
+We use [Floyd's Cycle Finding Algorithm](https://en.wikipedia.org/wiki/Cycle_detection#Tortoise_and_hare). First we detect the cycle and get a representative candidate for the cycle. We then find the `start` of the cycle counting any nodes that feed into but are not part of the cycle, then lastly we loop around the cycle and count the number of nodes it contains.
+
+See sample output from testing various length cycles on a list of length 10 in [ex3_54.dat](./Exercises/Ex3_54/ex3_54.dat)
+
+**Note:** Though not required by the question, we do implement
+case checking for the scenario that their are nullptr's (i.e) the list is not cyclic.
+
+
+### [Exercise 3.55](./Exercises/Ex3_55/ex3_55.c)
+
+*Under the conditions of [Exercise 3.54](#exercise-354), write
+a function that determines whether or not two given links, if
+followed, eventually end up on the same cycle.*
+
+We follow a similar approach to [Exercise 3.54](#exercise-354). First we get a representative candidate for the cycle of each node.
+
+If these are both `nullptr` then neither are on a cycle and we check if they are on the same list by scanning one of the nodes until we hit `nullptr` or the other node.
+
+If one of the cycle representatives is `nullptr` but the other
+is not, then one of the nodes leads to a cycle while the other
+doesn't and so trivially they do not end up on the same cycle.
+
+Lastly if both are non-`nullptr` we check if they are the same
+cycle by scanning around one of the cycles and check if we find
+the other cycle representative. If yes, they lead to the same cycle, otherwise they do not.
+
+See sample output in [Ex3_55.dat](./Exercises/Ex3_55/ex3_55.dat). Like the previous Exercise all though not required by the problem, we have included extra case handling to deal with
+cases where the lists are non-cyclic and their may be `nullptr`
+as described above.
 
 
 

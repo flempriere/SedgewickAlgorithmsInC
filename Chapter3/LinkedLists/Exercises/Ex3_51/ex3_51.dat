@@ -1,0 +1,10 @@
+Running with program3.14 list
+Test Case: M: 2, N: 10000	 Time: 0.000162
+Test Case: M: 2, N: 100000	 Time: 0.001848
+Test Case: M: 2, N: 1000000	 Time: 0.026261
+Test Case: M: 2, N: 10000000	 Time: 0.258797
+Running with ex3.50 list
+Test Case: M: 2, N: 10000	 Time: 0.000276
+Test Case: M: 2, N: 100000	 Time: 0.002859
+Test Case: M: 2, N: 1000000	 Time: 0.056691
+Test Case: M: 2, N: 10000000	 Time: 0.550019

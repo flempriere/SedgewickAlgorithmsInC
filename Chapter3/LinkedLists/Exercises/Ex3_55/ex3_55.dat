@@ -1,0 +1,14 @@
+Test Case 1: On the same branch (1, 2)
+Expected true, Found: true
+Test Case 2: On different branches (common cycle) (1, 6)
+Expected true, Found: true
+Test Case 3: One in the cycle (common cycle) (1, 3)
+Expected true, Found: true
+Test Case 4: One in the cycle (common cycle) (1, 4)
+Expected true, Found: true
+Test Case 5: Both in the cycle (common cycle) (4, 5)
+Expected true, Found: true
+Test Case 6: On different cycles (1, 8)
+Expected false, Found: false
+Test Case 7: On different cycles, both in their cycle (4, 8)
+Expected false, Found: false
