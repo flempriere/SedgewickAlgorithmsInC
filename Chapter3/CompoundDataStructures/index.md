@@ -28,8 +28,6 @@ string in the first position etc.*
 
 *We make use of the library function qsort.*
 
-**Note**: To be updated to remove the dependency on `scanf`.
-
 ### [Program 3.18](./Examples/Program3_18/adjacencyMatrix.c)
 #### Adjacency Matrix
 
@@ -43,8 +41,31 @@ is no such edge.*
 time constant. Otherwise, it would need to dynamically
 allocate the adjacency matrix (see [Ex. 3.72](#exercise-372))*
 
-**Note**: Currently this solution isn't working and has an infinite
-loop on reading input
+### [Program 3.19](./Examples/Program3_19/adjacencyList.c)
+
+*This program reads a set of edges that define a graph and builds
+an adjacency-matrix representation for the graph. An adjacency list
+for a graph is an array of lists, one for each vertex, where
+the $j$th list contains a linked-list of the nodes connected to
+the $j$th vertex.*
+
+### [Program 3.20](./Examples/Program3_20/program3_20.c)
+
+*This program illustrates the use of effectiveness of proper
+data structure choices, for the geometric computation of
+program 3.8. The unit square is divided into a grid, a two
+dimensional array of linked lists, with one list corresponding
+to each grid square. The grid is chosen to be sufficiently fine
+that all points within distance $d$ of any given point are either
+in the same grid square or an adjacent one.*
+
+**Note**: In a unit square the maximum distance between two points
+is $\sqrt{2}$. The original book code has an invalid memory access
+error when $d < 1$ caused by $G = 1.0/d$ becoming $0$. We fix this
+by making the grid size determined by $G = \sqrt{2}/d$.
+
+See the [sample output](./Examples/Program3_20/program3_20.dat) and
+the corresponding [test script](./Examples/Program3_20/testProgram3_20.sh).
 
 ## Exercises
 

@@ -1,5 +1,5 @@
 /**
- * @file ex3_18.c
+ * @file adjacencyMatrix.c
  * @brief This program reads a set of edges that define an
  * undirected graph and builds an adjacency matrix representation
  * for the graph, setting a[i][j] and a[j][i] to 1, if there is
@@ -28,6 +28,13 @@
  */
 #define bufSize 10
 
+/**
+ * @brief Builds and outputs an adjacency
+ * matrix representation of a graph.
+ * 
+ * @return EXIT_SUCCESS on successful exit, else
+ * @return EXIT_FAILURE
+ */
 int main(int argc, char* argv[argc + 1]) {
     int adj[V][V];
     
@@ -43,9 +50,12 @@ int main(int argc, char* argv[argc + 1]) {
         char buf[bufSize];
         size_t i, j;
         if (!fgets(buf, sizeof(buf), stdin)) break;
-        while(sscanf(buf, "%zu %zu\n", &i, &j) == 2) {
+        if(sscanf(buf, "%zu %zu\n", &i, &j) == 2) {
             adj[i][j] = 1;
             adj[j][i] = 1;
+        } else {
+            fprintf(stderr, "Input should be of the form x y\n");
+            return EXIT_FAILURE;
         }
     }
     //print adjacency matrix

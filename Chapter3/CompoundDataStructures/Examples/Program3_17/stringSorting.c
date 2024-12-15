@@ -18,6 +18,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdint.h>
+#include <ctype.h>
 
 /**
  * @brief Maximum number of individual strings
@@ -37,15 +39,16 @@
  * 
  */
 char buf[Mmax];
+char* bufp = buf;
 
 /**
  * @brief Used to store input
  * before filtering into buffer
  */
 char inputbuf[Mmax];
-
 /**
- * @brief First free index in the buffer
+ * @brief Total number of input characters read
+ * so far.
  * 
  */
 int M = 0;
@@ -55,13 +58,41 @@ int M = 0;
  */
 int compare(const void *i, const void *j);
 
+/**
+ * @brief Extract a space seperated word
+ * for the @src string and copy it into
+ * at most @destSize - 1 characters into
+ * @dest null terminating the string. Trailing
+ * newlines are removed.
+ * 
+ * @param src source string
+ * @param destSize size of the destination buffer
+ * @param dest destination buffer
+ * 
+ * @return number of characters copied, including the null-terminator
+ * on success else SIZE_MAX.
+ * 
+ */
+size_t extractWord(char* src, size_t destSize, char dest[destSize]);
+
 int main(int argc, char* argv[argc]) {
     char* a[Nmax];
     size_t N = 0;
-    for (N = 0; N < Nmax; N++) {
-        a[N] = &buf[M];
-        if (scanf("%s", a[N]) == EOF) break;
-        M += strlen(a[N]) + 1;
+    size_t Mremaining = Mmax;
+    for (N = 0; N < Nmax && Mremaining;) {
+        if(fgets(inputbuf, Mremaining, stdin)) {
+            char* inputbufp = inputbuf;
+            size_t len;
+            while ((len = extractWord(inputbufp, Mremaining, bufp)) 
+                != SIZE_MAX) {
+                a[N] = bufp;
+                inputbufp += len;
+                bufp += len;
+                Mremaining -= len;
+                N++;
+                if (N >= Nmax || !Mremaining) break;
+            }
+        } else break;
     }
     qsort(a, N, sizeof(char*), compare);
     for (size_t i = 0; i < N; i++) printf("%s\n", a[i]);
@@ -71,4 +102,18 @@ int main(int argc, char* argv[argc]) {
 
 int compare(const void *i, const void* j) {
     return strcmp(*(char **)i, *(char **)j);
+}
+
+size_t extractWord(char* src, size_t destSize, char dest[destSize]) {
+    if (!(*src)) return SIZE_MAX; //null terminator
+    size_t len = 0;
+    for (; len < destSize - 1; len++) {
+        if (isblank(*src) || *src == '\n') {
+            src++;
+            break;
+        }
+        *dest++ = *src++;
+    }
+    *dest = '\0';
+    return len + 1;
 }

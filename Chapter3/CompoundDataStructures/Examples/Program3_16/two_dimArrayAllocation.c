@@ -15,6 +15,14 @@
 #include <stdlib.h>
 #include <stdint.h>
 
+/**
+ * @brief Dynamically allocates space for a 2d array
+ * of type integer.
+ * 
+ * @param row
+ * @param col 
+ * @return int** pointer to the allocated array
+ */
 int** malloc2d(size_t row, size_t col);
 
 /**

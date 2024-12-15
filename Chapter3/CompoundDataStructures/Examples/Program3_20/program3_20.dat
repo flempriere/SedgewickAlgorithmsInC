@@ -1,0 +1,20 @@
+Test Case 1: N = 100, d = 1.00000000000000000000
+4781 edges shorter than 1.000000
+Test Case 2: N = 100, d = .50000000000000000000
+2279 edges shorter than 0.500000
+Test Case 3: N = 100, d = .33333333333333333333
+1195 edges shorter than 0.333333
+Test Case 4: N = 100, d = .25000000000000000000
+792 edges shorter than 0.250000
+Test Case 5: N = 100, d = .20000000000000000000
+520 edges shorter than 0.200000
+Test Case 6: N = 100, d = .16666666666666666666
+381 edges shorter than 0.166667
+Test Case 7: N = 100, d = .14285714285714285714
+282 edges shorter than 0.142857
+Test Case 8: N = 100, d = .12500000000000000000
+203 edges shorter than 0.125000
+Test Case 9: N = 100, d = .11111111111111111111
+154 edges shorter than 0.111111
+Test Case 10: N = 100, d = .10000000000000000000
+126 edges shorter than 0.100000
