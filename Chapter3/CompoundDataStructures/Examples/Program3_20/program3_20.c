@@ -15,6 +15,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdint.h>
+#include <time.h>
 #include "point.h"
 
 /**
@@ -120,6 +121,7 @@ int main(int argc, char* argv[argc+1]) {
             grid[i][j] = nullptr;
         }
     }
+    srand(time(nullptr));
     for (size_t i = 0; i < N; i++) {
         gridInsert(randFloat(), randFloat());
     }

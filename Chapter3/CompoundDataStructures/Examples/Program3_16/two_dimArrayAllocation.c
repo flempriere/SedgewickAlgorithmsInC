@@ -32,12 +32,14 @@ int** malloc2d(size_t row, size_t col);
  * 
  * @param argv[0] M
  * @param argv[1] N 
- * @return EXIT_SUCCESS
+ * @return EXIT_SUCCESS on successful completion else,
+ * @return EXIT_FAILURE
  */
 int main(int argc, char* argv[argc]) {
 
     if (argc != 3) {
         fprintf(stderr, "Error: Usage is %s M N\n", argv[0]);
+        return EXIT_FAILURE;
     }
 
     size_t M = strtoull(argv[1], nullptr, 0);
