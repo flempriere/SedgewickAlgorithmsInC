@@ -1,0 +1,22 @@
+Directed adjacency matrix: 
+ 1  0  1  0  1  0  0  0  0  0 
+ 0  1  0  1  1  0  0  0  0  0 
+ 0  0  1  0  0  1  0  0  0  0 
+ 0  0  0  1  0  0  1  0  0  0 
+ 0  0  0  0  1  0  0  0  0  0 
+ 0  0  0  0  0  1  0  0  0  0 
+ 1  0  0  0  0  0  1  0  0  0 
+ 0  0  0  0  0  0  0  1  0  0 
+ 0  0  0  0  0  0  0  0  1  0 
+ 0  0  0  0  0  0  0  0  0  1 
+Directed adjacency list: 
+vertex 0 adjacent to:  4  2 
+vertex 1 adjacent to:  3  4 
+vertex 2 adjacent to:  5 
+vertex 3 adjacent to:  6 
+vertex 4 adjacent to: 
+vertex 5 adjacent to: 
+vertex 6 adjacent to:  0 
+vertex 7 adjacent to: 
+vertex 8 adjacent to: 
+vertex 9 adjacent to: 

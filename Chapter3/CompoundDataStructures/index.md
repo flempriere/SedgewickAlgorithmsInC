@@ -67,7 +67,7 @@ by making the grid size determined by $G = \sqrt{2}/d$.
 See the [sample output](./Examples/Program3_20/program3_20.dat) and
 the corresponding [test script](./Examples/Program3_20/testProgram3_20.sh).
 
-**Note**: This program has a rare bug causing a crash if 1.0 as a coordinate is exactly generated due an array out of bounds error.
+**Note**: This program has a rare bug causing a crash if 1.0 as a coordinate element is exactly generated due an array out of bounds error.
 
 ## Exercises
 
@@ -135,5 +135,78 @@ Then once we have read in and performed the `unionFind` operations for all `N` p
 
 
 **Note**: Currently has a bug arising from an array out of bounds error when a point contains an $x$ or $y$ coordinate that is exactly $1.0$.
+
+
+### [Exercise 3.67](./Exercises/Ex3_67/ex3_67.c)
+
+*Write a program to convert a sparse matrix from a two-dimensional array to a multilist with nodes for only
+non-zero values*
+
+In our solution we use a similar structure to the adjacency list seen in [Program 3.19](#program-319) but adapting the structure to store both the column index and the element value.
+
+**Note**: the linked list is converted from a full array representation such that for a given row, the list is ordered in increasing columns. (An arbitrarily constructed
+sparse matrix is not guaranteed to have this property.)
+
+### [Exercise 3.68](./Exercises/Ex3_68/ex3_68.c)
+
+*Implement matrix multiplication for matrices represented with multilists*
+
+We update the representation from [Exercise 3.67](#exercise-367) introducing a higher level `struct`. The
+`sparseMatrix` struct contains the `node**` array from before but also bookkeeping for the number of `rows` and `cols`. This makes the function signatures nicer and lets us check for matrix compatibility.
+
+See [ex3_67.dat](./Exercises/Ex3_67/ex3_67.dat) for sample
+output using with a $4 \times 3$ matrix with `p_zero = 0.5`.
+
+Matrix multiplication is implemented using the normal formula but we have to for a given multiplication term in
+$$
+c_{ij} = \sum_{k} a_{ik}b_{kj}
+$$
+we need to perform a list search over the `a[i]` and `b[k]`
+row lists. Since the matrices are sparse these are short. We perform a final check to make sure we don't store `0`-valued elements then add them to the new sparse matrix.
+
+**Note**: We use an insertion sort to add nodes to the new list to maintain ordered row lists. This improves the readability.
+
+See [ex3_68.dat](./Exercises/Ex3_68/ex3_68.dat) for sample
+output using with a $4 \times 3$ matrix with `p_zero = 0.5`.
+
+### [Exercise 3.69](./Exercises/Ex3_69/ex3_69.out)
+
+*Show the adjacency matrix built by [Program 3.18](#program-318) given by the input pairs in [ex3_69.in](./Exercises/Ex3_69/ex3_69.in).*
+
+See the output in [ex3_69.out](./Exercises/Ex3_69/ex3_69.out).
+
+### [Exercise 3.70](./Exercises/Ex3_70/ex3_70.in)
+
+*Show the adjacency list built by [Program 3.19](#program-319) given by the input pairs in [ex3_70.in](./Exercises/Ex3_70/ex3_70.in).*
+
+See the output in [ex3_70.out](./Exercises/Ex3_70/ex3_70.out).
+
+### [Exercise 3.71](./Exercises/Ex3_71/ex3_71.c)
+
+*A **directed** graph is one where vertex connections have orientations: edges go
+**from** one vertex **to** another. Do [Exercise 3.69](#exercise-369) and [Exercise 3.70](#exercise-370) under the assumption that the input pairs represent a directed graph, with `i-j` signifying an edge from `i` to `j`.*
+
+See the modified code in the sample `.c` file, and the modified input for both the adjacency matrix and the adjacency list case in
+[ex3_71.out](./Exercises/Ex3_71/ex3_71.out).
+
+### [Exercise 3.72](./Exercises/Ex3_72/ex3_72.c)
+
+*Modify [Program  3.18](#program-318) to take the number of vertices
+as a command line argument, then dynamically allocate the adjacency
+matrix.*
+
+This is a straightforward change. The [sample input](./Exercises/Ex3_72/ex3_72.in) and [sample output](./Exercises/Ex3_72/ex3_72.out) is the same as [Exercise 3.69](#exercise-369).
+
+### [Exercise 3.73](./Exercises/Ex3_73/ex3_73.c)
+
+*Modify [Program 3.19](#program-319) to take the number of vertices
+as a command line argument, then dynamically allocate the array of
+lists.*
+
+This is a straightforward change. The [sample input](./Exercises/Ex3_73/ex3_73.in) and [sample output](./Exercises/Ex3_73/ex3_73.out) is the same as [Exercise 3.70](#exercise-370).
+
+
+
+
 
 

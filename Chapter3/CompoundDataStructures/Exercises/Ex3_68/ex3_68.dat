@@ -1,0 +1,21 @@
+Generating first random matrix: 
+5 0 0 
+0 0 0 
+1 0 0 
+0 0 3 
+row index 0: (col: 0, val: 5)
+row index 1: 
+row index 2: (col: 0, val: 1)
+row index 3: (col: 2, val: 3)
+Generating second random matrix: 
+0 0 0 3 
+0 1 0 3 
+0 9 0 0 
+row index 0: (col: 3, val: 3)
+row index 1: (col: 1, val: 1), (col: 3, val: 3)
+row index 2: (col: 1, val: 9)
+Matrix product: 
+row index 0: (col: 3, val: 15)
+row index 1: 
+row index 2: (col: 3, val: 3)
+row index 3: (col: 1, val: 27)
