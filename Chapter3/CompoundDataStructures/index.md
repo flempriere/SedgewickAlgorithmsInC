@@ -205,7 +205,33 @@ lists.*
 
 This is a straightforward change. The [sample input](./Exercises/Ex3_73/ex3_73.in) and [sample output](./Exercises/Ex3_73/ex3_73.out) is the same as [Exercise 3.70](#exercise-370).
 
+### [Exercise 3.74](./Exercises/Ex3_74/ex3_74.c)
 
+*Write a function that uses the adjacency matrix of a graph to
+calculate given vertices $a$ and $b$, the number of vertices $c$
+with the property that there is an edge from $a$ to $c$ and $c$ to $b$.*
+
+This is equivalent to the number of paths of length $2$ in the graph. Which
+can be determined by the sum
+
+$$
+n_{ab}^{2}  = \sum_{c} G_{ac}G_{cb}
+$$
+Where $G$ is the adjacency graph and is $G_{ij}$ is one if the edge
+exists else zero. This is an easy computation to perform off the
+adjacency matrix (this is equivalent to a matrix multiplication.)
+
+**Note:** In the adjacency matrix representation we have so-far always
+included self edges i.e $a$ is connected to $a$. This means that $a$ and $b$
+can both satisfy the criteria if the edge $ab$ exists.
+
+### [Exercise 3.75](./Exercises/Ex3_75/ex3_75.c)
+
+*Answer [Exercise 3.74](#exercise-374), but use adjacency lists.*
+
+Follows the same idea as for the adjacency matrix computation but we
+effectively have to use a version of the sparse matrix multiplication
+from [Exercise 3.68](#exercise-368).
 
 
 

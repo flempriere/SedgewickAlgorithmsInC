@@ -30,6 +30,7 @@ and `Strings` are treated as their own components.
 2. [Chapter 2](./Chapter2/index.md) Principles of Algorithm Analysis
 #### Data Structures
 3. [Chapter 3](./Chapter3/index.md) Elementary Data Structures
+4. [Chapter 4](./Chapter4/index.md) Abstract Data Types
 
 ## Portability
 
