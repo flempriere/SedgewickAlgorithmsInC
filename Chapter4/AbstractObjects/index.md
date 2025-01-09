@@ -38,7 +38,7 @@ In our implementation we use a `point.h` similar to previous implementations but
 
 See the [demonstration file](./Exercises/Ex4_2/ex4_2.c).
 
-### [Exercise 4.3](./Exercises/Ex4_3/Item.c)
+### [Exercise 4.3](./Exercises/Ex4_3/ex4_3.c)
 
 *Add a macro `ITEMshow` to the generic object type definitions
 for integers and strings described in the text. Your macro should print the value of the item on standard input*
