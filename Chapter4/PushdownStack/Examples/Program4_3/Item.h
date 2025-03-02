@@ -2,9 +2,7 @@
  * @file Item.h
  * @author Felix Lempriere
  * 
- * @brief Wraps the Item.h interface for a numeric type
- * (renamed Number.h) in an abstract Item.h interface
- * that can be used with the stack.h to support
+ * @brief Item.h interface that can be used with the stack.h to support
  * operands and operators on the stack without the need
  * to assume that all types are characters.
  * 
@@ -18,7 +16,7 @@
 
 #include <stdio.h>
 #include <ctype.h>
-#include "Number.h"
+#include <string.h>
 
 /**
  * @brief Symbol can either be an operand like a
@@ -39,7 +37,8 @@ typedef struct Symbol Item;
 
 struct Symbol {
     e_symbolType symType;
-    Number val;
+    char* val;
+    size_t len;
 };
 
 /**
@@ -48,18 +47,16 @@ struct Symbol {
  * @return @true if equal, else
  * @return @false
  */
-#define eq(A, B) (((A.symType) == (B.symType)) && ((A.val) == (B.val)))
+static inline bool ITEMeq(Item A,Item B) {
+    return (A.symType == B.symType && (!strcmp(A.val, B.val)));
+}
 
 
 /**
  * @brief print the value of an ITEM
  * 
  */
-#define ITEMshow(A) do {                                    \
-    if (A.symType == SYM_OPERAND) {printf("%c", A.val);}    \
-    else NUMshow(A);                                        \
-} while(0)
-
+#define ITEMshow(A) printf("%s", A.val)
 
 /**
  * @brief Extracts an Item from the string pointed
@@ -69,7 +66,9 @@ struct Symbol {
  * In the case that a complete value could not be read
  * zero is returned.
  * 
- * @param src string to extract the item from
+ * @param src string to extract the item from, to extract
+ * the next token in a previous token, pass a nullptr.
+ * 
  * @param dest after successful function execution dest
  * stores the extracted value, in the case of an error
  * dest is untouched.
@@ -81,34 +80,19 @@ struct Symbol {
  * underlying integer type represented in decimal.
  */
 static inline size_t ITEMfromStr(char* src, Item* dest) {
-    char* cur;
-    Item new;
-    //operator
-    if (*cur == '+' || *cur == '*') {
-        new.symType = SYM_OPERATOR;
-        new.val = *cur++;
+
+    char* delim = " ";
+    char* next_token = strtok(src, delim);
+
+    if ((*next_token == '+' || *next_token == '*') && !*(next_token + 1)) {
+        dest->symType = SYM_OPERATOR;
+        dest->val = next_token;
+        dest->len = 1;
     }
-    //any variable must be a single letter
-    else if (isalpha(*cur)) {
-        if (*(cur+1) || isblank(*(cur+1)) || *(cur+1) == '\n') {
-            new.symType = SYM_OPERAND;
-            new.val = *cur++;
-        }
+    else {
+        dest->symType = SYM_OPERAND;
+        dest->val = next_token;
+        dest->len = strlen(dest->val);
     }
-    //extract number
-    else if (isnum(*cur)) {
-        Number val;
-        size_t n_read = NUMfromStr(cur, val);
-        if (n_read) {
-            cur += n_read;
-            new.symType = SYM_OPERAND;
-            new.val = val;
-        }
-    }
-    size_t n_read = (size_t) (cur - src);
-    if (n_read) {
-        dest->symType = new.symType;
-        dest->val = new.val;
-    }
-    return n_read;
+    return dest->len;
 }

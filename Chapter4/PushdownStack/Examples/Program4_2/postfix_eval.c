@@ -43,7 +43,7 @@
 int main(int argc, char* argv[argc]) {
     
     if (!(argc == 2)) {
-        fprintf(stderr, "Error: Usage, ./%s expression\n", argv[0]);
+        fprintf(stderr, "Error: Usage, %s expression\n", argv[0]);
         return EXIT_FAILURE;
     }
     char* expr = argv[1];
@@ -51,7 +51,7 @@ int main(int argc, char* argv[argc]) {
 
     STACKinit(len);
     for (size_t i = 0; i < len; i++) {
-        while (isblank(expr[i])) i++;
+        while (i < len && isblank(expr[i])) i++;
         if (expr[i] == '+') {
             STACKpush(STACKpop() + STACKpop());
         }
@@ -60,7 +60,8 @@ int main(int argc, char* argv[argc]) {
         }
         else if (isdigit(expr[i])) {
             Item val;
-            size_t n_read = ITEMfromStr(expr[i], &val);
+            size_t n_read = ITEMfromStr(&expr[i], &val);
+            if (n_read) STACKpush(val);
             i += (n_read);
         }
         else {

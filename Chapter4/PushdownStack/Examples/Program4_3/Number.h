@@ -12,6 +12,8 @@
  * @copyright Copyright (c) 2024
  * 
  */
+#pragma once
+
 #include <limits.h>
 #include <stdlib.h>
 
@@ -29,7 +31,7 @@ static const Number NUM_MAX = INT_MAX;
  * @return @true if equal, else
  * @return @false
  */
-#define eq(A, B) ((A) == (B))
+#define NUMeq(A, B) ((A) == (B))
 
 /**
  * @brief print the value of a number
@@ -60,7 +62,7 @@ static const Number NUM_MAX = INT_MAX;
 static inline size_t NUMfromStr(char* src, Number* dest) {
     char* cur;
     Number val = 0;
-    for (cur = src; isnum(cur); cur++) {
+    for (cur = src; isdigit(cur); cur++) {
         val = 10*val + (*cur - '0');
     }
     size_t len =  (size_t)(cur - src);
