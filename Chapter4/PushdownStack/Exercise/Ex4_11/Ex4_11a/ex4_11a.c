@@ -66,7 +66,7 @@ int main(int argc, char* argv[argc]) {
         }
         else if (expr[i] == '/') {
             Item operand2 = STACKpop();
-            if (operand2 == 0) {
+            if (eq(operand2, 0)) {
                 fprintf(stderr, "Error: invalid value encountered in divide\n");
                 return EXIT_FAILURE;
             }
