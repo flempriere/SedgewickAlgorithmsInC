@@ -32,6 +32,8 @@ evaluates the expression and prints the computed result.*
 
 *This program uses a stack to convert infix expressions to postfix expressions. To convert (A + B) to the postfix A B +, we ignore the left parenthesis, convert A to postfix, save them on the stack convert B to postfix, then, on encountering the right parenthesis, pop the stack and output the + Like with the previous program we provide some modifications for usability.*
 
+**Note:** We use *strtok* to perform tokenisation, all operators and operands including brackets need to be seperating by whitespace. *e.g.* `( 1 + 2 )` is valid but `(1+2)` is not.
+
 ### [Program 4.4](./Examples/Program4_4/stackArray.c)
 
 #### Array-based Stack Implementation
@@ -79,7 +81,7 @@ EA*S*Y**
 ```
 4. `AYES`
 No such sequence exists, `Y` is pushed onto the stack before `S`, which is pushed on before `E`. If we `pop` `Y` before `E`
-then `S` must nalso be on the stack and must precede `E` so we
+then `S` must also be on the stack and must precede `E` so we
 cannot then pop `E` before `S`.
 
 ### [Exercise 4.8](./Exercise/Ex4_8/ex4_8.c)
@@ -145,7 +147,7 @@ case of [Program 4.2](#program-42) ([Ex4.11a](./Exercise/Ex4_11/Ex4_11a/ex4_11a.
 evaluations. This means we have to `pop` the second operand off the stack and store it before we perform the
 second `pop` and `push` the result.
 
-In the case of the second we simply have to add the `-` and `/` symbols to our `ITEMfromStr` method in [Ex4.11b](./Exercise/Ex4_11/Ex4_11b/ex4_11b.c)'s [Item.h](./Exercise/Ex4_11/Ex4_11b/Item.h).
+In the case of the second we simply have to add the `-` and `/` symbols as operators in our `ITEMfromStr` method in [Ex4.11b](./Exercise/Ex4_11/Ex4_11b/ex4_11b.c)'s [Item.h](./Exercise/Ex4_11/Ex4_11b/Item.h).
 
 
 ### [Exercise 4.12](./Exercise/Ex4_12/)
@@ -158,10 +160,12 @@ include the unary operator `-` (negation) and `$` (square root). Also, modify th
 
 This is a little bit more involved. 
 
-The symbol overload of `-` for both subtraction and negation is difficult so we make the following changes. For postfix ([Ex4_12a](./Exercise/Ex4_12/Ex4_12a/ex4_12a.c)) negation is represented by the symbol `!`. For infix ([Ex4_12b](./Exercise/Ex4_12/Ex4_12b/ex4_12.c)) we assume that if `-` is followed by a blank it is a subtraction and if it is followed by a symbol it is negation. We modify the `ITEMfromStr` function in Ex4_12b's [Item.h](./Exercise/Ex4_12/Ex4_12b/Item.h) to convert the unary `-` to `!` for postfix.
+The symbol overload of `-` for both subtraction and negation is difficult so we make the following changes. For postfix ([Ex4_12a](./Exercise/Ex4_12/Ex4_12a/ex4_12a.c)) negation is represented by the symbol `~`. For infix ([Ex4_12b](./Exercise/Ex4_12/Ex4_12b/ex4_12.c)) we assume that if `-` is followed by a blank it is a subtraction and if it is followed by a left bracket it is negation. We modify the `ITEMfromStr` function in Ex4_12b's [Item.h](./Exercise/Ex4_12/Ex4_12b/Item.h) to convert the unary `-` to `~` for postfix.
 
 To change the stack to be able to use `double` we have to update the typedef and the macros which we copy across from
-[Exercise 4.1](../AbstractObjects/index.md#exercise-41) for both [Item.h](./Exercise/Ex4_12/Ex4_12a/Item.h) for Ex4_12a and [Number.h](./Exercise/Ex4_12/Ex4_12b/Number.h) for Ex4_12b. We then implement a new version of `NUMfromStr`.
+[Exercise 4.1](../AbstractObjects/index.md#exercise-41) for both [Item.h](./Exercise/Ex4_12/Ex4_12a/Item.h) for Ex4_12a.
+
+**Note:** This program results in the slightly awkward implementation that negative numbers like `-3` are implemented as `-( 3 )`.
 
 ### [Exercise 4.13](./Exercise/Ex4_13/step.ps)
 
