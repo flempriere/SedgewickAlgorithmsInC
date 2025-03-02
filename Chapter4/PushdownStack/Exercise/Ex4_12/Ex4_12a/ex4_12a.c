@@ -1,5 +1,5 @@
 /**
- * @file ex4_11a.c
+ * @file ex4_12a.c
  * @author Felix Lempriere
  * @brief Pushdown stack client reads any postfix expression
  * limited to multiplication or addition of integers, then
@@ -10,19 +10,16 @@
  * from the stack and push the result of applying the operator
  * to them.
  * 
- * This is an updated version of Ex4_11a to support ~ (negation) and 
- * $ (square root) which are both unary operators.
+ * Extends program 4_11 to support unary negation (~), square root ($) and
+ * floating point.
  * 
  * @version 0.1
- * @date 2024-12-28
+ * @date 2024-12-27
  * 
  * @copyright Copyright (c) 2024
  * 
- * @remark This code features some changes over the basic
- * sedgewick implementation. First we provide more error checking
- * of the input, and second we introduce an ITEMfromStr() function
- * to the Item interface to extract an item from a string. This allows
- * us to remove the assumption that the underlying Item is an integer.
+ * @remark We handle unary negation by introducing the a new symbol
+ * ~ to represent negation.
  */
 
 #include <stdio.h>
@@ -47,7 +44,7 @@
 int main(int argc, char* argv[argc]) {
     
     if (!(argc == 2)) {
-        fprintf(stderr, "Error: Usage, ./%s expression\n", argv[0]);
+        fprintf(stderr, "Error: Usage, %s expression\n", argv[0]);
         return EXIT_FAILURE;
     }
     char* expr = argv[1];
@@ -55,7 +52,7 @@ int main(int argc, char* argv[argc]) {
 
     STACKinit(len);
     for (size_t i = 0; i < len; i++) {
-        while (isblank(expr[i])) i++;
+        while (i < len && isblank(expr[i])) i++;
         if (expr[i] == '+') {
             STACKpush(STACKpop() + STACKpop());
         }
@@ -68,17 +65,23 @@ int main(int argc, char* argv[argc]) {
         }
         else if (expr[i] == '/') {
             Item operand2 = STACKpop();
+            if (eq(operand2, 0)) {
+                fprintf(stderr, "Error: invalid value encountered in divide\n");
+                return EXIT_FAILURE;
+            }
             STACKpush(STACKpop() / operand2);
         }
-        else if (expr[i] == '!') {
+
+        else if (expr[i] == '~') {
             STACKpush(-STACKpop());
         }
         else if (expr[i] == '$') {
-            STACKpush((Item) sqrt(STACKpop()));
+            STACKpush(sqrt(STACKpop()));
         }
         else if (isdigit(expr[i])) {
             Item val;
-            size_t n_read = ITEMfromStr(expr[i], &val);
+            size_t n_read = ITEMfromStr(&expr[i], &val);
+            if (n_read) STACKpush(val);
             i += (n_read);
         }
         else {
