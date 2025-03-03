@@ -91,7 +91,7 @@
     while (isblank(*cur)) cur++; //move over blanks
     if (!cur) return 0; //purely blank string
 
-    if (*cur == '+' || *cur == '*') { //extract operator
+    if (*cur == '+' || *cur == '*' || *cur == '/' || *cur == '-') { //extract operator
         dest->type = TOKEN_OPERATOR;
         dest->value.operator = *cur++;
         return (size_t) (cur - src);
