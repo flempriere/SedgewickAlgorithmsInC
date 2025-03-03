@@ -1,7 +1,7 @@
 /**
  * @file Token.h
  * @author Felix Lempriere
- * @brief This Item is used to represent a token in a mathematical
+ * @brief This Token is used to represent a token in a mathematical
  * postfix expression.
  * 
  * @version 0.1
@@ -59,6 +59,22 @@
         }   
     }
     return false;
+ }
+
+ /**
+  * @brief Prints out the value of a token
+  * 
+  * @param A token to print
+  */
+ static inline void TOKENshow(Token A) {
+    switch(A.type) {
+        case TOKEN_OPERATOR:
+            printf("%c", A.value.operator);
+            break;
+        case TOKEN_OPERAND:
+            printf("%g", A.value.number);
+            break;
+    }
  }
 
  /**
