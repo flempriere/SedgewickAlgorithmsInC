@@ -1,5 +1,5 @@
 /**
- * @file infix2postfix.c
+ * @file Ex4_11b.c
  * 
  * @brief Extends Program 4.3 to support subtraction and division
  * 
