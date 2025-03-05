@@ -62,6 +62,14 @@
  }
 
  /**
+ * @brief Checks if a char is an operator
+ * 
+ * @return true if symbol is an operator else
+ * @return false.
+ */
+#define IS_OPERATOR(A) ((A) == '+' || (A) == '*')
+
+ /**
   * @brief Prints out the value of a token
   * 
   * @param A token to print
@@ -91,7 +99,7 @@
     while (isblank(*cur)) cur++; //move over blanks
     if (!cur) return 0; //purely blank string
 
-    if (*cur == '+' || *cur == '*') { //extract operator
+    if (IS_OPERATOR(*cur)) { //extract operator
         dest->type = TOKEN_OPERATOR;
         dest->value.operator = *cur++;
         return (size_t) (cur - src);

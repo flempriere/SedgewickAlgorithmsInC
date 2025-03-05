@@ -41,6 +41,15 @@
     TokenValue value;
  } Token;
 
+/**
+ * @brief Checks if a char is an operator
+ * 
+ * @return true if symbol is an operator else
+ * @return false.
+ */
+#define IS_OPERATOR(A) ((A) == '+' || (A) == '*' || (A) == '/'              \
+    || (A) == '$' || (A) == '~' || (A) == '-')                              \
+
  /**
   * @brief Compare two Items for equality
   * 
@@ -121,13 +130,8 @@
     while (isblank(*cur)) cur++; //move over blanks
     if (!cur) return 0; //purely blank string
 
-    if (*cur == '+' || *cur == '*' || *cur == '/'
-        || *cur == '$' || *cur == '~') { //extract operator
-        cur += TOKENExtractOperator(cur, dest);
-        return (size_t) (cur - src);
-    }
-    else if (*cur == '-') {
-        if (isdigit(*(cur+1)) || *(cur + 1) == '.') {
+    if (IS_OPERATOR(*cur)) { //extract operator
+        if (*cur == '-' && (isdigit(*(cur+1)) || *(cur+1) == '.')) {
             size_t num_len = TOKENExtractItem(cur, dest);
             return (size_t) (cur - src) + num_len;
         }
