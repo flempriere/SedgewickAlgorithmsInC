@@ -30,23 +30,28 @@
         expr += nRead, nRead = TOKENfromStr(expr, &token)) {
 
         if (token.type == TOKEN_OPERATOR) {
-            if (token.value.operator == '+') {
+            
+            char operator = token.value.operator;
+            if (operator == '+') {
                 STACKpush(STACKpop() + STACKpop());
             }
-            else if (token.value.operator == '*') {
+            else if (operator == '*') {
                 STACKpush(STACKpop() * STACKpop());
             }
-            else if (token.value.operator == '/') {
+            else if (operator == '/') {
                 Item term2 = STACKpop();
+                if (ITEMeq(term2, 0)) {
+                    fprintf(stderr, "Error: invalid value encountered in divide\n");
+                    return EXIT_FAILURE;
+                }
                 STACKpush(STACKpop() / term2);
             }
-            else if (token.value.operator == '-') {
+            else if (operator == '-') {
                 Item term2 = STACKpop();
                 STACKpush(STACKpop() - term2); 
             }
             else {
-                fprintf(stderr, "Error: Unknown operator %c encountered\n",
-                    token.value.operator);
+                fprintf(stderr, "Error: Unknown operator %c encountered\n", operator);
                 return EXIT_FAILURE;
             }
         }

@@ -1,8 +1,8 @@
 /**
  * @file Token.h
  * @author Felix Lempriere
- * @brief Token interface to extract tokens from a
- * mathematical prefix expression.
+ * @brief Extends the Token.h implementation of Program 4.3 to support
+ * the subtract and divide operations.
  * 
  * @version 0.1
  * @date 2025-03-03
@@ -59,20 +59,7 @@ typedef struct Token {
  */
 #define TOKENshow(A) ITEMshow(A.token)
 
-/**
- * @brief Checks if a char is an operator
- * 
- * @return true if symbol is an operator else
- * @return false.
- */
-#define IS_OPERATOR(A) ((A) == '+' || (A) == '*')
-
-/**
- * @brief Checks if a char is a bracket
- * 
- * @return true if symbol is an operator else
- * @return false
- */
+#define IS_OPERATOR(A) ((A) == '+' || (A) == '*' || (A) == '-' || (A) == '/')
 #define IS_BRACKET(A) ((A) == '(' || (A) == ')')
 
 static inline size_t TOKENfromStr(char* src, Token* dest) {
@@ -106,7 +93,7 @@ static inline size_t TOKENfromStr(char* src, Token* dest) {
         dest->token[len] = '\0';
         dest->type = TOKEN_OPERAND;
 
-        return (size_t) (end - src); //full number of bytes read;
+        return (size_t) (end - src);
     }
     else {
         return 0;

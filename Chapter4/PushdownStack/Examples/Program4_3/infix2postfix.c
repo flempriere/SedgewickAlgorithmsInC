@@ -38,7 +38,7 @@ int main(int argc, char* argv[argc]) {
 
     for (size_t nRead = TOKENfromStr(expr, &token); expr && nRead;
         expr += nRead, nRead = TOKENfromStr(expr, &token)) {
-        
+
         if (token.type == TOKEN_LEFT_BRACKET) continue;
         else if (token.type == TOKEN_RIGHT_BRACKET) {
             Item element = STACKpop();

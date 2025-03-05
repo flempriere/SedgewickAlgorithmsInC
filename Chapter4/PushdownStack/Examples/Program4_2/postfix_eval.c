@@ -18,10 +18,10 @@
  */
 
  #include <stdio.h>
+ #include <string.h>
  #include "Item.h"
  #include "Token.h"
  #include "stack.h"
- #include <string.h>
 
  int main(int argc, char* argv[argc]) {
 
@@ -37,8 +37,13 @@
         expr += nRead, nRead = TOKENfromStr(expr, &token)) {
 
         if (token.type == TOKEN_OPERATOR) {
-            if (token.value.operator == '+') STACKpush(STACKpop() + STACKpop());
-            else if (token.value.operator == '*') STACKpush(STACKpop() * STACKpop());
+            char operator = token.value.operator;
+            if (operator == '+') STACKpush(STACKpop() + STACKpop());
+            else if (operator == '*') STACKpush(STACKpop() * STACKpop());
+            else {
+                fprintf(stderr, "Error: invalid operator %c encountered\n", operator);
+                return EXIT_FAILURE;
+            }
 
         }
         else if (token.type == TOKEN_OPERAND) {

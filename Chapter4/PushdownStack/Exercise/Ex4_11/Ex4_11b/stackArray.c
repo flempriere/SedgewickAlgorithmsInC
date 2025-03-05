@@ -18,37 +18,38 @@
  * 
  */
 
-#include <stdlib.h>
-#include "Item.h"
-#include "stack.h"
-
-/**
- * @brief private array representing the stack
- * 
- */
-static Item* s;
-
-/**
- * @brief private variable representing the stack head
- * 
- */
-static int N;
-
-
-void STACKinit(size_t capacity) {
-    s = malloc(capacity * sizeof(typeof(*s)));
-    N = 0;
-}
-
-bool STACKempty() {
-    return (N > 0);
-}
-
-void STACKpush(Item i) {
-    s[N++] = i;
-}
-
-Item STACKpop() {
-    return s[--N];
-}
-
+ #include <stdlib.h>
+ #include "Item.h"
+ #include "stack.h"
+ 
+ /**
+  * @brief private array representing the stack
+  * 
+  */
+ static Item* s;
+ 
+ /**
+  * @brief private variable representing the stack head
+  * 
+  */
+ static int N;
+ 
+ 
+ void STACKinit(size_t capacity) {
+     s = malloc(capacity * sizeof(typeof(*s)));
+     N = 0;
+ }
+ 
+ bool STACKempty() {
+     return (N > 0);
+ }
+ 
+ void STACKpush(Item i) {
+     s[N++] = i;
+ }
+ 
+ Item STACKpop() {
+     return s[--N];
+ }
+ 
+ 
