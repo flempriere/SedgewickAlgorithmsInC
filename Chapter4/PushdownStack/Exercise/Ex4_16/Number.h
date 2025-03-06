@@ -1,25 +1,24 @@
 /**
- * @file Item.h
+ * @file Number.h
  * @author Felix Lempriere
- * @brief Item interface based on the floating-point Item interface in
- * Exercise 4.1
+ * @brief Interface for a number based on the Item.h interface.
  * @version 0.1
- * @date 2024-12-25
+ * @date 2025-03-06
  * 
- * @copyright Copyright (c) 2024
+ * @copyright Copyright (c) 2025
  * 
  */
- #pragma once
+#pragma once
 
- #include <tgmath.h>
- #include <stdlib.h>
- #include <stdio.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <tgmath.h>
 
  /**
   * @brief Obscure underlying float representation
   * 
   */
- typedef double Item;
+ typedef double Number;
  
  /**
   * @brief tolerance for floating point equality
@@ -28,15 +27,15 @@
  #define TOL 1e-6
  
  /**
-  * @brief Test for equality of two items
+  * @brief Test for equality of two numbers
   * 
   * @param A 
   * @param B 
   * @return true if equal else
   * @return false 
   */
- inline bool ITEMeq(Item A, Item B) {
-     Item lgst = (fabs(A) > fabs(B)) ? fabs(A) : fabs(B);
+ inline bool NUMBEReq(Number A, Number B) {
+     Number lgst = (fabs(A) > fabs(B)) ? fabs(A) : fabs(B);
      return (fabs(A - B) / lgst < TOL); 
  }
  
@@ -44,7 +43,7 @@
  * @brief Prints the number
  * 
  */
-#define ITEMshow(A) printf("%g", A)
+#define NUMBERshow(A) printf("%g", A)
 
 /**
  * @brief Extracts a Number from a string
@@ -54,9 +53,8 @@
  * @return size_t number of chars read if successful else
  * @return 0
  */
-static inline size_t ITEMfromStr(char* src, Item* dest) {
+static inline size_t NUMBERfromStr(char* src, Number* dest) {
     char* endptr;
     *dest = strtod(src, &endptr);
     return (size_t) (endptr - src);
 }
- 

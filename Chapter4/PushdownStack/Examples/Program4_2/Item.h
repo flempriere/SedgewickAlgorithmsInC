@@ -12,7 +12,7 @@
 #pragma once
 
 #include <stdlib.h>
-#include <ctype.h>
+#include <stdio.h>
 
 /**
  * @brief typedef to obscure underlying datatype
