@@ -55,7 +55,7 @@
             case TOKEN_OPERATOR:
                 return (A.value.operator == B.value.operator);
             case TOKEN_OPERAND:
-                return (A.value.number == B.value.number);
+                return (ITEMeq(A.value.number, B.value.number));
         }   
     }
     return false;

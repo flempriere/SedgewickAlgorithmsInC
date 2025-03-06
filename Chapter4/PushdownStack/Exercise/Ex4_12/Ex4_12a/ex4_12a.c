@@ -42,7 +42,7 @@
             }
             else if (operator == '/') {
                 Item term2 = STACKpop();
-                if (ITEMEq(term2, 0)) {
+                if (ITEMeq(term2, 0)) {
                     fprintf(stderr, "Error: invalid value encountered in divide\n");
                     return EXIT_FAILURE;
                 }

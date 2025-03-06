@@ -49,7 +49,7 @@ typedef struct Token {
  * @return true if equal else
  * @return false 
  */
-#define TOKENeq(A, B) (A.token == B.token && !strcmp(A.token, B.token))
+#define TOKENeq(A, B) (A.type == B.type && ITEMeq(A.token, B.token))
 
 /**
  * @brief Prints out a token
@@ -59,12 +59,31 @@ typedef struct Token {
  */
 #define TOKENshow(A) ITEMshow(A.token)
 
+/**
+ * @brief Checks if a char is an operator
+ * 
+ * @return true if symbol is an operator else
+ * @return false.
+ */
 #define IS_OPERATOR(A) ((A) == '+' || (A) == '*' || (A) == '-' || (A) == '/'    \
     || (A) == '$')                                                              \
 
+/**
+ * @brief Checks if a char is a bracket
+ * 
+ * @return true if symbol is a bracket else
+ * @return false.
+ */
 #define IS_BRACKET(A) ((A) == '(' || (A) == ')')
 
-
+ /**
+  * @brief Extracts an Item from a string
+  * 
+  * @param src string to extract item from.
+  * @param dest pointer to Item to store extracted item.
+  * @return size_t number of chars read on success else
+  * @return 0.
+  */
 static inline size_t TOKENfromStr(char* src, Token* dest) {
 
     static e_TokenType prev_token = TOKEN_LEFT_BRACKET;

@@ -41,6 +41,12 @@
     TokenValue value;
  } Token;
 
+  /**
+ * @brief Checks if a char is an operator
+ * 
+ * @return true if symbol is an operator else
+ * @return false.
+ */
  #define IS_OPERATOR(A) ((A) == '+' || (A) == '*' || (A) == '-' || (A) == '/')
 
  /**
@@ -57,7 +63,7 @@
             case TOKEN_OPERATOR:
                 return (A.value.operator == B.value.operator);
             case TOKEN_OPERAND:
-                return (A.value.number == B.value.number);
+                return (ITEMeq(A.value.number, B.value.number));
         }   
     }
     return false;

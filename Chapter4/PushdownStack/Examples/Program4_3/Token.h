@@ -49,7 +49,7 @@ typedef struct Token {
  * @return true if equal else
  * @return false 
  */
-#define TOKENeq(A, B) (A.token == B.token && !strcmp(A.token, B.token))
+#define TOKENeq(A, B) (A.type == B.type && ITEMeq(A.token, B.token))
 
 /**
  * @brief Prints out a token
@@ -75,6 +75,14 @@ typedef struct Token {
  */
 #define IS_BRACKET(A) ((A) == '(' || (A) == ')')
 
+ /**
+  * @brief Extracts an Item from a string
+  * 
+  * @param src string to extract item from.
+  * @param dest pointer to Item to store extracted item.
+  * @return size_t number of chars read on success else
+  * @return 0.
+  */
 static inline size_t TOKENfromStr(char* src, Token* dest) {
 
     char* cur = src;

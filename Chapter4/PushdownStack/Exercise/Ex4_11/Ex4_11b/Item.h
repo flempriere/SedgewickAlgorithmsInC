@@ -26,7 +26,7 @@ typedef char* Item;
  * @return true if equal, else
  * @return false
  */
-#define ITEMEq(A, B) (strcmp(A, B) == 0)
+#define ITEMeq(A, B) (strcmp(A, B) == 0)
 
 /**
  * @brief print the value of a strItem

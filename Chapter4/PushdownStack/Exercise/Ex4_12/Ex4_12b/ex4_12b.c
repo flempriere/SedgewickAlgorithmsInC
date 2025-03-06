@@ -29,7 +29,7 @@
  
      Token token;
      token.token = malloc((len+1)*sizeof(typeof(*(token.token))));
- 
+
      for (size_t nRead = TOKENfromStr(expr, &token); expr && nRead;
          expr += nRead, nRead = TOKENfromStr(expr, &token)) {
          

@@ -31,10 +31,10 @@
   * 
   * @param A 
   * @param B 
-  * @return true i equal else
+  * @return true if equal else
   * @return false 
   */
- inline bool ITEMEq(Item A, Item B) {
+ inline bool ITEMeq(Item A, Item B) {
      Item lgst = (fabs(A) > fabs(B)) ? fabs(A) : fabs(B);
      return (fabs(A - B) / lgst < TOL); 
  }
