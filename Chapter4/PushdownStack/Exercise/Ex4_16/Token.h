@@ -69,7 +69,10 @@ static inline bool TOKENeq(Token A, Token B) {
         else if (A.type == TOKEN_OPERAND) {
             return (NUMBEReq(A.value.number, B.value.number));
         }
-        else return (A.value.bracket == B.value.bracket);
+        else if (A.type == TOKEN_LEFT_BRACKET || A.type == TOKEN_RIGHT_BRACKET) {
+            return (A.value.bracket == B.value.bracket);
+        }
+        else return false; //invalid value encountered
     }
     else return false;
 }
@@ -88,8 +91,10 @@ static inline void TOKENshow(Token A) {
         case TOKEN_OPERAND:
             NUMBERshow(A.value.number);
             break;
-        default:
+        case TOKEN_LEFT_BRACKET:
+        case TOKEN_RIGHT_BRACKET:
             printf("%c", A.value.bracket);
+            break;
     }
 }
 
@@ -111,7 +116,7 @@ static inline size_t TOKENfromStr(char* src, Token* dest) {
 
     char* cur = src;
     while(isblank(*cur)) cur++;
-    if (!(*cur)) return 0;
+    if (!(*cur)) return 0; //blank string
 
     if (IS_OPERATOR(*cur)) {
 

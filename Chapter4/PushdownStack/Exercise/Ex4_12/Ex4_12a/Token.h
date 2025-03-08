@@ -50,6 +50,14 @@
 #define IS_OPERATOR(A) ((A) == '+' || (A) == '*' || (A) == '/'              \
     || (A) == '$' || (A) == '~' || (A) == '-')                              \
 
+/**
+ * @brief Checks if a char is valid as a starting symbol
+ * for a positive numerical Item.
+ * 
+ * @return true if symbol could be the start of a positive numerical item else
+ * @return false
+ */
+#define IS_VALID_POSITIVE_NUM_START(A) (isdigit(A) || ((A) == '.'))
  /**
   * @brief Compare two Items for equality
   * 
@@ -112,8 +120,7 @@
   */
  static inline size_t TOKENExtractItem(char* src, Token* dest) {
     dest->type = TOKEN_OPERAND;
-    size_t num_len = ITEMfromStr(src, &(dest->value.number));
-    return num_len;
+    return ITEMfromStr(src, &(dest->value.number));
  }
 
  /**
@@ -131,18 +138,18 @@
     if (!cur) return 0; //purely blank string
 
     if (IS_OPERATOR(*cur)) { //extract operator
-        if (*cur == '-' && (isdigit(*(cur+1)) || *(cur+1) == '.')) {
-            size_t num_len = TOKENExtractItem(cur, dest);
-            return (size_t) (cur - src) + num_len;
-        }
+        //check if this is a negative number
+        // rare use of goto to jump to number extraction section.
+        if (*cur == '-' && IS_VALID_POSITIVE_NUM_START(*(cur+1))) goto extract_num;
         else {
             cur += TOKENExtractOperator(cur, dest);
             return (size_t) (cur - src);
         }
     }
-    else if (isdigit(*cur) || *cur == '.') {
-        size_t num_len = TOKENExtractItem(cur, dest);
-        return (size_t) (cur - src) + num_len;
+    else if (IS_VALID_POSITIVE_NUM_START(*cur)) {
+extract_num: 
+        cur += TOKENExtractItem(cur, dest);
+        return (size_t) (cur - src);
     }
     else {
         return 0;

@@ -47,8 +47,7 @@ int main(int argc, char* argv[argc]) {
             free(element);
         }
         else if (token.type == TOKEN_OPERATOR) {
-            Item tok = malloc((strlen(token.token) + 1)*sizeof(typeof(*(token.token))));
-            strcpy(tok, token.token);
+            Item tok = strdup(token.token); //ported from POSIX in C23
             STACKpush(tok);
         }
         else if (token.type == TOKEN_OPERAND) {

@@ -2,7 +2,7 @@
  * @file ex4_12a.c
  * 
  * @brief Extends Exercise 4.11 to support unary negation (~) 
- * and square root ($). 
+ * and square root ($) as well  as floating point numbers.
  * 
  * @version 0.1
  * @date 2025-03-02

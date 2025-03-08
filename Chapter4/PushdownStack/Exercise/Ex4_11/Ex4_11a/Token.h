@@ -106,8 +106,8 @@
     }
     else if (isdigit(*cur)) {
         dest->type = TOKEN_OPERAND;
-        size_t num_len = ITEMfromStr(cur, &(dest->value.number));
-        return (size_t) (cur - src) + num_len;
+        cur += ITEMfromStr(cur, &(dest->value.number));
+        return (size_t) (cur - src);
     }
     else {
         return 0;

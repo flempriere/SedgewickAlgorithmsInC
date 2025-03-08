@@ -34,14 +34,13 @@
 
     //
     Token token;
-    token.token = (malloc((3*len + 1) *sizeof(typeof(*(token.token)))));
+    token.token = (malloc((3*len + 1) *sizeof(typeof(*(token.token))))); //avoiding VLA
 
     for (size_t nRead = TOKENfromStr(expr, &token); expr && nRead; 
         expr += nRead, nRead = TOKENfromStr(expr, &token)) {
         
         if (token.type == TOKEN_TERM) {
-            Item term = malloc((strlen(token.token) + 1)*sizeof(typeof(*(token.token))));
-            strcpy(term, token.token);
+            Item term = strdup(token.token); //Ported from Posix in C23
             STACKpush(term);
         }
         else if (token.type == TOKEN_BINARY_OPERATOR || token.type == TOKEN_UNARY_OPERATOR) {

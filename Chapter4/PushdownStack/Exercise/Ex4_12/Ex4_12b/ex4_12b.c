@@ -28,7 +28,7 @@
      STACKinit(len);
  
      Token token;
-     token.token = malloc((len+1)*sizeof(typeof(*(token.token))));
+     token.token = malloc((len+1)*sizeof(typeof(*(token.token)))); //avoiding VLA
 
      for (size_t nRead = TOKENfromStr(expr, &token); expr && nRead;
          expr += nRead, nRead = TOKENfromStr(expr, &token)) {
@@ -41,8 +41,7 @@
              free(element);
          }
          else if (token.type == TOKEN_OPERATOR) {
-             Item tok = malloc((strlen(token.token) + 1)*sizeof(typeof(*(token.token))));
-             strcpy(tok, token.token);
+             Item tok = strdup(token.token); //strdup ported from POSIX in C23
              STACKpush(tok);
          }
          else if (token.type == TOKEN_OPERAND) {

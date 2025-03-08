@@ -49,7 +49,7 @@ typedef struct Token {
  * @return true if equal else
  * @return false 
  */
-#define TOKENeq(A, B) (A.type == B.type && ITEMeq(A.token, B.token))
+#define TOKENeq(A, B) (((A).type == (B).type) && ITEMeq((A).token, (B).token))
 
 /**
  * @brief Prints out a token
@@ -57,7 +57,7 @@ typedef struct Token {
  * @param A token to print
  * 
  */
-#define TOKENshow(A) ITEMshow(A.token)
+#define TOKENshow(A) ITEMshow((A).token)
 
 /**
  * @brief Check if a char is a binary operator
@@ -82,6 +82,15 @@ typedef struct Token {
  * @return false
  */
 #define IS_OPERATOR(A) (IS_UNARY_OPERATOR(A) || IS_BINARY_OPERATOR(A))
+
+/**
+ * @brief Checks if a char is valid as a starting symbol
+ * for a positive numerical Item.
+ * 
+ * @return true if symbol could be the start of a positive numerical item else
+ * @return false
+ */
+#define IS_VALID_POSITIVE_NUM_START(A) (isdigit(A) || ((A) == '.'))
 
 /**
  * @brief Extract a token from the string src and store it
@@ -117,7 +126,7 @@ static inline size_t TOKENfromStr(char* src, Token* dest) {
         cur++;
         return (size_t) (cur - src); 
     }
-    else if (isdigit(*cur) || (*cur == '.')) {
+    else if (IS_VALID_POSITIVE_NUM_START(*cur)) {
 
         //calculate length of number
         char* end;

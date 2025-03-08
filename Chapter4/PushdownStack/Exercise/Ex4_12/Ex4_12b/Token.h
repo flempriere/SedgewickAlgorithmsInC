@@ -49,7 +49,7 @@ typedef struct Token {
  * @return true if equal else
  * @return false 
  */
-#define TOKENeq(A, B) (A.type == B.type && ITEMeq(A.token, B.token))
+#define TOKENeq(A, B) (((A).type == (B).type) && ITEMeq((A).token, (B).token))
 
 /**
  * @brief Prints out a token
@@ -57,7 +57,7 @@ typedef struct Token {
  * @param A token to print
  * 
  */
-#define TOKENshow(A) ITEMshow(A.token)
+#define TOKENshow(A) ITEMshow((A).token)
 
 /**
  * @brief Checks if a char is an operator
@@ -75,6 +75,15 @@ typedef struct Token {
  * @return false.
  */
 #define IS_BRACKET(A) ((A) == '(' || (A) == ')')
+
+/**
+ * @brief Checks if a char is valid as a starting symbol
+ * for a positive numerical Item.
+ * 
+ * @return true if symbol could be the start of a positive numerical item else
+ * @return false
+ */
+#define IS_VALID_POSITIVE_NUM_START(A) (isdigit(A) || ((A) == '.'))
 
  /**
   * @brief Extracts an Item from a string
@@ -96,7 +105,7 @@ static inline size_t TOKENfromStr(char* src, Token* dest) {
 
         if (IS_OPERATOR(*cur)) {
             if (*cur == '-') {
-                //if previous token is not ) or x, then token is negation
+                //if previous token is not ) or operand, then token is negation
                 if (!(prev_token == TOKEN_OPERAND || prev_token == TOKEN_RIGHT_BRACKET)) {
                     *cur = '~'; //change symbol
                 }
@@ -109,21 +118,21 @@ static inline size_t TOKENfromStr(char* src, Token* dest) {
         else {
             dest->type = TOKEN_RIGHT_BRACKET; //Must be a right bracket
         }
-
+        //extract operator or bracket as string
         strcpy(dest->token, (char [2]) {*cur, '\0'});
         cur++;
         prev_token = dest->type;
         return (size_t) (cur - src); 
     }
-    else if (isdigit(*cur)) {
+    else if (IS_VALID_POSITIVE_NUM_START(*cur)) {
 
-        char* end = (cur + 1);
-        while (isdigit(*end)) end++;
+        //determine length of number
+        char* end;
+        strtod(cur, &end);
         size_t len = (size_t) (end - cur);
         memcpy(dest->token, cur, len);
         dest->token[len] = '\0';
         dest->type = TOKEN_OPERAND;
-        prev_token = dest->type;
         return (size_t) (end - src);
     }
     else {

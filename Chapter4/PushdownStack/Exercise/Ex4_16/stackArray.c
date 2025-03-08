@@ -23,19 +23,19 @@
  static Operator* opS;
  
  /**
-  * @brief private variable representing the stack head
+  * @brief private variable representing the operator stack head
   * 
   */
  static int opN;
 
   /**
-  * @brief private array representing the operator stack
+  * @brief private array representing the number stack
   * 
   */
  static Number* numS;
  
  /**
-  * @brief private variable representing the stack head
+  * @brief private variable representing the number stack head
   * 
   */
  static int numN;

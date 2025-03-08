@@ -49,7 +49,7 @@ typedef struct Token {
  * @return true if equal else
  * @return false 
  */
-#define TOKENeq(A, B) (A.type == B.type && ITEMeq(A.token,B.token))
+#define TOKENeq(A, B) (((A).type == (B).type) && ITEMeq((A).token,(B).token))
 
 /**
  * @brief Prints out a token
@@ -57,7 +57,7 @@ typedef struct Token {
  * @param A token to print
  * 
  */
-#define TOKENshow(A) ITEMshow(A.token)
+#define TOKENshow(A) ITEMshow((A).token)
 
  /**
  * @brief Checks if a char is an operator

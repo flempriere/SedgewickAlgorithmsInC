@@ -48,7 +48,12 @@
             }
             else if (operator == '-') {
                 Item term2 = STACKpop();
-                STACKpush(STACKpop() - term2); 
+                Item term1 = STACKpop();
+                if (term2 > term1) {
+                    fprintf(stderr, "Error: operation results in a negative integer\n");
+                    return EXIT_FAILURE;
+                }
+                STACKpush(term1 - term2); 
             }
             else {
                 fprintf(stderr, "Error: Unknown operator %c encountered\n", operator);
