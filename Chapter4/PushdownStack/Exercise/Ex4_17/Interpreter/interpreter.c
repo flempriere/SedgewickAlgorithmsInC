@@ -22,33 +22,42 @@
  #include "parse.h"
  #include "NumericToken.h"
 
+ #define MAX_LINE_SIZE 1000
+
 
  int main(int argc, char* argv[argc]) {
-    if (!(argc == 2)) {
-        fprintf(stderr, "Error: Usage %s \"expr\"\n", argv[0]);
-        return EXIT_FAILURE;
-    }
 
-    char* expr = argv[1];
-    size_t len = strlen(expr);
-    STACKoperandStackInit(len);
-    STACKoperatorStackInit(len);
+    char buf[MAX_LINE_SIZE]; //buffer to read line into
+    STACKoperandStackInit(MAX_LINE_SIZE);
+    STACKoperatorStackInit(MAX_LINE_SIZE);
 
-    Token token;
-    for (size_t nRead = TOKENfromStr(expr, &token); expr && nRead;
-        expr += nRead, nRead = TOKENfromStr(expr, &token)) {
-        
-        if (!processToken(token)) {
-            fprintf(stderr, "Error encountered in token stream\n");
-            return EXIT_FAILURE;
+    char* expr;
+    while((expr = fgets(buf, sizeof(buf), stdin)) != nullptr) {
+        expr[strlen(expr) - 1] = '\0'; //remove trailing newline
+
+        //extract token
+        Token token;
+        bool showResult = true;
+        for (size_t nRead = TOKENfromStr(expr, &token); expr && nRead;
+            expr += nRead, nRead = TOKENfromStr(expr, &token)) {
+
+            //process token
+            if (!processToken(token)) {
+                STACKoperandStackClear();
+                STACKoperatorStackClear();
+                showResult = false;
+            }
+        }
+        if (expr && *expr != '\0') {
+            //Non-null expr implies we failed a parse
+            fprintf(stderr, "Error: invalid character %c encounted in stream\n", *expr);
+            STACKoperandStackClear();
+            STACKoperatorStackClear();
+        }
+        if (showResult) {
+            NUMERICTOKENshow(STACKoperandStackPop());
+            printf("\n");
         }
     }
-    if (expr && *expr != '\0') {
-        //Non-null expr implies we failed a parse
-        fprintf(stderr, "Error: invalid character %c encounted in stream\n", *expr);
-        return EXIT_FAILURE;
-    }
-    NUMERICTOKENshow(STACKoperandStackPop());
-    printf("\n");
     return EXIT_SUCCESS; 
  }

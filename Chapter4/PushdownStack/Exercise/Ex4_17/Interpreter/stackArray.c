@@ -51,11 +51,11 @@
     numN = 0;
 }
  
- bool STACKoperatorStackEmpty() {
+ bool STACKoperatorStackEmpty(void) {
      return (opN > 0);
  }
 
- bool STACKoperandStackEmpty() {
+ bool STACKoperandStackEmpty(void) {
     return (numN > 0);
  }
  
@@ -67,10 +67,18 @@
     numS[numN++] = i;
  }
  
-Operator STACKoperatorStackPop() {
+Operator STACKoperatorStackPop(void) {
      return opS[--opN];
  }
 
- NumericToken STACKoperandStackPop() {
+ NumericToken STACKoperandStackPop(void) {
     return numS[--numN];
+ }
+
+ void STACKoperatorStackClear(void) {
+    opN = 0;
+ }
+
+ void STACKoperandStackClear(void) {
+    numN = 0;
  }

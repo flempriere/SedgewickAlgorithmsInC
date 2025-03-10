@@ -109,6 +109,7 @@
     }
     else {
         size_t len = NUMBERfromStr(cur, &(dest->value.number));
+        dest->type = NUMERICTOKEN_LITERAL;
         if (!len) {
             fprintf(stderr, "Error: invalid character encountered while extracting number\n");
             return 0;

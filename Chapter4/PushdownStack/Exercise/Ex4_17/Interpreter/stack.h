@@ -43,7 +43,7 @@ void STACKoperandStackInit(size_t capacity);
  * @return true if empty, else
  * @return false
  */
-bool STACKoperatorStackEmpty();
+bool STACKoperatorStackEmpty(void);
 
 /**
  * @brief Check if the operand stack is empty
@@ -51,7 +51,7 @@ bool STACKoperatorStackEmpty();
  * @return true if empty, else
  * @return false
  */
-bool STACKoperandStackEmpty();
+bool STACKoperandStackEmpty(void);
 
 /**
  * @brief Push an Operator i onto the stack
@@ -80,3 +80,15 @@ Operator STACKoperatorStackPop(void);
  * @return NumericToken
  */
 NumericToken STACKoperandStackPop(void);
+
+/**
+ * @brief Clears the operator stack
+ * 
+ */
+void STACKoperatorStackClear(void);
+
+/**
+ * @brief Clears the operand stack
+ * 
+ */
+void STACKoperandStackClear(void);
