@@ -17,7 +17,7 @@
 #include <ctype.h>
 
 #include "Operator.h"
-#include "Number.h"
+#include "NumericToken.h"
 
 /**
  * @brief enum classifying a token, a token is either an
@@ -42,7 +42,7 @@ typedef enum e_TokenType {
 typedef union TokenValue {
     Operator operator;
     char bracket;
-    Number number;
+    NumericToken number;
 } TokenValue;
 
 /**
@@ -69,7 +69,7 @@ static inline bool TOKENeq(Token A, Token B) {
             return (OPERATOReq(A.value.operator, B.value.operator));
         }
         else if (A.type == TOKEN_OPERAND) {
-            return (NUMBEReq(A.value.number, B.value.number));
+            return (NUMERICTOKENeq(A.value.number, B.value.number));
         }
         else if (IS_BRACKET(A.type)) {
             return (A.value.bracket == B.value.bracket);
@@ -91,7 +91,7 @@ static inline void TOKENshow(Token A) {
             OPERATORshow(A.value.operator);
             break;
         case TOKEN_OPERAND:
-            NUMBERshow(A.value.number);
+            NUMERICTOKENshow(A.value.number);
             break;
         case TOKEN_LEFT_BRACKET:
         case TOKEN_RIGHT_BRACKET:
@@ -137,9 +137,9 @@ static inline size_t TOKENfromStr(char* src, Token* dest) {
     }
     else {
         dest->type = TOKEN_OPERAND;
-        size_t OperandLen = NUMBERfromStr(cur, &(dest->value.number));
+        size_t OperandLen = NUMERICTOKENfromStr(cur, &(dest->value.number));
         if (!OperandLen) {
-            fprintf(stderr, "Error: invalid character %c encountered in token stream\n", *cur);
+            fprintf(stderr, "Error: invalid character encountered in token stream\n");
             return 0;
         }
         cur += OperandLen;
