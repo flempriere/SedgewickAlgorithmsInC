@@ -53,7 +53,7 @@
      return x;
  }
  
- void STACKinit(int maxN) {
+ void STACKinit(size_t maxN) {
      //reset stack
      head = nullptr;
  }
@@ -73,7 +73,7 @@
      head = NEW(item, head);
  }
  
- Item STACKpop(void) {
+ bool STACKpop(Item* dest) {
     if (head) {
         Item item = head->item;
         STACKnode* t = head->next;

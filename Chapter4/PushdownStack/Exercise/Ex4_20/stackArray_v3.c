@@ -55,10 +55,13 @@
      s[N++] = i;
  }
  
- Item STACKpop(void) {
-    if (N) return s[--N];
+ bool STACKpop(Item* dest) {
+    if (N) {
+        *dest = s[--N];
+        return true;
+    }
     STACKerror("stack empty");
-    return 0;
+    return false;
  }
 
  void STACKerror(char* msg) {

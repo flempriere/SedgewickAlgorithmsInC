@@ -37,11 +37,15 @@ size_t STACKcount(void);
 void STACKpush(Item i);
 
 /**
- * @brief Returns the Item on top of the stack
+ * @brief Returns the Item on top of the stack and
+ * stores it in dest.
  * 
- * @return Item 
+ * @param dest - Pointer to store popped item in.
+ * 
+ * @return true if successfully popped, else
+ * @return false. 
  */
-Item STACKpop(void);
+bool STACKpop(Item* dest);
 
 /**
  * @brief Indicates an error has taken place

@@ -291,6 +291,9 @@ The exercise doesn't specify the behaviour of `STACKerror` so
 we choose to have it print an appropriate error message on
 `stderr`.
 
+We update the `STACKpop` interface to now return a `bool` code indicating if the pop was successful, and to return the popped
+value via a function argument `Item* dest`.
+
 ### [Exercise 4.21](./Exercise/Ex4_21/)
 
 *Modify the linked-list-based pushdown-stack implementation in the
@@ -299,10 +302,8 @@ to `pop` when the stack is empty or there is no memory available to `malloc` whe
 
 As before the exercise doesn't specify the behaviour so we choose to have it print an appropriate error message.
 
-**Note**: There is some issue with how to handle the error for
-push, since we have to by the signature return an `Item`. 
-
-Currently we `return 0` but this might not be a good fit...
+As before we update the `STACKpop` interface to now return a `bool` code indicating if the pop was successful, and to return the popped
+value via a function argument `Item* dest`.
 
 
 
