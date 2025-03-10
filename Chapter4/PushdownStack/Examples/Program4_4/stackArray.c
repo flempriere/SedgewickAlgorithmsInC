@@ -32,13 +32,13 @@ static Item* s;
  * @brief private variable representing the stack head
  * 
  */
-static int N;
+static size_t N;
 
 
 void STACKinit(size_t capacity) {
     s = malloc(capacity * sizeof(typeof(*s)));
     N = 0;
-};
+}
 
 bool STACKempty(void) {
     return (N == 0);

@@ -233,6 +233,82 @@ a successful expression evaluation then, since assignment leaves no variables on
 
 **Note:** For both implementations variables are *sticky* in that they stick to the last value, i.e. if we do `x = 1`, then `y = x`, then `x = 2`, `y` maintains the value that `x` on assignment had i.e. `y = 1`.
 
+### Exercise 4.18
+
+*Give the contents of `s[0] ... s[4]` after execution of the operations `LA*STI*N*FIR*ST**OU*T*******`, using [Program 4.4](#program-44).*
+
+```
+[ ][ ][ ][ ][ ][ ][ ] start
+[L][ ][ ][ ][ ][ ][ ] push(L)
+[L][A][ ][ ][ ][ ][ ] push(A)
+[L][A][ ][ ][ ][ ][ ] pop()
+[L][S][ ][ ][ ][ ][ ] push(S)
+[L][S][T][ ][ ][ ][ ] push(T)
+[L][S][T][I][ ][ ][ ] push(I)
+[L][S][T][I][ ][ ][ ] pop()
+[L][S][T][N][ ][ ][ ] push(N)
+[L][S][T][N][ ][ ][ ] pop()
+[L][S][T][F][ ][ ][ ] push(F)
+[L][S][T][F][I][ ][ ] push(I)
+[L][S][T][F][I][R][ ] push(R)
+[L][S][T][F][I][R][ ] pop()
+[L][S][T][F][I][S][ ] push(S)
+[L][S][T][F][I][S][T] push(T)
+[L][S][T][F][I][S][T] pop()
+[L][S][T][F][I][S][T] pop()
+[L][S][T][F][I][O][T] push(O)
+[L][S][T][F][I][O][U] push(U)
+[L][S][T][F][I][O][U] pop()
+[L][S][T][F][I][O][T] push(T)
+[L][S][T][F][I][O][T] pop()
+[L][S][T][F][I][O][T] pop()
+[L][S][T][F][I][O][T] pop()
+[L][S][T][F][I][O][T] pop()
+[L][S][T][F][I][O][T] pop()
+[L][S][T][F][I][O][T] pop()
+[L][S][T][F][I][O][T] pop()
+```
+Observe that we don't remove values on popping, they are just overwritten by pushes.
+
+### [Exercise 4.19](./Exercise/Ex4_19/)
+
+*Suppose that you change the pushdown-stack interface to replace `test if empty` by `count`, which should return the number of items currently in the data structure. Provide
+implementations for `count` for the array representation ([Program 4.4](#program-44)) and the linked-list representation ([Program 4.5](#program-45)).*
+
+See the array implementation in [Ex4.19a](./Exercise/Ex4_19/Ex4_19a/stackArray.c). Note in this case we can use the stack head pointer to answer this in constant time.
+
+See the linked list implementation in [Ex4.19b](./Exercise/Ex4_19/Ex4_19b/stackList.c). Note in this case we have to traverse the list, so this takes as long as the length
+of the list.
+
+### [Exercise 4.20](./Exercise/Ex4_20/)
+
+*Modify the array-based pushdown-stack implementation in the
+text to call a function `STACKerror` if the client attempts
+to `pop` when the stack is empty or to `push` when the stack
+is full.* 
+
+The exercise doesn't specify the behaviour of `STACKerror` so
+we choose to have it print an appropriate error message on
+`stderr`.
+
+### [Exercise 4.21](./Exercise/Ex4_21/)
+
+*Modify the linked-list-based pushdown-stack implementation in the
+text to call a function `STACKerror` if the client attempts
+to `pop` when the stack is empty or there is no memory available to `malloc` when a `push` occurs.*
+
+As before the exercise doesn't specify the behaviour so we choose to have it print an appropriate error message.
+
+**Note**: There is some issue with how to handle the error for
+push, since we have to by the signature return an `Item`. 
+
+Currently we `return 0` but this might not be a good fit...
+
+
+
+
+
+
 
 
 

@@ -32,7 +32,7 @@
   * @brief private variable representing the stack head
   * 
   */
- static int N;
+ static size_t N;
  
  
  void STACKinit(size_t capacity) {

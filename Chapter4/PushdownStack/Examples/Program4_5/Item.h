@@ -12,7 +12,10 @@
  * @copyright Copyright (c) 2024
  * 
  */
+#pragma once
+
 #include <limits.h>
+#include <ctype.h>
 #include <stdlib.h>
 
 /**
@@ -60,7 +63,7 @@ static const Item ITEM_MAX = INT_MAX;
 static inline size_t ITEMfromStr(char* src, Item* dest) {
     char* cur;
     Item val = 0;
-    for (cur = src; isnum(cur); cur++) {
+    for (cur = src; isdigit(cur); cur++) {
         val = 10*val + (*cur - '0');
     }
     size_t len =  (size_t)(cur - src);

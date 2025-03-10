@@ -12,8 +12,6 @@
  * @copyright Copyright (c) 2024
  * 
  */
-#pragma once
-
 #include <limits.h>
 #include <ctype.h>
 #include <stdlib.h>

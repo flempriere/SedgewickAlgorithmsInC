@@ -26,7 +26,7 @@
   * @brief private variable representing the operator stack head
   * 
   */
- static int opN;
+ static size_t opN;
 
   /**
   * @brief private array representing the number stack

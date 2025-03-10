@@ -26,7 +26,7 @@
   * @brief private variable representing the operator stack head
   * 
   */
- static int opN;
+ static size_t opN;
 
   /**
   * @brief private array representing the numericToken stack
@@ -38,7 +38,7 @@
   * @brief private variable representing the numericToken stack head
   * 
   */
- static int numN;
+ static size_t numN;
  
  
  void STACKoperatorStackInit(size_t capacity) {
