@@ -57,7 +57,7 @@
  * @return true if symbol could be the start of a positive numerical item else
  * @return false
  */
-#define IS_VALID_POSITIVE_NUM_START(A) (isdigit(A) || ((A) == '.'))
+#define IS_POSITIVE_NUM_START(A) (isdigit(A) || ((A) == '.'))
  /**
   * @brief Compare two Items for equality
   * 
@@ -140,14 +140,16 @@
     if (IS_OPERATOR(*cur)) { //extract operator
         //check if this is a negative number
         // rare use of goto to jump to number extraction section.
-        if (*cur == '-' && IS_VALID_POSITIVE_NUM_START(*(cur+1))) goto extract_num;
+        if (*cur == '-' && IS_POSITIVE_NUM_START(*(cur+1))) {
+            cur += TOKENExtractItem(cur, dest);
+            return (size_t) (cur - src);
+        }
         else {
             cur += TOKENExtractOperator(cur, dest);
             return (size_t) (cur - src);
         }
     }
-    else if (IS_VALID_POSITIVE_NUM_START(*cur)) {
-extract_num: 
+    else if (IS_POSITIVE_NUM_START(*cur)) {
         cur += TOKENExtractItem(cur, dest);
         return (size_t) (cur - src);
     }

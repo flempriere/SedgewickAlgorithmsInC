@@ -15,6 +15,7 @@
 #include <stdio.h>
 #include <ctype.h>
 #include <string.h>
+#include <stdlib.h>
 #include "Item.h"
 
 
@@ -83,7 +84,7 @@ typedef struct Token {
  * @return true if symbol could be the start of a positive numerical item else
  * @return false
  */
-#define IS_VALID_POSITIVE_NUM_START(A) (isdigit(A) || ((A) == '.'))
+#define IS_POSITIVE_NUM_START(A) (isdigit(A) || ((A) == '.'))
 
  /**
   * @brief Extracts an Item from a string
@@ -124,15 +125,18 @@ static inline size_t TOKENfromStr(char* src, Token* dest) {
         prev_token = dest->type;
         return (size_t) (cur - src); 
     }
-    else if (IS_VALID_POSITIVE_NUM_START(*cur)) {
+    else if (IS_POSITIVE_NUM_START(*cur)) {
 
         //determine length of number
         char* end;
         strtod(cur, &end);
         size_t len = (size_t) (end - cur);
+
         memcpy(dest->token, cur, len);
         dest->token[len] = '\0';
         dest->type = TOKEN_OPERAND;
+
+        prev_token = dest->type;
         return (size_t) (end - src);
     }
     else {

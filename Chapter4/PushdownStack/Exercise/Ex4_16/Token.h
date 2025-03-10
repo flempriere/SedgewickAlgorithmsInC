@@ -33,6 +33,8 @@ typedef enum e_TokenType {
     TOKEN_OPERAND
 } e_TokenType;
 
+#define IS_BRACKET(A) ((A) == TOKEN_LEFT_BRACKET || (A) == TOKEN_RIGHT_BRACKET)
+
 /**
  * @brief Union to the value of a token, either an Operator, char or Number.
  * 
@@ -69,7 +71,7 @@ static inline bool TOKENeq(Token A, Token B) {
         else if (A.type == TOKEN_OPERAND) {
             return (NUMBEReq(A.value.number, B.value.number));
         }
-        else if (A.type == TOKEN_LEFT_BRACKET || A.type == TOKEN_RIGHT_BRACKET) {
+        else if (IS_BRACKET(A.type)) {
             return (A.value.bracket == B.value.bracket);
         }
         else return false; //invalid value encountered

@@ -90,7 +90,20 @@ typedef struct Token {
  * @return true if symbol could be the start of a positive numerical item else
  * @return false
  */
-#define IS_VALID_POSITIVE_NUM_START(A) (isdigit(A) || ((A) == '.'))
+#define IS_POSITIVE_NUM_START(A) (isdigit(A) || ((A) == '.'))
+
+
+static inline size_t TOKENextractOperand(char* src, Token* dest) {
+    char* end = src; 
+    strtod(src, &end);
+    size_t len  = (size_t) (end - src);
+
+    memcpy(dest->token, src, len);
+    dest->token[len] = '\0';
+    dest->type = TOKEN_TERM;
+
+    return len;
+}
 
 /**
  * @brief Extract a token from the string src and store it
@@ -115,6 +128,11 @@ static inline size_t TOKENfromStr(char* src, Token* dest) {
             dest->type = TOKEN_BINARY_OPERATOR;
         }
         else if (IS_UNARY_OPERATOR(*cur)) {
+            //is a negative number
+            if (*cur == '-' && IS_POSITIVE_NUM_START(*(cur+1))) {
+                cur += TOKENextractOperand(cur, dest);
+                return (size_t) (cur - src);
+            }
             dest->type = TOKEN_UNARY_OPERATOR;
             if (*cur == '~') *cur = '-'; //restore unary negation to - symbol
         }
@@ -126,16 +144,9 @@ static inline size_t TOKENfromStr(char* src, Token* dest) {
         cur++;
         return (size_t) (cur - src); 
     }
-    else if (IS_VALID_POSITIVE_NUM_START(*cur)) {
-
-        //calculate length of number
-        char* end;
-        strtod(cur, &end);
-        size_t len = (size_t) (end - cur);
-        memcpy(dest->token, cur, len);
-        dest->token[len] = '\0';
-        dest->type = TOKEN_TERM;
-        return (size_t) (end - src);
+    else if (IS_POSITIVE_NUM_START(*cur)) {
+        cur += TOKENextractOperand(cur, dest);
+        return (size_t) (cur - src);
     }
     else {
         return 0;

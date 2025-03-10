@@ -15,6 +15,7 @@
 #include <stdio.h>
 #include <ctype.h>
 #include <string.h>
+#include <stdlib.h>
 #include "Item.h"
 
 
@@ -107,8 +108,8 @@ static inline size_t TOKENfromStr(char* src, Token* dest) {
     }
     else if (isdigit(*cur)) {
 
-        char* end = (cur + 1);
-        while (isdigit(*end)) end++;
+        char* end;
+        strtol(cur, &end, 0);
         size_t len = (size_t) (end - cur);
         memcpy(dest->token, cur, len);
         dest->token[len] = '\0';
