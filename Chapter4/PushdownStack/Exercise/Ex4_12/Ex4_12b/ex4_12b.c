@@ -16,6 +16,14 @@
  #include "Item.h"
  #include "stack.h"
  
+ /**
+  * @brief Infix to postfix expression converter that works for floating point,
+  * +, - (subtract and negation), /, $.
+  * 
+  * @param argc 
+  * @param argv 
+  * @return int 
+  */
  int main(int argc, char* argv[argc]) {
  
      if (!(argc == 2)) {

@@ -26,6 +26,9 @@ static const Item ITEM_MAX = INT_MAX;
 /**
  * @brief Determine if two items are equal
  * 
+ * @param A
+ * @param B
+ * 
  * @return @true if equal, else
  * @return @false
  */
@@ -33,6 +36,8 @@ static const Item ITEM_MAX = INT_MAX;
 
 /**
  * @brief print the value of an Item
+ * 
+ * @param A Item to print.
  * 
  */
 #define ITEMshow(A) printf("%d", A)

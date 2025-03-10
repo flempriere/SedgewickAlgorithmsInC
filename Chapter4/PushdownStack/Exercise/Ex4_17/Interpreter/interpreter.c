@@ -22,9 +22,21 @@
  #include "parse.h"
  #include "NumericToken.h"
 
+ /**
+  * @brief Maximum number of chars that can be read in.
+  * 
+  */
  #define MAX_LINE_SIZE 1000
 
-
+/**
+ * @brief Interpreter for Ex4.17. Reads lines from standard input until
+ * no more input is received. Each line is parsed, and any evaluation lines
+ * are evaluated and the result printed.
+ * 
+ * @param argc int, number of arguments
+ * @param argv char**, command line arguments
+ * @return EXIT_SUCCESS on success.
+ */
  int main(int argc, char* argv[argc]) {
 
     char buf[MAX_LINE_SIZE]; //buffer to read line into
@@ -33,7 +45,10 @@
 
     char* expr;
     while((expr = fgets(buf, sizeof(buf), stdin)) != nullptr) {
-        expr[strlen(expr) - 1] = '\0'; //remove trailing newline
+
+        //parser expects strings to not have a newline
+        size_t len = strlen(expr);
+        expr[len - 1] = (expr[len-1] == '\n') ? '\0' : expr[len-1];
 
         //extract token
         Token token;

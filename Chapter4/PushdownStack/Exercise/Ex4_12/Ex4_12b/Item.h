@@ -23,6 +23,9 @@ typedef char* Item;
 /**
  * @brief compare if two strItem's are equal
  * 
+ * @param A
+ * @param B
+ * 
  * @return true if equal, else
  * @return false
  */
@@ -30,6 +33,8 @@ typedef char* Item;
 
 /**
  * @brief print the value of a strItem
+ * 
+ * @param A Item to print
  * 
  */
 #define ITEMshow(A) printf("%s", A)

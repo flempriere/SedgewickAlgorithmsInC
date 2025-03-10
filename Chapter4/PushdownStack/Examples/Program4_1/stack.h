@@ -37,7 +37,7 @@ void STACKinit(size_t capacity);
  * @return true if empty, else
  * @return false
  */
-bool STACKempty();
+bool STACKempty(void);
 
 /**
  * @brief Push an Item i onto the stack

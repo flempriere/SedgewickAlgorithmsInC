@@ -23,6 +23,14 @@
  #include "Token.h"
  #include "stack.h"
 
+ /**
+  * @brief Evaluates postfix expressions consisting of positive integers, + and
+  * *.
+  * 
+  * @param argc number of arguments.
+  * @param argv[1] postfix expression to evaluate. 
+  * @return int 
+  */
  int main(int argc, char* argv[argc]) {
 
     if (!(argc == 2)) {

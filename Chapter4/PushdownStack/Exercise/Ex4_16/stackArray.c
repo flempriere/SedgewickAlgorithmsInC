@@ -51,12 +51,12 @@
     numN = 0;
 }
  
- bool STACKoperatorStackEmpty() {
-     return (opN > 0);
+ bool STACKoperatorStackEmpty(void) {
+     return (opN == 0);
  }
 
- bool STACKoperandStackEmpty() {
-    return (numN > 0);
+ bool STACKoperandStackEmpty(void) {
+    return (numN == 0);
  }
  
  void STACKoperatorStackPush(Operator i) {
@@ -67,10 +67,10 @@
     numS[numN++] = i;
  }
  
-Operator STACKoperatorStackPop() {
+Operator STACKoperatorStackPop(void) {
      return opS[--opN];
  }
 
- Number STACKoperandStackPop() {
+ Number STACKoperandStackPop(void) {
     return numS[--numN];
  }

@@ -22,6 +22,16 @@
 #include "Item.h"
 #include "stack.h"
 
+/**
+ * @brief Converts a fully bracketed infix expression consisting of
+ * +, * and positive integers to an equivalent postfix expression.
+ * 
+ * @param argc Number of arguments
+ * @param argv[1] infix expression to convert.
+ *  
+ * @return EXIT_SUCCESS on success else
+ * @return EXIT_FAILURE. 
+ */
 int main(int argc, char* argv[argc]) {
 
     if (!(argc == 2)) {

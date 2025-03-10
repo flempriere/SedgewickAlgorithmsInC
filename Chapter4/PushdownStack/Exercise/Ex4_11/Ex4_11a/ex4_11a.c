@@ -16,6 +16,15 @@
  #include "stack.h"
  #include <string.h>
 
+ /**
+  * @brief Postfix expression evaluator that supports positive integers,
+  * +, -, *, /.
+  * 
+  * @param argc Number of arguments.
+  * @param argv[1] expression to evaluate. 
+  * @return EXIT_SUCCESS else
+  * @return EXIT_FAILURE 
+  */
  int main(int argc, char* argv[argc]) {
 
     if (!(argc == 2)) {

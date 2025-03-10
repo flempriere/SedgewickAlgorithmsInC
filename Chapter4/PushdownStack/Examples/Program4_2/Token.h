@@ -64,6 +64,8 @@
  /**
  * @brief Checks if a char is an operator
  * 
+ * @param A char to check.
+ * 
  * @return true if symbol is an operator else
  * @return false.
  */

@@ -18,7 +18,7 @@
 
 
  /**
-  * @brief Structure con
+  * @brief typedef to obscure underlying number
   * 
   */
  typedef double Number;
@@ -43,6 +43,8 @@ static inline bool NUMBEReq(Number A, Number B) {
  
  /**
  * @brief Prints the number
+ * 
+ * @param A Number to print
  * 
  */
 #define NUMBERshow(A) printf("%g", A)

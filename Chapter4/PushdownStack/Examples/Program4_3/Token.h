@@ -63,6 +63,8 @@ typedef struct Token {
 /**
  * @brief Checks if a char is an operator
  * 
+ * @param A char to check.
+ * 
  * @return true if symbol is an operator else
  * @return false.
  */
@@ -70,6 +72,8 @@ typedef struct Token {
 
 /**
  * @brief Checks if a char is a bracket
+ * 
+ * @param A char to check.
  * 
  * @return true if symbol is an operator else
  * @return false

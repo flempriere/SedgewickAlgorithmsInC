@@ -43,6 +43,8 @@
  /**
  * @brief Prints the number
  * 
+ * @param A Item to print
+ * 
  */
 #define ITEMshow(A) printf("%g", A)
 

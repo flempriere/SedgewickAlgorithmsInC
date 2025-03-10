@@ -47,6 +47,9 @@ typedef char Operator;
 /**
  * @brief Compare two Operators for equality
  * 
+ * @param A 
+ * @param B
+ * 
  * @return true if equal else
  * @return false
  */
@@ -54,6 +57,8 @@ typedef char Operator;
 
 /**
  * @brief print the value of an Operator
+ * 
+ * @param A Operator to print
  * 
  */
 #define OPERATORshow(A) (printf("%c", A))

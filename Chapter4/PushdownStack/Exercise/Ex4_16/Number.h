@@ -42,6 +42,8 @@
  /**
  * @brief Prints the number
  * 
+ * @param A Number to print.
+ * 
  */
 #define NUMBERshow(A) printf("%g", A)
 

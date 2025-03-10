@@ -23,25 +23,43 @@
  #include "stack.h"
 
  /**
-  * @brief Number of variables supported
+  * @brief Number of variables supported.
   * 
   */
  #define N_VARS 26
 
  /**
-  * @brief Global array to store the value of the variables
+  * @brief Global array to store the value of the variables.
   * 
   */
  static Number var_values[N_VARS];
 
  /**
-  * @brief Global array to track if a variable has been assigned to
+  * @brief Global array to track if a variable has been assigned to.
   * 
   */
  static bool var_assigned[N_VARS];
- #define GET_IDX_FROM_VAR(A) ((A) - 'a')
+
+ /**
+  * @brief Converts a variable to its index in the value and assigned arrays.
+  * 
+  * @param char A, char representing a variable
+  * 
+  * @return size_t corresponding idx in the array.
+  */
+ #define GET_IDX_FROM_VAR(A) ((size_t) ((A) - 'a'))
 
 
+ /**
+  * @brief Get the Number from the Numeric Token object src and store
+  * it in the Number pointed to by dest.
+  * 
+  * @param src NumericToken to extract the number from
+  * @param dest Number*, pointer to the number to store the result in.
+  * 
+  * @return true if number successfully extracted, else
+  * @return false 
+  */
  bool getNumberfromNumericToken(NumericToken src, Number* dest) {
     if (src.type == NUMERICTOKEN_LITERAL) {
         *dest = src.value.number;
@@ -170,8 +188,8 @@ bool processOperator(Operator op) {
 /**
  * @brief Process a token extracted from an input stream.
  * 
- * @param token 
- * @return true 
+ * @param token token to process
+ * @return true if successfully processed, else
  * @return false 
  */
 bool processToken(Token token) {

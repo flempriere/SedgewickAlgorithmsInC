@@ -15,8 +15,22 @@
  #include "Item.h"
  #include "stack.h"
 
+ /**
+  * @brief Number of characters need to wrap a term in
+  * a left bracket, right bracket, the operator symbol and a null symbol.
+  * 
+  */
  #define N_CHARS_TO_WRAP_TERM 4
 
+ /**
+  * @brief Uses a stack to convert a postfix expression into an infix expression.
+  * 
+  * @param argc int, number of arguments
+  * @param argv[1], char*, postfix expression to convert.
+  * 
+  * @return EXIT_SUCCESS on success else,
+  * @return EXIT_FAILURE
+  */
  int main(int argc, char* argv[argc]) {
 
     if (!(argc == 2)) {
@@ -31,8 +45,6 @@
     //if we have x y + -> (x+y)
     // x y + 2 - -> ((x+y)-2)
     //if we have x ~ -> (-x), so 3*len should be enough memory
-
-    //
     Token token;
     token.token = (malloc((3*len + 1) * sizeof(typeof(*(token.token))))); //avoiding VLA
 

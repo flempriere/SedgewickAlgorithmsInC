@@ -21,6 +21,14 @@
  #include "Operator.h"
  #include "stack.h"
 
+ /**
+  * @brief Combines Programs 4.2 and Programs 4.3 into a program that can
+  * process and evaluate fully brackets infix expressions.
+  * 
+  * @param argc 
+  * @param argv 
+  * @return int 
+  */
  int main(int argc, char* argv[argc]) {
     if (!(argc == 2)) {
         fprintf(stderr, "Error: Usage %s \"expr\"\n", argv[0]);

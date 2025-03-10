@@ -33,5 +33,7 @@
 /**
  * @brief print the value of a strItem
  * 
+ * @param A Item to print.
+ * 
  */
 #define ITEMshow(A) printf("%s", A)

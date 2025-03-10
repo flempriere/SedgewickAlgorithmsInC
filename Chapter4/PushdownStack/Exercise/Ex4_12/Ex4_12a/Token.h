@@ -44,6 +44,8 @@
 /**
  * @brief Checks if a char is an operator
  * 
+ * @param A char to check.
+ * 
  * @return true if symbol is an operator else
  * @return false.
  */
@@ -53,6 +55,8 @@
 /**
  * @brief Checks if a char is valid as a starting symbol
  * for a positive numerical Item.
+ * 
+ * @param A char to check.
  * 
  * @return true if symbol could be the start of a positive numerical item else
  * @return false

@@ -62,6 +62,9 @@ typedef char Operator;
 /**
  * @brief Compare two Operators for equality
  * 
+ * @param A
+ * @param B
+ * 
  * @return true if equal else
  * @return false
  */

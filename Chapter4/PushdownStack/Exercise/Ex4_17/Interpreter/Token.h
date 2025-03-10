@@ -33,6 +33,14 @@ typedef enum e_TokenType {
     TOKEN_OPERAND
 } e_TokenType;
 
+/**
+ * @brief Checks if the char A is a bracket.
+ * 
+ * @param A char to check
+ * 
+ * @return true if A is a bracket else
+ * @return false
+ */
 #define IS_BRACKET(A) ((A) == '(' || (A) == ')')
 
 /**

@@ -62,6 +62,8 @@ typedef struct Token {
 /**
  * @brief Check if a char is a binary operator
  * 
+ * @param A char to check
+ * 
  * @return true if A is a binary operator else
  * @return false.
  */
@@ -70,6 +72,8 @@ typedef struct Token {
 /**
  * @brief Check if a char is an unary operator
  * 
+ * @param A char to check
+ * 
  * @return true if A is a unary operator else
  * @return false.
  */
@@ -77,6 +81,8 @@ typedef struct Token {
 
 /**
  * @brief Check if a char is an operator
+ * 
+ * @param A char to check.
  * 
  * @return true if A is an operator else
  * @return false
@@ -87,12 +93,22 @@ typedef struct Token {
  * @brief Checks if a char is valid as a starting symbol
  * for a positive numerical Item.
  * 
+ * @param A char to check
+ * 
  * @return true if symbol could be the start of a positive numerical item else
  * @return false
  */
 #define IS_POSITIVE_NUM_START(A) (isdigit(A) || ((A) == '.'))
 
 
+/**
+ * @brief Extract an operand from the string src and store it in the
+ * Token pointed to by dest.
+ * 
+ * @param src string to parse
+ * @param dest Token*, token to store the result in.
+ * @return size_t number of chars read.
+ */
 static inline size_t TOKENextractOperand(char* src, Token* dest) {
     char* end = src; 
     strtod(src, &end);

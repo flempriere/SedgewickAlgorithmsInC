@@ -19,6 +19,15 @@
  #include "Token.h"
  #include "stack.h"
 
+ /**
+  * @brief Postfix expression evaluator capable of handling floating point
+  * numbers, +, -, /, $ and ~ (unary negation) operations.
+  * 
+  * @param argc number of arguments
+  * @param argv[1] expression to evaluate.
+  * @return EXIT_SUCCESS on success else
+  * @return EXIT_FAILURE.
+  */
  int main(int argc, char* argv[argc]) {
 
     if (!(argc == 2)) {

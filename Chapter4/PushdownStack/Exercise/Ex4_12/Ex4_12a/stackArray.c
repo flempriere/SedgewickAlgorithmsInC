@@ -40,15 +40,15 @@
      N = 0;
  }
  
- bool STACKempty() {
-     return (N > 0);
+ bool STACKempty(void) {
+     return (N == 0);
  }
  
  void STACKpush(Item i) {
      s[N++] = i;
  }
  
- Item STACKpop() {
+ Item STACKpop(void) {
      return s[--N];
  }
  

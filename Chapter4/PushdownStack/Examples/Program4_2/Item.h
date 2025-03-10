@@ -23,13 +23,18 @@ typedef long Item;
 /**
  * @brief Determine if two items are equal
  * 
+ * @param A
+ * @param B
+ * 
  * @return @true if equal, else
  * @return @false
  */
 #define ITEMeq(A, B) ((A) == (B))
 
 /**
- * @brief Prints the number
+ * @brief Prints the Item.
+ * 
+ * @param A Item to print.
  * 
  */
 #define ITEMshow(A) printf("%ld", A)
