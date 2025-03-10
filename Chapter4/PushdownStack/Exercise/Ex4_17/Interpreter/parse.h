@@ -22,6 +22,43 @@
  #include "Number.h"
  #include "stack.h"
 
+ /**
+  * @brief Number of variables supported
+  * 
+  */
+ #define N_VARS 26
+
+ /**
+  * @brief Global array to store the value of the variables
+  * 
+  */
+ static Number var_values[N_VARS];
+
+ /**
+  * @brief Global array to track if a variable has been assigned to
+  * 
+  */
+ static bool var_assigned[N_VARS];
+ #define GET_IDX_FROM_VAR(A) ((A) - 'a')
+
+
+ bool getNumberfromNumericToken(NumericToken src, Number* dest) {
+    if (src.type == NUMERICTOKEN_LITERAL) {
+        *dest = src.value.number;
+    }
+    else if (src.type == NUMERICTOKEN_VARIABLE) {
+        size_t idx = GET_IDX_FROM_VAR(src.value.variable);
+        if (!var_assigned[idx]) {
+            fprintf(stderr, "A value has not been assigned to variable %c\n", src.value.variable);
+            return false;
+        }
+        else {
+            *dest = var_values[idx];
+        }
+    }
+    return true;
+ }
+
 /**
  * @brief Performs a computation for a given binary operator
  * in the format (n1 op n2) and push the result back onto the stack.
@@ -100,13 +137,29 @@ bool processUnaryOperator(Operator op, Number n) {
  */
 bool processOperator(Operator op) {
     if (IS_BINARY_OPERATOR(op)) {
-        Number n2 = STACKoperandStackPop().value.number;
-        Number n1 = STACKoperandStackPop().value.number;
+        Number n2, n1;
+        if (!getNumberfromNumericToken(STACKoperandStackPop(), &n2)) return false;
+        if (!getNumberfromNumericToken(STACKoperandStackPop(), &n1)) return false;
         return processBinaryOperator(op, n1, n2);
     }
     else if (IS_UNARY_OPERATOR(op)) {
-        Number n = STACKoperandStackPop().value.number;
+        Number n;
+        if (!getNumberfromNumericToken(STACKoperandStackPop(), &n)) return false;
         return processUnaryOperator(op, n);
+    }
+    else if (op == '=') {
+        Number n;
+        if (!getNumberfromNumericToken(STACKoperandStackPop(), &n)) return false;
+        NumericToken tok = STACKoperandStackPop();
+
+        if (tok.type != NUMERICTOKEN_VARIABLE) {
+            fprintf(stderr, "Error: must assign to a variable\n");
+            return false;
+        }
+        size_t idx = GET_IDX_FROM_VAR(tok.value.variable);
+        var_assigned[idx] = true;
+        var_values[idx] = n;
+        return true;
     }
     else {
         fprintf(stderr, "Error: invalid operator %c encountered\n", op);
@@ -122,7 +175,6 @@ bool processOperator(Operator op) {
  * @return false 
  */
 bool processToken(Token token) {
-
     if (token.type == TOKEN_LEFT_BRACKET) return true;
     else if (token.type == TOKEN_RIGHT_BRACKET) {
         return processOperator(STACKoperatorStackPop());

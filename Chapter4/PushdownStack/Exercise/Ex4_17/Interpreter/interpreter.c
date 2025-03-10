@@ -37,7 +37,6 @@
 
         //extract token
         Token token;
-        bool showResult = true;
         for (size_t nRead = TOKENfromStr(expr, &token); expr && nRead;
             expr += nRead, nRead = TOKENfromStr(expr, &token)) {
 
@@ -45,7 +44,6 @@
             if (!processToken(token)) {
                 STACKoperandStackClear();
                 STACKoperatorStackClear();
-                showResult = false;
             }
         }
         if (expr && *expr != '\0') {
@@ -54,7 +52,7 @@
             STACKoperandStackClear();
             STACKoperatorStackClear();
         }
-        if (showResult) {
+        if (!STACKoperandStackEmpty()) {
             NUMERICTOKENshow(STACKoperandStackPop());
             printf("\n");
         }

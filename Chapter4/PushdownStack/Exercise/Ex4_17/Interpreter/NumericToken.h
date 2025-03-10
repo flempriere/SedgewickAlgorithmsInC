@@ -55,7 +55,6 @@
  #define MAKE_TOKEN_FROM_NUMBER(A) (NumericToken) {.type = NUMERICTOKEN_LITERAL,    \
     .value = (NumericTokenValue) {.number = A}}                                     \
 
-
   /**
   * @brief Test for equality of two numerictypes.
   * 

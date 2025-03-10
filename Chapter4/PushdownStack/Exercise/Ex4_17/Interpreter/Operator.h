@@ -17,13 +17,17 @@
 /**
  * @brief Check if a char is a binary operator
  * 
+ * @param A char to check
+ * 
  * @return true if A is a binary operator else
  * @return false.
  */
-#define IS_BINARY_OPERATOR(A) ((A) == '+' || (A) == '*' || (A) == '-' || (A) == '/')
+#define IS_BINARY_OPERATOR(A) ((A) == '+' || (A) == '*' || (A) == '-' || (A) == '/')                                       \
 
 /**
  * @brief Check if a char is an unary operator
+ * 
+ * @param A char to check
  * 
  * @return true if A is a unary operator else
  * @return false.
@@ -31,12 +35,23 @@
 #define IS_UNARY_OPERATOR(A) ((A) == '$' || (A) == '~')
 
 /**
+ * @brief check if a char is the assignment operator
+ * 
+ * @param A char to check.
+ * 
+ * @return true if A is a unary operator else
+ * @return false.
+ * 
+ */
+#define IS_ASSIGNMENT(A) ((A) == '=')
+
+/**
  * @brief Check if a char is an operator
  * 
  * @return true if A is an operator else
  * @return false
  */
-#define IS_OPERATOR(A) (IS_UNARY_OPERATOR(A) || IS_BINARY_OPERATOR(A))
+#define IS_OPERATOR(A) (IS_UNARY_OPERATOR(A) || IS_BINARY_OPERATOR(A) || IS_ASSIGNMENT(A))
 
 /**
  * @brief Type representing a mathematical operator

@@ -52,11 +52,11 @@
 }
  
  bool STACKoperatorStackEmpty(void) {
-     return (opN > 0);
+     return (opN == 0);
  }
 
  bool STACKoperandStackEmpty(void) {
-    return (numN > 0);
+    return (numN == 0);
  }
  
  void STACKoperatorStackPush(Operator i) {
