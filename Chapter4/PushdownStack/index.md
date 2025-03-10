@@ -208,6 +208,31 @@ As usual we use a `token.h` method to assist in parsing.
 
 **Note**: We have partially generalised the original exercise to from *a stack of integers* to *a stack of operands*. This is because we will base our implementation off the more complete implementations in [Exercise 4.12](#exercise-412).
 
+### [Exercise 4.17](./Exercise/Ex4_17/)
+
+*Implement a compiler and interpreter for a programming language where each program consists of a single arithmetic expression preceded by a sequence of assignment statements with arithmetic expressions involving numbers and variables named with single lower case characters.*
+
+The compiler is implemented through a [shell script](./Exercise/Ex4_17/Compiler/MathCompiler.sh). We effectively
+use transpilation by [transpiler.c](./Exercise/Ex4_17/Compiler/dependencies/transpiler.c). A partially completed
+[header.partial](./Exercise/Ex4_17/Compiler/dependencies/head.partial) contains the required variable declarations,
+while the [tail.partial](./Exercise/Ex4_17/Compiler/dependencies/tail.partial) closes off the file. The transpilation file then simply copies across the expressions into an intermediate .c file, performing bracket counting to convert `$` to `sqrt` correctly (track the number of open brackets when encountered, close it off when we find the corresponding close bracket.) and assigning each step to a result variable. Since the last line must be the assignment statement, we
+print the last result.
+
+This completed C file is then made by concatenating the header, the output and the tail, and then the compilation
+script calls gcc. For a specific architecture as long as the user has bash they can modify the compiler argument
+in the compile script to their compiler of choice.
+
+The interpreter works similar to [Ex4.16](./Exercise/Ex4_16/) except with some modifications. First we now read lines from standard input rather than taking one line as an argument. We also wrap the `Number` item in a `NumericToken` which accounts for numeric objects potentially being variables. `parse.h` handles most of the 
+parsing of a line, and maintains arrays indicating if a variable has been set and if so what value it has. When
+a variable is used as part of an evaluation we perform a lookup to get its value.
+
+On encountering an error rather than exiting the program will clear the stack. Results will only be printed on
+a successful expression evaluation then, since assignment leaves no variables on the stack.
+
+**Note:** This implementation has one minor implementation feature that a multiple assignment on one line like `y = (x = 1)` will assign `x` to `1` and then error, so `y` will not be assigned.
+
+**Note:** For both implementations variables are *sticky* in that they stick to the last value, i.e. if we do `x = 1`, then `y = x`, then `x = 2`, `y` maintains the value that `x` on assignment had i.e. `y = 1`.
+
 
 
 
