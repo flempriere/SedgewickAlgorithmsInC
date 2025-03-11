@@ -37,7 +37,7 @@
  * @param argv char**, command line arguments
  * @return EXIT_SUCCESS on success.
  */
- int main(int argc, char* argv[argc]) {
+ int main(void) {
 
     char buf[MAX_LINE_SIZE]; //buffer to read line into
     STACKoperandStackInit(MAX_LINE_SIZE);

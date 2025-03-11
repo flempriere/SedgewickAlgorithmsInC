@@ -17,6 +17,7 @@
  #include <limits.h>
  #include <ctype.h>
  #include <stdlib.h>
+ #include <stdio.h>
  
  /**
   * @brief typedef to obscure underlying datatype

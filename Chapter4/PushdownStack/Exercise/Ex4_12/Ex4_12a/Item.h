@@ -37,6 +37,7 @@
   */
  inline bool ITEMeq(Item A, Item B) {
      Item lgst = (fabs(A) > fabs(B)) ? fabs(A) : fabs(B);
+     if (lgst == 0) return true; //both values zero.
      return (fabs(A - B) / lgst < TOL); 
  }
  

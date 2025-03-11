@@ -33,7 +33,7 @@
  * @param argv 
  * @return int 
  */
-int main(int argc, char* argv[argc]) {
+int main(void) {
 
     double a = 1.0;
     double b = a + EPS;
@@ -44,6 +44,9 @@ int main(int argc, char* argv[argc]) {
     point Q = {.x = a, .y = b};
     point R = {.x = c, .y = b};
     point S = {.x = a, .y = d};
+
+    point zeroInt = {.x = 0, .y = 0};
+    point zeroFloat = {.x = 0.0, .y = 0.0};
 
     printf("Testing for equality (%f, %f) and (%f, %f),"
         "result: %s, expected: true\n",
@@ -64,6 +67,8 @@ int main(int argc, char* argv[argc]) {
     printf("Testing for equality (%f, %f) and (%f, %f),"
         "result: %s, expected: false\n",
             P.x, P.y, S.x, S.y, eq(P, S) ? "true" : "false");
+    printf("Testing for equality (0.0, 0.0) and (0, 0)\nResult: %s, Expected: true\n",
+        eq(zeroFloat,zeroInt) ? "true" : "false");
 
     return EXIT_SUCCESS;
 }

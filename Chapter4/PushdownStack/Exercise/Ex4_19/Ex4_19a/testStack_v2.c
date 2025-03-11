@@ -23,7 +23,7 @@
   * @param argv arguments
   * @return EXIT_SUCCESS on successful exit.
   */
- int main(int argc, char* argv[argc]) {
+ int main(void) {
 
     size_t test_size = 3;
     STACKinit(test_size);

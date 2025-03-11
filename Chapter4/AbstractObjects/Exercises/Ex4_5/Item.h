@@ -11,6 +11,7 @@
  */
 #include <limits.h>
 #include <stdlib.h>
+#include <stdio.h>
 
 /**
  * @brief typedef to obscure underlying datatype
@@ -34,5 +35,9 @@ static const Item ITEM_MAX = INT_MAX;
  */
 #define ITEMshow(A) printf("%d", A)
 
+/**
+ * @brief Returns a random Item, relies on the standard library
+ * rand() function, so the result will be between 0 and min(RAND_MAX, ITEM_MAX)
+ */
 #define ITEMrand() (rand() % ITEM_MAX)
 

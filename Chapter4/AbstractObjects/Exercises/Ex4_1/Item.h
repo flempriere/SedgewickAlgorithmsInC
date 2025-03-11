@@ -34,6 +34,7 @@ typedef double Item;
  */
 inline bool eq(Item A, Item B) {
     Item lgst = (fabs(A) > fabs(B)) ? fabs(A) : fabs(B);
+    if (lgst == 0) return true; //both numbers must be 0
     return (fabs(A - B) / lgst < TOL); 
 }
 

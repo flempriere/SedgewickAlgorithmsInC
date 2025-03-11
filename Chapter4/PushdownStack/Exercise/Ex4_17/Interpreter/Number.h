@@ -38,6 +38,7 @@
   */
 static inline bool NUMBEReq(Number A, Number B) {
      Number lgst = (fabs(A) > fabs(B)) ? fabs(A) : fabs(B);
+     if (lgst == 0) return true; //both zero.
      return (fabs(A - B) / lgst < TOL); 
  }
  

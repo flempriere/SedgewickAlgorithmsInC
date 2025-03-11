@@ -32,7 +32,7 @@
  * @param argv 
  * @return int 
  */
-int main(int argc, char* argv[argc]) {
+int main(void) {
 
     double a = 1.0;
     double b = a + EPS;
@@ -50,6 +50,9 @@ int main(int argc, char* argv[argc]) {
     
     printf("Testing eq(%f, %f)\nResult: %s, Expected: false\n",
         a, d, eq(a,d) ? "true" : "false");
+
+    printf("Testing eq(0, 0)\nResult: %s, Expected: true\n",
+        eq(0,0) ? "true" : "false");
 
     return EXIT_SUCCESS;
 }

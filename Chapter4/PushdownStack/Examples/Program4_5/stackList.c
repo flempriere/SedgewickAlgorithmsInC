@@ -48,7 +48,7 @@ STACKnode* NEW(Item item, STACKnode* next) {
     return x;
 }
 
-void STACKinit(int maxN) {
+void STACKinit(size_t maxN) {
     //reset stack
     head = nullptr;
 }
