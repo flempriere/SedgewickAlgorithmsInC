@@ -1,8 +1,10 @@
 /**
- * @file UnionFind.c
+ * @file UnionFind_v3.c
  * @author Felix Lempriere
- * @brief Implementation of the Program 4.6 UnionFind
- * interface.
+ * @brief Implementation of the Ex4.28 UnionFind interface including
+ * the additional UFcountConnectedNodes. Uses path compression by halving
+ * during finds as for Ex4.26.
+ *
  * @version 0.1
  * @date 2025-03-11
  * 
@@ -12,7 +14,7 @@
 
  #include <stddef.h>
  #include <stdlib.h>
- #include "../Program4_6/UnionFind.h"
+ #include "UnionFind_v3.h"
 
  /**
   * @brief parent array, id[p] is the parent of p.
@@ -55,8 +57,8 @@
   * @return size_t 
   */
  static size_t UFfindCanonical(size_t x) {
-    size_t i = x;
-    while (i != id[i]) i = id[i];
+    size_t i;
+    for (i = x; i != id[i]; i = id[i]) {id[i] = id[id[i]];}
     return i;
  }
 
@@ -74,4 +76,18 @@
     id[q] = p;
     sz[p] += sz[q];
     return;
+ }
+
+ size_t UFunionFind(size_t i, size_t j) {
+    size_t p = UFfindCanonical(i);
+    size_t q = UFfindCanonical(j);
+    if (p == q) return p;
+    if (sz[p] < sz[q]) UFswap(&p, &q);
+    id[q] = p;
+    sz[p] += sz[q];
+    return NOT_FOUND;
+ }
+
+ size_t UFcountConnectedNodes(size_t i) {
+    return sz[UFfindCanonical(i)];
  }

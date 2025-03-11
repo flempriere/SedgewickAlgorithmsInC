@@ -1,8 +1,8 @@
 /**
- * @file equivalence_relationsClient.c
+ * @file equivalenceClient_v2.c
  * @author Felix Lempriere
- * @brief A simple use of the Union Find ADT interface
- * to solve the connectivity problem.
+ * @brief Modification of Program 4.7 to take advantage of
+ * UFunionFind  function added to the UnionFind ADT.
  * @version 0.1
  * @date 2025-03-11
  * 
@@ -12,7 +12,7 @@
 
  #include <stdio.h>
  #include <stdlib.h>
- #include "../Program4_6/UnionFind.h"
+ #include "UnionFind_v2.h"
 
  int main(int argc, char* argv[argc]) {
 
@@ -30,8 +30,7 @@
 
     UFinit(N);
     while (scanf("%zu %zu", &p, &q) == 2) {
-        if (UFfind(p, q) == NOT_FOUND) {
-            UFunion(p, q);
+        if (UFunionFind(p, q) == NOT_FOUND) {
             printf(" %zu %zu\n", p, q);
         }
     }

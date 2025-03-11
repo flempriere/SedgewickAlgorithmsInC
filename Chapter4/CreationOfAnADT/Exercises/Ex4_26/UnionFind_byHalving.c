@@ -2,7 +2,8 @@
  * @file UnionFind.c
  * @author Felix Lempriere
  * @brief Implementation of the Program 4.6 UnionFind
- * interface.
+ * interface, improves on Program 4.8 by implementing path compression
+ * by halving on performing find.
  * @version 0.1
  * @date 2025-03-11
  * 
@@ -12,7 +13,7 @@
 
  #include <stddef.h>
  #include <stdlib.h>
- #include "../Program4_6/UnionFind.h"
+ #include "../../Examples/Program4_6/UnionFind.h"
 
  /**
   * @brief parent array, id[p] is the parent of p.
@@ -55,8 +56,8 @@
   * @return size_t 
   */
  static size_t UFfindCanonical(size_t x) {
-    size_t i = x;
-    while (i != id[i]) i = id[i];
+    size_t i;
+    for (i = x; i != id[i]; i = id[i]) {id[i] = id[id[i]];}
     return i;
  }
 
