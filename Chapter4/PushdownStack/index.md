@@ -342,6 +342,15 @@ Compared to our Exercise 4.16 implementation, both ends of the stack here have t
 
 *Modify [Exercise 4.16](#exercise-416) to use the ADT developed in [Exercise 4.24](#exercise-424).*
 
+This is a pretty straightforward change, except we have to wrap `Operator` and `Number` types in a `Union` type
+to allow us to put them both on the same stack, and `typedef` this as `ITEM` to allow us to put it on the our
+usual stack implementations.
+
+Note that we don't implement the full `ITEM` interface since we make no reference to it. Since from context we
+always know which element of the `Union` is active we don't have to keep an `enum` around to track the contents
+of the `Union` which we have done in previous activities. This means that we should only use `8 bytes` per element,
+which is the size of a `double`.
+
 
 
 

@@ -53,32 +53,32 @@
         else if (token.type == TOKEN_RIGHT_BRACKET) {
             Item opItem;
             if(!STACKupperPop(&opItem)) continue;
-            Operator op = opItem.value.operator;
+            Operator op = opItem.operator;
             Item term2Item;
             Item term1Item;
             if (!STACKlowerPop(&term2Item)) continue;
-            Number term2 = term2Item.value.number;
+            Number term2 = term2Item.number;
             Number term1;
 
             switch(op) {
                 case '+':
                     if (!STACKlowerPop(&term1Item)) continue;
-                    term1 = term1Item.value.number;
+                    term1 = term1Item.number;
                     STACKlowerPush(itemFromNumber(term1 + term2));
                     break;
                 case '*':
                     if (!STACKlowerPop(&term1Item)) continue;
-                    term1 = term1Item.value.number;
+                    term1 = term1Item.number;
                     STACKlowerPush(itemFromNumber(term1 * term2));
                     break;
                 case '-':
                     if (!STACKlowerPop(&term1Item)) continue;
-                    term1 = term1Item.value.number;
+                    term1 = term1Item.number;
                     STACKlowerPush(itemFromNumber(term1 - term2));
                     break;
                 case '/':
                     if (!STACKlowerPop(&term1Item)) continue;
-                    term1 = term1Item.value.number;
+                    term1 = term1Item.number;
                     if (NUMBEReq(term2, 0)) {
                         fprintf(stderr, "Error: invalid value encountered in /\n");
                         return EXIT_FAILURE;
@@ -121,7 +121,7 @@
         fprintf(stderr, "Final expression empty\n");
         return EXIT_FAILURE;
     }
-    NUMBERshow(result.value.number);
+    NUMBERshow(result.number);
     printf("\n");
     return EXIT_SUCCESS; 
  }
