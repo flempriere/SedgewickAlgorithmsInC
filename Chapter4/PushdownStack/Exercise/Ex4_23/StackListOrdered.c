@@ -2,6 +2,10 @@
  * @file stackList_ex4_19.c
  * @brief stackList implementation with the updated stack interface
  * replacing STACKempty with STACKcount.
+ *
+ * This version also uses a circular doubly linked list with a dummy head
+ * to keep elements ordered
+ * least to most recent and still enable popping in O(1) time.
  * 
  * @version 0.1
  * @date 2024-12-28
@@ -25,6 +29,7 @@
  struct STACKnode {
      Item item;
      STACKnode* next;
+     STACKnode* prev;
  };
  
  /**
@@ -39,24 +44,29 @@
   * 
   * @param item 
   * @param next 
-  * @return STACKnode* pointer to new STACKnode
+  * @return STACKnode* pointer to new STACKnode or
+  * @return nullptr if failed to allocate.
   */
- STACKnode* NEW(Item item, STACKnode* next) {
+ STACKnode* NEW(Item item) {
      STACKnode* x = malloc(sizeof(typeof(*x)));
      if (!x) {
         STACKerror("failed to allocate memory for new stack element");
-        return next;
+        return nullptr;
      }
      x->item = item;
-     x->next = next;
-     
      return x;
  }
  
  bool STACKinit(size_t maxN) {
-     //reset stack
-     head = nullptr;
+     head = malloc(sizeof(typeof(*head)));
+     if (!head) {
+        STACKerror("failed to allocate stack");
+        return false;
+     }
+     head->next = head;
+     head->prev = head;
      return true;
+
  }
  
  /**
@@ -66,27 +76,33 @@
  */
  size_t STACKcount(void) {
      size_t len = 0;
-     for (STACKnode* cur = head; cur != nullptr; len++, cur = cur->next);
+     for (STACKnode* cur = head->next; cur != head; len++, cur = cur->next);
      return len;
  }
  
  bool STACKpush(Item item) {
-     STACKnode* curhead = head;
-     head = NEW(item, head);
-     return (!(curhead == head)); //if equal push failed.
+    STACKnode* new = NEW(item);
+    if (new) {
+        new->prev = head->prev;
+        head->prev->next = new;
+        new->next = head;
+        head->prev = new;
+        return true;
+    }
+    return false;
  }
  
  bool STACKpop(Item* dest) {
-    if (head) {
-        *dest = head->item;
-        STACKnode* t = head->next;
-        free(head);
-        head = t;
-    
-        return true;
+    if (head->prev == head) {
+        STACKerror("stack empty");
+        return false;
     }
-    STACKerror("stack empty");
-    return false;
+    STACKnode* pop = head->prev;
+    head->prev = pop->prev;
+    pop->prev->next = head;
+    *dest = pop->item;
+    free(pop);
+    return true;
  }
 
  void STACKerror(char* msg) {

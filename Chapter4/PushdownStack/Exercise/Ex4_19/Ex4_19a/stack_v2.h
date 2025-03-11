@@ -18,6 +18,7 @@
  * @brief Maximum capacity of the stack
  * 
  * @param capacity 
+ * 
  */
 void STACKinit(size_t capacity);
 

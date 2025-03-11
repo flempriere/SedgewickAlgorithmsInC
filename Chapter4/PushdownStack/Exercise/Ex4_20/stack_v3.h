@@ -18,9 +18,12 @@
 /**
  * @brief Maximum capacity of the stack
  * 
- * @param capacity 
+ * @param capacity
+ * 
+ * @return true on success else
+ * @return false.
  */
-void STACKinit(size_t capacity);
+bool STACKinit(size_t capacity);
 
 /**
  * @brief Returns the number of elements on the stack
@@ -33,8 +36,10 @@ size_t STACKcount(void);
  * @brief Push an Item i onto the stack
  * 
  * @param i 
+ * @return true if successful else
+ * @return false.
  */
-void STACKpush(Item i);
+bool STACKpush(Item i);
 
 /**
  * @brief Returns the Item on top of the stack and

@@ -33,26 +33,28 @@
  static size_t CAPACITY;
  
  
- void STACKinit(size_t capacity) {
+ bool STACKinit(size_t capacity) {
      s = malloc(capacity * sizeof(typeof(*s)));
      if (!s) {
         STACKerror("failed to allocate memory for stack");
-        return;
+        return false;
      }
      N = 0;
      CAPACITY = capacity;
+     return true;
  }
  
  size_t STACKcount(void) {
      return N;
  }
  
- void STACKpush(Item i) {
+ bool STACKpush(Item i) {
     if (N == CAPACITY) {
         STACKerror("stack at capacity");
-        return;
+        return false;
     }
      s[N++] = i;
+     return true;
  }
  
  bool STACKpop(Item* dest) {

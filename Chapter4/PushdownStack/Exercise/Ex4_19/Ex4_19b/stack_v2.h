@@ -22,12 +22,11 @@
 void STACKinit(size_t capacity);
 
 /**
- * @brief Check if the stack is empty
+ * @brief Returns the number of items on the stack.
  * 
- * @return true if empty, else
- * @return false
+ * @return size_t
  */
-bool STACKcount(void);
+size_t STACKcount(void);
 
 /**
  * @brief Push an Item i onto the stack

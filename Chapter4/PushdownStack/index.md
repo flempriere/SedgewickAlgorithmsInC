@@ -305,6 +305,47 @@ As before the exercise doesn't specify the behaviour so we choose to have it pri
 As before we update the `STACKpop` interface to now return a `bool` code indicating if the pop was successful, and to return the popped
 value via a function argument `Item* dest`.
 
+### [Exercise 4.22](./Exercise/Ex4_22/StackListArray.c)
+
+*Modify the linked-list-based pushdown-stack implementation
+in the text to use an array of indices to implement the list*
+
+See the implementation. We maintain the usual next and value arrays with the 0 index treated as a dummy node to represent an empty list.
+
+On initialisation the next value of each index is set to the next index i.e. `next[i] = i+1`, and we set `1` as the index at the head of the list of available nodes. The final free node points to `CAPACITY + 1` which is used as a sentinel value to indicate we're out of memory.
+
+When we push and make a new node, we take the first free node and make it point to the current head, then make it the new head. When we pop a node is returned to the head of the free list.
+
+### [Exercise 4.23](./Exercise/Ex4_23/StackListOrdered.c)
+
+*Write a linked-list-based pushdown-stack implementation that
+keeps items on the list in order from least recently inserted to most recently inserted. You will need to use a doubly linked-list.*
+
+We use a circular doubly linked list with a dummy head. This
+means that the least recently inserted node is always given as
+the `head->next` and the most recently inserted node is `head->prev`.
+
+### [Exericise 4.24](./Exercise/Ex4_24/)
+
+*Develop an ADT that provides clients with two different pushdown stacks. Use an array implementation. Keep one
+stack at the beginning of teh array and the other at the end.
+(If the client program is such that one stack grows while the
+other shrinks, this implementation uses less space than
+alternatives.)*
+
+We build off the `stack_v3.h` interface from the preceding exercises. Similar to our approach in [Exercise 4.16](#exercise-416) we duplicate most of the functions providing a `STACKlowerfn` and a `STACKupperfn` to operate on the top and bottom stack respectively. However we use a single allocation. Obviously another method would be to use one function but update the signature with a flag value to indicate which stack to apply the function to.
+
+Compared to our Exercise 4.16 implementation, both ends of the stack here have to have the same type.
+
+
+### [Exercise 4.25](./Exercise/Ex4_25/)
+
+*Modify [Exercise 4.16](#exercise-416) to use the ADT developed in [Exercise 4.24](#exercise-424).*
+
+
+
+
+
 
 
 
