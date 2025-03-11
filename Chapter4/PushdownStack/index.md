@@ -185,7 +185,7 @@ See [step.ps](./Exercise/Ex4_13/step.ps) which generates the figure below.
 ![step function](./Exercise/Ex4_13/ex4_13.png)
 
 
-### [Exercise 4.15](./Exercise/Ex4_15/)
+### [Exercise 4.15](./Exercise/Ex4_15/ex4_15.c)
 
 *Write a program that converts a postfix expression to infix, using a pushdown stack.*
 
@@ -202,7 +202,7 @@ postfix as follows
 As usual we use a `token.h` method to assist in parsing.
 
 
-### [Exercise 4.16](./Exercise/Ex4_16/)
+### [Exercise 4.16](./Exercise/Ex4_16/ex4_16.c)
 
 *Combine [Program 4.2](#program-42) and [Program 4.3](#program-43) into a single module that uses two different stack ADTs: a stack of operators and a stack of operands.*
 
@@ -280,7 +280,7 @@ See the array implementation in [Ex4.19a](./Exercise/Ex4_19/Ex4_19a/stackArray.c
 See the linked list implementation in [Ex4.19b](./Exercise/Ex4_19/Ex4_19b/stackList.c). Note in this case we have to traverse the list, so this takes as long as the length
 of the list.
 
-### [Exercise 4.20](./Exercise/Ex4_20/)
+### [Exercise 4.20](./Exercise/Ex4_20/stackArray_v3.c)
 
 *Modify the array-based pushdown-stack implementation in the
 text to call a function `STACKerror` if the client attempts
@@ -294,7 +294,7 @@ we choose to have it print an appropriate error message on
 We update the `STACKpop` interface to now return a `bool` code indicating if the pop was successful, and to return the popped
 value via a function argument `Item* dest`.
 
-### [Exercise 4.21](./Exercise/Ex4_21/)
+### [Exercise 4.21](./Exercise/Ex4_21/stackList_v3.c)
 
 *Modify the linked-list-based pushdown-stack implementation in the
 text to call a function `STACKerror` if the client attempts
@@ -325,7 +325,7 @@ We use a circular doubly linked list with a dummy head. This
 means that the least recently inserted node is always given as
 the `head->next` and the most recently inserted node is `head->prev`.
 
-### [Exericise 4.24](./Exercise/Ex4_24/)
+### [Exericise 4.24](./Exercise/Ex4_24/doubleStackArray.c)
 
 *Develop an ADT that provides clients with two different pushdown stacks. Use an array implementation. Keep one
 stack at the beginning of teh array and the other at the end.
@@ -333,23 +333,32 @@ stack at the beginning of teh array and the other at the end.
 other shrinks, this implementation uses less space than
 alternatives.)*
 
-We build off the `stack_v3.h` interface from the preceding exercises. Similar to our approach in [Exercise 4.16](#exercise-416) we duplicate most of the functions providing a `STACKlowerfn` and a `STACKupperfn` to operate on the top and bottom stack respectively. However we use a single allocation. Obviously another method would be to use one function but update the signature with a flag value to indicate which stack to apply the function to.
+We build off the `stack_v3.h` interface from the preceding exercises to define [doubleStack.h](./Exercise/Ex4_24/doubleStack.h). Similar to our approach in [Exercise 4.16](#exercise-416) we duplicate most of the functions providing a `STACKlowerfn` and a `STACKupperfn` to operate on the top and bottom stack respectively. However we use a single allocation. Obviously another method would be to use one function but update the signature with a flag value to indicate which stack to apply the function to.
+
+The implementation is pretty straightforward, we have two counters `lN` which tracks the next index
+free for the lower stack and `uN` which tracks the last index used by the upper stack. This makes the
+the operations relatively symmetric. For the lower stack we have
+- `pop()` -> `return s[--lN]`
+- `push(value)` -> `s[lN++] = value`
+and for the upper stack we have
+- `pop()` -> `return s[uN++]`
+- `push(value)` -> `return s[--uN]`.
+
+The condition for the stack being full in either case is `(lN == uN)` indicating the next free slot
+for the lower stack is the top of the upper stack.
 
 Compared to our Exercise 4.16 implementation, both ends of the stack here have to have the same type.
 
 
-### [Exercise 4.25](./Exercise/Ex4_25/)
+### [Exercise 4.25](./Exercise/Ex4_25/ex4_25.c)
 
 *Modify [Exercise 4.16](#exercise-416) to use the ADT developed in [Exercise 4.24](#exercise-424).*
 
-This is a pretty straightforward change, except we have to wrap `Operator` and `Number` types in a `Union` type
-to allow us to put them both on the same stack, and `typedef` this as `ITEM` to allow us to put it on the our
-usual stack implementations.
+This is a pretty straightforward change, except we have to wrap `Operator` and `Number` types in a `Union` type defined in [Item.h](./Exercise/Ex4_25/Item.h) to allow us to put them both on the same stack, and `typedef` this as `ITEM` to allow us to put it on the our usual stack implementations.
 
 Note that we don't implement the full `ITEM` interface since we make no reference to it. Since from context we
 always know which element of the `Union` is active we don't have to keep an `enum` around to track the contents
-of the `Union` which we have done in previous activities. This means that we should only use `8 bytes` per element,
-which is the size of a `double`.
+of the `Union` which we have done in previous activities. This means that we should only use `8 bytes` per element, which is the size of a `double`.
 
 
 
