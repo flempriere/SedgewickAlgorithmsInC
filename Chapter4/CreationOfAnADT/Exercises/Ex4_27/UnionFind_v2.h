@@ -13,6 +13,8 @@
  * @copyright Copyright (c) 2025
  * 
  */
+ #pragma once
+ 
  #include <stddef.h>
  #include <stdint.h>
 

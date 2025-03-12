@@ -118,9 +118,9 @@ AYsEEUtQsIn
 asterisk signs in the sequence `EasY` so that the sequence of values returned by the `get` operations is*
 
 1. `EsaY`
-    - **Answer:** `E+sa++Y+`
+    - **Answer:** `E+sa**Y+`
 2. `YasE`
-    - **Answer:** Can't be done, for `Y` to be `get` first everything has to be on the deque. The deque is thus `[Y][E][a][s]`, as we can see
+    - **Answer:** Can't be done, for *Y* to be `get` first everything has to be on the deque. The deque is thus *[Y][E][a][s]*, as we can see
     we need to `+` to `get` the `Y`, but then `a` is not at either end.
 3. `aYsE`
     - **Answer:** `Ea*sY+*+`.
@@ -135,6 +135,19 @@ determining whether or not it is possible to
 add plus signs and asterisks to make the first
 produce the second when interpreted as a sequence
 of deque operations in the sense of [Exercise 4.35](#exercise-435).*
+
+ The idea is similar to [Ex 4.8](../PushdownStack/index.md#exercise-48) where we simulated a stack. We maintain effectively two stacks, one of elements placed at the beginning, and the other of elements placed at the end.
+ 
+ We maintain a pointer to where we are in the second sequence. We scan over the first sequence, we add a character in a stack-like manner to either the beginning or end stack depending on the case. 
+ 
+ Then we check the second sequence:
+ 1. If the character in s2 is on the top of the begin or end stack, we can get them from the begin or end respectively. So we add the get symbol, remove the match from the stack, and iterate s2.
+
+ 2. Alternatively if the character is on the bottom of the begin or end stack, we can then remove them from the end or beginning respectively, if the other stack is empty. We proceed as a above. We repeat until s2 no longer matches or reaches the end. Then iterate s1. 
+
+ 3. If we reach the end of s1 without reaching the end of s2, or reach the end of s2 without reaching the end of s1, then s1 cannot be converted to s2, else if they are both at the end of the sequence, then they do and we can print the generated sequence out.
+ 
+ **Note:** We use the similar principle of [Ex4.24](../PushdownStack/index.md#exercise-424) by growing each stack from a different end of the array.
 
 
 

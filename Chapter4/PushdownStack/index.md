@@ -324,7 +324,7 @@ We use a circular doubly linked list with a dummy head. This
 means that the least recently inserted node is always given as
 the `head->next` and the most recently inserted node is `head->prev`.
 
-### [Exericise 4.24](./Exercises/Ex4_24/doubleStackArray.c)
+### [Exercise 4.24](./Exercises/Ex4_24/doubleStackArray.c)
 
 *Develop an ADT that provides clients with two different pushdown stacks. Use an array implementation. Keep one
 stack at the beginning of teh array and the other at the end.
