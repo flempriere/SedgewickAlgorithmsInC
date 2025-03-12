@@ -88,7 +88,7 @@ No such sequence exists, `Y` is pushed onto the stack before `S`, which is pushe
 then `S` must also be on the stack and must precede `E` so we
 cannot then pop `E` before `S`.
 
-### [Exercise 4.8](./Exercise/Ex4_8/ex4_8.c)
+### [Exercise 4.8](./Exercises/Ex4_8/ex4_8.c)
 
 *Given two sequences, give an algorithm for determining whether
 or not asterisks can be added to make the first produce the second, when interpreted as a sequence of sstack operations in the sense of [Exercise 4.7](#exercise-47).*
@@ -101,7 +101,7 @@ Since the length of the sequences are equal, if after we have pushed everything 
 
 **Note:** Our approach overwrites `seq1` as to use the memory already processed as the stack. This saves memory for computation but does destroy `seq1`.
 
-### [Exercise 4.9](./Exercise/Ex4_9/)
+### [Exercise 4.9](./Exercises/Ex4_9/)
 
 *Convert to postfix the following expression*
 ```
@@ -142,21 +142,21 @@ i   s
 *   16110
 ```
 
-### [Exercise 4.11](./Exercise/Ex4_11/)
+### [Exercise 4.11](./Exercises/Ex4_11/)
 
 *Extend [Program 4.2](#program-42) and [Program 4.3](#program-43) to support the `-` (subtract) and `/` (divide) operations.*
 
 These are relatively straightforward operations, in both cases we add `-` and `/` as valid operator tokens in `token.h`. In the
-case of [Program 4.2](#program-42) ([Ex4.11a](./Exercise/Ex4_11/Ex4_11a/ex4_11a.c)) we have to note the non-commutativity and the undefined order of function call
+case of [Program 4.2](#program-42) ([Ex4.11a](./Exercises/Ex4_11/Ex4_11a/ex4_11a.c)) we have to note the non-commutativity and the undefined order of function call
 evaluations. This means we have to `pop` the second operand off the stack and store it before we perform the
-second `pop` and `push` the result. The `main` function of [Program 4.3](#program-43) ([Ex4.11b](./Exercise/Ex4_11/Ex4_11b/ex4_11b.c)) does not need
+second `pop` and `push` the result. The `main` function of [Program 4.3](#program-43) ([Ex4.11b](./Exercises/Ex4_11/Ex4_11b/ex4_11b.c)) does not need
 to be modified, `token.h` covers it all.
 
 **Note**: This exercise recognises subtraction as a
 legitimate operation, but does not recognise negative numbers as valid, as this can be interpreted as the unary operation of negation, (see [Exercise 4.12](#exercise-412)).
 
 
-### [Exercise 4.12](./Exercise/Ex4_12/)
+### [Exercise 4.12](./Exercises/Ex4_12/)
 
 *Extend your solution to [Exercise 4.11](#exercise-411) to
 include the unary operator `-` (negation) and `$` (square root). Also, modify the abstract stack machine in [Program 4.2](#program-42) to use floating-point. For example, given the expression*
@@ -167,25 +167,25 @@ include the unary operator `-` (negation) and `$` (square root). Also, modify th
 
 This is a little bit more involved. 
 
-The symbol overload of `-` for both subtraction and negation is difficult so we make the following changes. For postfix ([Ex4_12a](./Exercise/Ex4_12/Ex4_12a/ex4_12a.c)) negation is represented by the symbol `~`. For infix ([Ex4_12b](./Exercise/Ex4_12/Ex4_12b/ex4_12.c)) we assume that if `-` is not preceded by a right bracket or an operand than it must be unary negation. This requires us to modify 
+The symbol overload of `-` for both subtraction and negation is difficult so we make the following changes. For postfix ([Ex4_12a](./Exercises/Ex4_12/Ex4_12a/ex4_12a.c)) negation is represented by the symbol `~`. For infix ([Ex4_12b](./Exercises/Ex4_12/Ex4_12b/ex4_12.c)) we assume that if `-` is not preceded by a right bracket or an operand than it must be unary negation. This requires us to modify 
 `TOKENfromStr` to store the last extracted token as
 a static variable in the function.
 
-To change the stack to be able to use `double` we have to update the typedef and the macros which we copy across from [Exercise 4.1](../AbstractObjects/index.md#exercise-41) for  the [Item.h](./Exercise/Ex4_12/Ex4_12a/Item.h) implementation for Ex4_12a.
+To change the stack to be able to use `double` we have to update the typedef and the macros which we copy across from [Exercise 4.1](../AbstractObjects/index.md#exercise-41) for  the [Item.h](./Exercises/Ex4_12/Ex4_12a/Item.h) implementation for Ex4_12a.
 
 **Note:** Exercise 4.12b still requires proper bracketing, i.e. `(-3)` to correctly evaluate an expression. This negative number is parsed as `3 ~`.
 
 The combination of Ex4.12b and Ex4.12a is capable of handling negative floating point integers.
 
-### [Exercise 4.13](./Exercise/Ex4_13/step.ps)
+### [Exercise 4.13](./Exercises/Ex4_13/step.ps)
 
 *Write a PostScript program that draws a simple step function*
 
-See [step.ps](./Exercise/Ex4_13/step.ps) which generates the figure below.
-![step function](./Exercise/Ex4_13/ex4_13.png)
+See [step.ps](./Exercises/Ex4_13/step.ps) which generates the figure below.
+![step function](./Exercises/Ex4_13/ex4_13.png)
 
 
-### [Exercise 4.15](./Exercise/Ex4_15/ex4_15.c)
+### [Exercise 4.15](./Exercises/Ex4_15/ex4_15.c)
 
 *Write a program that converts a postfix expression to infix, using a pushdown stack.*
 
@@ -202,27 +202,27 @@ postfix as follows
 As usual we use a `token.h` method to assist in parsing.
 
 
-### [Exercise 4.16](./Exercise/Ex4_16/ex4_16.c)
+### [Exercise 4.16](./Exercises/Ex4_16/ex4_16.c)
 
 *Combine [Program 4.2](#program-42) and [Program 4.3](#program-43) into a single module that uses two different stack ADTs: a stack of operators and a stack of operands.*
 
 **Note**: We have partially generalised the original exercise to from *a stack of integers* to *a stack of operands*. This is because we will base our implementation off the more complete implementations in [Exercise 4.12](#exercise-412).
 
-### [Exercise 4.17](./Exercise/Ex4_17/)
+### [Exercise 4.17](./Exercises/Ex4_17/)
 
 *Implement a compiler and interpreter for a programming language where each program consists of a single arithmetic expression preceded by a sequence of assignment statements with arithmetic expressions involving numbers and variables named with single lower case characters.*
 
-The compiler is implemented through a [shell script](./Exercise/Ex4_17/Compiler/MathCompiler.sh). We effectively
-use transpilation by [transpiler.c](./Exercise/Ex4_17/Compiler/dependencies/transpiler.c). A partially completed
-[header.partial](./Exercise/Ex4_17/Compiler/dependencies/head.partial) contains the required variable declarations,
-while the [tail.partial](./Exercise/Ex4_17/Compiler/dependencies/tail.partial) closes off the file. The transpilation file then simply copies across the expressions into an intermediate .c file, performing bracket counting to convert `$` to `sqrt` correctly (track the number of open brackets when encountered, close it off when we find the corresponding close bracket.) and assigning each step to a result variable. Since the last line must be the assignment statement, we
+The compiler is implemented through a [shell script](./Exercises/Ex4_17/Compiler/MathCompiler.sh). We effectively
+use transpilation by [transpiler.c](./Exercises/Ex4_17/Compiler/dependencies/transpiler.c). A partially completed
+[header.partial](./Exercises/Ex4_17/Compiler/dependencies/head.partial) contains the required variable declarations,
+while the [tail.partial](./Exercises/Ex4_17/Compiler/dependencies/tail.partial) closes off the file. The transpilation file then simply copies across the expressions into an intermediate .c file, performing bracket counting to convert `$` to `sqrt` correctly (track the number of open brackets when encountered, close it off when we find the corresponding close bracket.) and assigning each step to a result variable. Since the last line must be the assignment statement, we
 print the last result.
 
 This completed C file is then made by concatenating the header, the output and the tail, and then the compilation
 script calls gcc. For a specific architecture as long as the user has bash they can modify the compiler argument
 in the compile script to their compiler of choice.
 
-The interpreter works similar to [Ex4.16](./Exercise/Ex4_16/) except with some modifications. First we now read lines from standard input rather than taking one line as an argument. We also wrap the `Number` item in a `NumericToken` which accounts for numeric objects potentially being variables. `parse.h` handles most of the 
+The interpreter works similar to [Ex4.16](./Exercises/Ex4_16/) except with some modifications. First we now read lines from standard input rather than taking one line as an argument. We also wrap the `Number` item in a `NumericToken` which accounts for numeric objects potentially being variables. `parse.h` handles most of the 
 parsing of a line, and maintains arrays indicating if a variable has been set and if so what value it has. When
 a variable is used as part of an evaluation we perform a lookup to get its value.
 
@@ -270,22 +270,21 @@ a successful expression evaluation then, since assignment leaves no variables on
 ```
 Observe that we don't remove values on popping, they are just overwritten by pushes.
 
-### [Exercise 4.19](./Exercise/Ex4_19/)
+### [Exercise 4.19](./Exercises/Ex4_19/)
 
 *Suppose that you change the pushdown-stack interface to replace `test if empty` by `count`, which should return the number of items currently in the data structure. Provide
 implementations for `count` for the array representation ([Program 4.4](#program-44)) and the linked-list representation ([Program 4.5](#program-45)).*
 
-See the array implementation in [Ex4.19a](./Exercise/Ex4_19/Ex4_19a/stackArray.c). Note in this case we can use the stack head pointer to answer this in constant time.
+See the array implementation in [Ex4.19a](./Exercises/Ex4_19/Ex4_19a/stackArray.c). Note in this case we can use the stack head pointer to answer this in constant time.
 
-See the linked list implementation in [Ex4.19b](./Exercise/Ex4_19/Ex4_19b/stackList.c). Note in this case we have to traverse the list, so this takes as long as the length
+See the linked list implementation in [Ex4.19b](./Exercises/Ex4_19/Ex4_19b/stackList.c). Note in this case we have to traverse the list, so this takes as long as the length
 of the list.
 
-### [Exercise 4.20](./Exercise/Ex4_20/stackArray_v3.c)
+### [Exercise 4.20](./Exercises/Ex4_20/stackArray_v3.c)
 
 *Modify the array-based pushdown-stack implementation in the
 text to call a function `STACKerror` if the client attempts
-to `pop` when the stack is empty or to `push` when the stack
-is full.* 
+to `pop` when the stack is empty, to `push` when the stack is full, or the call to `init` fails.* 
 
 The exercise doesn't specify the behaviour of `STACKerror` so
 we choose to have it print an appropriate error message on
@@ -294,7 +293,7 @@ we choose to have it print an appropriate error message on
 We update the `STACKpop` interface to now return a `bool` code indicating if the pop was successful, and to return the popped
 value via a function argument `Item* dest`.
 
-### [Exercise 4.21](./Exercise/Ex4_21/stackList_v3.c)
+### [Exercise 4.21](./Exercises/Ex4_21/stackList_v3.c)
 
 *Modify the linked-list-based pushdown-stack implementation in the
 text to call a function `STACKerror` if the client attempts
@@ -305,7 +304,7 @@ As before the exercise doesn't specify the behaviour so we choose to have it pri
 As before we update the `STACKpop` interface to now return a `bool` code indicating if the pop was successful, and to return the popped
 value via a function argument `Item* dest`.
 
-### [Exercise 4.22](./Exercise/Ex4_22/StackListArray.c)
+### [Exercise 4.22](./Exercises/Ex4_22/StackListArray.c)
 
 *Modify the linked-list-based pushdown-stack implementation
 in the text to use an array of indices to implement the list*
@@ -316,7 +315,7 @@ On initialisation the next value of each index is set to the next index i.e. `ne
 
 When we push and make a new node, we take the first free node and make it point to the current head, then make it the new head. When we pop a node is returned to the head of the free list.
 
-### [Exercise 4.23](./Exercise/Ex4_23/StackListOrdered.c)
+### [Exercise 4.23](./Exercises/Ex4_23/StackListOrdered.c)
 
 *Write a linked-list-based pushdown-stack implementation that
 keeps items on the list in order from least recently inserted to most recently inserted. You will need to use a doubly linked-list.*
@@ -325,7 +324,7 @@ We use a circular doubly linked list with a dummy head. This
 means that the least recently inserted node is always given as
 the `head->next` and the most recently inserted node is `head->prev`.
 
-### [Exericise 4.24](./Exercise/Ex4_24/doubleStackArray.c)
+### [Exericise 4.24](./Exercises/Ex4_24/doubleStackArray.c)
 
 *Develop an ADT that provides clients with two different pushdown stacks. Use an array implementation. Keep one
 stack at the beginning of teh array and the other at the end.
@@ -333,7 +332,7 @@ stack at the beginning of teh array and the other at the end.
 other shrinks, this implementation uses less space than
 alternatives.)*
 
-We build off the `stack_v3.h` interface from the preceding exercises to define [doubleStack.h](./Exercise/Ex4_24/doubleStack.h). Similar to our approach in [Exercise 4.16](#exercise-416) we duplicate most of the functions providing a `STACKlowerfn` and a `STACKupperfn` to operate on the top and bottom stack respectively. However we use a single allocation. Obviously another method would be to use one function but update the signature with a flag value to indicate which stack to apply the function to.
+We build off the `stack_v3.h` interface from the preceding exercises to define [doubleStack.h](./Exercises/Ex4_24/doubleStack.h). Similar to our approach in [Exercise 4.16](#exercise-416) we duplicate most of the functions providing a `STACKlowerfn` and a `STACKupperfn` to operate on the top and bottom stack respectively. However we use a single allocation. Obviously another method would be to use one function but update the signature with a flag value to indicate which stack to apply the function to.
 
 The implementation is pretty straightforward, we have two counters `lN` which tracks the next index
 free for the lower stack and `uN` which tracks the last index used by the upper stack. This makes the
@@ -350,11 +349,11 @@ for the lower stack is the top of the upper stack.
 Compared to our Exercise 4.16 implementation, both ends of the stack here have to have the same type.
 
 
-### [Exercise 4.25](./Exercise/Ex4_25/ex4_25.c)
+### [Exercise 4.25](./Exercises/Ex4_25/ex4_25.c)
 
 *Modify [Exercise 4.16](#exercise-416) to use the ADT developed in [Exercise 4.24](#exercise-424).*
 
-This is a pretty straightforward change, except we have to wrap `Operator` and `Number` types in a `Union` type defined in [Item.h](./Exercise/Ex4_25/Item.h) to allow us to put them both on the same stack, and `typedef` this as `ITEM` to allow us to put it on the our usual stack implementations.
+This is a pretty straightforward change, except we have to wrap `Operator` and `Number` types in a `Union` type defined in [Item.h](./Exercises/Ex4_25/Item.h) to allow us to put them both on the same stack, and `typedef` this as `ITEM` to allow us to put it on the our usual stack implementations.
 
 Note that we don't implement the full `ITEM` interface since we make no reference to it. Since from context we
 always know which element of the `Union` is active we don't have to keep an `enum` around to track the contents

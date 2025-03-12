@@ -1,12 +1,10 @@
 /**
- * @file QueueList.c
+ * @file QueueList_v2.c
  * @author Felix Lempriere
- * @brief This code implements the Queue interface in Program 4.9 using
- * a linked list. The implementation is very similar to Program 4.5's
- * implementation of the stack interface with a linked list.
+ * @brief Updates the QueueList implementation to conform to the
+ * Queue_v2.h interface with error handling capability. Calling QUEUEerror
+ * where appropriate.
  *
- * To maintain the queue policy of removing the oldest first, we maintain
- * a pointer to the tail of the list, and new nodes are added as the new tail.
  * @version 0.1
  * @date 2025-03-11
  * 
@@ -14,9 +12,10 @@
  * 
  */
 
+ #include <stdio.h>
  #include <stdlib.h>
  #include "../../../AbstractObjects/Examples/intItem/Item.h"
- #include "../Program4_9/Queue.h"
+ #include "../Ex4_32/Queue_v2.h"
 
  /**
   * @brief Structure for a node containing an
@@ -57,34 +56,52 @@
   */
  static QUEUEnode* NEW(Item item, QUEUEnode* next) {
     QUEUEnode* x = malloc(sizeof(typeof(*x)));
+    if (!x) {
+        QUEUEerror("failed to allocate memory for new Queue element");
+        return next;
+    }
     x->item = item;
     x->next = next;
     return x;
  }
 
- void QUEUEinit(size_t size) {
+ bool QUEUEinit(size_t size) {
     head = nullptr;
+    return true;
  }
 
  bool QUEUEempty(void) {
     return !head;
  }
 
- void QUEUEput(Item i) {
+ bool QUEUEput(Item i) {
     if (!head) {
         head = (tail = NEW(i, head));
-        return;
+        return head; // head must be nolonger null if succeeded.
     }
+    //tail->next is always nullptr, so check for failure by nullptr
     tail->next = NEW(i, tail->next);
+    if (!(tail->next)) return false;
     tail = tail->next;
+    return true;//tail must have changed if succeeded.
  }
 
- Item QUEUEget(void) {
-    Item item = head->item;
+ bool QUEUEget(Item* dest) {
+
+    if (QUEUEempty()) {
+        QUEUEerror("Queue is empty");
+        return false;
+    }
+
+    *dest = head->item;
     QUEUEnode* t = head->next;
     free(head);
     head = t;
-    return item;
+    return true;
+ }
+
+ void QUEUEerror(char *msg) {
+    fprintf(stderr, "Error: %s\n", msg);
  }
 
 

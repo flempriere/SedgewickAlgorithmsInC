@@ -16,7 +16,7 @@
 
  #include <stdlib.h>
  #include "../../../AbstractObjects/Examples/intItem/Item.h"
- #include "../Program4_9/Program4_9.h"
+ #include "../Program4_9/Queue.h"
 
  /**
   * @brief Array representing the Queue.
