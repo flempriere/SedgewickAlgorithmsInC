@@ -1,7 +1,8 @@
 /**
  * @file DequeArray.c
  * @author Felix Lempriere
- * @brief Array implementation of a Deque based on the Deque.h interface.
+ * @brief Extends the Array implementation of Deque to conform to the Deque_v2
+ * interface.
  *
  * @version 0.1
  * @date 2025-03-11
@@ -12,8 +13,8 @@
 
  #include <stdio.h>
  #include <stdlib.h>
- #include "../../../AbstractObjects/Examples/intItem/Item.h"
- #include "../Ex4_37/Deque.h"
+ #include "AsciiItem.h"
+ #include "Deque_v2.h"
 
  /**
   * @brief Array representing the Queue.
@@ -120,4 +121,11 @@
 
  void DEQUEerror(char *msg) {
     fprintf(stderr, "Error: %s\n", msg);
+ }
+
+
+ void DEQUEdump(void) {
+    for (size_t i = head; (i % N) != tail; i = (i + 1) % N) {
+        ITEMshow(q[i]);
+    }
  }

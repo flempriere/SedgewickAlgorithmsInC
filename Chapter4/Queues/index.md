@@ -42,33 +42,35 @@ FIRS*T*IN***FI*RS***T*OUT*****
 [F][I][ ][ ][ ][ ][ ][ ][ ][ ][ ] I (h = N, t = 2)
 [F][I][R][ ][ ][ ][ ][ ][ ][ ][ ] R (h = N, t = 3)
 [F][I][R][S][ ][ ][ ][ ][ ][ ][ ] S (h = N, t = 4)
-[ ][I][R][S][ ][ ][ ][ ][ ][ ][ ] * (h = 1, t = 4)
-[ ][I][R][S][T][ ][ ][ ][ ][ ][ ] T (h = 1, t = 5)
-[ ][ ][R][S][T][ ][ ][ ][ ][ ][ ] * (h = 2, t = 5)
-[ ][ ][R][S][T][I][ ][ ][ ][ ][ ] I (h = 2, t = 6)
-[ ][ ][R][S][T][I][N][ ][ ][ ][ ] N (h = 2, t = 7)
-[ ][ ][ ][S][T][I][N][ ][ ][ ][ ] * (h = 3, t = 7)
-[ ][ ][ ][ ][T][I][N][ ][ ][ ][ ] * (h = 4, t = 7)
-[ ][ ][ ][ ][ ][I][N][ ][ ][ ][ ] * (h = 5, t = 7)
-[ ][ ][ ][ ][ ][I][N][F][ ][ ][ ] F (h = 5, t = 8)
-[ ][ ][ ][ ][ ][I][N][F][I][ ][ ] I (h = 5, t = 9)
-[ ][ ][ ][ ][ ][ ][N][F][I][ ][ ] * (h = 6, t = 9)
-[ ][ ][ ][ ][ ][ ][N][F][I][R][ ] R (h = 6, t = 0)
-[S][ ][ ][ ][ ][ ][N][F][I][R][ ] S (h = 6, t = 1)
-[S][ ][ ][ ][ ][ ][ ][F][I][R][ ] * (h = 7, t = 1)
-[S][ ][ ][ ][ ][ ][ ][ ][I][R][ ] * (h = 8, t = 1)
-[S][ ][ ][ ][ ][ ][ ][ ][ ][R][ ] * (h = 9, t = 1)
-[S][T][ ][ ][ ][ ][ ][ ][ ][R][ ] T (h = 9, t = 2)
-[S][T][ ][ ][ ][ ][ ][ ][ ][ ][ ] * (h = 10, t = 2)
-[S][T][O][ ][ ][ ][ ][ ][ ][ ][ ] O (h = 10, t = 3)
-[S][T][O][U][ ][ ][ ][ ][ ][ ][ ] U (h = 10, t = 4)
-[S][T][O][U][T][ ][ ][ ][ ][ ][ ] T (h = 10, t = 5)
-[ ][T][O][U][T][ ][ ][ ][ ][ ][ ] * (h = 1, t = 5)
-[ ][ ][O][U][T][ ][ ][ ][ ][ ][ ] * (h = 2, t = 5)
-[ ][ ][ ][U][T][ ][ ][ ][ ][ ][ ] * (h = 3, t = 5)
-[ ][ ][ ][ ][T][ ][ ][ ][ ][ ][ ] * (h = 4, t = 5)
-[ ][ ][ ][ ][ ][ ][ ][ ][ ][ ][ ] * (h = 5, t = 5)
+[F][I][R][S][ ][ ][ ][ ][ ][ ][ ] * (h = 1, t = 4)
+[F][I][R][S][T][ ][ ][ ][ ][ ][ ] T (h = 1, t = 5)
+[F][I][R][S][T][ ][ ][ ][ ][ ][ ] * (h = 2, t = 5)
+[F][I][R][S][T][I][ ][ ][ ][ ][ ] I (h = 2, t = 6)
+[F][I][R][S][T][I][N][ ][ ][ ][ ] N (h = 2, t = 7)
+[F][I][R][S][T][I][N][ ][ ][ ][ ] * (h = 3, t = 7)
+[F][I][R][S][T][I][N][ ][ ][ ][ ] * (h = 4, t = 7)
+[F][I][R][S][T][I][N][ ][ ][ ][ ] * (h = 5, t = 7)
+[F][I][R][S][T][I][N][F][ ][ ][ ] F (h = 5, t = 8)
+[F][I][R][S][T][I][N][F][I][ ][ ] I (h = 5, t = 9)
+[F][I][R][S][T][I][N][F][I][ ][ ] * (h = 6, t = 9)
+[F][I][R][S][T][I][N][F][I][R][ ] R (h = 6, t = 0)
+[S][I][R][S][T][I][N][F][I][R][ ] * (h = 7, t = 1)
+[S][I][R][S][T][I][N][F][I][R][ ] * (h = 8, t = 1)
+[S][I][R][S][T][I][N][F][I][R][ ] * (h = 9, t = 1)
+[S][T][R][S][T][I][N][F][I][R][ ] T (h = 9, t = 2)
+[S][T][R][S][T][I][N][F][I][R][ ] * (h = 10, t = 2)
+[S][T][O][S][T][I][N][F][I][R][ ] O (h = 10, t = 3)
+[S][T][O][U][T][I][N][F][I][R][ ] U (h = 10, t = 4)
+[S][T][O][U][T][I][N][F][I][R][ ] T (h = 10, t = 5)
+[S][T][O][U][T][I][N][F][I][R][ ] * (h = 1, t = 5)
+[S][T][O][U][T][I][N][F][I][R][ ] * (h = 2, t = 5)
+[S][T][O][U][T][I][N][F][I][R][ ] * (h = 3, t = 5)
+[S][T][O][U][T][I][N][F][I][R][ ] * (h = 4, t = 5)
+[S][T][O][U][T][I][N][F][I][R][ ] * (h = 5, t = 5)
 ```
+
+**Note**: On `get` operations we don't actually clear
+the array, we simply move the indices to `head` and `tail` this results in values that have been removed from the queue being *overwritten.*
 
 ### Exercise 4.31
 
@@ -109,7 +111,7 @@ EAs+Y+QUE**+st+*+IO*n++*.
 
 **Answer:**
 ```
-AYsEEUtQsIn
+AYsEEUtQsOIn
 ```
 
 ### Exercise 4.35
@@ -149,7 +151,54 @@ of deque operations in the sense of [Exercise 4.35](#exercise-435).*
  
  **Note:** We use the similar principle of [Ex4.24](../PushdownStack/index.md#exercise-424) by growing each stack from a different end of the array.
 
+### [Exercise 4.37](./Exercises/Ex4_37/Deque.h)
 
+*Write an interface for the Deque ADT.*
+
+We define the interface in [Deque.h](./Exercises/Ex4_37/Deque.h) and base it off the Queue interface with error handling introduced for [Exercise 4.32](#exercise-432). The main change is the introduction
+of a enum to indicate if we `get` or `put` at the start
+or end of the Deque.
+
+### [Exercise 4.38](./Exercises/Ex4_38/DequeArray.c)
+
+*Provide an implementation for the Deque interface from [Ex 4.37](#exercise-437) that uses an array for
+the underlying data structure.*
+
+This is a straightforward extension. For simplicity
+we introduce internal helper functions `getfromBeginning`, `getfromEnd` and their respective put variants to simplify implementation. `DEQUEget` and `DEQUEput` will then defer to the correct version.
+
+The actual code is basically just the queue code from [Ex 4.32](#exercise-432) but when we put on the beginning we decrement the `head` (wrapping as needed) and when we `get` from the end we decrement the `tail`.
+
+### [Exercise 4.39](./Exercises/Ex4_39/DequeList.c)
+
+*Provide an implementation for your deque interface ([Ex 4.37](#exercise-439)) that uses a doubly linked list for the underlying data structure.*
+
+This is actually very straightforward to do with a *circular doubly-linked list with a dummy head.* In this case, we add to the beginning by inserting the new node as `head->next`, and add to the end by adding the new node as `head->prev`. The removal is equally straightforward. 
+
+The other modifications are then our `DEQUEempty` condition becomes `head = head->next`, i.e. just a self-referential dummy node and `DEQUEinit` now instantiating the dummy node.
+
+
+
+### [Exercise 4.40](./Exercises/Ex4_40/Queue_circularList.c)
+
+*Provide an implementation for the `FIFO` queue interface in the text ([Program 4.9](#program-49)) that uses a circular list for the underlying data structure.* 
+
+A singly linked circular list doesn't provide a natural structure for the Queue, since if we naively
+insert nodes at the beginning the the first node to remove points back to the head, i.e. the opposite direction. 
+
+This implementation ends up being similar to
+the linear approach in [Program 4.10](#program-410). We use a `head` and `tail` to keep track of the start and end of the list.
+-  We set the head to a `nullptr` for an initial empty list, and on first insert of a node `new` set `head = tail = new`.
+- For normal puts, insert the new node at the end and adjust the tail, maintaining circularity. `tail->next = new; tail = new; new->next = head`.
+- For gets simply remove the first and adjust the head, but we have to additionally check, if the list is going to be *empty* `(head == tail)` to set head back to `nullptr`.
+- The empty condition is still `head == nullptr`.
+
+
+### [Exercise 4.41](./Exercises/Ex4_41/run_Deque.c)
+
+*Write a client that tests your Deque ADT ([Exercise 4.37](#exercise-437)) by reading, as the first argument on the command line, a string of commands like those given in [Exercise 4.34](#exercise-434) then performing the indicated operations. Add a function DQdump to the interface and implementations and print out the contents of the deque after each operation.*
+
+The implementations of these are all straight forward. See the [test file](./Exercises/Ex4_41/run_Deque.c), the [array implementation](./Exercises/Ex4_41/DequeArray_v2.c) and the [linked list implementation](./Exercises/Ex4_41/DequeList_v2.c).
 
 
 
