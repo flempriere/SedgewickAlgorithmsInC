@@ -194,11 +194,39 @@ the linear approach in [Program 4.10](#program-410). We use a `head` and `tail` 
 - The empty condition is still `head == nullptr`.
 
 
-### [Exercise 4.41](./Exercises/Ex4_41/run_Deque.c)
+### [Exercise 4.41](./Exercises/Ex4_41/)
 
 *Write a client that tests your Deque ADT ([Exercise 4.37](#exercise-437)) by reading, as the first argument on the command line, a string of commands like those given in [Exercise 4.34](#exercise-434) then performing the indicated operations. Add a function DQdump to the interface and implementations and print out the contents of the deque after each operation.*
 
 The implementations of these are all straight forward. See the [test file](./Exercises/Ex4_41/run_Deque.c), the [array implementation](./Exercises/Ex4_41/DequeArray_v2.c) and the [linked list implementation](./Exercises/Ex4_41/DequeList_v2.c).
+
+
+### [Exercise 4.42](./Exercises/Ex4_42/)
+
+*Build a Random-Queue ADT by writing an interface and implementation that uses an array as the underlying data structure. Make sure each operation takes constant time.*
+
+The [interface](./Exercises/Ex4_42/RandomQueue.h)  is identical to the error handling queue interface from [Exercise 4.32](#exercise-432). The changed behaviour is encoded in the commented spec for `RANDOMQUEUEget` which requires that the returned element is selected uniformly at random from those elements on the Random-Queue.
+
+The array implementation is very similar to the stack. We maintain an array, and a pointer to the next free element, filling bottom up.
+- On `put` calls, we place the new element in the first free index and iterate the pointer like a stack.
+- On `get` calls we uniformly select the idx of the item to remove, then swap the contents with the item in the last idx. We the return the last idx, now containing this value, and decrease the size.
+
+This strategy avoids having shift the entire array contents down when we remove an idx that isn't the top. The 'removed' value is overwritten by subsequent `puts`. 
+
+
+### [Exercise 4.43](./Exercises/Ex4_43/)
+
+*Build a random-queue ADT by writing an interface and implementation that uses a linked list as the underlying data structure. Provide implementations for `insert` and `delete`that are as efficient as you can make them, and analyse their worst-case cost.*
+
+**TODO**: Implement.
+
+### [Exercise 4.44](./Exercises/Ex4_44/lottery.c)
+
+*Write a client that picks numbers for a lottery by putting the numbers `1` through `99` on a rondom queue, then prints the result of removing five of them.*
+
+This is a straightforward exercise in using the random queue ADT. We simply call `put` to put the numbers on the queue then call `get` five times and print the output.
+
+
 
 
 
