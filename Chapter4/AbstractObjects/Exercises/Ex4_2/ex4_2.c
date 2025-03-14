@@ -50,25 +50,25 @@ int main(void) {
 
     printf("Testing for equality (%f, %f) and (%f, %f),"
         "result: %s, expected: true\n",
-            P.x, P.y, P.x, P.y, eq(P, P) ? "true" : "false");
+            P.x, P.y, P.x, P.y, ITEMeq(P, P) ? "true" : "false");
 
     printf("Testing for equality (%f, %f) and (%f, %f),"
         "result: %s, expected: true\n",
-            P.x, P.y, Q.x, Q.y, eq(P, Q) ? "true" : "false");
+            P.x, P.y, Q.x, Q.y, ITEMeq(P, Q) ? "true" : "false");
 
     printf("Testing for equality (%f, %f) and (%f, %f),"
         "result: %s, expected: true\n",
-            P.x, P.y, R.x, R.y, eq(P, R) ? "true" : "false");
+            P.x, P.y, R.x, R.y, ITEMeq(P, R) ? "true" : "false");
 
     printf("Testing for equality (%f, %f) and (%f, %f),"
         "result: %s, expected: true\n",
-            Q.x, Q.y, R.x, R.y, eq(Q, R) ? "true" : "false");
+            Q.x, Q.y, R.x, R.y, ITEMeq(Q, R) ? "true" : "false");
 
     printf("Testing for equality (%f, %f) and (%f, %f),"
         "result: %s, expected: false\n",
-            P.x, P.y, S.x, S.y, eq(P, S) ? "true" : "false");
+            P.x, P.y, S.x, S.y, ITEMeq(P, S) ? "true" : "false");
     printf("Testing for equality (0.0, 0.0) and (0, 0)\nResult: %s, Expected: true\n",
-        eq(zeroFloat,zeroInt) ? "true" : "false");
+        ITEMeq(zeroFloat,zeroInt) ? "true" : "false");
 
     return EXIT_SUCCESS;
 }

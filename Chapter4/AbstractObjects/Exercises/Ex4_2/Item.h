@@ -19,4 +19,4 @@
  */
 typedef point Item;
 
-#define eq(A, B) (PointEq(A, B))
+#define ITEMeq(A, B) (POINTeq(A, B))

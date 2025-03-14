@@ -16,14 +16,10 @@
  */
 #pragma once
 
-/**
- * @brief Typedef for Item, in a true implementation this would
- * come from an Item.h or similar source.
- * 
- */
-typedef int Item;
 
 #include <stdlib.h>
+#include "../../../AbstractObjects/Examples/intItem/Item.h"
+
 /**
  * @brief Maximum capacity of the stack
  * 

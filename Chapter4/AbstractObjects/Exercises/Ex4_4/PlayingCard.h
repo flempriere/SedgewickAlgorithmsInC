@@ -11,8 +11,8 @@ underlying type.*/
  * @brief enum for card value, 
  * supports JOKERS
  */
-typedef enum {JOKER, ACE, TWO, THREE, FOUR, FIVE, SIX, SEVEN,
-    EIGHT, NINE, TEN, JACK, QUEEN, KING} e_cardValue; /*joker set to 0, so
+typedef enum {PLAYINGCARD_JOKER, PLAYINGCARD_ACE, PLAYINGCARD_TWO, PLAYINGCARD_THREE, PLAYINGCARD_FOUR, PLAYINGCARD_FIVE, PLAYINGCARD_SIX, PLAYINGCARD_SEVEN,
+    PLAYINGCARD_EIGHT, PLAYINGCARD_NINE, PLAYINGCARD_TEN, PLAYINGCARD_JACK, PLAYINGCARD_QUEEN, PLAYINGCARD_KING} e_PLAYINGCARDValue; /*joker set to 0, so
     other cards indices line up with their traditional points value */
 /**
  * @brief enum for suit,
@@ -20,18 +20,18 @@ typedef enum {JOKER, ACE, TWO, THREE, FOUR, FIVE, SIX, SEVEN,
  * 
  */
 typedef enum {
-    NONE = 0x0u,
-    HEART = 0x01u,
-    DIAMOND = (HEART << 1),
-    RED = (HEART | DIAMOND),
-    CLUB = (DIAMOND << 1),
-    SPADE = (CLUB << 1),
-    BLACK = (CLUB | SPADE),
-    ALL = (RED | BLACK)
-} e_cardSuit;
+    PLAYINGCARD_NONE = 0x0u,
+    PLAYINGCARD_HEART = 0x01u,
+    PLAYINGCARD_DIAMOND = (PLAYINGCARD_HEART << 1),
+    PLAYINGCARD_RED = (PLAYINGCARD_HEART | PLAYINGCARD_DIAMOND),
+    PLAYINGCARD_CLUB = (PLAYINGCARD_DIAMOND << 1),
+    PLAYINGCARD_SPADE = (PLAYINGCARD_CLUB << 1),
+    PLAYINGCARD_BLACK = (PLAYINGCARD_CLUB | PLAYINGCARD_SPADE),
+    PLAYINGCARD_ALL = (PLAYINGCARD_RED | PLAYINGCARD_BLACK)
+} e_PLAYINGCARDSuit;
 
 typedef struct {
-    e_cardValue val;
-    e_cardSuit suit;
+    e_PLAYINGCARDValue val;
+    e_PLAYINGCARDSuit suit;
 } PlayingCard;
 

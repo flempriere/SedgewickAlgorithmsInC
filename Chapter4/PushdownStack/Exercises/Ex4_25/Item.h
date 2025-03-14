@@ -12,7 +12,6 @@
 #pragma once 
 #include "Operator.h"
 #include "Number.h"
-#include <stdint.h>
 
 /**
  * @brief Union holding the value of an Item.

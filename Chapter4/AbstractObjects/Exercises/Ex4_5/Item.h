@@ -27,7 +27,7 @@ static const Item ITEM_MAX = INT_MAX;
  * @return @true if equal, else
  * @return @false
  */
-#define eq(A, B) ((A) == (B))
+#define ITEMeq(A, B) ((A) == (B))
 
 /**
  * @brief print the value of an Item

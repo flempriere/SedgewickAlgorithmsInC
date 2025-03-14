@@ -20,13 +20,19 @@
  */
  static PlayingCard dealt[STANDARD_CARDS_IN_DECK + JOKERS_IN_DECK];
 
+/**
+ * @brief Pointer to next free index in the dealt array.
+ * 
+ */
+ static size_t dealtp;
+
  /**
   * @brief array of suit values so we can iterate over them.
   * 
   */
- static e_cardSuit suits[] = {HEART, DIAMOND, SPADE, CLUB};
+ static e_PLAYINGCARDSuit suits[] = {PLAYINGCARD_HEART, PLAYINGCARD_DIAMOND, PLAYINGCARD_SPADE, PLAYINGCARD_CLUB};
 
- static size_t dealtp;
+
 
  bool DECKinit(bool useJokers) {
     //include room for jokers initially unless we 
@@ -35,16 +41,17 @@
     }
     //populate the standard deck.
     for (size_t i = 0; i < 4; i++) {
-        e_cardSuit suit =suits[i];
-        for (e_cardValue value = ACE; value <= KING; value++) {
+        e_PLAYINGCARDSuit suit =suits[i];
+        for (e_PLAYINGCARDValue value = PLAYINGCARD_ACE; value <= PLAYINGCARD_KING; value++) {
             if(!RANDOMQUEUEput((PlayingCard) {.suit = suit, .val=value})) {
                 return false;
             }
         }
     }
+    //if using jokers, add them to the deck.
     if (useJokers) {
-        if(!RANDOMQUEUEput((PlayingCard) {.suit = RED, .val = JOKER})) return false;
-        if(!RANDOMQUEUEput((PlayingCard) {.suit = BLACK, .val = JOKER})) return false;
+        if(!RANDOMQUEUEput((PlayingCard) {.suit = PLAYINGCARD_RED, .val = PLAYINGCARD_JOKER})) return false;
+        if(!RANDOMQUEUEput((PlayingCard) {.suit = PLAYINGCARD_BLACK, .val = PLAYINGCARD_JOKER})) return false;
     }
     return true;
  }
@@ -65,6 +72,7 @@
     }
     for (size_t idx = 0; idx < nCards; idx++) {
         if (!RANDOMQUEUEget(hand + idx)) {
+            dealt[dealtp++] = hand[idx]; //store dealt card.
             free(hand);
             return nullptr;
         }

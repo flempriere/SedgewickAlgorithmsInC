@@ -31,4 +31,4 @@ struct point {
  * @return true if equal else
  * @return false
  */
-#define PointEq(P, Q) ((CoordinateEq(P.x, Q.x)) && CoordinateEq(P.y, Q.y))
+#define POINTeq(P, Q) ((COORDINATEeq(P.x, Q.x)) && COORDINATEeq(P.y, Q.y))

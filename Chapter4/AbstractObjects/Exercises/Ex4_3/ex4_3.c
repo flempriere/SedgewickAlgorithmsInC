@@ -26,11 +26,11 @@ int main(int argc, char* argv[argc]) {
     numericItem b = 1;
 
     printf("Testing numericItem equality, expected: true, result: %s\n",
-        numEq(a,a) ? "true" : "false");
+        NUMBEReq(a,a) ? "true" : "false");
     printf("Testing numericItem equality, expected: false, result: %s\n",
-        numEq(a,b) ? "true" : "false");
+        NUMBEReq(a,b) ? "true" : "false");
     
-    printf("Testing numericItemshow. Expected: 0, result: "); numItemshow(a);
+    printf("Testing numericItemshow. Expected: 0, result: "); NUMBERitemShow(a);
     printf("\n");
 
     //testing strItem
@@ -38,11 +38,11 @@ int main(int argc, char* argv[argc]) {
     strItem d = "wordle";
 
     printf("Testing strItem equality, expected: true, result: %s\n",
-        strEq(c,c) ? "true" : "false");
+        STRINGeq(c,c) ? "true" : "false");
     printf("Testing strItem equality, expected: false, result: %s\n",
-        strEq(c,d) ? "true" : "false");
+        STRINGeq(c,d) ? "true" : "false");
     
-    printf("Testing strItemshow. Expected: word, result: "); strItemshow(c);
+    printf("Testing strItemshow. Expected: word, result: "); STRINGitemShow(c);
     printf("\n");
 
     return EXIT_SUCCESS;

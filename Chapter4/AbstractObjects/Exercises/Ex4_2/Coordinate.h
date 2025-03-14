@@ -35,7 +35,7 @@ typedef double Coordinate;
  * @return true i equal else
  * @return false 
  */
-inline bool CoordinateEq(Coordinate A, Coordinate B) {
+inline bool COORDINATEeq(Coordinate A, Coordinate B) {
     Coordinate lgst = (fabs(A) > fabs(B)) ? fabs(A) : fabs(B);
     if (lgst == 0) return true; // both are zero.
     return (fabs(A - B) / lgst < TOL); 

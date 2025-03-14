@@ -40,19 +40,19 @@ int main(void) {
     double d = a + 2*TOL;
 
     printf("Testing eq(%f, %f)\nResult: %s, Expected: true\n",
-        a, a, eq(a,a) ? "true" : "false");
+        a, a, ITEMeq(a,a) ? "true" : "false");
     
     printf("Testing eq(%f, %f)\nResult: %s, Expected: true\n",
-        a, b, eq(a,b) ? "true" : "false");
+        a, b, ITEMeq(a,b) ? "true" : "false");
 
     printf("Testing eq(%f, %f)\nResult: %s, Expected: true\n",
-        a, c, eq(a,c) ? "true" : "false");
+        a, c, ITEMeq(a,c) ? "true" : "false");
     
     printf("Testing eq(%f, %f)\nResult: %s, Expected: false\n",
-        a, d, eq(a,d) ? "true" : "false");
+        a, d, ITEMeq(a,d) ? "true" : "false");
 
     printf("Testing eq(0, 0)\nResult: %s, Expected: true\n",
-        eq(0,0) ? "true" : "false");
+        ITEMeq(0,0) ? "true" : "false");
 
     return EXIT_SUCCESS;
 }

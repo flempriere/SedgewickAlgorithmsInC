@@ -32,7 +32,7 @@ typedef double Item;
  * @return true i equal else
  * @return false 
  */
-inline bool eq(Item A, Item B) {
+inline bool ITEMeq(Item A, Item B) {
     Item lgst = (fabs(A) > fabs(B)) ? fabs(A) : fabs(B);
     if (lgst == 0) return true; //both numbers must be 0
     return (fabs(A - B) / lgst < TOL); 

@@ -130,7 +130,7 @@ asterisk signs in the sequence `EasY` so that the sequence of values returned by
     - **Answer:** `Ea*s*Y++`.
 
 
-### [Exercise 4.36](./Exercises/Ex4_36/)
+### [Exercise 4.36](./Exercises/Ex4_36/ex4_36.c)
 
 *Given two sequences, give an algorithm for
 determining whether or not it is possible to
@@ -214,7 +214,7 @@ The array implementation is very similar to the stack. We maintain an array, and
 This strategy avoids having shift the entire array contents down when we remove an idx that isn't the top. The 'removed' value is overwritten by subsequent `puts`. 
 
 
-### [Exercise 4.43](./Exercises/Ex4_43/)
+### [Exercise 4.43](./Exercises/Ex4_43/RandomQueue_List.c)
 
 *Build a random-queue ADT by writing an interface and implementation that uses a linked list as the underlying data structure. Provide implementations for `insert` and `delete`that are as efficient as you can make them, and analyse their worst-case cost.*
 

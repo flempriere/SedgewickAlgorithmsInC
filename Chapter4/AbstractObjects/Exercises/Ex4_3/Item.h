@@ -28,13 +28,13 @@ typedef int numericItem;
  * @return true if equal, else
  * @return false
  */
-#define numEq(A, B) ((A) == (B))
+#define NUMBEReq(A, B) ((A) == (B))
 
 /**
  * @brief print the value of a numericItem
  * 
  */
-#define numItemshow(A) printf("%d", A)
+#define NUMBERitemShow(A) printf("%d", A)
 
 // generic type definition for strings example
 
@@ -50,12 +50,12 @@ typedef char* strItem;
  * @return true if equal, else
  * @return false
  */
-#define strEq(A, B) (strcmp(A, B) == 0)
+#define STRINGeq(A, B) (strcmp(A, B) == 0)
 
 /**
  * @brief print the value of a strItem
  * 
  */
-#define strItemshow(A) printf("%s", A)
+#define STRINGitemShow(A) printf("%s", A)
 
 

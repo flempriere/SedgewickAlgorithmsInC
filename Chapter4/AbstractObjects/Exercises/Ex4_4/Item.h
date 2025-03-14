@@ -25,7 +25,7 @@ typedef PlayingCard Item;
  * @brief Test playing card equality
  * 
  */
-#define eq(A, B) ((A.val == B.val) && (A.suit == B.suit))
+#define ITEMeq(A, B) ((A.val == B.val) && (A.suit == B.suit))
 
 /**
  * @brief Symbol table to map suit to print output

@@ -1,8 +1,7 @@
 /**
  * @file StackListArray.c
  * @author Felix Lempriere
- * @brief Stack imlementation utilising a Linked List array
- * implementation.
+ * @brief Stack_v3 implementation utilising a Linked List implemented as an array.
  *
  * 
  * 
@@ -19,13 +18,31 @@
 
  typedef size_t link;
 
+ /**
+  * @brief Values stored in the linked List
+  * 
+  */
  static Item* value;
+ /**
+  * @brief Next node indices array.
+  * 
+  */
  static link* next;
 
- static link head; //stores the link to next use
-
+ /**
+  * @brief head of the in-use list.
+  * 
+  */
+ static link head;
+/**
+ * @brief head of the available nodes list
+ * 
+ */
  static link next_free;
-
+/**
+ * @brief maximum size of the linked list.
+ * 
+ */
  static size_t size;
 
 
