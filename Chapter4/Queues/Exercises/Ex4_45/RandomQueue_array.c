@@ -1,15 +1,8 @@
 /**
  * @file RandomQueue_array.c
  * @author Felix Lempriere
- * @brief Implementation of the random queue interface using an
- * array. We fill the array bottom up, tracking its size, when we perform a
- * get we randomly chose the index and return it. 
- 
- * To avoid shifting the entire
- * array contents we swap the removed item with the item in the index size-1,
- * this preserves the remaining elements in the indices [0 ... (size - 2)] which
- * is the new extent of the array. The removed while will be overwritten by the
- * next write.
+ * @brief Implementation of the RandomQueue using an array, we have changed
+ * the Item.h reference to the Item.h wrapper for a playing card.
  * @version 0.1
  * @date 2025-03-13
  * 
@@ -17,7 +10,7 @@
  * 
  */
 
- #include "../../../AbstractObjects/Examples/intItem/Item.h"
+ #include "Item.h"
  #include "RandomQueue.h"
  #include <stdlib.h>
  #include <stdio.h>
@@ -47,11 +40,11 @@
  * @param B second element to swap
  * 
  */
- #define RANDOMQUEUESWAP(A, B) do { \
-    typeof(A) tmp = (A);            \
-    (A) = (B);                      \
-    (B) = tmp;                      \
- } while(0)                         \
+ #define RANDOMQUEUESWAP(A, B) do {\
+   typeof(A) tmp = (A);            \
+   (A) = (B);                      \
+   (B) = tmp;                      \
+} while(0)                         \
  
  bool RANDOMQUEUEinit(size_t size) {
     rq = malloc(size * sizeof(typeof(*rq)));
@@ -83,7 +76,7 @@
         return false;
     }
     size_t idx = rand() % rq_size;
-    RANDOMQUEUESWAP(rq[idx], rq[rq_size - 1]); //idx to remove to end
+    RANDOMQUEUESWAP(rq[idx], rq[rq_size-1]); //idx to remove to end
     *dest = rq[--rq_size]; //remove last item.
     return true;
  }

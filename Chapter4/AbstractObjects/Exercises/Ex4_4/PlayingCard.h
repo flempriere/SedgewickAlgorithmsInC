@@ -33,5 +33,5 @@ typedef enum {
 typedef struct {
     e_cardValue val;
     e_cardSuit suit;
-} playing_card;
+} PlayingCard;
 

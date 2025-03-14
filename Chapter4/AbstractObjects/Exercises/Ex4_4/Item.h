@@ -19,7 +19,7 @@
  * as a generic item
  * 
  */
-typedef playing_card Item;
+typedef PlayingCard Item;
 
 /**
  * @brief Test playing card equality

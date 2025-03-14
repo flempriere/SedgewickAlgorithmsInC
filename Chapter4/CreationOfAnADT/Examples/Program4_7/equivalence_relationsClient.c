@@ -24,7 +24,7 @@
     size_t p, q;
     size_t N = (size_t) strtoull(argv[1], nullptr, 0);
     if (!N) {
-        fprintf(stderr, "N must be >= 0\n");
+        fprintf(stderr, "N must be > 0\n");
         return EXIT_FAILURE;
     }
 

@@ -218,7 +218,9 @@ This strategy avoids having shift the entire array contents down when we remove 
 
 *Build a random-queue ADT by writing an interface and implementation that uses a linked list as the underlying data structure. Provide implementations for `insert` and `delete`that are as efficient as you can make them, and analyse their worst-case cost.*
 
-**TODO**: Implement.
+We use a doubly-linked circular list with a dummy head, keeping track of the size of the list. We perform `put` operations by inserting a new node at the start. (*As the new `head->next`*) This is a constant time operation. We perform `get` operations by randomly generating an index between `0` and `size` (exluding the endpoint). We then iterate over the list until we reach this node, and then return its value and remove it.
+
+The doubly linked list means that for nodes with indices `> N/2` we can reach them faster by going backwards through the list. This means that the worst case `get` is removing the middle element, which may take up to `N/2 + 1` hops through the list. This is still worst case $\mathcal{O}\left(N\right)$ but it an improvement over a singly linked implementation. 
 
 ### [Exercise 4.44](./Exercises/Ex4_44/lottery.c)
 
@@ -227,6 +229,23 @@ This strategy avoids having shift the entire array contents down when we remove 
 This is a straightforward exercise in using the random queue ADT. We simply call `put` to put the numbers on the queue then call `get` five times and print the output.
 
 
+### [Exericse 4.45](./Exercises/Ex4_45/)
+
+*Write a client that takes an integer `N` from the first argument on the command line, then prints out `N` poker hands, by putting `N` items on a random queue (See [Exercise 4.4](../AbstractObjects/index.md#exercise-44)), then printing out the result of picking five cards at a time from the queue.*
+
+There is a slight ambiquity in the wording here since put `N` cards on a random queue then draw them in sets of `5` would only give `N/5` hands.
+
+So we rework the exercise as such:
+- We introduce `Deck.h` which wraps the `PlayingCard` functionality in a Deck.
+    - Our implemention treats initialisation as putting all the cards on a **Random Queue**.
+- We then deal `N` hands by dealing `5` cards from the Deck.
+    - The deck implementation allocates a dynamic array and fills it with `5` cards by using `get` to randomly select them from the **Random Queue**.
+
+### [Exercise 4.46](./Exercises/Ex4_46/connectivity_problem.c)
+
+*Write a program that solves the connectivity problem by inserting all the pairs on a random queue and then taking the from queue, using the quick-find-weighted algorithm ([Program 1.3](../../Chapter1/index.md#program-13)).* 
 
 
+We will work off our client-implementation model used in [Chapter 4: Creation of a New ADT](../CreationOfAnADT/index.md). We modify the client program in [Exercise 4.27](../CreationOfAnADT/Exercises/Ex4_27/) to now store pairs in a Random Queue while they're read in.
 
+Then while the queue is empty we `get` a pair randomly and process it using the union find implementation in [Exercise 4.28](../CreationOfAnADT/Exercises/Ex4_28/testCountConnected.c) which utilises path compression by halving rather than weighted quick union.

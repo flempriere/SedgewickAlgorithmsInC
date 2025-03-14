@@ -55,6 +55,6 @@ void UFunion(size_t i, size_t j);
  * @param j second node to connect
  *
  * @return size_t index of canonical node if already connected else
- * @return false.
+ * @return NOT_FOUND.
  */
 size_t UFunionFind(size_t i, size_t j);
