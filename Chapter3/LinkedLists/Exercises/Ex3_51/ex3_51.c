@@ -9,7 +9,14 @@ N = 10^3, 10^4, 10^5, 10^6.
 This program will output the timings
 */
 
-#include "ex3_51_interface/list.h"
+#ifdef USE_V2_INTERFACE
+    #include "../Ex3_50/List_v2.h"
+    constexpr bool new_interface = true;
+#else
+    #include "../../Examples/Program3_12-14_ListImplementation/List.h"
+    constexpr bool new_interface = false; 
+#endif
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
@@ -58,21 +65,22 @@ int main(int argc, char* argv[argc+1]) {
     size_t M = DEFAULT_M;
     size_t N = INIT_N;
     srand(time(nullptr));
-    printf("Running with %s list\n", (LIST_MODE) ? "program3.14" : "ex3.50");
+    printf("Running with %s list\n", (new_interface) ? "ex3.50" : "program3_14");
     for (size_t i = 0; i < N_CASES; i++, N *= 10) {
-        printf("Test Case: M: %zu, N: %zu", M, N);
-        clock_t tic = clock();
-        //if (LIST_MODE) initNodes(N); needed for the original allocation
-
-        ListNode* x = newNode(1);
+    printf("Test Case: M: %zu, N: %zu", M, N);
+    clock_t tic = clock();
+    #ifndef USE_V2_INTERFACE
+        LISTinitNodes(N); //needed for the original allocation
+    #endif
+        LISTNode* x = LISTnewNode(1);
         for (size_t i = 2; i <= N; i++) {
-            ListNode* t = newNode(i);
-            insertNext(x, t);
+            LISTNode* t = LISTnewNode(i);
+            LISTinsertNext(x, t);
             x = t;
         }
-        while(x != next(x)) {
-            for (size_t i = 1; i < M; i++) x = next(x);
-            freeNode(deleteNext(x));
+        while(x != LISTnext(x)) {
+            for (size_t i = 1; i < M; i++) x = LISTnext(x);
+            LISTfreeNode(LISTdeleteNext(x));
         }
         clock_t toc = clock();
         printf("\t Time: %g\n", (double)(toc - tic) / CLOCKS_PER_SEC);

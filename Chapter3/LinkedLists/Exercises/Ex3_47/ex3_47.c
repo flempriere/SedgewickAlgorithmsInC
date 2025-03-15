@@ -8,7 +8,7 @@ Note: We use the list interface from Exercise 3.50
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "list.h"
+#include "List_v3.h"
 
 /**
  * @brief Number of test nodes to generate
@@ -27,14 +27,14 @@ Note: We use the list interface from Exercise 3.50
  */
 int main(int argc, char* argv[argc+1]) {
 
-    ListNode* head = newNode(0);
-    ListNode* cur = head;
+    LISTNode* head = LISTnewNode(0);
+    LISTNode* cur = head;
     for (size_t i = 1; i <= N; i++) {
-        insertNext(cur, newNode(i));
-        cur = next(cur);
+        LISTinsertNext(cur, LISTnewNode(i));
+        cur = LISTnext(cur);
     }
-    printList(head);
-    freeAllNodes(head);
-    printList(head);
+    LISTprintList(head);
+    LISTfreeAllNodes(head);
+    LISTprintList(head);
     return EXIT_FAILURE;
 }

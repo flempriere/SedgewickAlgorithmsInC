@@ -59,7 +59,7 @@ the list-processing interface of [Program 3.12-14](#program-312-14)*.
 
 **Circular, never empty**
 - *first insert*: `head->next = head`.
-- *insert t after x*: `t->next; x->next = t;`
+- *insert t after x*: `t->next = x->next; x->next = t;`
 - *delete after x*: `x->next = x->next->next`
 - *traversal loop*: `t = head; do {..., t = t->next;} while(t != head);`
 
@@ -137,7 +137,7 @@ two disjoint circular lists, inserts the list pointed to by
 ### [Exercise 3.27](./Exercises/Ex3_27/ex3_27.c)
 
 *Given pointers `x` and `t` to nodes on a circular list, write
-a code fragment that node following `t` to the position following the node following `x` on the list.*
+a code fragment that moves the node following `t` to the position following the node following `x` on the list.*
 
 **Solution**: Pretty straight forward link manipulation. But we do have to be careful of ensuring the edge cases `x == t`
 `x->next = t` and `t->next = x` work correctly.
@@ -337,7 +337,7 @@ circular list a nullptr terminated list.
 *Write a program that frees the nodes in even positions in
 a linked list*
 
-We follow the approach in [Ex3.49](#exercise-348) but use
+We follow the approach in [Ex3.48](#exercise-348) but use
 a boolean flag we toggle back and forth each step rather
 than performing a modulus operation.
 
@@ -378,7 +378,7 @@ See the sample output in [ex3_52.dat](./Exercises/Ex3_52/ex3_52.dat).
 (each node points to itself or some other node in the set). Prove that you ultimately get into a cycle if you start at any
 given node and follow links.*
 
-**Solution**: Let the set be of size $N$, pick an arbitrary node and follow $N + 1$ links. No since there are only $N$ nodes, by the pigeonhole principle we must have revisited at least one node and therefore entered a cycle.
+**Solution**: Let the set be of size $N$, pick an arbitrary node and follow $N + 1$ links. Now since there are only $N$ nodes, by the pigeonhole principle we must have revisited at least one node and therefore entered a cycle.
 
 
 ### [Exercise 3.54](./Exercises/Ex3_54/ex3_54.c)
@@ -401,7 +401,8 @@ followed, eventually end up on the same cycle.*
 
 We follow a similar approach to [Exercise 3.54](#exercise-354). First we get a representative candidate for the cycle of each node.
 
-If these are both `nullptr` then neither are on a cycle and we check if they are on the same list by scanning one of the nodes until we hit `nullptr` or the other node.
+If these are both `nullptr` then neither are on a cycle and we check if they are on the same list by scanning one of the nodes until we hit `nullptr` or the other node. If this fails
+scan the other node.
 
 If one of the cycle representatives is `nullptr` but the other
 is not, then one of the nodes leads to a cycle while the other

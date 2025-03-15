@@ -7,7 +7,6 @@ first node on a list
 */
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdint.h>
 #include <time.h>
 
 /**
@@ -36,7 +35,7 @@ struct node {
  * 
  * @param head 
  */
-void printList(node* head);
+void LISTprintList(node* head);
 /**
  * @brief move the smallest element of the list
  * starting at h to the start of the list.
@@ -69,17 +68,17 @@ int main(int argc, char* argv[argc+1]) {
     nodes[N].next = nullptr;
 
     printf("Initial List:\n");
-    printList(nodes);
+    LISTprintList(nodes);
     moveSmallestToFront(nodes);
     printf("List after largest moved to end:\n");
-    printList(nodes);
+    LISTprintList(nodes);
     printf("Smallest at the front?: %s\n", 
         (assertSmallestAtFront(nodes) ? "true" : "false"));
 
     return EXIT_SUCCESS;
 }
 
-void printList(node* head) {
+void LISTprintList(node* head) {
     for (head = head->next; head != nullptr; head = head->next) {
         printf("%zu->", head->k);
     }

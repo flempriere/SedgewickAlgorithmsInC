@@ -139,9 +139,13 @@ bool eventuallySameCycle(node* x, node* y) {
     //if one nullptr and other not -> can't be same cycle
     if ((!cyc1 && cyc2) || (cyc1 && !cyc2)) return false;
     //if both nullptr -> linear scan one to find other
+    // then linear scan the other.
     if (!(cyc1 || cyc2)) {
         for (node* h = x; h != nullptr; h = h->next) {
             if (h == y) return true;
+        }
+        for (node* h = y; h != nullptr; h = h->next) {
+            if (h == x) return true;
         }
         return false;
     }

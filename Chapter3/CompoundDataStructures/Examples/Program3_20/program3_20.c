@@ -16,7 +16,7 @@
 #include <stdlib.h>
 #include <stdint.h>
 #include <time.h>
-#include "point.h"
+#include "../../../BuildingBlocks/Exercises/Ex3_8/Point_v2.h"
 
 /**
  * @brief LinkedList node element containing
@@ -25,7 +25,7 @@
  */
 typedef struct node node;
 struct node {
-    point p;
+    Point p;
     node* next;
 };
 
@@ -109,7 +109,7 @@ int main(int argc, char* argv[argc+1]) {
         fprintf(stderr, "Error: invalid value for d, d in (0, sqrt(2))\n");
         return EXIT_FAILURE;
     }
-    if (d*(SIZE_MAX - 2) <= 1.0) {
+    if (d*(double) (SIZE_MAX - 2) <= 1.0) {
         fprintf(stderr, "Error: grid size too large, try increasing d\n");
         return EXIT_FAILURE;
     }
@@ -139,7 +139,7 @@ void gridInsert(double x, double y) {
     for (size_t i = X-1; i <= X+1; i++) {
         for (size_t j = Y-1; j <= Y+1; j++) {
             for (node* s = grid[i][j]; s != nullptr; s = s->next) {
-                if (distance(s->p, t->p) < d) cnt++;
+                if (POINTdistance(s->p, t->p) < d) cnt++;
             }
         } 
     }

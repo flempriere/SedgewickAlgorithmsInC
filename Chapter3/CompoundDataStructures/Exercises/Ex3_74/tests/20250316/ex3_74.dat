@@ -1,0 +1,130 @@
+Test Case 0
+Random directed adjacency matrix: 
+ 1  1  1  1  0  1  1  0  1  1 
+ 0  1  0  1  0  1  1  1  1  0 
+ 0  0  1  1  0  0  0  0  0  1 
+ 1  1  0  1  1  0  0  0  0  0 
+ 0  1  1  0  1  0  0  0  1  0 
+ 1  0  1  1  0  1  1  1  1  0 
+ 0  0  0  0  1  1  1  0  0  0 
+ 0  1  1  1  1  1  1  1  1  1 
+ 1  1  0  1  1  0  1  1  1  1 
+ 0  1  0  1  1  1  1  0  0  1 
+Number of two paths from 7 to 7: 4
+Test Case 1
+Random directed adjacency matrix: 
+ 1  1  0  0  1  1  0  0  0  0 
+ 0  1  0  1  0  0  0  1  0  1 
+ 0  1  1  0  1  1  1  0  1  0 
+ 0  0  0  1  1  1  1  1  1  1 
+ 0  0  1  0  1  0  0  1  0  0 
+ 0  1  1  0  0  1  1  0  1  1 
+ 1  1  0  1  0  0  1  0  0  1 
+ 0  1  1  0  1  1  0  1  0  0 
+ 0  1  0  1  0  0  1  0  1  0 
+ 0  0  0  0  0  1  0  0  1  1 
+Number of two paths from 2 to 4: 2
+Test Case 2
+Random directed adjacency matrix: 
+ 1  0  1  0  0  0  0  1  1  0 
+ 0  1  1  0  0  0  1  0  1  1 
+ 0  1  1  1  1  1  1  1  1  1 
+ 1  0  0  1  0  1  1  1  1  1 
+ 1  1  1  0  1  1  0  0  1  1 
+ 0  0  0  1  0  1  0  0  0  1 
+ 0  0  0  0  1  1  1  0  0  1 
+ 1  1  1  1  1  0  0  1  1  1 
+ 1  0  1  0  0  1  0  0  1  1 
+ 0  1  0  0  1  0  0  1  0  1 
+Number of two paths from 7 to 0: 5
+Test Case 3
+Random directed adjacency matrix: 
+ 1  1  0  1  0  0  0  0  1  0 
+ 0  1  0  1  1  0  1  1  0  1 
+ 1  1  1  1  0  1  0  1  0  1 
+ 1  0  0  1  0  1  0  0  0  1 
+ 0  0  0  1  1  1  0  1  1  1 
+ 1  0  1  0  0  1  0  0  0  0 
+ 0  1  0  0  0  1  1  0  1  1 
+ 1  1  1  1  0  0  1  1  1  0 
+ 0  1  1  1  0  0  0  1  1  1 
+ 1  1  1  1  0  1  1  0  1  1 
+Number of two paths from 4 to 7: 3
+Test Case 4
+Random directed adjacency matrix: 
+ 1  0  1  1  0  1  0  1  0  0 
+ 0  1  1  0  0  0  1  0  0  1 
+ 0  1  1  1  1  1  0  0  1  1 
+ 0  0  1  1  1  0  0  0  1  1 
+ 1  1  0  1  1  0  1  0  1  0 
+ 1  1  1  1  0  1  1  0  1  0 
+ 1  0  0  1  1  0  1  0  0  1 
+ 1  0  1  0  1  0  1  1  1  1 
+ 1  1  0  0  1  1  1  1  1  0 
+ 1  0  0  1  0  0  0  0  0  1 
+Number of two paths from 5 to 6: 4
+Test Case 5
+Random directed adjacency matrix: 
+ 1  0  1  0  1  0  1  1  0  0 
+ 1  1  0  1  0  1  1  1  0  0 
+ 1  1  1  1  1  0  0  0  1  0 
+ 0  0  1  1  1  1  1  0  0  1 
+ 1  1  0  0  1  0  0  1  1  0 
+ 1  1  1  0  1  1  0  0  0  1 
+ 0  1  1  0  1  1  1  0  1  0 
+ 1  1  0  0  1  0  1  1  0  0 
+ 0  0  0  0  0  0  0  0  1  1 
+ 1  0  0  0  1  1  1  0  0  1 
+Number of two paths from 1 to 3: 2
+Test Case 6
+Random directed adjacency matrix: 
+ 1  1  1  1  1  0  0  1  0  1 
+ 1  1  0  0  0  1  0  0  1  1 
+ 0  1  1  1  1  0  1  1  1  0 
+ 0  0  0  1  0  0  0  1  1  1 
+ 1  1  1  0  1  0  0  1  0  1 
+ 0  1  0  0  1  1  0  0  0  0 
+ 1  0  0  1  1  0  1  0  0  0 
+ 1  0  0  0  1  1  0  1  0  1 
+ 0  0  0  0  1  1  0  1  1  1 
+ 1  0  0  1  0  0  1  0  0  1 
+Number of two paths from 5 to 3: 0
+Test Case 7
+Random directed adjacency matrix: 
+ 1  1  0  0  1  0  0  1  0  1 
+ 1  1  0  0  1  1  0  1  0  1 
+ 0  1  1  1  0  0  1  0  0  1 
+ 0  0  0  1  0  1  1  0  1  1 
+ 1  0  0  0  1  0  1  1  1  0 
+ 0  1  1  1  1  1  1  1  0  1 
+ 1  1  1  0  1  1  1  0  1  1 
+ 0  0  0  1  0  1  0  1  1  1 
+ 1  0  0  0  1  1  1  0  1  1 
+ 1  0  0  0  1  1  0  0  0  1 
+Number of two paths from 9 to 9: 3
+Test Case 8
+Random directed adjacency matrix: 
+ 1  0  0  1  1  0  1  0  0  1 
+ 1  1  1  0  1  1  0  0  1  1 
+ 0  0  1  0  1  0  0  0  0  1 
+ 1  1  0  1  1  0  0  1  1  1 
+ 0  0  1  0  1  1  1  0  1  0 
+ 1  0  0  1  0  1  0  1  1  1 
+ 0  0  0  0  1  1  1  0  0  0 
+ 1  0  1  0  0  0  0  1  0  0 
+ 1  0  1  0  0  1  0  1  1  0 
+ 1  1  1  1  1  0  1  1  1  1 
+Number of two paths from 2 to 1: 1
+Test Case 9
+Random directed adjacency matrix: 
+ 1  0  1  0  0  1  0  1  1  1 
+ 0  1  1  1  0  1  0  0  1  0 
+ 0  1  1  1  1  1  0  1  1  1 
+ 1  1  0  1  0  0  0  1  1  0 
+ 1  0  1  1  1  1  1  1  1  0 
+ 0  0  0  0  0  1  0  1  0  1 
+ 1  1  0  1  1  0  1  0  0  0 
+ 0  1  1  1  1  0  0  1  0  1 
+ 0  1  1  0  1  0  1  0  1  1 
+ 1  0  1  0  0  1  1  1  0  1 
+Number of two paths from 3 to 8: 4

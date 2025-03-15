@@ -6,7 +6,7 @@ if [ $# -lt 1 ]; then
 fi
 
 n_tests=$1
-executable=ex3_74
+executable=debug/ex3_74
 
 output_file=$executable.dat
 touch $output_file
@@ -30,4 +30,4 @@ done
 
 #clean up
 mkdir "tests/$dirname"
-mv *.dat "tests/$dirname"
+mv $output_file "tests/$dirname"

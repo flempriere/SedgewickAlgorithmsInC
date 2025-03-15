@@ -56,7 +56,7 @@ struct node {
  * 
  * @param h node*
  */
-void printList(node* h);
+void LISTprintList(node* h);
 
 /**
  * @brief Prints a representation of the LinkedList
@@ -96,7 +96,7 @@ int main(int argc, char* argv[argc+1]) {
     tail->next = nullptr;
 
     printf("List before exchange:\n");
-    printList(head->next);
+    LISTprintList(head->next);
     printListReverse(tail->prev);
 
     srand(time(nullptr));
@@ -107,14 +107,13 @@ int main(int argc, char* argv[argc+1]) {
     exchangeNodes(&nodes[idx_1], &nodes[idx_2]);
 
     printf("List after exchange:\n");
-    printList(head->next);
+    LISTprintList(head->next);
     printListReverse(tail->prev);
 
     return EXIT_SUCCESS; 
 }
 
-void printList(node* h) {
-
+void LISTprintList(node* h) {
     for (; h->next != nullptr; h = h->next) {
         printf("%zu->", h->item);
     }

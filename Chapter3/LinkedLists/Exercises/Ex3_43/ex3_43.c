@@ -41,7 +41,7 @@ struct node {
  */
 int main(int argc, char* argv[argc+1]) {
     if (argc != 3) {
-        fprintf(stderr, "Usage is ./josephus N M");
+        fprintf(stderr, "Usage is ./josephus N M\n");
         return EXIT_FAILURE;
     }
     size_t N = strtoull(argv[1], nullptr, 0);

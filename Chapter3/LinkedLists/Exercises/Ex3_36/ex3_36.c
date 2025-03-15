@@ -37,7 +37,7 @@ struct node {
  * 
  * @param head 
  */
-void printList(node* head);
+void LISTprintList(node* head);
 /**
  * @brief Rearrange a linked list to put
  * the sublist of even indices before the
@@ -67,15 +67,15 @@ int main(int argc, char* argv[argc+1]) {
     nodes[N].next = nullptr;
 
     printf("Initial List:\n");
-    printList(nodes);
+    LISTprintList(nodes);
     partitionOddsAndEvens(nodes);
     printf("List after partition:\n");
-    printList(nodes);
+    LISTprintList(nodes);
 
     return EXIT_SUCCESS;
 }
 
-void printList(node* head) {
+void LISTprintList(node* head) {
     for (head = head->next; head != nullptr; head = head->next) {
         printf("%zu->", head->k);
     }

@@ -7,7 +7,7 @@ in a linkedList
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "list.h"
+#include "List_removeEven.h"
 
 /**
  * @brief Number of test nodes to generate
@@ -28,14 +28,14 @@ int main(int argc, char* argv[argc+1]) {
 
     size_t N = (argc == 2) ? (strtoull(argv[1], nullptr, 0)) : DEFAULT_N;
 
-    ListNode* head = newNode(1);
-    ListNode* cur = head;
+    LISTNode* head = LISTnewNode(1);
+    LISTNode* cur = head;
     for (size_t i = 2; i <= N; i++) {
-        insertNext(cur, newNode(i));
-        cur = next(cur);
+        LISTinsertNext(cur, LISTnewNode(i));
+        cur = LISTnext(cur);
     }
-    printList(head);
-    head = freeEverySecondNode(head);
-    printList(head);
+    LISTprintList(head);
+    head = LISTfreeEverySecondNode(head);
+    LISTprintList(head);
     return EXIT_SUCCESS;
 }

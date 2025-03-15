@@ -15,7 +15,7 @@
 #include <stdlib.h>
 #include <stdint.h>
 #include <stdio.h>
-#include "point.h"
+#include "../../../BuildingBlocks/Exercises/Ex3_8/Point_v2.h"
 
 /**
  * @brief Clips a double to the region [0, 1]
@@ -46,7 +46,7 @@
  */
 typedef struct node node;
 struct node {
-    point p;
+    Point p;
     size_t id;
     node* next;
 };
@@ -232,7 +232,7 @@ bool validateInput(int argc, char* argv[argc], size_t* N, double* d) {
         fprintf(stderr, "Error: invalid value for d, d in (0, sqrt(2))\n");
         return false;
     }
-    if (*d*(SIZE_MAX - 2) <= 1.0) {
+    if (*d*(double)(SIZE_MAX - 2) <= 1.0) {
         fprintf(stderr, "Error: grid size too large, try increasing d\n");
         return false;
     }
@@ -265,7 +265,7 @@ void gridInsert(double x, double y, size_t pid, double d) {
     for (size_t i = X-1; i <= X+1; i++) {
         for (size_t j = Y-1; j <= Y+1; j++) {
             for (node* s = grid[i][j]; s != nullptr; s = s->next) {
-                if (distance(s->p, t->p) < d) {
+                if (POINTdistance(s->p, t->p) < d) {
                     unionFind(s->id, t->id);
                 }
             }

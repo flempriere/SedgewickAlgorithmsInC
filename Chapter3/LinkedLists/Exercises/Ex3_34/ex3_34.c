@@ -36,7 +36,7 @@ struct node {
  * 
  * @param head 
  */
-void printList(node* head);
+void LISTprintList(node* head);
 /**
  * @brief move the largest element of the list
  * starting at h to the end of the list.
@@ -79,17 +79,17 @@ int main(int argc, char* argv[argc+1]) {
     nodes[N].next = nullptr;
 
     printf("Initial List:\n");
-    printList(nodes);
+    LISTprintList(nodes);
     moveLargestToEnd(nodes);
     printf("List after largest moved to end:\n");
-    printList(nodes);
+    LISTprintList(nodes);
     printf("Largest at the end?: %s\n", 
         (assertLargestAtEnd(nodes) ? "true" : "false"));
 
     return EXIT_SUCCESS;
 }
 
-void printList(node* head) {
+void LISTprintList(node* head) {
     for (head = head->next; head != nullptr; head = head->next) {
         printf("%zu->", head->k);
     }

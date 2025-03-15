@@ -13,7 +13,7 @@ BUILDDIR = $(CURDIR)/$(BUILD)
 ###############################
 
 INCDIRS = . 
-SRCDIRS = . ../../../BuildingBlocks/Examples/Program3_3-4/
+SRCDIRS = .
 
 
 vpath %.c . $(sort $(dir) $(SRCDIRS))

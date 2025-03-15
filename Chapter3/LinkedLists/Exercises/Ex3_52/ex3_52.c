@@ -5,7 +5,7 @@ Implement the interface in Program 3.12 using array indices
 (and no head node) rather than pointers.
 */
 
-#include "list.h"
+#include "List_wError.h"
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -32,22 +32,22 @@ int main(int argc, char* argv[argc+1]) {
         return EXIT_FAILURE;
     }
 
-    initNodes(N);
-    ListNode x = newNode(1);
+    LISTinitNodes(N);
+    LISTNode x = LISTnewNode(1);
     for (size_t i = 2; i <= N; i++) {
-        ListNode t = newNode(i);
-        insertNext(x, t);
+        LISTNode t = LISTnewNode(i);
+        LISTinsertNext(x, t);
         x = t;
     }
-    while(x != Next(x)) {
-        for (size_t i = 1; i < M; i++) x = Next(x);
-        freeNode(deleteNext(x));
+    while(x != LISTnext(x)) {
+        for (size_t i = 1; i < M; i++) x = LISTnext(x);
+        LISTfreeNode(LISTdeleteNext(x));
     }
-    printf("%zu\n", Item(x));
+    printf("%zu\n", LISTitem(x));
 
     printf("Free List:\n");
-    for (ListNode x = freeList; x != LIST_FULL; x = Next(x)) {
-        printf("%zu->", Item(x));
+    for (LISTNode x = freeList; x != LIST_FULL; x = LISTnext(x)) {
+        printf("%zu->", LISTitem(x));
     }
     printf("X\n");
     return EXIT_SUCCESS;

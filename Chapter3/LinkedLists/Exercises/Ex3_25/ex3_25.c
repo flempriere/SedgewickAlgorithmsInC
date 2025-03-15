@@ -86,7 +86,7 @@ int main(int argc, char* argv[argc+1]) {
         if (i == t_idx) stp = x;
     }
     printf("%zu\n", countNodesBetween(srt, stp));
-    return EXIT_FAILURE;
+    return EXIT_SUCCESS;
 }
 
 size_t countNodesBetween(node* x, node* t) {

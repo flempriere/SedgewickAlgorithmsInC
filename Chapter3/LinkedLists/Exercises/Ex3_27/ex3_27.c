@@ -33,7 +33,7 @@ struct node {
  * 
  * @param head node* to take as start of the list
  */
-void printList(node* head);
+void LISTprintList(node* head);
 
 /**
  * @brief Moves the node following @t to the position
@@ -107,14 +107,14 @@ int main(int argc, char* argv[argc+1]) {
         if (i == t_idx) stp = x;
     }
     printf("List premove: \n");
-    printList(srt);
+    LISTprintList(srt);
     moveNode(srt, stp);
     printf("List postmove: \n");
-    printList(srt);
+    LISTprintList(srt);
     return EXIT_SUCCESS;
 }
 
-void printList(node* head) {
+void LISTprintList(node* head) {
     for (node* t = head->next; t != head; t = t->next) {
         printf("%zu->", t->item);
     }

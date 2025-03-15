@@ -39,7 +39,7 @@ struct node {
  * 
  * @param head node* to take as start of the list
  */
-void printList(node* head);
+void LISTprintList(node* head);
 
 /**
  * @brief Given a list containing @x and a seperate list
@@ -121,15 +121,15 @@ int main(int argc, char* argv[argc+1]) {
         x->next = t;
         if (i == t_idx) tp = x;
     }
-    printList(xp);
-    printList(tp);
+    LISTprintList(xp);
+    LISTprintList(tp);
     mergeLists(xp, tp);
-    printList(xp);
+    LISTprintList(xp);
 
     return EXIT_SUCCESS;
 }
 
-void printList(node* head) {
+void LISTprintList(node* head) {
     for (node* t = head->next; t != head; t = t->next) {
         printf("%zu->", t->item);
     }

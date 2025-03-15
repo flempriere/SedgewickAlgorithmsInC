@@ -13,7 +13,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <time.h>
-#include "matrix.h"
+#include "Matrix.h"
 
 /**
  * @brief Test driver code for conversion of a matrix to a
@@ -43,11 +43,11 @@ int main(int argc, char* argv[argc]) {
         return EXIT_FAILURE;
     }
     srand(time(nullptr));
-    Number** matrix = generateRandomSparse(row, col, p_zero);
-    viewArray(row, col, matrix);
+    Number** matrix = MATRIXgenerateRandomSparse(row, col, p_zero);
+    MATRIXview(row, col, matrix);
 
-    node** sparseMatrix = convertMatrixToSparse(row, col, matrix);
-    viewSparse(row, sparseMatrix);
+    MATRIXnode** sparseMatrix = MATRIXconvertMatrixToSparse(row, col, matrix);
+    MATRIXviewSparse(row, sparseMatrix);
 
     return EXIT_SUCCESS;    
 } 

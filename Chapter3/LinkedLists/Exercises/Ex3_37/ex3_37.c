@@ -37,7 +37,7 @@ struct node {
  * 
  * @param head 
  */
-void printList(node* head);
+void LISTprintList(node* head);
 
 /**
  * @brief Exchanges the nodes after @t
@@ -81,18 +81,18 @@ int main(int argc, char* argv[argc+1]) {
     nodes[N].next = nullptr;
 
     printf("Initial List:\n");
-    printList(nodes);
+    LISTprintList(nodes);
     size_t i = rand() % (N + 1);
     size_t j = rand() % (N + 1);
     ExchangeAfter(&nodes[i], &nodes[j]);
     printf("List after exchange of nodes after %zu & %zu\n",
         i, j);
-    printList(nodes);
+    LISTprintList(nodes);
 
     return EXIT_SUCCESS;
 }
 
-void printList(node* head) {
+void LISTprintList(node* head) {
     for (head = head->next; head != nullptr; head = head->next) {
         printf("%zu->", head->k);
     }

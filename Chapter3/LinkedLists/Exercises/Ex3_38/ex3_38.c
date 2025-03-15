@@ -37,7 +37,7 @@ struct node {
  * 
  * @param head 
  */
-void printList(node* head);
+void LISTprintList(node* head);
 /**
  * @brief Creates a deep copy of the
  * list and returns a pointer to the copy.
@@ -74,15 +74,15 @@ int main(int argc, char* argv[argc+1]) {
     nodes[N].next = nullptr;
 
     printf("Initial List:\n");
-    printList(nodes);
+    LISTprintList(nodes);
     node* new_head = copyList(nodes);
     printf("Copied list:\n");
-    printList(new_head);
+    LISTprintList(new_head);
 
     return EXIT_SUCCESS;
 }
 
-void printList(node* head) {
+void LISTprintList(node* head) {
     for (head = head->next; head != nullptr; head = head->next) {
         printf("%zu->", head->k);
     }

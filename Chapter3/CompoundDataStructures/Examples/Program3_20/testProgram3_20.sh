@@ -7,9 +7,10 @@ fi
 
 n_tests=$1
 n_points=$2
-executable=program3_20
+progname=closestPointArrayOfLists
+executable=debug/$progname
 
-output_file=$executable.dat
+output_file=$progname.dat
 touch $output_file
 
 

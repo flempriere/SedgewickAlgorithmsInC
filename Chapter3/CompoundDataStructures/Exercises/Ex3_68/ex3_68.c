@@ -13,7 +13,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <time.h>
-#include "matrix.h"
+#include "Matrix_v2.h"
 
 /**
  * @brief Test driver code for sparse matrix multiplication
@@ -46,23 +46,23 @@ int main(int argc, char* argv[argc]) {
 
     //generate first matrix
     printf("Generating first random matrix: \n");
-    Number** matrix = generateRandomSparse(row, col, p_zero);
-    viewArray(row, col, matrix);
+    Number** matrix = MATRIXgenerateRandomSparse(row, col, p_zero);
+    MATRIXview(row, col, matrix);
 
-    sparseMatrix* m1 = convertMatrixToSparse(row, col, matrix);
-    viewSparse(m1);
+    MATRIXsparseMatrix* m1 = MATRIXconvertMatrixToSparse(row, col, matrix);
+    MATRIXviewSparse(m1);
 
     //generate second matrix
     printf("Generating second random matrix: \n");
-    Number** matrix2 = generateRandomSparse(col, row, p_zero);
-    viewArray(col, row, matrix2);
+    Number** matrix2 = MATRIXgenerateRandomSparse(col, row, p_zero);
+    MATRIXview(col, row, matrix2);
 
-    sparseMatrix* m2 = convertMatrixToSparse(col, row, matrix2);
-    viewSparse(m2);
+    MATRIXsparseMatrix* m2 = MATRIXconvertMatrixToSparse(col, row, matrix2);
+    MATRIXviewSparse(m2);
 
     printf("Matrix product: \n");
-    sparseMatrix* product = sparseMatMul(m1, m2);
-    viewSparse(product);
+    MATRIXsparseMatrix* product = MATRIXsparseMatMul(m1, m2);
+    MATRIXviewSparse(product);
 
 
     return EXIT_SUCCESS;    

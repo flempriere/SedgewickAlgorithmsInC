@@ -38,7 +38,7 @@ struct node {
  * 
  * @param head 
  */
-void printList(node* head);
+void LISTprintList(node* head);
 /**
  * @brief test if the key associated with a
  * node is even.
@@ -70,15 +70,15 @@ int main(int argc, char* argv[argc+1]) {
     nodes[N].next = nullptr;
 
     printf("Initial List:\n");
-    printList(nodes);
+    LISTprintList(nodes);
     removeNodesByFunction(nodes, is_even);
     printf("List after removal:\n");
-    printList(nodes);
+    LISTprintList(nodes);
 
     return EXIT_SUCCESS;
 }
 
-void printList(node* head) {
+void LISTprintList(node* head) {
     for (head = head->next; head != nullptr; head = head->next) {
         printf("%zu->", head->k);
     }
