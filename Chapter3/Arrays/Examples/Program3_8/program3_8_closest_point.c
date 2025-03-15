@@ -9,7 +9,7 @@ straight line of length < d using the point datatype introduced earlier.
 #include <tgmath.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include "point.h"
+#include "../../../BuildingBlocks/Examples/Program3_3-4/Point.h"
 
 /**
  * @brief Generates a random double between
@@ -39,7 +39,7 @@ int main(int argc, char* argv[argc + 1]) {
     double d = atof(argv[2]);
     size_t N = strtoull(argv[1], NULL, 0);
 
-    point* a = malloc(N*(sizeof(typeof_unqual(*a))));
+    Point* a = malloc(N*(sizeof(typeof_unqual(*a))));
     for (size_t i = 0; i < N; i++) {
         {a[i].x = randFloat(); a[i].y = randFloat();}
     }
@@ -47,7 +47,7 @@ int main(int argc, char* argv[argc + 1]) {
     size_t cnt = 0;
     for (size_t i = 0; i < N; i++) {
         for (size_t j = i+1; j < N; j++) {
-            if (distance(a[i], a[j]) < d) cnt++;
+            if (POINTdistance(a[i], a[j]) < d) cnt++;
         }
     }
     printf("%zu edges shorter than %f\n", cnt, d);

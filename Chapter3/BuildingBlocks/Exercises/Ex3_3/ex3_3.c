@@ -13,7 +13,7 @@ as Exercise 3.2
 #include <stdlib.h>
 #include <stdio.h>
 #include <time.h>
-#include "num.h"
+#include "../Ex3_2/num.h"
 
 /**
  * @brief Number of test cases for N

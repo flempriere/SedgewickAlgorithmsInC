@@ -3,8 +3,8 @@
 //use <stdbool.h> for older standards
 
 #include <stdlib.h>
-#include "num.h"
+#include "num_bit.h"
 
 Number randNum(void) {
-    return ((rand() % 2)) ? false : true;
+    return ((rand() % 2));
 }

@@ -8,7 +8,7 @@ Modify Program 3.8 to work for a d-dimensional point.
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-#include "point.h"
+#include "Point_dDim.h"
 
 /**
  * @brief Generates a random double
@@ -38,11 +38,11 @@ int main(int argc, char* argv[argc + 1]) {
     }
 
     Dimension dim = strtoull(argv[1], NULL, 0);
-    dim = (dim < MAX_DIM) ? dim : MAX_DIM;
+    dim = (dim < POINT_DDIM_MAX_DIM) ? dim : POINT_DDIM_MAX_DIM;
     size_t N = strtoull(argv[2], NULL, 0);
     double d = atof(argv[3]);
 
-    point* a = malloc(N*(sizeof(typeof_unqual(*a))));
+    Point_DDIM* a = malloc(N*(sizeof(typeof_unqual(*a))));
 
     for (size_t i = 0; i < N; i++) {
         for (Dimension idx = 0; idx < dim; idx++) {
@@ -53,7 +53,7 @@ int main(int argc, char* argv[argc + 1]) {
     size_t count = 0;
     for (size_t i = 0; i < N; i++) {
         for (size_t j = i+1; j < N; j++) {
-            if (distance(a[i], a[j], dim) < d) {
+            if (POINT_DDIMdistance(a[i], a[j], dim) < d) {
                 count++;
             }
         }

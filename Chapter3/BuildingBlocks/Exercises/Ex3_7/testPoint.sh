@@ -7,7 +7,7 @@ if [ $# -lt 1 ]; then
 fi
 
 n_tests=$1
-executable=ex3_7
+executable=debug/closestPoint
 
 #generate test files
 for i in $(seq 0 $((n_tests - 1)));
@@ -39,5 +39,5 @@ done
 #clean up
 mkdir "tests/$dirname"
 mkdir "tests/$dirname/test_input"
-mv *.dat "tests/$dirname"
+mv $output_file "tests/$dirname"
 mv *.testdat "tests/$dirname/test_input"

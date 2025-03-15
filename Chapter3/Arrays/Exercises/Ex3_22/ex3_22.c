@@ -11,7 +11,8 @@ straight line of length < d using the point datatype introduced earlier.
 #include <tgmath.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include "point.h"
+#include <time.h>
+#include "../../../BuildingBlocks/Examples/Program3_3-4/Point.h"
 
 /**
  * @brief Generates a random
@@ -34,13 +35,14 @@ int main(int argc, char* argv[argc + 1]) {
         fprintf(stderr, "Error: requires args N\n");
         return EXIT_FAILURE;
     }
+    srand(time(nullptr));
 
     size_t N = strtoull(argv[1], NULL, 0);
     double min_dist = INFINITY;
     size_t p1 = 0;
     size_t p2 = 0;
 
-    point* a = malloc(N*(sizeof(typeof_unqual(*a))));
+    Point* a = malloc(N*(sizeof(typeof_unqual(*a))));
     for (size_t i = 0; i < N; i++) {
         {a[i].x = randFloat(); a[i].y = randFloat();}
     }
@@ -48,7 +50,7 @@ int main(int argc, char* argv[argc + 1]) {
     for (size_t i = 0; i < N; i++) {
         for (size_t j = i+1; j < N; j++) {
             double d;
-            if ((d = distance(a[i], a[j])) < min_dist) {
+            if ((d = POINTdistance(a[i], a[j])) < min_dist) {
                 p1 = i;
                 p2 = j;
                 min_dist = d;

@@ -8,7 +8,7 @@ fi
 
 n_tests=$1
 n_lines=$2
-executable=ex3_17
+executable=debug/ex3_17
 
 #generate test files
 for i in $(seq 0 $((n_tests - 1)));
@@ -40,5 +40,5 @@ done
 #clean up
 mkdir "tests/$dirname"
 mkdir "tests/$dirname/test_input"
-mv *.dat "tests/$dirname"
+mv $executable.dat "tests/$dirname"
 mv *.testdat "tests/$dirname/test_input"

@@ -6,7 +6,7 @@ closest to the first.
 */
 
 #include <tgmath.h> //for infinity macro
-#include "point.h"
+#include "../../Examples/Program3_3-4/Point.h"
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -26,8 +26,8 @@ closest to the first.
 int main(int argc, char* [argc+1]) {
 
     bool first_set = true;
-    point first = {};
-    point closest = {};
+    Point first = {};
+    Point closest = {};
     double min_distance = INFINITY;
 
     char line[MAX_LINE];
@@ -38,21 +38,19 @@ int main(int argc, char* [argc+1]) {
             printf("Error: must input pairs of points\n");
             return 1;
         }
-        switch(first_set) {
-            case true:
-                first.x = x;
-                first.y = y;
-                first_set = false;
-                break;
-            case false:
-                point candidate = {.x = x, .y = y};
-                double cand_dist;
-                if ((cand_dist = distance(first, candidate)) < min_distance) {
-                    min_distance = cand_dist;
-                    closest.x = candidate.x;
-                    closest.y = candidate.y;
-                }
-                break;
+        if(first_set) {
+            first.x = x;
+            first.y = y;
+            first_set = false;
+        }
+        else {
+            Point candidate = {.x = x, .y = y};
+            double cand_dist;
+            if ((cand_dist = POINTdistance(first, candidate)) < min_distance) {
+                min_distance = cand_dist;
+                closest.x = candidate.x;
+                closest.y = candidate.y;
+            }
         }
 
     }

@@ -7,8 +7,8 @@ if [ $# -lt 1 ]; then
 fi
 
 n_tests=$1
-sz_file="../../Ex1_7/ex1_7.exe"
-hgt_file="../ex1_20.exe"
+sz_file="../../Ex1_7/debug/ex1_7.exe"
+hgt_file="../debug/ex1_20.exe"
 
 for i in $(seq 0 $((n_tests - 1)));
 do

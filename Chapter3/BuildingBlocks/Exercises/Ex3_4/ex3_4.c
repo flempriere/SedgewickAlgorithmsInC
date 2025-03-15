@@ -6,7 +6,7 @@ based on the implementations in exercise 3.2 and exercise 3.3
 #include <stdlib.h>
 #include <stdio.h>
 #include <time.h>
-#include "num.h"
+#include "num_v2.h"
 
 /**
  * @brief Number of test cases for N

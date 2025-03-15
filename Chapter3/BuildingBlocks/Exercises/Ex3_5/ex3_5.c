@@ -6,7 +6,7 @@ Exercise 3.5. Implement a version of Program 3.2 that supports bit types
 #include <stdlib.h>
 #include <stdio.h>
 #include <time.h>
-#include "num.h"
+#include "num_bit.h"
 
 /**
  * @brief Performs avg and std. dev calculations

@@ -114,7 +114,8 @@ loop less and less so the relative performance diverges for large $N$.
 
 ### [Exercise 3.17](./Exercises/Ex3_17/ex3_17.c)
 
-*Write a program that determines empirically the number of random positive integers less than $1000$ that you can expect to generate before getting a repeated value.*
+*Write a program that counts the number of different integers less than 1000 that appear in
+an input stream.*
 
 See the [testing script](./Exercises/Ex3_17/testEx3_17.sh) and the [sample output](./Exercises/Ex3_17/tests/20241117/ex3_17.dat) for 10 tests, generating 100 numbers and the [results](./Exercises/Ex3_17/tests/20241117/ex3_17.dat)
 for 1 test generating 10000 numbers.

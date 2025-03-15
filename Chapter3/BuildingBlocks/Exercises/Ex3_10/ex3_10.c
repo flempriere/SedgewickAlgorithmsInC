@@ -9,7 +9,9 @@ empircally the average area of the triangles generated.
 #include <tgmath.h>
 #include <stdlib.h>
 #include <stdio.h>
-#include "ex3_10.h"
+#include "src/NumberDouble.h"
+#include "src/Point_v3.h"
+#include "src/Triangle.h"
 
 
 /**
@@ -30,7 +32,7 @@ empircally the average area of the triangles generated.
  * 
  * @param t A triangle to be randomised
  */
-void randTriangle(triangle* t);
+void randTriangle(Triangle* t);
 
 /**
  * @brief Generates a random point and
@@ -38,7 +40,7 @@ void randTriangle(triangle* t);
  * 
  * @param p A point to be randomised
  */
-void randPoint(point* p);
+void randPoint(Point* p);
 
 /**
  * @brief For N = N_INIT, 10(N_INIT), 100(N_INIT)
@@ -50,7 +52,7 @@ int main(int argc, char* argv[argc + 1]) {
 
     size_t N = N_INIT;
 
-    triangle t;
+    Triangle t;
     for (size_t j = 0; j < N_CASES; N *= 10, j++) {
 
         double m1 = 0.0;
@@ -58,7 +60,7 @@ int main(int argc, char* argv[argc + 1]) {
 
         for (size_t i = 0; i < N; i++) {
             randTriangle(&t);
-            double triangle_area = area(t); 
+            double triangle_area = TRIANGLEarea(t); 
             m1 += ((double) triangle_area)/N;
             m2 += ((double) triangle_area*triangle_area) / N; 
         }
@@ -69,13 +71,13 @@ int main(int argc, char* argv[argc + 1]) {
     return EXIT_SUCCESS;
 }
 
-void randTriangle(triangle* t) {
+void randTriangle(Triangle* t) {
     randPoint(&(t->a));
     randPoint(&(t->b));
     randPoint(&(t->c));
 }
 
-void randPoint(point* p) {
+void randPoint(Point* p) {
     p->x = randNum();
     p->y = randNum();
 }

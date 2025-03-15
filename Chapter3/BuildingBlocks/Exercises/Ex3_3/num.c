@@ -1,7 +1,7 @@
 //Implementation of num.h
 
 #include <stdlib.h>
-#include "num.h"
+#include "../Ex3_2/num.h"
 
 Number randNum(Number upper_bound) {
     double rand_num = 1.0*rand()/RAND_MAX;
