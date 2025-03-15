@@ -32,7 +32,7 @@ typedef int Number;
  * @param col number of columns
  * @return Number** pointer to matrix stored in m[row][col].
  */
-Number** MATRIXmalloc2d(size_t row, size_t col);
+Number** MATRIXinit(size_t row, size_t col);
 
 /**
  * @brief Print out a representation of a matrix represented
