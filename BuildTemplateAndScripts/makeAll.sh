@@ -19,6 +19,8 @@ clean=""
 if [ $# -eq 1 ]; then
     if [[ ! $1 == "-clean" ]]; then
         buildMode=$1
+    else
+        clean="clean"
     fi  
 elif [ $# -eq 2 ]; then
     if [[ ! $1 == "-clean" ]]; then
