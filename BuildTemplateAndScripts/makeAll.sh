@@ -6,15 +6,16 @@
 ##########################################################
 
 # Constants
-USAGE_STRING="[[[ -d, --dir, --directory directory ] [-i, --interactive] [-c, --clean]] | [-h]]"
+USAGE_STRING="[[[ -d, --dir, --directory directory ] [-i, --interactive] [-t, --target]] | [-h]]"
 
 # functions
 
 # generic help output
 usage_output () {
     printf "Usage: %s ${USAGE_STRING}\n" "$0" >&$1
-    printf "Valid builds are %s\n" "$validModes"
-    printf "Use argument help to see this message again\n"
+    printf "Valid builds are %s\n" "${validModes[*]}"
+    printf "Valid targets are %s\n" "${validTargets[*]}"
+    printf "Use argument --help or -h to see this message again\n"
 }
 
 # help on stdout
@@ -29,20 +30,25 @@ display_invalid_build_option () {
     usage_output 2
 }
 
+display_invalid_target_option () {
+    printf "Invalid target mode %s encountered\n" "$target" >&2
+    usage_output 2
+}
+
 #checks that input build mode is valid and exits if not.
 validate_build_option ( ) {
-    if [[ ! " ${validModes[*]} " =~ [[:space:]]${buildMode}[[:space:]] ]]; then
-        display_invalid_build_option
-    fi    
+    [[ " ${validModes[*]} " =~ [[:space:]]${buildMode}[[:space:]] ]]
+}
+
+validate_target_option () {
+    [[ -z "$target" || " ${validTargets[*]} " =~ [[:space:]]${target}[[:space:]] ]]
 }
 
 #find the makefiles and execute the build
 find_and_build () {
     printf "=== Building with Mode: %s ===\n" "$buildMode" >&1 
-    find $directory -type d -name BuildTemplateAndScripts -prune -o -name Makefile -print -execdir make ${clean} BUILD=${buildMode} \;
+    find $directory -type d -name BuildTemplateAndScripts -prune -o -name Makefile -print -execdir make ${target} BUILD=${buildMode} \;
 }
-
-
 
 request_search_directory () {
     response=
@@ -60,17 +66,11 @@ request_build_mode () {
     fi
 }
 
-request_clean () {
+request_target () {
     response=
-    read -p "Clean? [Enter clean or y, otherwise script will build] >" response
+    read -p "Enter target [$target] >" response
     if [ -n $response ]; then
-        case $response in
-            Clean | clean | y | yes )   clean=clean
-                                        ;;
-            *   )                       clean=
-                                        ;;
-        esac
-        check_proceed
+        target=$response
     fi
 }           
 
@@ -92,7 +92,9 @@ check_proceed () {
 validModes=("debug" "release") #valid options for setting the build mode
 buildMode="debug"  # default build mode
 interactive= #indicates if shell to be called in interactive mode
-clean= #indicates if cleaning or not
+
+validTargets=("clean" "distribute" "diff")
+target= #indicates the build target
 directory="$( dirname -- "${BASH_SOURCE[0]}" )"/.. #default directory
 
 
@@ -103,13 +105,14 @@ while [ "$1" != "" ]; do
         -d | --dir | --directory )  shift
                                     directory=$1
                                     ;;
-        -c | --clean )              clean=clean
+        -t | --target )             shift
+                                    target=$1
                                     ;;
         -i | --interactive )        interactive=1
                                     ;;
         -h | --help )               display_help
                                     ;;
-        * )                         usage_output
+        * )                         usage_output 2
                                     exit 1
                                     ;;
     esac
@@ -124,16 +127,32 @@ if [ "$interactive" == "1" ]; then
     request_search_directory
     if [ -d "$directory" ]; then
         check_proceed "Directory exists"
+    else
+        echo "Directory does not exist"
+        echo "Exiting Program"
+        exit 1
     fi
     request_build_mode
-    if validate_build_option; then
+    if  validate_build_option ; then
         check_proceed "Valid Build Mode selected"
+    else
+        display_invalid_build_option  
+        echo "Exiting Program"
+        exit 1
     fi
-    request_clean
-fi
-
-if ! validate_build_option; then
-    exit 
+    request_target
+    if validate_target_option; then
+        check_proceed "Valid Target selected"
+    else
+        display_invalid_target_option
+        echo "Exiting Program"
+        exit 1
+    fi
+else
+    if ! validate_build_option || ! validate_target_option; then
+        usage_output 2
+        exit 1
+    fi
 fi
 
 find_and_build
