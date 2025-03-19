@@ -1,18 +1,19 @@
 #!/bin/bash
 
-##########################################################
-# Simple Script to find and run all Makefiles            #
-# Usage: ./makeAll [directory] [--target] [--buildMode]  #    
-##########################################################
+#############################################################
+# Simple Script to find and run all Makefiles               #
+# Usage: ./makeAll [directory] [--target] [--buildMode] []  #    
+#############################################################
 
 # Constants
-USAGE_STRING="[[[ -d, --dir, --directory directory ] [-i, --interactive] [-t, --target]] | [-h]]"
+USAGE_STRING="[[[ -d, --dir, --directory directory ] [-i, --interactive] [-t, --target]] \
+[-e, --errorlog filename] [-l --log filename] | [-h]]"
 
 # functions
 
 # generic help output
 usage_output () {
-    printf "Usage: %s ${USAGE_STRING}\n" "$0" >&$1
+    printf "Usage: %s ${USAGE_STRING}\n" "$0" >&"$1"
     printf "Valid builds are %s\n" "${validModes[*]}"
     printf "Valid targets are %s\n" "${validTargets[*]}"
     printf "Use argument --help or -h to see this message again\n"
@@ -47,7 +48,7 @@ validate_target_option () {
 #find the makefiles and execute the build
 find_and_build () {
     printf "=== Building with Mode: %s ===\n" "$buildMode" >&1 
-    find $directory -type d -name BuildTemplateAndScripts -prune -o -name Makefile -print -execdir make ${target} BUILD=${buildMode} \;
+    find "$directory" -type d -name BuildTemplateAndScripts -prune -o -name Makefile -execdir make ${target} BUILD=${buildMode} \; -a \( -fprint ${successfile} -o -fprint ${errorfile} \)
 }
 
 request_search_directory () {
@@ -69,10 +70,26 @@ request_build_mode () {
 request_target () {
     response=
     read -p "Enter target [$target] >" response
-    if [ -n $response ]; then
+    if [ -n "$response" ]; then
         target=$response
     fi
-}           
+}
+
+request_success_file () {
+    response=
+    read -p " Enter file to log successful builds [$successfile] > " response
+    if [ -n "$successfile" ]; then
+        successfile="$response"
+    fi
+}
+
+request_error_file () {
+    response=
+    read -p " Enter file to log failed builds [$errorfile] > " response
+    if [ -n "$errorfile" ]; then
+        errorfile="$response"
+    fi
+}
 
 check_proceed () {
     proceed=
@@ -95,6 +112,8 @@ interactive= #indicates if shell to be called in interactive mode
 
 validTargets=("clean" "distribute" "diff")
 target= #indicates the build target
+successfile=/dev/stdout
+errorfile=/dev/stderr
 directory="$( dirname -- "${BASH_SOURCE[0]}" )"/.. #default directory
 
 
@@ -107,6 +126,12 @@ while [ "$1" != "" ]; do
                                     ;;
         -t | --target )             shift
                                     target=$1
+                                    ;;
+        -l | --log )                shift
+                                    successfile=$1
+                                    ;;
+        -e | --errorlog )           shift
+                                    errorfile=$1
                                     ;;
         -i | --interactive )        interactive=1
                                     ;;
@@ -147,6 +172,14 @@ if [ "$interactive" == "1" ]; then
         display_invalid_target_option
         echo "Exiting Program"
         exit 1
+    fi
+    request_success_file
+    if [ -f "$successfile" ]; then
+        check_proceed "File exists, overwrite?"
+    fi
+    request_error_file
+    if [ -f "$errorfile" ]; then
+        check_proceed "File exists, overwrite?"
     fi
 else
     if ! validate_build_option || ! validate_target_option; then
