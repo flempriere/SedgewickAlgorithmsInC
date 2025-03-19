@@ -14,9 +14,9 @@ BUILDDIR = $(CURDIR)/$(BUILD)
 # Search Directories for Code #
 ###############################
 
-INCLUDE_DIRS = . ./includes
-SOURCE_DIRS = . ./src
-SOURCE_VPATHS = 
+INCLUDE_DIRS = {%HEADER_DIR%}
+SOURCE_DIRS = {%SOURCE_DIRS%}
+SOURCE_VPATHS = {%SOURCE_VPATHS%}
 
 vpath %.c $(sort $(dir) $(SOURCE_DIRS) $(SOURCE_VPATHS))
 
@@ -25,12 +25,12 @@ vpath %.c $(sort $(dir) $(SOURCE_DIRS) $(SOURCE_VPATHS))
 # Explicitly stated Input and Output #
 ######################################
 
-EXE = Program1_1.exe
-PROJECT = Program1_1
+EXE = {%EXE%}
+PROJECT = {%PROJECT%}
 #Any .c files to be included, without including their whole directory
 # should not include their directory.
 # Their directory must be put in the .c vpath variable.
-CEXTRA =  
+CEXTRA = {%CEXTRA%} 
 
 ###################################
 # Generated .c, obj and src files #
@@ -47,29 +47,29 @@ OBJS := $(addprefix $(BUILDDIR)/, $(CFILES:.c=.o))
 #####################
 
 # Compiler and Standard
-CC = gcc-14
-STD = -std=c23
+CC = {%COMPILER%}
+STD = {%STANDARD%}
 
 #paths for header inclusions
 INCLUDES = $(addprefix -I, $(INCLUDE_DIRS))
 
 # Optimisation level for a given build
-OPT_debug = -O
-OPT_release = -O2
+OPT_debug = {%OPT_debug%}
+OPT_release = {%OPT_release%}
 
 # Flags for warning, memory sanitiser
-FLAGS_warning = -Wall -Werror -Wextra -Wpedantic -Wno-unused-parameter    -Wconversion
-FLAGS_address = -fsanitize=address,undefined
+FLAGS_warning = {%FLAGS_warning%}
+FLAGS_address = {%FLAGS_address%}
 
 #dependency generation
-FLAGS_dependencies = -MP -MD
+FLAGS_dependencies = {%FLAGS_dependencies%}
 
 # Build Mode flags
-FLAGS_release = -g -march=native
-FLAGS_debug = -g3
+FLAGS_release = {%FLAGS_release%}
+FLAGS_debug = {%FLAGS_debug%}
 
 #Linker
-FLAGS_linker = 
+FLAGS_linker = {%FLAGS_linker%}
 
 # Select the flags
 BUILDFLAGS = $(FLAGS_$(BUILD))
