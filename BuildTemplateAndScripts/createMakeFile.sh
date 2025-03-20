@@ -83,7 +83,7 @@ while [ "$1" != "" ]; do
     echo "${baseDirectory}"
 
     #set file and project name
-    PROJECT="$baseDirectory" 
+    PROJECT="${baseDirectory,,}" #make lower case 
     EXE="$PROJECT.exe"
 
     # use sed to perform variable replacement

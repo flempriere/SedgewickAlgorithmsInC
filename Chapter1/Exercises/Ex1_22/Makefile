@@ -27,8 +27,8 @@ vpath %.c $(sort $(dir) $(SOURCE_DIRS) $(SOURCE_VPATHS))
 # Explicitly stated Input and Output #
 ######################################
 
-EXE = Ex1_22.exe
-PROJECT = Ex1_22
+EXE = ex1_22.exe
+PROJECT = ex1_22
 #Any .c files to be included, without including their whole directory
 # should not include their directory.
 # Their directory must be put in the .c vpath variable.
@@ -100,7 +100,7 @@ clean:
 	rm -rf $(BUILDDIR)/ $(wildcard *tgz)
 
 cleanall:
-	rm -rf VALID_BUILDS
+	rm -rf $(VALID_BUILDS)
 
 distribute: cleanall
 	tar zcvf $(PROJECT).tgz *

@@ -100,7 +100,7 @@ clean:
 	rm -rf $(BUILDDIR)/ $(wildcard *tgz)
 
 cleanall:
-	rm -rf VALID_BUILDS
+	rm -rf $(VALID_BUILDS)
 
 distribute: cleanall
 	tar zcvf $(PROJECT).tgz *

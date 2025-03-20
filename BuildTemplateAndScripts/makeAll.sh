@@ -48,7 +48,7 @@ validate_target_option () {
 #find the makefiles and execute the build
 find_and_build () {
     printf "=== Building with Mode: %s ===\n" "$build" >&1 
-    find "$directory" -type d -name BuildTemplateAndScripts -prune -o -name Makefile -execdir make ${target} BUILD=${build} \; -a \( -fprint ${successfile} -o -fprint ${errorfile} \)
+    find "$directory" -type d -name BuildTemplateAndScripts -prune -o -name Makefile \( \( -execdir make ${target} BUILD=${build} \; -a -fprint ${successfile} \) -o -fprint ${errorfile} \)
 }
 
 request_search_directory () {
@@ -110,7 +110,7 @@ validModes=("debug" "release") #valid options for setting the build mode
 build="debug"  # default build mode
 interactive= #indicates if shell to be called in interactive mode
 
-validTargets=("clean" "distribute" "diff")
+validTargets=("clean", "cleanall" "distribute" "diff")
 target= #indicates the build target
 successfile=/dev/stdout
 errorfile=/dev/stderr
