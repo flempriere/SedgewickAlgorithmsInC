@@ -1,5 +1,8 @@
 # A Simple Makefile Template
 
+# Template version
+VERSION = 1.0.0
+
 ##############
 # BUILD Mode #
 ##############

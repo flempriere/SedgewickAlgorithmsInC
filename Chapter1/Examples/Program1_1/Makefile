@@ -1,5 +1,8 @@
 # A Simple Makefile Template
 
+# Template version
+VERSION = 1.0.0
+
 ##############
 # BUILD Mode #
 ##############
@@ -58,7 +61,7 @@ OPT_debug = -O
 OPT_release = -O2
 
 # Flags for warning, memory sanitiser
-FLAGS_warning = -Wall -Werror -Wextra -Wpedantic -Wno-unused-parameter    -Wconversion
+FLAGS_warning = -Wall -Werror -Wextra -Wpedantic -Wno-unused-parameter        -Wconversion
 FLAGS_address = -fsanitize=address,undefined
 
 #dependency generation
