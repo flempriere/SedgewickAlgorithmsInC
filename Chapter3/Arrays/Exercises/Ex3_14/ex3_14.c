@@ -10,7 +10,7 @@ primes less than N for for 1 <= N <= 1000
  * @brief Largest N to check for primality
  * 
  */
-#define N 1001
+#define N 1001u
 
 /**
  * @brief Sieve of Eratosthenes Array

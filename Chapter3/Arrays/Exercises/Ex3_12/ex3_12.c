@@ -24,10 +24,16 @@ yet to examine and set all a[j*p] to 0 for all j > 2 s.t jp <= N
 #include <time.h>
 
 /**
+ * @brief Explicitly cast type
+ * 
+ */
+ #define CAST(T) (T)
+
+/**
  * @brief Largest Number we check for primality
  * 
  */
-#define N 100000
+#define N 100000u 
 
 /**
  * @brief Sieve of Eratosthenes array
@@ -59,8 +65,7 @@ int main(int argc, char* argv[argc + 1]) {
     printf("Time taken for char array: %f\n", time_spent);
 
     //using bit array
-    size_t nComponents = N / CHAR_BIT;
-    if (N % CHAR_BIT) nComponents += 1;
+    const size_t nComponents = N / CHAR_BIT + ((N % CHAR_BIT) ? 1 : 0);
     unsigned char mask = 0x01u;
 
     unsigned char* bitArray = malloc(nComponents*sizeof(typeof(*bitArray)));
@@ -70,7 +75,7 @@ int main(int argc, char* argv[argc + 1]) {
     // i = 9 -> component 1, shift 1
     for (size_t i = 0; i < nComponents; i++) {
         for (size_t j = 0; j < CHAR_BIT; j++) {
-            bitArray[i] |= (mask << j);
+            bitArray[i] |= CAST(unsigned char) (mask << j); //mask promoted to int, so cut back
         }
     }
 
@@ -78,7 +83,7 @@ int main(int argc, char* argv[argc + 1]) {
     for (size_t i = 2; i < N; i++) {
         if (bitArray[i/CHAR_BIT] & (mask << (i % CHAR_BIT))) {
             for (size_t j = i; i*j < N; j++) {
-                bitArray[(i*j) / CHAR_BIT] &= ~(mask << ((i*j) % CHAR_BIT));
+                bitArray[(i*j) / CHAR_BIT] &= CAST(unsigned char) ~(mask << ((i*j) % CHAR_BIT));
             }
         }
     }

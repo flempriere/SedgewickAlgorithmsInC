@@ -10,17 +10,17 @@ N for N = 10^3, 10^4, 10^5, 10^6.
  * @brief largest number to check for primality
  * 
  */
-#define N 10000000
+#define N 10000000u
 /**
  * @brief Initial N value for testing multiple cases
  * 
  */
-#define N_INIT 10000
+#define N_INIT 10000u
 /**
  * @brief Number of times to iterate N
  * 
  */
-#define N_CASES 4
+#define N_CASES 4u
 
 /**
  * @brief Sieve of Eratosthenes array

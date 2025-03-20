@@ -14,7 +14,7 @@ yet to examine and set all a[j*p] to 0 for all j > 2 s.t jp <= N
  * @brief largest number to check for primality.
  * 
  */
-#define N 10000
+#define N 10000u
 
 /**
  * @brief Determines all the primes up to N

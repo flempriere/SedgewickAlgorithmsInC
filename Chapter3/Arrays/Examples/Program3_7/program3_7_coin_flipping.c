@@ -19,6 +19,11 @@ utilises C23 bool, use _Bool or <stdbool.h> for older standards
 #include <time.h>
 
 /**
+ * @brief Make explicit cast
+ * 
+ */
+#define CAST(T) (T)
+/**
  * @brief performs a coin toss
  * 
  * @return true if result is heads,
@@ -46,7 +51,7 @@ int main(int argc, char* argv[argc + 1]) {
     }
     size_t N = strtoull(argv[1], NULL, 0);
     size_t M = strtoull(argv[2], NULL, 0);
-    srand(time(nullptr));
+    srand(CAST(unsigned int)time(nullptr));
 
     size_t* f = malloc((N+1)*sizeof(typeof_unqual(*f)));
     for (size_t j = 0; j <= N; j++) f[j] = 0;
@@ -63,6 +68,7 @@ int main(int argc, char* argv[argc + 1]) {
         for (size_t i = 0; i < f[j]; i += 10) printf("*");
         printf("\n");
     }
+    free(f);
     return EXIT_SUCCESS;
 }
 

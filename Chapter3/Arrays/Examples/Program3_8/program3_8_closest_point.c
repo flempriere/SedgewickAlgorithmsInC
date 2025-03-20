@@ -51,6 +51,7 @@ int main(int argc, char* argv[argc + 1]) {
         }
     }
     printf("%zu edges shorter than %f\n", cnt, d);
+    free(a);
     return EXIT_SUCCESS;
 }
 

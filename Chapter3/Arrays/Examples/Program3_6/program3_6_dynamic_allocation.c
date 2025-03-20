@@ -23,7 +23,7 @@ int main(int argc, char* argv[argc + 1]) {
         return EXIT_FAILURE;
     }
 
-    size_t N = strtoull(argv[1], NULL, 0);
+    size_t N = strtoull(argv[1], nullptr, 0);
 
     size_t* a = malloc(N*sizeof(typeof_unqual(*a)));
     return EXIT_SUCCESS;

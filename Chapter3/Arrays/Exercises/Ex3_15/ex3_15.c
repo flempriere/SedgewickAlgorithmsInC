@@ -14,20 +14,20 @@ The approaches agree, but the program runs slower
  * primality
  * 
  */
-#define N 10000000
+#define N 10000000u
 
 /**
  * @brief N value for the first test case
  * 
  */
-#define N_INIT 10000
+#define N_INIT 10000u
 
 /**
  * @brief Number of N values to test
  * Each is 10x larger than the previous
  * 
  */
-#define N_CASES 4
+#define N_CASES 4u
 
 /**
  * @brief Sieve of Eratosthenes Array (Guarded)

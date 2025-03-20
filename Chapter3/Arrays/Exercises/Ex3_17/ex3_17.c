@@ -14,13 +14,13 @@ in an input stream.
  * @brief Maximum length of a line
  * 
  */
-#define MAXLINE 5
+#define MAXLINE 5u
 
 /**
  * @brief Largest valid input number
  * 
  */
-#define MAX_NUM 1000
+#define MAX_NUM 1000u
 
 /**
  * @brief Counts the number of different
@@ -38,7 +38,7 @@ int main(int argc, char* argv[argc + 1]) {
     size_t a[MAX_NUM] = {};
 
     while (fgets(line, sizeof(line), stdin) != NULL) {
-        size_t i = atoi(line);
+        size_t i = strtoull(line, nullptr, 0);
         if (i > MAX_NUM) continue;
         a[i]++;
     }

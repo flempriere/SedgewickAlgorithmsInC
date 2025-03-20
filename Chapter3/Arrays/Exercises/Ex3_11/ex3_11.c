@@ -19,7 +19,7 @@ Program 3.11
  */
 int main(int argc, char* argv[argc + 1]) {
 
-    int a[99];
+    size_t a[99];
     for (size_t i = 0; i < 99; i++) a[i] = 98 - i;
     for (size_t i = 0; i < 99; i++) a[i] = a[a[i]];
 
@@ -29,7 +29,7 @@ int main(int argc, char* argv[argc + 1]) {
     printf("\n");
 
     for (size_t i = 0; i < 99; i++) {
-        printf(" %d ", a[i]);
+        printf(" %zu ", a[i]);
     }
     printf("\n");
     return EXIT_SUCCESS;
