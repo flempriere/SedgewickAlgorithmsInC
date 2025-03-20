@@ -25,6 +25,12 @@ we have to update all entries
 #define N 10000u
 
 /**
+ * @brief size of the input buffer for fgets.
+ * 
+ */
+#define MAXLINE 100u
+
+/**
  * @brief Reads input pairs `p,q < N` from 
  * standard input and performs a union operation. If
  * `p` and `q` where not already connected they are
@@ -40,16 +46,24 @@ int main() {
     size_t p;
     size_t q;
     size_t id[N];
+    char line[MAXLINE]; //input buffer
 
     for (size_t i = 0; i < N; i++) id[i] = i;
-    while(scanf("%zu %zu\n", &p, &q) == 2) {
+    while (fgets(line, sizeof(line), stdin) && 
+        sscanf(line, "%zu %zu", &p, &q) == 2) {
+
         if (p >= N || q >= N) continue; //bounds checking
         if (id[p] == id[q]) continue;
         size_t t = id[p];
         for (size_t i = 0; i < N; i++) {
             if (id[i] == t) id[i] = id[q];
         }
+
         printf(" %zu %zu\n", p, q);
+    }
+    if (!feof(stdin)) {
+        fprintf(stderr, "Error occured during read\n");
+        return EXIT_FAILURE;
     }
     return EXIT_SUCCESS;
 }

@@ -18,6 +18,12 @@ its parent replaced by its grandparent.
 #define N 10000
 
 /**
+ * @brief size of the input buffer for fgets.
+ * 
+ */
+ #define MAXLINE 100u
+
+/**
  * @brief swap's x and y
  * 
  * @param x first item to be swapped
@@ -50,12 +56,14 @@ int main(int argc, char *argv[argc + 1]) {
     size_t id[N];
     size_t sz[N];
     size_t p, q;
+    char line[MAXLINE];
 
     for (size_t i = 0; i < N; i++) {
         id[i] = i;
         sz[i] = 1;
     }
-    while (scanf("%zu %zu\n", &p , &q) == 2) {
+    while (fgets(line, sizeof(line), stdin) && 
+    sscanf(line, "%zu %zu", &p, &q) == 2) {
 
         if (p >= N || q >= N) continue;
 
@@ -68,7 +76,13 @@ int main(int argc, char *argv[argc + 1]) {
         if (sz[i] < sz[j]) SWAP(i, j);
         id[j] = i;
         sz[i] += sz[j];
+
         printf(" %zu %zu\n", p, q);
+
+    }
+    if (!feof(stdin)) {
+        fprintf(stderr, "Error occured during read\n");
+        return EXIT_FAILURE;
     }
     return EXIT_SUCCESS; 
 }
