@@ -2,12 +2,12 @@
 
 #############################################################
 # Simple Script to find and run all Makefiles               #
-# Usage: ./makeAll [directory] [--target] [--buildMode] []  #    
+# Usage: ./makeAll [directory] [--target] [--build] []  #    
 #############################################################
 
 # Constants
-USAGE_STRING="[[[ -d, --dir, --directory directory ] [-i, --interactive] [-t, --target]] \
-[-e, --errorlog filename] [-l --log filename] | [-h]]"
+USAGE_STRING="[[[ -d, --dir, --directory directory ] [-i, --interactive] [-t, --target target] \
+[-b, --build build] [-e, --errorlog filename] [-l --log filename]] | [-h]]"
 
 # functions
 
@@ -27,7 +27,7 @@ display_help () {
 
 #display invalid build mode option
 display_invalid_build_option () {
-    printf "Invalid build mode %s encountered\n" "$buildMode" >&2
+    printf "Invalid build mode %s encountered\n" "$build" >&2
     usage_output 2
 }
 
@@ -38,7 +38,7 @@ display_invalid_target_option () {
 
 #checks that input build mode is valid and exits if not.
 validate_build_option ( ) {
-    [[ " ${validModes[*]} " =~ [[:space:]]${buildMode}[[:space:]] ]]
+    [[ " ${validModes[*]} " =~ [[:space:]]${build}[[:space:]] ]]
 }
 
 validate_target_option () {
@@ -47,8 +47,8 @@ validate_target_option () {
 
 #find the makefiles and execute the build
 find_and_build () {
-    printf "=== Building with Mode: %s ===\n" "$buildMode" >&1 
-    find "$directory" -type d -name BuildTemplateAndScripts -prune -o -name Makefile -execdir make ${target} BUILD=${buildMode} \; -a \( -fprint ${successfile} -o -fprint ${errorfile} \)
+    printf "=== Building with Mode: %s ===\n" "$build" >&1 
+    find "$directory" -type d -name BuildTemplateAndScripts -prune -o -name Makefile -execdir make ${target} BUILD=${build} \; -a \( -fprint ${successfile} -o -fprint ${errorfile} \)
 }
 
 request_search_directory () {
@@ -61,9 +61,9 @@ request_search_directory () {
 
 request_build_mode () {
     response=
-    read -p " Enter buildMode [$buildMode] > " response
+    read -p " Enter build [$build] > " response
     if [ -n "$response" ]; then
-        buildMode="$response"
+        build="$response"
     fi
 }
 
@@ -107,7 +107,7 @@ check_proceed () {
 
 # Settings up some variables
 validModes=("debug" "release") #valid options for setting the build mode
-buildMode="debug"  # default build mode
+build="debug"  # default build mode
 interactive= #indicates if shell to be called in interactive mode
 
 validTargets=("clean" "distribute" "diff")
@@ -119,6 +119,8 @@ directory="$( dirname -- "${BASH_SOURCE[0]}" )"/.. #default directory
 
 # Process command line arguments
 
+#default use case: default directory or just directory
+
 while [ "$1" != "" ]; do
     case $1 in
         -d | --dir | --directory )  shift
@@ -126,6 +128,9 @@ while [ "$1" != "" ]; do
                                     ;;
         -t | --target )             shift
                                     target=$1
+                                    ;;
+        -b | --build )              shift
+                                    build=$1
                                     ;;
         -l | --log )                shift
                                     successfile=$1
@@ -143,10 +148,6 @@ while [ "$1" != "" ]; do
     esac
     shift
 done
-
-if [[ "$buildMode" == "help" ]]; then
-    display_help
-fi
 
 if [ "$interactive" == "1" ]; then
     request_search_directory

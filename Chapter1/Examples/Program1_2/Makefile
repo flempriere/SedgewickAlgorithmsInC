@@ -1,7 +1,6 @@
-# A Simple Makefile Template
-
-# Template version
-VERSION = 1.0.0
+# A Simple Makefile
+# Template VERSION = 1.0.0
+# Date generated on: 2025-03-20
 
 ##############
 # BUILD Mode #

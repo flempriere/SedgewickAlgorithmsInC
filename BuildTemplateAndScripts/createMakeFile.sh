@@ -1,10 +1,10 @@
 #!/bin/bash
 
-# A shell script to manage the following:
-# Make a make file in a given directory 
-# TODO: Update a variable for all make files in a dir
-# TODO: Update the template for all make files in a directory
-# preserving current variable settings.
+# A shell script which given a list of directories
+# generates a make file in that directory set to
+# build the exe directory.exe and given the project
+# title directory.
+
 
 get_dirname () {
     tmpDir=$( cd "$1"; pwd)
@@ -13,6 +13,7 @@ get_dirname () {
 }
 
 set_default_makefile_variables ( ) {
+    today=$(date +%Y-%m-%d)
     HEADER_DIR=". ./includes"
     SOURCE_DIR=". ./src"
     SOURCE_VPATHS=
@@ -37,7 +38,8 @@ set_default_makefile_variables ( ) {
 }
 
 create_from_template () {
-    sed -e "s@{%HEADER_DIR%}@$HEADER_DIR@g" \
+    sed -e "s@{%DATE_GENERATED%}@$today@g" \
+    -e "s@{%HEADER_DIR%}@$HEADER_DIR@g" \
     -e "s@{%SOURCE_DIRS%}@$SOURCE_DIR@g" \
     -e "s@{%SOURCE_VPATHS%}@$SOURCE_VPATH@g" \
     -e "s@{%PROJECT%}@$PROJECT@g" \
@@ -70,7 +72,6 @@ templatePath="${SCRIPT_DIR}/Templates/${version}/${templateFile}"
 set_default_makefile_variables
 
 while [ "$1" != "" ]; do
-
     directory="$1"
     shift
 
