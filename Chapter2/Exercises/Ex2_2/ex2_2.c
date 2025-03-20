@@ -7,7 +7,7 @@ Exercise 2-2:
 #include <stdlib.h>
 #include <stdio.h>
 
-#define N_SCALES 3
+#define N_SCALES 3u
 
 /**
  * @brief times the runtime of a triple nested

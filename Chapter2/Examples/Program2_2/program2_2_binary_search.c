@@ -18,7 +18,7 @@
  * @brief size of the test search array
  * 
  */
-#define N 10
+#define N 10u
 
 /**
  * @brief value indicating search failed to
@@ -34,7 +34,7 @@
  * 
  * @see NOT_FOUND
  */
-size_t search(int v, size_t l, size_t r, int a[r+1]);
+size_t search(size_t v, size_t l, size_t r, size_t a[r+1]);
 
 /**
  * @brief Test driver for search
@@ -42,19 +42,19 @@ size_t search(int v, size_t l, size_t r, int a[r+1]);
  * @return EXIT_SUCCESS
  */
 int main(int argc, char* argv[argc + 1]) {
-    int a[N] = {0, 10, 20, 30, 40, 50, 60, 70, 80, 90};
-    for (int i = 0; i <= N; i++) {
+    size_t a[N] = {0, 10, 20, 30, 40, 50, 60, 70, 80, 90};
+    for (size_t i = 0; i <= N; i++) {
         size_t idx = search(i*10, 0, N-1, a);
         if (idx != NOT_FOUND) {
-            printf("v: %d, i: %zu, a[i]: %d\n", i, idx, a[idx]);
+            printf("v: %zu, idx: %zu, a[i]: %zu\n", i*10, idx, a[idx]);
         } else {
-            printf("v: %d, i: NOT_FOUND\n", i);
+            printf("v: %zu, idx: NOT_FOUND\n", i*10);
         }
     }
     return EXIT_SUCCESS;
 }
 
-size_t search(int v, size_t l, size_t r, int a[r+1]) {
+size_t search(size_t v, size_t l, size_t r, size_t a[r+1]) {
     while(r >= l) {
         size_t m = (l + r)/2; 
         if (v == a[m]) return m;

@@ -13,7 +13,7 @@ C_N = C_(N/2) + 1 for N >= 2 with C_1 = 1
  * coefficient for.
  * 
  */
-#define N 32
+#define N 32u
 
 /**
  * @brief check if x is even

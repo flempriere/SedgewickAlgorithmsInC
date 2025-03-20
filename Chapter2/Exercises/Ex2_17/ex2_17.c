@@ -11,16 +11,22 @@ with a 64bit size_t type.
 use exact table for n = 0, 1, 2, 3 and return SIZE_MAX to signify -inf.
 */
 
+#include <stddef.h>
 #include <stdlib.h>
 #include <tgmath.h>
 #include <stdio.h>
 #include <stdint.h>
 
 /**
+ * @brief Explicit cast
+ * 
+ */
+#define CAST(T) (T)
+/**
  * @brief Largest order Fibonnaci
  * number to calculate.
  */
-#define MAX_INT 50
+#define MAX_INT 50u
 
 /**
  * @brief Calculates the N-th Fibonacchi number
@@ -76,9 +82,9 @@ size_t APPROX_LG_FIB(size_t N)
     static size_t exact_sln[] = {SIZE_MAX, 0, 0, 1};
     if (N <= 3) return exact_sln[N];
 
-    return floor(N*log2(GOLDEN_RATIO) - 0.5L*log2(5.0L));
+    return CAST(size_t) floor(N*log2(GOLDEN_RATIO) - 0.5L*log2(5.0L));
 }
 
 size_t EXACT_LG_FIB(size_t N) {
-    return floor(log2(FIBONACCHI_NUMBER(N)));
+    return CAST(size_t) floor(log2( CAST(double)FIBONACCHI_NUMBER(N)));
 }

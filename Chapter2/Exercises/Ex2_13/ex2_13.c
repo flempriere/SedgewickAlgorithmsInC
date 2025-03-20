@@ -10,10 +10,15 @@ Exercise 2-13:
 #include <tgmath.h>
 
 /**
+ * @brief Make casts explicit
+ * 
+ */
+#define CAST(T) (T)
+/**
  * @brief maximum N for which to
  * compute ceil(lg(lg(N)))
  */
-#define MAX_N 20
+#define MAX_N 20u
 
 /**
  * @brief Calculate ceil(lg(lg(N)))
@@ -29,7 +34,7 @@ size_t ceil_lglg(size_t N);
 int main(int argc, char* argv[argc + 1]) {
     for (size_t i = 2; i <= MAX_N; i++) {
         printf("N: %zu, By approx: %zu, By math Library: %f\n", 
-            i, ceil_lglg(i), ceil(log2(log2(i))));
+            i, ceil_lglg(i), ceil(log2(log2(CAST(double)i))));
     }
     return EXIT_SUCCESS;
 }

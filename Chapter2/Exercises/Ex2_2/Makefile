@@ -71,10 +71,11 @@ FLAGS_release = -g -march=native
 FLAGS_debug = -g3
 
 #Linker
-FLAGS_linker = 
+FLAGS_linker =
 
 # Select the flags
 BUILDFLAGS = $(FLAGS_$(BUILD))
+BUILDFLAGS += $(OPT_$(BUILD))
 
 CFLAGS = $(STD) $(FLAGS_warning) $(FLAGS_address) $(INCLUDES) $(BUILDFLAGS) $(FLAGS_dependencies)
 

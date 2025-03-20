@@ -10,10 +10,16 @@ there are slight discrepancies between the two for low n.
 #include <stdio.h>
 
 /**
+ * @brief Explicitly cast to type T
+ * 
+ */
+ #define CAST(T) (T)
+
+/**
  * @brief Harmonic number to calculate up to.
  * 
  */
-#define N 10
+#define N 10u
 
 /**
  * @brief largest harmonic number to cache results
@@ -54,7 +60,7 @@ int main(int argc, char *argv[argc + 1]) {
 long double Harmonic_N(size_t x) {
     if (x == 1) return 1.0L;
     const long double EULER_CONSTANT = 0.57721L;
-    return log(x) + EULER_CONSTANT + 1.0L/(12.0L*x);
+    return log( CAST(double) x) + EULER_CONSTANT + 1.0L/(12.0L*x);
 }
 
 long double Harmonic_N_Exact(size_t x) {

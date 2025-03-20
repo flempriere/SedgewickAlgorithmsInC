@@ -9,10 +9,16 @@ Exercise 2-12:
 #include <stdlib.h>
 
 /**
+ * @brief Explicitly cast a type
+ * 
+ */
+#define CAST(T) (T)
+
+/**
  * @brief Number of harmonic numbers to calculate
  * 
  */
-#define N_HARMONICS 20
+#define N_HARMONICS 20u
 
 /**
  * @brief Calculates the n-th harmonic number
@@ -38,8 +44,8 @@ int main(int argc, char *argv[argc + 1]) {
 
 long double Harmonic_N(size_t x) {
     if (x == 1) return 1.0L;
-    else if (x == 2) return 0.5L;
+    else if (x == 2) return 1.5L;
 
     const long double EULER_CONSTANT = 0.57721L;
-    return log(x) + EULER_CONSTANT + 1.0L/(12.0L*x);
+    return log(CAST(double) x) + EULER_CONSTANT + 1.0L/(12.0L*x);
 }

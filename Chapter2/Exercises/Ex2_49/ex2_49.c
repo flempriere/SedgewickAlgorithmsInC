@@ -15,22 +15,28 @@
 #include <time.h>
 
 /**
+ * @brief Makes cast explicit.
+ * 
+ */
+#define CAST(T) (T)
+
+/**
  * @brief Maximum number of random integers to generate
  * for testing
  */
-#define MAX_N 100000
+#define MAX_N 100000u
 
 /**
  * @brief Maximum number of random integers to store 
  * 
  */
-#define MAX_M 100000
+#define MAX_M 100000u
 
 /**
  * @brief Number of test cases to generate.
  * 
  */
-#define CASES 5
+#define CASES 5u
 
 /**
  * @brief Array key values
@@ -90,7 +96,7 @@ int main(int argc, char* argv[argc + 1]) {
     key random_ints[MAX_M];
     size_t cases[CASES] = {10, 100, 1000, 10000, 100000};
 
-    srand(time(NULL));
+    srand(CAST(unsigned int) time(NULL));
     for (size_t i = 0; i < CASES; i++) { //choose M case
         size_t m = cases[i];
         fill_array(m, random_ints);
@@ -113,7 +119,7 @@ size_t search(key v, size_t l, size_t r, key a[r+1]) {
 size_t countMatches(size_t n, size_t m, key a[m]) {
     size_t matches = 0;
     for (; n < SIZE_MAX; --n) {
-        key num = rand() % KEY_MAX;
+        key num = CAST(key) rand() % KEY_MAX;
         matches += (search(num, 0, m - 1, a) == SIZE_MAX) ? 0 : 1;
     }
     return matches;
@@ -121,6 +127,6 @@ size_t countMatches(size_t n, size_t m, key a[m]) {
 
 void fill_array(size_t len, key a[len]) {
     while((--len) < KEY_MAX) {
-        a[len] = rand() % KEY_MAX;
+        a[len] = CAST(key) rand() % KEY_MAX;
     }
 }
