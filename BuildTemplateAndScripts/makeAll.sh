@@ -110,7 +110,7 @@ validModes=("debug" "release") #valid options for setting the build mode
 build="debug"  # default build mode
 interactive= #indicates if shell to be called in interactive mode
 
-validTargets=("clean", "cleanall" "distribute" "diff")
+validTargets=("clean" "cleanall" "distribute" "diff")
 target= #indicates the build target
 successfile=/dev/stdout
 errorfile=/dev/stderr

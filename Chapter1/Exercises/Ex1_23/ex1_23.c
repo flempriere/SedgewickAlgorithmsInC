@@ -11,23 +11,29 @@ generated each time.
 #include <stdlib.h>
 
 /**
+ * @brief Make a cast explicit
+ * 
+ */
+ #define CAST(T) (T)
+
+/**
  * @brief maximum value of a vertex across all runs
  * 
  */
-#define MAX_VERTEX 1000
+#define MAX_VERTEX 1000u
 /**
  * @brief smallest maximum value for any run.
  * @see MAX_VERTEX
  * 
  */
-#define MIN_VERTEX 100
+#define MIN_VERTEX 100u
 
 /**
  * @brief generates a random number between 0 and @N
  * @param N unsigned integer <= RAND_MAX 
  * 
  */
-#define RAND_INT(N) rand() % (N)
+#define RAND_SIZE_T(N) (CAST(size_t) rand() % (N))
 
 /**
  * @brief swap's x and y
@@ -72,7 +78,7 @@ int main(int argc, char *argv[argc + 1]) {
 
 
 
-    srand(time(NULL));
+    srand(CAST(unsigned int) time(NULL));
     printf("N\t # Edges\n");
 
     for (size_t N = MIN_VERTEX; N <= MAX_VERTEX; N++) {
@@ -82,11 +88,11 @@ int main(int argc, char *argv[argc + 1]) {
             sz[i] = 1;
         }
         
-        size_t p = RAND_INT(N), q = RAND_INT(N);
+        size_t p = RAND_SIZE_T(N), q = RAND_SIZE_T(N);
         size_t n_edges = 1;
 
         for (size_t n_unions = 0; n_unions < N - 1; 
-            p = RAND_INT(N), q = RAND_INT(N), n_edges++) {
+            p = RAND_SIZE_T(N), q = RAND_SIZE_T(N), n_edges++) {
 
             size_t i, j;
             for (i = p; i != id[i]; i = id[i]) {id[i] = id[id[i]];}

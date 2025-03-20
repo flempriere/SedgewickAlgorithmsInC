@@ -12,7 +12,13 @@ Exercise 1-20:
  * @brief Input pair values must be less than N
  * 
  */
-#define N 10000
+#define N 10000u
+
+/**
+ * @brief size of the input buffer for fgets.
+ * 
+ */
+ #define MAXLINE 100u
 
 
 /**
@@ -65,13 +71,17 @@ void printArr(size_t len, size_t a[len]);
 int main(int argc, char *argv[argc + 1]) {
     size_t id[N];
     size_t sz[N];
-    size_t p, q, n_acc = 0;
+    size_t p, q;
+    size_t n_acc = 0; //number of array accesses. 
+    char line[MAXLINE];
 
     for (size_t i = 0; i < N; i++) {
         id[i] = i;
         sz[i] = 0;
     }
-    while (scanf("%zu %zu\n", &p , &q) == 2) {
+    while (fgets(line, sizeof(line), stdin) && 
+    sscanf(line, "%zu %zu", &p, &q) == 2) {
+
         size_t i, j;
         for (i = p; n_acc++, i != id[i]; i = id[i], n_acc++);
         for (j = q; n_acc++, j != id[j]; j = id[j], n_acc++);
@@ -84,8 +94,15 @@ int main(int argc, char *argv[argc + 1]) {
         n_acc++;
         printf(" %zu %zu\n", p, q);
         printArr(N, id);
+
     }
     printf("Number of id array accesses: %zu\n", n_acc);
+
+    if (!feof(stdin)) {
+        fprintf(stderr, "Error occured during read\n");
+        return EXIT_FAILURE;
+    }
+    
     return EXIT_SUCCESS;
 }
 

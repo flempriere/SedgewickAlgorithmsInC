@@ -15,7 +15,13 @@ Exercise 1-7:
  * @brief Input pair values must be less than N
  * 
  */
-#define N 10000
+#define N 10000u
+
+/**
+ * @brief size of the input buffer for fgets.
+ * 
+ */
+ #define MAXLINE 100u
 
 /**
  * @brief swap's x and y
@@ -58,12 +64,15 @@ int main(int argc, char *argv[argc + 1]) {
     size_t id[N];
     size_t sz[N];
     size_t p, q, tot_acc = 0;
+    char line[MAXLINE];
 
     for (size_t i = 0; i < N; i++) {
         id[i] = i;
         sz[i] = 1;
     }
-    while (scanf("%zu %zu\n", &p , &q) == 2) {
+    while (fgets(line, sizeof(line), stdin) && 
+    sscanf(line, "%zu %zu", &p, &q) == 2) {
+        
         if (p >= N || q >= N) continue;
         size_t n_acc = 0;
         size_t i, j;
@@ -75,7 +84,7 @@ int main(int argc, char *argv[argc + 1]) {
         if (sz[i] < sz[j]) SWAP(i, j);
         id[j] = i;
         sz[i] += sz[j];
-        n_acc++;
+        n_acc += 5;
         printf(" %zu %zu\n", p, q);
         printArr(N, id);
 updateArrayAccesses: 
@@ -84,6 +93,12 @@ updateArrayAccesses:
         tot_acc += n_acc;
     }
     printf("Number of id array accesses: %zu\n", tot_acc);
+
+    if (!feof(stdin)) {
+        fprintf(stderr, "Error occured during read\n");
+        return EXIT_FAILURE;
+    }
+
     return EXIT_SUCCESS;
 }
 

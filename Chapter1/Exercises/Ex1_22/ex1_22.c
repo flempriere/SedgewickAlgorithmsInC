@@ -5,29 +5,34 @@ loop until N - 1 unions are performed. Print the total number of edges
 Repeat for N = 10^3, 10^4, 10^5, 10^6
 */
 
+#include <stddef.h>
 #include <stdio.h>
 #include <time.h>
 #include <stdlib.h>
 
-
+/**
+ * @brief Make a cast explicit
+ * 
+ */
+#define CAST(T) (T)
 /**
  * @brief max value of a vertex across any run
  * 
  */
-#define MAX_VERTEX 1000000
+#define MAX_VERTEX 1000000u
 
 /**
  * @brief number of different values of N to use
  * 
  */
-#define N_CASES 4
+#define N_CASES 4u
 
 /**
  * @brief generates a random number between 0 and @N
  * @param N unsigned integer <= RAND_MAX 
  * 
  */
-#define RAND_INT(N) rand() % (N)
+#define RAND_SIZE_T(N) (CAST(size_t) rand() % (N))
 
 /**
  * @brief swap's x and y
@@ -74,18 +79,18 @@ size_t sz[MAX_VERTEX];
 int main(int argc, char *argv[argc + 1]) {
 
     //loop through test cases
-    for (size_t n = 1000, n_cases = 0; n_cases < N_CASES; n *= 10, n_cases++) {
+    for (size_t n = 1000, n_cases = 0u; n_cases < N_CASES; n *= 10, n_cases++) {
 
         //init array
         for (size_t i = 0; i < n; i++) {
             id[i] = i;
             sz[i] = 1;
         }
-        srand(time(NULL));
-        size_t p = RAND_INT(n), q = RAND_INT(n);
+        srand( CAST(unsigned int) time(NULL));
+        size_t p = RAND_SIZE_T(n), q = RAND_SIZE_T(n);
         size_t n_edges = 1;
         for (size_t n_unions = 0; n_unions < n - 1; 
-            p = RAND_INT(n), q = RAND_INT(n), n_edges++) {
+            p = RAND_SIZE_T(n), q = RAND_SIZE_T(n), n_edges++) {
 
             size_t i, j;
             for (i = p; i != id[i]; i = id[i]) {id[i] = id[id[i]];}

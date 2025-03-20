@@ -14,7 +14,13 @@ Exercise 1-16 and 1-17
  * @brief Input pair values must be less than N
  * 
  */
-#define N 16
+#define N 16u
+
+/**
+ * @brief size of the input buffer for fgets.
+ * 
+ */
+ #define MAXLINE 100u
 
 /**
  * @brief swap's x and y
@@ -55,14 +61,18 @@ void printArr(size_t len, size_t a[len]);
 int main(int argc, char *argv[argc + 1]) {
     size_t id[N];
     size_t sz[N];
-    size_t p, q, tot_access = 0;
+    size_t p, q;
+    size_t tot_access = 0; //counter for number of array accesses. 
+    char line[MAXLINE];
 
+    //array initialisation
     for (size_t i = 0; i < N; i++) {
         id[i] = i;
         sz[i] = 1;
     }
 
-    while (scanf("%zu %zu\n", &p , &q) == 2) {
+    while (fgets(line, sizeof(line), stdin) && 
+    sscanf(line, "%zu %zu", &p, &q) == 2) {
         if (p >= N || q >= N) continue;
         size_t i, j;
         size_t n_access = 0;
@@ -70,27 +80,29 @@ int main(int argc, char *argv[argc + 1]) {
         for (i = p; n_access += 1, i != id[i]; i = id[i], n_access += 1);
 
         //traverse tree and compress
-        while(p != i) {
-            size_t np = id[p];
+        size_t k = p;
+        while(k != i) {
+            size_t nk = id[k];
+            id[k] = i;
             n_access += 2;
-            id[p] = i;
-            p = np;
+            k = nk;
         }
         //repeat for other value
         for (j = q; n_access += 1, j != id[j]; j = id[j], n_access += 1);
 
-        while (q != j) {
-            size_t nq = id[q];
+        size_t l = q;
+        while (l != j) {
+            size_t nl = id[l];
+            id[l] = j;
             n_access += 2;
-            id[q] = j;
-            q = nq;
+            l = nl;
         }
         if (i == j) {goto updateArrayAccesses;}
 
         if (sz[i] < sz[j]) SWAP(i, j);
         id[j] = i;
         sz[i] += sz[j];
-        n_access += 1;
+        n_access += 5;
         printf(" %zu %zu\n", p, q);
         printArr(N, id);
 updateArrayAccesses: 
@@ -99,6 +111,12 @@ updateArrayAccesses:
         tot_access += n_access;
     }
     printf("id array accesses: %zu\n", tot_access);
+
+    if (!feof(stdin)) {
+        fprintf(stderr, "Error occured during read\n");
+        return EXIT_FAILURE;
+    }
+
     return EXIT_SUCCESS; 
 }
 

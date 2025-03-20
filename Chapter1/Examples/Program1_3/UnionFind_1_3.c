@@ -76,7 +76,7 @@ int main(int argc, char *argv[argc + 1]) {
         sz[i] += sz[j];
 
         printf(" %zu %zu\n", p, q);
-        
+
     }
     if (!feof(stdin)) {
         fprintf(stderr, "Error occured during read\n");
