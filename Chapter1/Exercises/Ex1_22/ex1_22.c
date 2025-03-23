@@ -58,7 +58,7 @@ int main(int argc, char* argv[argc + 1]) {
             id[i] = i;
             sz[i] = 1;
         }
-        srand(CAST(unsigned int) time(NULL));
+        RAND_SEED_TIME;
 
         register size_t p = RAND_SIZE_T(n);
         register size_t q = RAND_SIZE_T(n);

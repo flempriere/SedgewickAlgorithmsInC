@@ -36,7 +36,7 @@ constexpr size_t MIN_VERTEX = 100u;
  * @param a array storing results, indexes start -> len must be
  * valid
  */
-void printGraph(size_t start, size_t len, size_t a[len]);
+void printGraph(size_t const start, size_t const len, size_t a[len]);
 
 /**
  * @brief Generates a table of the number of edges needed to connect
@@ -50,7 +50,7 @@ int main(int argc, char* argv[argc + 1]) {
     size_t sz[MAX_VERTEX];
     size_t result[MAX_VERTEX + 1];
 
-    srand(CAST(unsigned int) time(NULL));
+    RAND_SEED_TIME;
     printf("N\t # Edges\n");
 
     for (register size_t N = MIN_VERTEX; N <= MAX_VERTEX; N++) {
@@ -83,8 +83,8 @@ int main(int argc, char* argv[argc + 1]) {
     return EXIT_SUCCESS;
 }
 
-void printGraph(size_t start, size_t len, size_t a[len]) {
-    for (register size_t i = start++; i < len; i++) {
+void printGraph(size_t const start, size_t const len, size_t a[len]) {
+    for (register size_t i = start + 1; i < len; i++) {
         printf("%zu : %zu\n", i - 1, a[i - 1]);
     }
 }

@@ -28,7 +28,7 @@ constexpr size_t MAXLINE = 100u;
  * @param len size_t type, length of the array
  * @param a size_t type, must be of size at least len.
  */
-void printArr(size_t len, size_t a[len]);
+void printArr(size_t const len, size_t a[len]);
 
 /**
  * @brief Reads input pairs `p,q < N` from
@@ -102,7 +102,7 @@ int main(int argc, char* argv[argc + 1]) {
     return EXIT_SUCCESS;
 }
 
-void printArr(size_t len, size_t a[len]) {
+void printArr(size_t const len, size_t a[len]) {
     for (register size_t i = 0; i < len; i++) printf(" %zu", a[i]);
     printf("\n");
 }
