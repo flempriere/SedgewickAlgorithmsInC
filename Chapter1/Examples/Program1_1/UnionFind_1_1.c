@@ -20,42 +20,41 @@ we have to update all entries
 
 /**
  * @brief Input pair values must be less than N
- * 
+ *
  */
-#define N 10000u
+constexpr size_t N = 10000u;
 
 /**
  * @brief size of the input buffer for fgets.
- * 
+ *
  */
-#define MAXLINE 100u
+constexpr size_t MAXLINE = 100u;
 
 /**
- * @brief Reads input pairs `p,q < N` from 
+ * @brief Reads input pairs `p,q < N` from
  * standard input and performs a union operation. If
  * `p` and `q` where not already connected they are
  * printed to output.
- * 
+ *
  * @exception if p or q is not less than N the input
  * pair is ignored
- * 
+ *
  * @return EXIT_SUCCESS on exit.
- * 
+ *
  */
 int main() {
     size_t p;
     size_t q;
     size_t id[N];
-    char line[MAXLINE]; //input buffer
+    char line[MAXLINE];    // input buffer
 
-    for (size_t i = 0; i < N; i++) id[i] = i;
-    while (fgets(line, sizeof(line), stdin) && 
-        sscanf(line, "%zu %zu", &p, &q) == 2) {
-
-        if (p >= N || q >= N) continue; //bounds checking
+    for (register size_t i = 0; i < N; i++) id[i] = i;
+    while (fgets(line, sizeof(line), stdin) &&
+           sscanf(line, "%zu %zu", &p, &q) == 2) {
+        if (p >= N || q >= N) continue;    // bounds checking
         if (id[p] == id[q]) continue;
         size_t t = id[p];
-        for (size_t i = 0; i < N; i++) {
+        for (register size_t i = 0; i < N; i++) {
             if (id[i] == t) id[i] = id[q];
         }
 

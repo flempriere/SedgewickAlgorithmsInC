@@ -6,66 +6,50 @@ of all the root nodes. When performing a union, the smaller tree is attached
 to the larger tree.
 */
 
+#include "../../../MacroLibrary/Generic.h"
+
 #include <stdio.h>
 #include <stdlib.h>
 
-
 /**
  * @brief Input pair values must be less than N
- * 
+ *
  */
-#define N 10000u
+constexpr size_t N = 10000u;
 
 /**
  * @brief size of the input buffer for fgets.
- * 
+ *
  */
- #define MAXLINE 100u
-
+constexpr size_t MAXLINE = 100u;
 
 /**
- * @brief swap's x and y
- * 
- * @param x first item to be swapped
- * @param y first item to be swapped
- * 
- * Uses C23 typeof_unqual operator to
- * determine types of @x and @y for
- * temporary variable _t.
- */
-#define SWAP(x,y) do {              \
-    typeof_unqual(x) _t = x;        \
-    x = y;                          \
-    y = _t;                         \
-} while(0)                          \
-
-/**
- * @brief Reads input pairs `p,q < N` from 
+ * @brief Reads input pairs `p,q < N` from
  * standard input and performs a union operation. If
  * `p` and `q` where not already connected they are
  * printed to output.
- * 
+ *
  * @exception if p or q is not less than N the input
  * pair is ignored
- * 
+ *
  * @return EXIT_SUCCESS on exit.
- * 
+ *
  */
-int main(int argc, char *argv[argc + 1]) {
+int main(int argc, char* argv[argc + 1]) {
     size_t id[N];
     size_t sz[N];
     size_t p, q;
     char line[MAXLINE];
 
-    for (size_t i = 0; i < N; i++) {
+    for (register size_t i = 0; i < N; i++) {
         id[i] = i;
         sz[i] = 1;
     }
-    while (fgets(line, sizeof(line), stdin) && 
-    sscanf(line, "%zu %zu", &p, &q) == 2) {
-
-        size_t i, j;
-        if (p >= N || q >= N) continue; //bounds checking
+    while (fgets(line, sizeof(line), stdin) &&
+           sscanf(line, "%zu %zu", &p, &q) == 2) {
+        register size_t i;
+        register size_t j;
+        if (p >= N || q >= N) continue;    // bounds checking
         for (i = p; i != id[i]; i = id[i]);
         for (j = q; j != id[j]; j = id[j]);
 
@@ -76,11 +60,10 @@ int main(int argc, char *argv[argc + 1]) {
         sz[i] += sz[j];
 
         printf(" %zu %zu\n", p, q);
-
     }
     if (!feof(stdin)) {
         fprintf(stderr, "Error occured during read\n");
         return EXIT_FAILURE;
     }
-    return EXIT_SUCCESS; 
+    return EXIT_SUCCESS;
 }
