@@ -1,9 +1,8 @@
-//Implementation of num.h
-
-#include <stdlib.h>
-#include <limits.h>
+// Implementation of num.h
 #include "num.h"
 
-Number randNum(void) {
-    return rand() % NUM_MAX;
-}
+#include "../../../../../MacroLibrary/Random.h"
+
+#include <limits.h>
+
+Number NUMBERrandom(void) { return CAST(Number) RAND_NUM(INT_MAX); }

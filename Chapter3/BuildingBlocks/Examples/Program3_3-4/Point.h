@@ -24,4 +24,4 @@ typedef struct {
  * @param q point
  * @return double
  */
-double POINTdistance(Point p, Point q);
+double POINTdistance(Point const p, Point const q);
