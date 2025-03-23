@@ -4,24 +4,18 @@ space
 */
 #include <stddef.h>
 
-/**
- * @brief Numerical tolerance
- * for Collinear check
- * 
- */
-#define TOLERANCE 10e-4
 
 /**
  * @brief Maximum dimension for
  * points
- * 
+ *
  */
 #define POINT_DDIM_MAX_DIM 10
 
 /**
  * @brief Localises numeric type
  * reference
- * 
+ *
  */
 typedef double Number;
 
@@ -35,7 +29,7 @@ typedef size_t Dimension;
  * @brief Two dimensional point
  * represented by an x and y
  * coordinate.
- * 
+ *
  */
 typedef struct {
     Number x[POINT_DDIM_MAX_DIM];
@@ -44,10 +38,11 @@ typedef struct {
 /**
  * @brief Calculates the distance
  * between two points
- * 
+ *
  * @param p point
  * @param q point
  * @param d dimension, p,q must have the same dimension d
- * @return double 
+ * @return double
  */
-double POINT_DDIMdistance(Point_DDIM p, Point_DDIM q, Dimension d);
+double POINT_DDIMdistance(Point_DDIM const p, Point_DDIM const q,
+                          Dimension const d);

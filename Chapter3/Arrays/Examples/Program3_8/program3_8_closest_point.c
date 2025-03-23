@@ -13,13 +13,6 @@ straight line of length < d using the point datatype introduced earlier.
 #include <stdlib.h>
 #include <tgmath.h>
 
-/**
- * @brief Generates a random double between
- * 0 and 1.
- *
- * @return double
- */
-double randFloat(void);
 
 /**
  * @brief Generates N random points
@@ -39,19 +32,19 @@ int main(int argc, char* argv[argc + 1]) {
 
     RAND_SEED_TIME;
     double d = atof(argv[2]);
-    size_t N = strtoull(argv[1], NULL, 0);
+    register size_t N = strtoull(argv[1], NULL, 0);
 
     Point* a = malloc(N * (sizeof(typeof_unqual(*a))));
-    for (size_t i = 0; i < N; i++) {
+    for (register size_t i = 0; i < N; i++) {
         {
-            a[i].x = randFloat();
-            a[i].y = randFloat();
+            a[i].x = RAND_UNIFORM();
+            a[i].y = RAND_UNIFORM();
         }
     }
 
-    size_t cnt = 0;
-    for (size_t i = 0; i < N; i++) {
-        for (size_t j = i + 1; j < N; j++) {
+    register size_t cnt = 0;
+    for (register size_t i = 0; i < N; i++) {
+        for (register size_t j = i + 1; j < N; j++) {
             if (POINTdistance(a[i], a[j]) < d) cnt++;
         }
     }
@@ -59,5 +52,3 @@ int main(int argc, char* argv[argc + 1]) {
     free(a);
     return EXIT_SUCCESS;
 }
-
-double randFloat(void) { return 1.0 * rand() / RAND_MAX; }

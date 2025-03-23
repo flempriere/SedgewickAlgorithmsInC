@@ -6,43 +6,42 @@ in an input stream.
 
 */
 
+#include <stddef.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <stddef.h>
 
 /**
  * @brief Maximum length of a line
- * 
+ *
  */
-#define MAXLINE 5u
+constexpr size_t MAXLINE = 5u;
 
 /**
  * @brief Largest valid input number
- * 
+ *
  */
-#define MAX_NUM 1000u
+constexpr size_t MAX_NUM = 1000u;
 
 /**
  * @brief Counts the number of different
  * integers less than 1000 that appear in
  * an input stream.
- * 
+ *
  * Prints out the counts for all non-zero entries
  * after end of input
- * 
+ *
  * @return EXIT_SUCCESS
  */
 int main(int argc, char* argv[argc + 1]) {
-
     char line[MAXLINE];
     size_t a[MAX_NUM] = {};
 
     while (fgets(line, sizeof(line), stdin) != NULL) {
-        size_t i = strtoull(line, nullptr, 0);
+        register size_t i = strtoull(line, nullptr, 0);
         if (i > MAX_NUM) continue;
         a[i]++;
     }
-    for (size_t i = 0; i < MAX_NUM; i++) {
+    for (register size_t i = 0; i < MAX_NUM; i++) {
         if (a[i]) printf("%4zu:%4zu\n", i, a[i]);
     }
     return EXIT_SUCCESS;

@@ -1,6 +1,6 @@
 # A Simple Makefile
 # Template VERSION = 1.0.0
-# Date generated on: 2025-03-20
+# Date generated on: 2025-03-23
 
 ##############
 # BUILD Mode #
@@ -16,8 +16,8 @@ BUILDDIR = $(CURDIR)/$(BUILD)
 # Search Directories for Code #
 ###############################
 
-INCLUDE_DIRS = . ./includes ../../../BuildingBlocks/Examples/Program3_3-4/
-SOURCE_DIRS = . ./src ../../../BuildingBlocks/Examples/Program3_3-4/
+INCLUDE_DIRS = . ./includes ../../../BuildingBlocks/Examples/Program3_3-4
+SOURCE_DIRS = . ./src ../../../BuildingBlocks/Examples/Program3_3-4
 SOURCE_VPATHS = 
 
 vpath %.c $(sort $(dir) $(SOURCE_DIRS) $(SOURCE_VPATHS))
@@ -43,6 +43,7 @@ CEXTRA =
 CFILES := $(notdir $(foreach D, $(SOURCE_DIRS), $(wildcard $(D)/*.c)))
 CFILES += $(notdir $(CEXTRA))
 OBJS := $(addprefix $(BUILDDIR)/, $(CFILES:.c=.o))
+DEPS := $(OBJS:.o=.d)
 
 #####################
 # Compiler Settings #
