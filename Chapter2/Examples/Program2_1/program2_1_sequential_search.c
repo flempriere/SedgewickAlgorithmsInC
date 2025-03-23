@@ -51,7 +51,7 @@ int main(int argc, char* argv[argc + 1]) {
     };
 
     for (register Item i = 0; i <= N; i++) {
-        size_t idx = search(i, 0, N - 1, a);
+        register size_t idx = search(i, 0, N - 1, a);
 
         if (idx != NOT_FOUND) {
             printf("v: %zu, idx: %zu, a[idx]: %zu\n", i, idx, a[idx]);

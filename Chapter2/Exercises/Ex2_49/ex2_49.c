@@ -87,17 +87,16 @@ int main(int argc, char* argv[argc + 1]) {
 
     RAND_SEED_TIME;
     for (register size_t i = 0; i < CASES; i++) {    // choose M case
-        size_t m = cases[i];
+        register size_t m = cases[i];
         fill_array(m, random_ints);
 
         for (register size_t j = 0; j < CASES; j++) {    // choose N case
-            size_t n = cases[j];
+            register size_t n = cases[j];
             register size_t matches = countMatches(n, m, random_ints);
             printf("M: %zu, N: %zu, Matches: %zu\n", m, n, matches);
         }
     }
-
-    return 0;
+    return EXIT_SUCCESS;
 }
 
 size_t search(key const v, size_t l, size_t r, key a[r + 1]) {
@@ -110,14 +109,14 @@ size_t search(key const v, size_t l, size_t r, key a[r + 1]) {
 size_t countMatches(size_t const n, size_t const m, key a[m]) {
     register size_t matches = 0;
     for (register size_t i = 0; i < n; i++) {
-        key num = CAST(key) rand() % KEY_MAX;
-        matches += (search(num, 0, m - 1, a) == SIZE_MAX) ? 0 : 1;
+        key num = CAST(key) RAND_NUM(KEY_MAX);
+        matches += (search(num, 0, m - 1, a) == NOT_FOUND) ? 0 : 1;
     }
     return matches;
 }
 
 void fill_array(size_t const len, key a[len]) {
     for (register size_t i = 0; i < len; i++) {
-        a[i] = CAST(key) rand() % KEY_MAX;
+        a[i] = CAST(key) RAND_NUM(KEY_MAX);
     }
 }
