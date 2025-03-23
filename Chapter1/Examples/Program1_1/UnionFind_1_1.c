@@ -42,7 +42,7 @@ constexpr size_t MAXLINE = 100u;
  * @return EXIT_SUCCESS on exit.
  *
  */
-int main() {
+int main(void) {
     size_t p;
     size_t q;
     size_t id[N];
