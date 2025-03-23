@@ -11,80 +11,75 @@ with a 64bit size_t type.
 use exact table for n = 0, 1, 2, 3 and return SIZE_MAX to signify -inf.
 */
 
-#include <stddef.h>
+#include "../../../MacroLibrary/Utility.h"
+
+#include <limits.h>
+#include <stdio.h>
 #include <stdlib.h>
 #include <tgmath.h>
-#include <stdio.h>
-#include <stdint.h>
 
-/**
- * @brief Explicit cast
- * 
- */
-#define CAST(T) (T)
 /**
  * @brief Largest order Fibonnaci
  * number to calculate.
  */
-#define MAX_INT 50u
+constexpr size_t MAX_INT = 50u;
 
 /**
  * @brief Calculates the N-th Fibonacchi number
- * 
+ *
  */
-size_t FIBONACCHI_NUMBER(size_t N);
+unsigned long long FIBONACCHI_NUMBER(size_t const N);
 
 /**
  * @brief approximates lg(F_N)
- * 
+ *
  */
-size_t APPROX_LG_FIB(size_t N);
+unsigned int APPROX_FLOOR_LG_FIB(size_t const N);
 
 /**
  * @brief Calculates lg(F_N) exactly.
- * 
+ *
  */
-size_t EXACT_LG_FIB(size_t N);
+unsigned int EXACT_FLOOR_LG_FIB(size_t const N);
 
 /**
  * @brief Calculates floor(lg(F_N)) using
  * an exact and simple approach.
- * 
- * @return EXIT_SUCCESS 
+ *
+ * @return EXIT_SUCCESS
  */
 int main(int argc, char* argv[argc + 1]) {
-
-    for (size_t i = 1; i < MAX_INT; i++) {
-        printf("N: %zu, F_n: %zu, approx: %zu, exact: %zu\n",
-            i, FIBONACCHI_NUMBER(i), APPROX_LG_FIB(i), EXACT_LG_FIB(i));
+    for (register size_t i = 1; i < MAX_INT; i++) {
+        printf("N: %zu, F_n: %llu, approx: %u, exact: %u\n", i,
+               FIBONACCHI_NUMBER(i), APPROX_FLOOR_LG_FIB(i),
+               EXACT_FLOOR_LG_FIB(i));
     }
     return EXIT_SUCCESS;
 }
 
-size_t FIBONACCHI_NUMBER(size_t N)
-{
-    //cache for calculated values
-    static size_t FIB_NUM[MAX_INT] = {0, 1};
-    static size_t MAX_N = 1; //max calculated fib num;
+unsigned long long FIBONACCHI_NUMBER(size_t const N) {
+    // cache for calculated values
+    static size_t FIB_NUM[MAX_INT] = { 0, 1 };
+    static size_t MAX_N = 1;    // max calculated fib num;
 
-    while(++MAX_N <= N) {
+    while (++MAX_N <= N) {
         FIB_NUM[MAX_N] = FIB_NUM[MAX_N - 1] + FIB_NUM[MAX_N - 2];
     }
     --MAX_N;
     return FIB_NUM[N];
 }
 
-size_t APPROX_LG_FIB(size_t N)
-{
-    #ifndef GOLDEN_RATIO
-        #define GOLDEN_RATIO 1.61803L
-    #endif
-    static size_t exact_sln[] = {SIZE_MAX, 0, 0, 1};
+unsigned int APPROX_FLOOR_LG_FIB(size_t const N) {
+#ifndef GOLDEN_RATIO
+#    define GOLDEN_RATIO 1.61803L
+#endif
+    static unsigned int exact_sln[] = { INT_MAX, 0, 0, 1 };
     if (N <= 3) return exact_sln[N];
 
-    return CAST(size_t) floor(N*log2(GOLDEN_RATIO) - 0.5L*log2(5.0L));
+    return CAST(unsigned int) floor(N * log2(GOLDEN_RATIO) - 0.5L * log2(5.0L));
 }
 
-size_t EXACT_LG_FIB(size_t N) {
-    return CAST(size_t) floor(log2( CAST(double)FIBONACCHI_NUMBER(N)));
+unsigned int EXACT_FLOOR_LG_FIB(size_t const N) {
+    return CAST(unsigned int)
+        floor(log2(CAST(long double) FIBONACCHI_NUMBER(N)));
 }

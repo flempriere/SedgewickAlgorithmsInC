@@ -43,9 +43,9 @@ long double newtons_method(long double (*f)(long double), long double x);
  * @param x 
  * @return long double 
  */
-long double fn(long double x);
-long double quadraticTerm(long double x);
-long double logTerm(long double x);
+long double fn(long double const x);
+long double quadraticTerm(long double const x);
+long double logTerm(long double const x);
 
 /**
  * @brief Finds the two roots of 10Nlg(N) - 2N^2
@@ -63,24 +63,24 @@ int main(int argc, char *argv[argc + 1]) {
     return EXIT_SUCCESS;
 }
 
-long double logTerm(long double x) {
+long double logTerm(long double const x) {
     return 10.0L*x*log2(x);
 }
 
-long double quadraticTerm(long double x) {
+long double quadraticTerm(long double const x) {
     return 2*pow(x, 2);
 }
 
-long double fn(long double x) {
+long double fn(long double const x) {
     return logTerm(x) - quadraticTerm(x);
 }
 
 long double newtons_method(long double (*f)(long double), long double x) {
-    long double h = eps;
+    register long double h = eps;
     while(fabs((*f)(x)) > eps) {
-        long double xph = (*f)(x + h);
-        long double xmh = (*f)(x - h);
-        long double dx = (xph - xmh) / (2.0L*h);
+        register long double xph = (*f)(x + h);
+        register long double xmh = (*f)(x - h);
+        register long double dx = (xph - xmh) / (2.0L*h);
         x -= ((*f)(x) / dx);
     }
     return x;

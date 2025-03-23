@@ -42,7 +42,7 @@ long double newtons_method(long double (*f)(long double), long double x);
  * @param x 
  * @return long double 
  */
-long double fn(long double x); 
+long double fn(long double const x); 
 
 /**
  * @brief Finds the region where 
@@ -60,21 +60,21 @@ int main(int argc, char *argv[argc + 1]) {
     return EXIT_SUCCESS;
 }
 
-long double n_harmonic(long double x) {
+long double n_harmonic(long double const x) {
     long double euler_constant = 0.57721;
     return log(x) + euler_constant + 1.0L/(12.0L*x);
 }
 
-long double fn(long double x) {
+long double fn(long double const x) {
     return 2*x*n_harmonic(x) - 11*x - x*log2(x);
 }
 
 long double newtons_method(long double (*f)(long double), long double x) {
-    long double h = eps;
+    register long double h = eps;
     while(fabs((*f)(x)) > eps) {
-        long double xph = (*f)(x + h);
-        long double xmh = (*f)(x - h);
-        long double dx = (xph - xmh) / (2.0L*h);
+        register long double xph = (*f)(x + h);
+        register long double xmh = (*f)(x - h);
+        register long double dx = (xph - xmh) / (2.0L*h);
         x -= ((*f)(x) / dx);
     }
     return x;

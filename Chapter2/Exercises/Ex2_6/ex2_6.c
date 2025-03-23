@@ -45,7 +45,7 @@ long double newtons_method(long double (*f)(long double), long double x);
  * @param x 
  * @return long double 
  */
-long double fn1(long double x);
+long double fn1(long double const x);
 
 /**
  * @brief Calculates 2N(lg(N)^2)
@@ -53,7 +53,7 @@ long double fn1(long double x);
  * @param x 
  * @return long double 
  */
-long double fn2(long double x);
+long double fn2(long double const x);
 
 /**
  * @brief Finds the regions where N^(3/2) is
@@ -83,20 +83,20 @@ int main(int argc, char *argv[argc + 1]) {
     return EXIT_SUCCESS;
 }
 
-long double fn1(long double x) {
+long double fn1(long double const x) {
     return x*pow(log2(x), 2) / 2 - pow(x, 3.0L/2.0L);
 }
 
-long double fn2(long double x) {
+long double fn2(long double const x) {
     return 2*x*pow(log2(x), 2) - pow(x, 3.0L/2.0L);
 }
 
 long double newtons_method(long double (*f)(long double), long double x) {
-    long double h = eps;
+    register long double h = eps;
     while(fabs((*f)(x)) > eps) {
-        long double xph = (*f)(x + h);
-        long double xmh = (*f)(x - h);
-        long double dx = (xph - xmh) / (2.0L*h);
+        register long double xph = (*f)(x + h);
+        register long double xmh = (*f)(x - h);
+        register long double dx = (xph - xmh) / (2.0L*h);
         x -= ((*f)(x) / dx);
     }
     return x;
