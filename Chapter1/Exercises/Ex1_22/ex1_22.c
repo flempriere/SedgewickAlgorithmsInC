@@ -51,7 +51,7 @@ static size_t sz[MAX_VERTEX];
  */
 int main(int argc, char* argv[argc + 1]) {
     // loop through test cases
-    for (register size_t n = 1000, n_cases = 0u; n_cases < N_CASES;
+    for (register unsigned n = 1000, n_cases = 0u; n_cases < N_CASES;
          n *= 10, n_cases++) {
         // init array
         for (register size_t i = 0; i < n; i++) {
@@ -60,12 +60,12 @@ int main(int argc, char* argv[argc + 1]) {
         }
         RAND_SEED_TIME;
 
-        register size_t p = RAND_SIZE_T(n);
-        register size_t q = RAND_SIZE_T(n);
+        register size_t p = RAND_NUM(n);
+        register size_t q = RAND_NUM(n);
 
         register size_t n_edges = 1;
         for (register size_t n_unions = 0; n_unions < n - 1;
-             p = RAND_SIZE_T(n), q = RAND_SIZE_T(n), n_edges++) {
+             p = RAND_NUM(n), q = RAND_NUM(n), n_edges++) {
             register size_t i;
             register size_t j;
             for (i = p; i != id[i]; i = id[i]) { id[i] = id[id[i]]; }
@@ -78,7 +78,7 @@ int main(int argc, char* argv[argc + 1]) {
             id[j] = i;
             sz[i] += sz[j];
         }
-        printf("N: %8zu\tEdges: %8zu\n", n, n_edges);
+        printf("N: %8u\tEdges: %8zu\n", n, n_edges);
     }
     return EXIT_SUCCESS;
 }

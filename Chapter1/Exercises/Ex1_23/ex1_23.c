@@ -53,18 +53,18 @@ int main(int argc, char* argv[argc + 1]) {
     RAND_SEED_TIME;
     printf("N\t # Edges\n");
 
-    for (register size_t N = MIN_VERTEX; N <= MAX_VERTEX; N++) {
+    for (register unsigned N = MIN_VERTEX; N <= MAX_VERTEX; N++) {
         for (register size_t i = 0; i < N; i++) {
             id[i] = i;
             sz[i] = 1;
         }
 
-        register size_t p = RAND_SIZE_T(N);
-        register size_t q = RAND_SIZE_T(N);
+        register size_t p = RAND_NUM(N);
+        register size_t q = RAND_NUM(N);
         register size_t n_edges = 1;
 
         for (register size_t n_unions = 0; n_unions < N - 1;
-             p = RAND_SIZE_T(N), q = RAND_SIZE_T(N), n_edges++) {
+             p = RAND_NUM(N), q = RAND_NUM(N), n_edges++) {
             register size_t i;
             register size_t j;
             for (i = p; i != id[i]; i = id[i]) { id[i] = id[id[i]]; }

@@ -53,7 +53,7 @@ int main(void) {
            sscanf(line, "%zu %zu", &p, &q) == 2) {
         if (p >= N || q >= N) continue;    // bounds checking
         if (id[p] == id[q]) continue;
-        size_t t = id[p];
+        register size_t t = id[p];
         for (register size_t i = 0; i < N; i++) {
             if (id[i] == t) id[i] = id[q];
         }
