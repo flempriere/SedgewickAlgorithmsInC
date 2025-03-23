@@ -43,6 +43,7 @@ CEXTRA = {%CEXTRA%}
 CFILES := $(notdir $(foreach D, $(SOURCE_DIRS), $(wildcard $(D)/*.c)))
 CFILES += $(notdir $(CEXTRA))
 OBJS := $(addprefix $(BUILDDIR)/, $(CFILES:.c=.o))
+DEPS := $(OBJS:.o=.d)
 
 #####################
 # Compiler Settings #
