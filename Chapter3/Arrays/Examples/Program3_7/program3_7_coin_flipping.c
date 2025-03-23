@@ -13,19 +13,15 @@ value -- is critical to the efficiency of many computational procedures
 
 utilises C23 bool, use _Bool or <stdbool.h> for older standards
 */
+#include "../../../../MacroLibrary/Utility.h"
 
-#include <stdlib.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <time.h>
 
 /**
- * @brief Make explicit cast
- * 
- */
-#define CAST(T) (T)
-/**
  * @brief performs a coin toss
- * 
+ *
  * @return true if result is heads,
  * @return false if result is tails
  */
@@ -35,25 +31,24 @@ bool heads(void);
  * @brief Performs M experiments each consisting
  * of N coin tosses and counts the number of heads
  * in each run.
- * 
+ *
  * The final distribution is plotted.
- * 
- * @param argc[1] N 
+ *
+ * @param argc[1] N
  * @param argc[2] M
  * @return EXIT_SUCCESS if completes, else
  * @return EXIT_FAILURE if there is an error
  */
 int main(int argc, char* argv[argc + 1]) {
-    
     if (argc != 3) {
         fprintf(stderr, "Error: requires arguments N and M\n");
         return EXIT_FAILURE;
     }
     size_t N = strtoull(argv[1], NULL, 0);
     size_t M = strtoull(argv[2], NULL, 0);
-    srand(CAST(unsigned int)time(nullptr));
+    srand(CAST(unsigned int) time(nullptr));
 
-    size_t* f = malloc((N+1)*sizeof(typeof_unqual(*f)));
+    size_t* f = malloc((N + 1) * sizeof(typeof_unqual(*f)));
     for (size_t j = 0; j <= N; j++) f[j] = 0;
 
     for (size_t i = 0; i < M; i++) {
@@ -72,6 +67,4 @@ int main(int argc, char* argv[argc + 1]) {
     return EXIT_SUCCESS;
 }
 
-bool heads(void) {
-    return rand() < RAND_MAX /2;
-}
+bool heads(void) { return rand() < RAND_MAX / 2; }

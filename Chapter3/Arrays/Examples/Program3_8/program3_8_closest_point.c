@@ -6,16 +6,18 @@ randomly generated points in the unit square that can be connected by a
 straight line of length < d using the point datatype introduced earlier.
 */
 
-#include <tgmath.h>
+#include "../../../../MacroLibrary/Random.h"
+#include "../../../BuildingBlocks/Examples/Program3_3-4/Point.h"
+
 #include <stdio.h>
 #include <stdlib.h>
-#include "../../../BuildingBlocks/Examples/Program3_3-4/Point.h"
+#include <tgmath.h>
 
 /**
  * @brief Generates a random double between
  * 0 and 1.
- * 
- * @return double 
+ *
+ * @return double
  */
 double randFloat(void);
 
@@ -23,30 +25,33 @@ double randFloat(void);
  * @brief Generates N random points
  * and counts how many can be connected with
  * a straight line of length less than d.
- * 
+ *
  * @param argv[1] N
  * @param argv[2] d
  * @return EXIT_SUCCESS if successful else
  * @return EXIT_FAILURE
  */
 int main(int argc, char* argv[argc + 1]) {
-
     if (argc != 3) {
         fprintf(stderr, "Error: requires args N d\n");
         return EXIT_FAILURE;
     }
-    
+
+    RAND_SEED_TIME;
     double d = atof(argv[2]);
     size_t N = strtoull(argv[1], NULL, 0);
 
-    Point* a = malloc(N*(sizeof(typeof_unqual(*a))));
+    Point* a = malloc(N * (sizeof(typeof_unqual(*a))));
     for (size_t i = 0; i < N; i++) {
-        {a[i].x = randFloat(); a[i].y = randFloat();}
+        {
+            a[i].x = randFloat();
+            a[i].y = randFloat();
+        }
     }
 
     size_t cnt = 0;
     for (size_t i = 0; i < N; i++) {
-        for (size_t j = i+1; j < N; j++) {
+        for (size_t j = i + 1; j < N; j++) {
             if (POINTdistance(a[i], a[j]) < d) cnt++;
         }
     }
@@ -55,6 +60,4 @@ int main(int argc, char* argv[argc + 1]) {
     return EXIT_SUCCESS;
 }
 
-double randFloat(void) {
-    return 1.0*rand() / RAND_MAX;
-}
+double randFloat(void) { return 1.0 * rand() / RAND_MAX; }
