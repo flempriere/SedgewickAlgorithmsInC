@@ -13,11 +13,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
-/**
- * @brief Maximum size of the text string
- * 
- */
-#define N 10000
 
 /**
  * @brief Replaces substrings of blanks by a single blank.
@@ -25,7 +20,8 @@
  * We scan backwards from the end of the string, this
  * has an O(n) cost compared to scanning forward, but this
  * means if there are successive long blank substrings each
- * will only be copied when it is reduced to one blank.
+ * will only be copied when it is reduced to one blank and
+ * we don't need to duplicate the string.
  * 
  * @param argc 
  * @param argv 
@@ -38,7 +34,7 @@ int main(int argc, char* argv[argc+1]) {
         return EXIT_FAILURE;
     }
 
-    char *p = argv[1];
+    char * p = argv[1];
 
     //move p to the end
     while (*p) p++;
