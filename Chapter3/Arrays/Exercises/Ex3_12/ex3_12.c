@@ -20,6 +20,7 @@ yet to examine and set all a[j*p] to 0 for all j > 2 s.t jp <= N
 */
 #include "../../../../MacroLibrary/Utility.h"
 
+#include <assert.h>
 #include <limits.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -29,13 +30,74 @@ yet to examine and set all a[j*p] to 0 for all j > 2 s.t jp <= N
  * @brief Largest Number we check for primality
  *
  */
-constexpr size_t N = 100000u;
+constexpr size_t N = 1000000u;
 
 /**
  * @brief Sieve of Eratosthenes array
  *
  */
 bool a[N];
+
+typedef  unsigned long long bit_component;
+/**
+ * @brief Mask for bit implementation.
+ *
+ */
+constexpr bit_component MASK = 0x01u;
+
+/**
+ * @brief Number of bits per component of the bit array
+ *
+ */
+constexpr size_t BITS_PER_COMPONENT = (sizeof(typeof(MASK)) * CHAR_BIT);
+
+/**
+ * @brief Number of components in bit array.
+ *
+ */
+constexpr size_t NCOMPONENTS =
+    N / (BITS_PER_COMPONENT) + ((N % BITS_PER_COMPONENT) ? 1 : 0);
+/**
+ * @brief Pointer for Bit Sieve array
+ *
+ */
+bit_component BITa[NCOMPONENTS];
+
+/**
+ * @brief Perform the Sieve of Erasthothenes calculation
+ * using a boolean array.
+ *
+ */
+static inline void sieve_of_erastothenes_bool(void) {
+    for (register size_t i = 2; i < N; i++) {
+        if (a[i]) {
+            for (register size_t j = i; i * j < N; j++) a[i * j] = 0;
+        }
+    }
+}
+
+static inline bool BITa_ith_bit(size_t i) {
+    return BITa[i / BITS_PER_COMPONENT] & (MASK << (i % BITS_PER_COMPONENT));
+}
+
+static inline void sieve_of_erastothenes_bit(void) {
+    for (register size_t i = 2; i < N; i++) {
+        if (BITa_ith_bit(i)) {
+            for (register size_t j = i; i * j < N; j++) {
+                BITa[(i * j) / BITS_PER_COMPONENT] &=
+                    ~(MASK << ((i * j) % BITS_PER_COMPONENT));
+            }
+        }
+    }
+}
+
+long double time_function(void (*const f)(void)) {
+    register const clock_t tic = clock();
+    (*f)();
+    register const clock_t toc = clock();
+
+    return CAST(long double)(toc - tic) / CLOCKS_PER_SEC;
+}
 /**
  * @brief Compares a bit-indexed implementation of
  * the sieve with a bool based implementation.
@@ -43,55 +105,23 @@ bool a[N];
  * @return EXIT_SUCCESS
  */
 int main(int argc, char* argv[argc + 1]) {
+    // set up bool array
     for (register size_t i = 2; i < N; i++) a[i] = true;
-
-    register clock_t tic = clock();
-    for (register size_t i = 2; i < N; i++) {
-        if (a[i]) {
-            for (register size_t j = i; i * j < N; j++) a[i * j] = 0;
-        }
-    }
-    register clock_t toc = clock();
-    double time_spent = (double) (toc - tic) / CLOCKS_PER_SEC;
-    for (register size_t i = 2; i < N; i++) {
-        if (a[i]) printf("%4zu ", i);
-    }
-    printf("\n");
-    printf("Time taken for char array: %f\n", time_spent);
+    printf("Time taken for char array: %Lf\n",
+           time_function(sieve_of_erastothenes_bool));
 
     // using bit array
-    const size_t nComponents = N / CHAR_BIT + ((N % CHAR_BIT) ? 1 : 0);
-    const unsigned char mask = 0x01u;
-
-    unsigned char* bitArray = malloc(nComponents * sizeof(typeof(*bitArray)));
 
     // turn on all bits
-    //  i = 8 -> component 1, shift 0
-    //  i = 9 -> component 1, shift 1
-    for (register size_t i = 0; i < nComponents; i++) {
-        for (register size_t j = 0; j < CHAR_BIT; j++) {
-            bitArray[i] |= CAST(unsigned char)(
-                mask << j);    // mask promoted to int, so cut back
+    for (register size_t i = 0; i < NCOMPONENTS; i++) {
+        for (register size_t j = 0; j < BITS_PER_COMPONENT; j++) {
+            BITa[i] |= MASK << j;    // mask promoted to int, so cut back
         }
     }
+    printf("Time taken for bit implementation array: %Lf\n",
+           time_function(sieve_of_erastothenes_bit));
 
-    tic = clock();
-    for (register size_t i = 2; i < N; i++) {
-        if (bitArray[i / CHAR_BIT] & (mask << (i % CHAR_BIT))) {
-            for (register size_t j = i; i * j < N; j++) {
-                bitArray[(i * j) / CHAR_BIT] &=
-                    CAST(unsigned char) ~(mask << ((i * j) % CHAR_BIT));
-            }
-        }
-    }
-    toc = clock();
-    time_spent = (double) (toc - tic) / CLOCKS_PER_SEC;
-    for (register size_t i = 2; i < N; i++) {
-        if (bitArray[i / CHAR_BIT] & (mask << (i % CHAR_BIT)))
-            printf("%4zu ", i);
-    }
-    printf("\n");
-    printf("Time taken for bit implementation array: %f\n", time_spent);
-
+    for (register size_t i = 2; i < N; i++) { assert(a[i] == BITa_ith_bit(i)); }
+    printf("=== Approaches Agree===\n");
     return EXIT_SUCCESS;
 }
