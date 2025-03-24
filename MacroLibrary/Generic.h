@@ -11,8 +11,16 @@
 
 #include "TraceMacro.h"
 
+/**
+ * @brief check if x is even
+ * @return true if even, else false
+ */
+#define IS_EVEN(x) !((x) % 2)
 
-
+/**
+ * @brief Swap A and B
+ *
+ */
 #define SWAP(A, B)          \
     do {                    \
         auto _A = (A);      \

@@ -19,6 +19,16 @@
  */
  #define CAST(T) (T)
 
+ // Sizeof
+
+/**
+ * @brief Return the size of a variables type.
+ *
+ * @remark sizeof does this normally, we're just
+ * making this explicit.
+ */
+ #define SIZEOF_VARTYPE(A) (sizeof(typeof(A)))
+
 // Stringification Macros
 
 /**
