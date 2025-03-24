@@ -38,7 +38,12 @@ constexpr size_t N = 1000000u;
  */
 bool a[N];
 
-typedef  unsigned long long bit_component;
+/**
+ * @brief type used as the building blocks of the
+ * bit array. Exercise: change and compare the result.
+ * 
+ */
+typedef unsigned int bit_component;
 /**
  * @brief Mask for bit implementation.
  *
@@ -76,10 +81,22 @@ static inline void sieve_of_erastothenes_bool(void) {
     }
 }
 
+/**
+ * @brief Indicate if the i-th bit of the bit array is set.
+ * 
+ * @param i index of the bit to check.
+ * @return true if the bit is set else
+ * @return false 
+ */
 static inline bool BITa_ith_bit(size_t i) {
     return BITa[i / BITS_PER_COMPONENT] & (MASK << (i % BITS_PER_COMPONENT));
 }
 
+/**
+ * @brief Perform the sieve of erastothenes using
+ * an underlying bit array representation.
+ * 
+ */
 static inline void sieve_of_erastothenes_bit(void) {
     for (register size_t i = 2; i < N; i++) {
         if (BITa_ith_bit(i)) {
@@ -91,10 +108,16 @@ static inline void sieve_of_erastothenes_bit(void) {
     }
 }
 
+/**
+ * @brief Time the runtime of a function.
+ * 
+ * @param f 
+ * @return long double 
+ */
 long double time_function(void (*const f)(void)) {
-    register const clock_t tic = clock();
+    register clock_t const tic = clock();
     (*f)();
-    register const clock_t toc = clock();
+    register clock_t const toc = clock();
 
     return CAST(long double)(toc - tic) / CLOCKS_PER_SEC;
 }

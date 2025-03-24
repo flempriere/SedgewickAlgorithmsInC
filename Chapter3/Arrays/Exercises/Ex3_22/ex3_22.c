@@ -35,7 +35,7 @@ int main(int argc, char* argv[argc + 1]) {
     register size_t p1 = 0;
     register size_t p2 = 0;
 
-    Point* a = malloc(N * (sizeof(typeof_unqual(*a))));
+    Point* const a = calloc(N, sizeof(typeof(*a)));
     for (register size_t i = 0; i < N; i++) {
         {
             a[i].x = RAND_UNIFORM();

@@ -7,6 +7,8 @@ This takes in the size of the array to allocate as a command line argument
 
 */
 
+#include "../../../../MacroLibrary/Utility.h"
+
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -22,8 +24,9 @@ int main(int argc, char* argv[argc + 1]) {
         return EXIT_FAILURE;
     }
 
-    size_t N = strtoull(argv[1], nullptr, 0);
+    size_t const N = strtoull(argv[1], nullptr, 0);
 
-    size_t* a = malloc(N * sizeof(typeof_unqual(*a)));
+    size_t* const a = calloc(N, SIZEOF_VARTYPE(*a));
+    free(a);
     return EXIT_SUCCESS;
 }

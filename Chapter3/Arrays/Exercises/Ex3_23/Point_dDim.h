@@ -4,13 +4,12 @@ space
 */
 #include <stddef.h>
 
-
 /**
  * @brief Maximum dimension for
  * points
  *
  */
-#define POINT_DDIM_MAX_DIM 10
+constexpr size_t POINT_DDIM_MAX_DIM = 10u;
 
 /**
  * @brief Localises numeric type

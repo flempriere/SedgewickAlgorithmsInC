@@ -1,6 +1,6 @@
 # A Simple Makefile
 # Template VERSION = 1.0.0
-# Date generated on: 2025-03-20
+# Date generated on: 2025-03-23
 
 ##############
 # BUILD Mode #
@@ -20,7 +20,7 @@ INCLUDE_DIRS = . ./includes
 SOURCE_DIRS = . ./src
 SOURCE_VPATHS = 
 
-vpath %.c $(sort $(dir) $(SOURCE_DIRS) $(SOURCE_VPATHS))
+vpath %.c $(sort $(dir) $(SOURCE_DIRS) $(SOURCE_VPATHS)) ../Ex3_2
 
 
 ######################################
@@ -32,7 +32,7 @@ PROJECT = ex3_3
 #Any .c files to be included, without including their whole directory
 # should not include their directory.
 # Their directory must be put in the .c vpath variable.
-CEXTRA =  
+CEXTRA =  NumberInt.c
 
 ###################################
 # Generated .c, obj and src files #
@@ -43,6 +43,7 @@ CEXTRA =
 CFILES := $(notdir $(foreach D, $(SOURCE_DIRS), $(wildcard $(D)/*.c)))
 CFILES += $(notdir $(CEXTRA))
 OBJS := $(addprefix $(BUILDDIR)/, $(CFILES:.c=.o))
+DEPS := $(OBJS:.o=.d)
 
 #####################
 # Compiler Settings #
@@ -71,10 +72,11 @@ FLAGS_release = -g -march=native
 FLAGS_debug = -g3
 
 #Linker
-FLAGS_linker = 
+FLAGS_linker = -lm
 
 # Select the flags
 BUILDFLAGS = $(FLAGS_$(BUILD))
+BUILDFLAGS += $(OPT_$(BUILD))
 
 CFLAGS = $(STD) $(FLAGS_warning) $(FLAGS_address) $(INCLUDES) $(BUILDFLAGS) $(FLAGS_dependencies)
 

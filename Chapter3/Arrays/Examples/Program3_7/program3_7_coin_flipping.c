@@ -13,8 +13,8 @@ value -- is critical to the efficiency of many computational procedures
 
 utilises C23 bool, use _Bool or <stdbool.h> for older standards
 */
-#include "../../../../MacroLibrary/Utility.h"
 #include "../../../../MacroLibrary/Random.h"
+#include "../../../../MacroLibrary/Utility.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -26,7 +26,7 @@ utilises C23 bool, use _Bool or <stdbool.h> for older standards
  * @return true if result is heads,
  * @return false if result is tails
  */
-bool heads(void);
+static inline bool heads(void) { return RAND_COIN_TOSS(); }
 
 /**
  * @brief Performs M experiments each consisting
@@ -45,16 +45,15 @@ int main(int argc, char* argv[argc + 1]) {
         fprintf(stderr, "Error: requires arguments N and M\n");
         return EXIT_FAILURE;
     }
-    register size_t N = strtoull(argv[1], NULL, 0);
-    register size_t M = strtoull(argv[2], NULL, 0);
+    register size_t const N = strtoull(argv[1], NULL, 0);
+    register size_t const M = strtoull(argv[2], NULL, 0);
     RAND_SEED_TIME;
 
-    size_t* f = malloc((N + 1) * sizeof(typeof_unqual(*f)));
-    for (register size_t j = 0; j <= N; j++) f[j] = 0;
+    size_t* const f = calloc((N + 1), SIZEOF_VARTYPE(*f));
 
     for (register size_t i = 0; i < M; i++) {
         register size_t cnt = 0;
-        for (register size_t j = 0; j <= N; j++) {
+        for (register size_t j = 0; j < N; j++) {
             if (heads()) cnt++;
         }
         f[cnt]++;
@@ -67,5 +66,3 @@ int main(int argc, char* argv[argc + 1]) {
     free(f);
     return EXIT_SUCCESS;
 }
-
-bool heads(void) { return rand() < RAND_MAX / 2; }

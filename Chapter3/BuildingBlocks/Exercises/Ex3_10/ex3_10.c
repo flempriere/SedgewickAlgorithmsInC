@@ -6,79 +6,49 @@ empircally the average area of the triangles generated.
 
 */
 
-#include <tgmath.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include "src/NumberDouble.h"
-#include "src/Point_v3.h"
+#include "../../../../MacroLibrary/Random.h"
+#include "../../../../MacroLibrary/Utility.h"
 #include "src/Triangle.h"
 
+#include <stdio.h>
+#include <stdlib.h>
+#include <tgmath.h>
 
 /**
  * @brief Number of N values to test over.
- * 
+ *
  */
-#define N_CASES 5
+constexpr size_t N_CASES = 5u;
 
 /**
  * @brief Initial value of N for test cases
- * 
+ *
  */
-#define N_INIT 10
-
-/**
- * @brief Generates a random triangle and
- * stores its values in t.
- * 
- * @param t A triangle to be randomised
- */
-void randTriangle(Triangle* t);
-
-/**
- * @brief Generates a random point and
- * stores its value in p
- * 
- * @param p A point to be randomised
- */
-void randPoint(Point* p);
+constexpr size_t N_INIT = 10u;
 
 /**
  * @brief For N = N_INIT, 10(N_INIT), 100(N_INIT)
  * Generates N random triangles, calculates their
  * area, and determines the avg and std.dev statistics.
- * 
+ *
  */
 int main(int argc, char* argv[argc + 1]) {
+    register size_t N = N_INIT;
 
-    size_t N = N_INIT;
+    register Triangle t;
+    for (register size_t j = 0; j < N_CASES; N *= 10, j++) {
+        register double m1 = 0.0;
+        register double m2 = 0.0;
 
-    Triangle t;
-    for (size_t j = 0; j < N_CASES; N *= 10, j++) {
-
-        double m1 = 0.0;
-        double m2 = 0.0;
-
-        for (size_t i = 0; i < N; i++) {
-            randTriangle(&t);
-            double triangle_area = TRIANGLEarea(t); 
-            m1 += ((double) triangle_area)/N;
-            m2 += ((double) triangle_area*triangle_area) / N; 
+        for (register size_t i = 0; i < N; i++) {
+            t = TRIANGLErandom();
+            register double triangle_area = TRIANGLEarea(t);
+            m1 += (triangle_area) / CAST(double) N;
+            m2 += (triangle_area * triangle_area) / CAST(double) N;
         }
         printf("Running using N: %zu\n", N);
         printf("       Average: %f\n", m1);
-        printf("Std. deviation: %f\n", sqrt(m2 - m1*m1));
+        printf("Std. deviation: %f\n", sqrt(m2 - m1 * m1));
     }
     return EXIT_SUCCESS;
 }
-
-void randTriangle(Triangle* t) {
-    randPoint(&(t->a));
-    randPoint(&(t->b));
-    randPoint(&(t->c));
-}
-
-void randPoint(Point* p) {
-    p->x = randNum();
-    p->y = randNum();
-}
-

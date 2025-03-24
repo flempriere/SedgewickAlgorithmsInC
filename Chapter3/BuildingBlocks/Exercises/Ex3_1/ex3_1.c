@@ -6,19 +6,18 @@ Calculates the limits of char, int, floats and doubles by
 reference to <limits.h> and <float.h> and integer types by hand.
 */
 
-#include <stdio.h>
-#include <limits.h>
 #include <float.h>
+#include <limits.h>
+#include <stdio.h>
 #include <stdlib.h>
 
 /**
  * @brief prints out the representable ranges
  * for integer and floating point types.
- * 
- * @return EXIT_SUCCESS 
+ *
+ * @return EXIT_SUCCESS
  */
-int main() 
-{
+int main(void) {
     printf("CHAR range: \n");
     printf("char: %d - %d \n", CHAR_MIN, CHAR_MAX);
     printf("signed char: %d - %d \n", SCHAR_MIN, SCHAR_MAX);

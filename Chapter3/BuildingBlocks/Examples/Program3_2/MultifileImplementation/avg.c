@@ -26,7 +26,7 @@ int main(int argc, char* argv[argc + 1]) {
         return EXIT_FAILURE;
     }
 
-    register size_t N = strtoull(argv[1], nullptr, 0);
+    register size_t const N = strtoull(argv[1], nullptr, 0);
     register double m1 = 0.0;
     register double m2 = 0.0;
     RAND_SEED_TIME;

@@ -1,9 +1,9 @@
 /**
  * @brief Triangle interface for Exercise 3.10
- * 
+ *
  */
- #pragma once
- #include "Point_v3.h"
+#pragma once
+#include "Point_v3.h"
 
 /**
  * @brief Triangle representation consisting
@@ -19,9 +19,16 @@ typedef struct {
 /**
  * @brief Calculates the area of a triangle @t using
  * Heron's formula.
- * 
- * @param t triangle 
- * @return double 
+ *
+ * @param t triangle
+ * @return double
  */
-double TRIANGLEarea(Triangle t);
+double TRIANGLEarea(Triangle const t);
 
+/**
+ * @brief Generate a random triangle with points in
+ * the unit square.
+ *
+ * @return Triangle
+ */
+Triangle TRIANGLErandom(void);

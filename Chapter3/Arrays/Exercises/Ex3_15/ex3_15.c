@@ -5,10 +5,12 @@ Program 3.5.
 
 The approaches agree, but the program runs slower
 */
+#include "../../../../MacroLibrary/Utility.h"
+
+#include <assert.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-
 /**
  * @brief Largest number to test for
  * primality
@@ -42,6 +44,40 @@ bool a[N];
 bool b[N];
 
 /**
+ * @brief Perform the sieve_of_eratosthenes using a guard
+ * statement for k = 2 up to n (exclusive).
+ *
+ * @param n maximum number to check for primality.
+ */
+static inline void sieve_of_eratosthenes_guarded(size_t n) {
+    for (register size_t k = 2; k < n; k++) {
+        if (a[k]) {
+            for (register size_t j = k; k * j < n; j++) a[k * j] = 0;
+        }
+    }
+}
+
+/**
+ * @brief Perform the sieve_of_eratosthenes without a guard
+ * statement for k = 2 up to n (exclusive).
+ *
+ * @param n maximum number to check for primality.
+ */
+static inline void sieve_of_eratosthenes_unguarded(size_t n) {
+    for (register size_t k = 2; k < n; k++) {
+        for (register size_t j = k; k * j < n; j++) b[k * j] = 0;
+    }
+}
+
+long double time_function(void (*const f)(size_t), size_t n) {
+    register clock_t const tic = clock();
+    (*f)(n);
+    register clock_t const toc = clock();
+
+    return CAST(long double)(toc - tic) / CLOCKS_PER_SEC;
+}
+
+/**
  * @brief Compare the run time of the Sieve of
  * Eratosthenes with and without an if guard
  * for N = 10^3, 10^4, 10^5, 10^6.
@@ -56,36 +92,15 @@ int main(int argc, char* argv[argc + 1]) {
             b[j] = true;
         }
 
-        // time for with guard
-        register clock_t toc = clock();
-        for (register size_t k = 2; k < n; k++) {
-            if (a[k]) {
-                for (register size_t j = k; k * j < n; j++) a[k * j] = 0;
-            }
-        }
-        register clock_t tic = clock();
-        double const timeGuarded = (double) (tic - toc) / CLOCKS_PER_SEC;
-
-        toc = clock();
-        for (register size_t k = 2; k < n; k++) {
-            for (register size_t j = k; k * j < n; j++) b[k * j] = 0;
-        }
-        tic = clock();
-        double const timeUnguarded = (double) (tic - toc) / CLOCKS_PER_SEC;
-
-        printf("N: %zu, Time for guarded: %f, Time for unguarded: %f\n", n,
-               timeGuarded, timeUnguarded);
+        printf("N: %zu, Time for guarded: %Lf, Time for unguarded: %Lf\n", n,
+               time_function(sieve_of_eratosthenes_guarded, n),
+               time_function(sieve_of_eratosthenes_unguarded, n));
 
         // check both methods agree
-        bool error_found = false;
         for (register size_t k = 0; k < n; k++) {
-            if (a[k] != b[k]) {
-                printf("Mismatch found for k: %4zu\n", k);
-                error_found = true;
-                break;
-            }
+            assert(a[k] == b[k] && "Approaches disagree!\n");
         }
-        if (!error_found) { printf("Approaches agree\n"); }
     }
+    printf("===Approaches Agree===\n");
     return EXIT_SUCCESS;
 }

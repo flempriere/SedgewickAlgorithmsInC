@@ -6,13 +6,13 @@ randomly generated points in the unit square that can be connected by a
 straight line of length < d using the point datatype introduced earlier.
 */
 
+#include "../../../../MacroLibrary/Utility.h"
 #include "../../../../MacroLibrary/Random.h"
 #include "../../../BuildingBlocks/Examples/Program3_3-4/Point.h"
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <tgmath.h>
-
 
 /**
  * @brief Generates N random points
@@ -31,10 +31,10 @@ int main(int argc, char* argv[argc + 1]) {
     }
 
     RAND_SEED_TIME;
-    double d = atof(argv[2]);
-    register size_t N = strtoull(argv[1], NULL, 0);
+    register double const d = strtod(argv[2], nullptr);
+    register size_t const N = strtoull(argv[1], NULL, 0);
 
-    Point* a = malloc(N * (sizeof(typeof_unqual(*a))));
+    register Point* const a = calloc(N, SIZEOF_VARTYPE(*a));
     for (register size_t i = 0; i < N; i++) {
         {
             a[i].x = RAND_UNIFORM();

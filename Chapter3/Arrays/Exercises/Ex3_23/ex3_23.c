@@ -4,13 +4,23 @@ Exercise 3.23
 Modify Program 3.8 to work for a d-dimensional point.
 */
 
+#include "../../../../MacroLibrary/Generic.h"
 #include "../../../../MacroLibrary/Random.h"
+#include "../../../../MacroLibrary/Utility.h"
 #include "Point_dDim.h"
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <tgmath.h>
 #include <time.h>
+
+/**
+ * @brief Extract dimension from an input string.
+ *
+ * @param s string to extract dim from.
+ * @return Dimension
+ */
+Dimension getDim(char s[static 1]);
 
 /**
  * @brief Generates N points in d
@@ -30,12 +40,11 @@ int main(int argc, char* argv[argc + 1]) {
         return EXIT_FAILURE;
     }
 
-    Dimension dim = strtoull(argv[1], NULL, 0);
-    dim = (dim < POINT_DDIM_MAX_DIM) ? dim : POINT_DDIM_MAX_DIM;
+    Dimension const dim = getDim(argv[1]);
     size_t const N = strtoull(argv[2], NULL, 0);
-    double d = atof(argv[3]);
+    double const d = strtod(argv[3], nullptr);
 
-    Point_DDIM* a = malloc(N * (sizeof(typeof_unqual(*a))));
+    Point_DDIM* const a = calloc(N, (SIZEOF_VARTYPE(*a)));
 
     for (register size_t i = 0; i < N; i++) {
         for (register Dimension idx = 0; idx < dim; idx++) {
@@ -52,4 +61,9 @@ int main(int argc, char* argv[argc + 1]) {
     printf("%zu edges shorter than %f\n", count, d);
 
     return EXIT_SUCCESS;
+}
+
+Dimension getDim(char s[static 1]) {
+    Dimension dim = strtoull(s, nullptr, 0);
+    return MIN(dim, POINT_DDIM_MAX_DIM);
 }

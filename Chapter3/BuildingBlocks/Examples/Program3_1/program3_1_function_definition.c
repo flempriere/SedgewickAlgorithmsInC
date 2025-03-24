@@ -34,7 +34,7 @@ int main(int argc, char* argv[argc + 1]) {
 }
 
 size_t lg(size_t N) {
-    size_t i;
+    register size_t i;
     for (i = 0; N > 0; i++, N /= 2);
     return i;
 }

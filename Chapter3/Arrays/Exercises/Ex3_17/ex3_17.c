@@ -37,7 +37,7 @@ int main(int argc, char* argv[argc + 1]) {
     size_t a[MAX_NUM] = {};
 
     while (fgets(line, sizeof(line), stdin) != NULL) {
-        register size_t i = strtoull(line, nullptr, 0);
+        register size_t const i = strtoull(line, nullptr, 0);
         if (i > MAX_NUM) continue;
         a[i]++;
     }

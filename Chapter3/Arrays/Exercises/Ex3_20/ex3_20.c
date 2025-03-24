@@ -49,8 +49,7 @@ int main(int argc, char* argv[argc + 1]) {
     register size_t const M = strtoull(argv[2], NULL, 0);
     RAND_SEED_TIME;
 
-    size_t* f = malloc((N + 1) * sizeof(typeof_unqual(*f)));
-    for (register size_t j = 0; j <= N; j++) f[j] = 0;
+    size_t* const f = calloc(N + 1, sizeof(typeof(*f)));
 
     for (register size_t i = 0; i < M; i++) {
         register size_t cnt = 0;
@@ -59,9 +58,9 @@ int main(int argc, char* argv[argc + 1]) {
         }
         f[cnt]++;
     }
-    for (register size_t j = 0; j <= N; j++) {
-        printf("%2zu ", j);
-        for (register size_t i = 0; i < f[j]; i += 10) printf("*");
+    for (register size_t i = 0; i <= N; i++) {
+        printf("%2zu ", i);
+        for (register size_t j = 0; j < f[i]; j += 10) printf("*");
         printf("\n");
     }
 
@@ -69,4 +68,4 @@ int main(int argc, char* argv[argc + 1]) {
     return EXIT_SUCCESS;
 }
 
-bool heads(double const p) { return rand() < (RAND_MAX * p); }
+bool heads(double const p) { return RAND_WEIGHTED_COIN_TOSS(p); }

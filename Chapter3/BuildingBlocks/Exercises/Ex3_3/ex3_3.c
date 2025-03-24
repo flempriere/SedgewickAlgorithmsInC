@@ -9,68 +9,71 @@ by multiplying by r and truncating.
 Calc. avg, std.dev and use the same r and N cases
 as Exercise 3.2
 */
-#include <tgmath.h>
-#include <stdlib.h>
+#include "../../../../MacroLibrary/Random.h"
+#include "../../../../MacroLibrary/Utility.h"
+#include "../Ex3_2/NumberInt.h"
+
 #include <stdio.h>
-#include <time.h>
-#include "../Ex3_2/num.h"
+#include <stdlib.h>
+#include <tgmath.h>
 
 /**
  * @brief Number of test cases for N
- * 
+ *
  */
-#define N_CASES 4
+constexpr size_t N_CASES = 4u;
 /**
  * @brief Number of test cases for r
- * 
+ *
  */
-#define R_CASES 3
+constexpr size_t R_CASES = 3u;
 
 /**
  * @brief Starting value for N
- * 
+ *
  */
-#define N_INIT 10000
+constexpr size_t N_INIT = 10000u;
 
 /**
  * @brief Starting value for R
- * 
+ *
  */
-#define R_INIT 10
+constexpr Number R_INIT = 10u;
 
 /**
  * @brief Test the random number generator by
  * generating doubles between 0 and 1 using
  * rand() then expanding to integers in the interval
  * 0 and r - 1 by multiplying by r and truncating.
- * 
+ *
  * Generates N times and compute the avg
  * and std. dev.
- * 
+ *
  * Starts and R = R_INIT, and N = N_INIT, and
  * each successive case is 10x larger.
- * 
+ *
  * @return EXIT_SUCCESS
  */
 int main(int argc, char* argv[argc + 1]) {
+    register size_t n = N_INIT;
+    register Number r = R_INIT;
+    RAND_SEED_TIME;
 
-    int n = N_INIT;
-    int r = R_INIT;
-    srand(time(nullptr));
-
-    for (size_t i = 0; i < N_CASES; n *= 10, i++) { //iterate over N values
-        for (size_t j = 0; j < R_CASES; r *= 10, j++) { //iterate over r values
-            double m1 = 0.0;
-            double m2 = 0.0;
-            Number x;
-            for (size_t k = 0; k < n; k++) {
-                x = randNum(r);
-                m1 += ((double) x)/ n;
-                m2 += ((double) x*x)/ n;
+    for (register size_t i = 0; i < N_CASES;
+         n *= 10, i++) {    // iterate over N values
+        for (register size_t j = 0; j < R_CASES;
+             r *= 10, j++) {    // iterate over r values
+            register double m1 = 0.0;
+            register double m2 = 0.0;
+            register Number x;
+            for (register size_t k = 0; k < n; k++) {
+                x = NUMBERrandom(r);
+                m1 += x / CAST(double) n;
+                m2 += (CAST(double) x * x) / CAST(double) n;
             }
-            printf("Results for N: %d, R: %d\n", n, r);
+            printf("Results for N: %zu, R: %u\n", n, r);
             printf("       Average: %f\n", m1);
-            printf("Std. deviation: %f\n", sqrt(m2 - m1*m1));
+            printf("Std. deviation: %f\n", sqrt(m2 - m1 * m1));
         }
         printf("\n");
         r = R_INIT;
