@@ -44,6 +44,6 @@ long double Harmonic_N(size_t const x) {
     else if (x == 2)
         return 1.5L;
 
-    const long double EULER_CONSTANT = 0.57721L;
+    long double const EULER_CONSTANT = 0.57721L;
     return log(CAST(long double) x) + EULER_CONSTANT + 1.0L / (12.0L * x);
 }

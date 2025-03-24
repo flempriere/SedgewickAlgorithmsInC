@@ -3,6 +3,8 @@ Exercise 2-2:
     Determine the runtime of the inner triple loop for N = 10, 100, 1000
 */
 
+#include "../../../MacroLibrary/Utility.h"
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
@@ -26,16 +28,16 @@ int main(int argc, char* argv[argc + 1]) {
     for (register size_t i = 0; i < N_SCALES; i++) {
         register size_t count = 0;
 
-        register clock_t tic = clock();
+        register clock_t const tic = clock();
         for (register size_t j = 0; j < LIMITS[i]; j++) {
             for (register size_t k = 0; k < LIMITS[i]; k++) {
                 for (register size_t l = 0; l < LIMITS[i]; l++) { count++; }
             }
         }
-        register clock_t toc = clock();
+        register clock_t const toc = clock();
 
         printf("N: %zu, time: %lf seconds\n", LIMITS[i],
-               (double) (toc - tic) / CLOCKS_PER_SEC);
+               CAST(double)(toc - tic) / CLOCKS_PER_SEC);
     }
     return EXIT_SUCCESS;
 }

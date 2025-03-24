@@ -42,7 +42,7 @@ typedef size_t Item;
  *
  * @see NOT_FOUND
  */
-size_t search(Item const v, size_t l, size_t r, Item a[r + 1]);
+size_t search(Item const v, size_t const l, size_t const r, Item a[r + 1]);
 
 /**
  * @brief Test driver for search
@@ -65,8 +65,7 @@ int main(int argc, char* argv[argc + 1]) {
     return EXIT_SUCCESS;
 }
 
-size_t search(Item const v, register size_t l, register size_t r,
-              Item a[r + 1]) {
+size_t search(Item const v, size_t l, size_t r, Item a[r + 1]) {
     while (r >= l) {
         register size_t m = (l + r) / 2;
         if (v == a[m]) return m;

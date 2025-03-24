@@ -62,8 +62,7 @@ int main(int argc, char* argv[argc + 1]) {
     return EXIT_SUCCESS;
 }
 
-size_t search(Item const v, register size_t l, register size_t r,
-              Item a[r + 1]) {
+size_t search(Item const v, size_t l, size_t r, Item a[r + 1]) {
     for (; l <= r; l++) {
         if (v == a[l]) return l;
     }

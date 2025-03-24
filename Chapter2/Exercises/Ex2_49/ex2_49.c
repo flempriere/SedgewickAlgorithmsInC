@@ -109,7 +109,7 @@ size_t search(key const v, size_t l, size_t r, key a[r + 1]) {
 size_t countMatches(size_t const n, size_t const m, key a[m]) {
     register size_t matches = 0;
     for (register size_t i = 0; i < n; i++) {
-        key num = CAST(key) RAND_NUM(KEY_MAX);
+        register key num = CAST(key) RAND_NUM(KEY_MAX);
         matches += (search(num, 0, m - 1, a) == NOT_FOUND) ? 0 : 1;
     }
     return matches;

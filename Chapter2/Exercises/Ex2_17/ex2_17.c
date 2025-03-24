@@ -70,9 +70,7 @@ unsigned long long FIBONACCHI_NUMBER(size_t const N) {
 }
 
 unsigned int APPROX_FLOOR_LG_FIB(size_t const N) {
-#ifndef GOLDEN_RATIO
-#    define GOLDEN_RATIO 1.61803L
-#endif
+    constexpr long double GOLDEN_RATIO = 1.61803L;
     static unsigned int exact_sln[] = { INT_MAX, 0, 0, 1 };
     if (N <= 3) return exact_sln[N];
 

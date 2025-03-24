@@ -30,14 +30,14 @@ unsigned int ceil_lglg(unsigned long long const N);
  */
 int main(int argc, char* argv[argc + 1]) {
     for (register size_t i = 2; i <= MAX_N; i++) {
-        printf("N: %zu, By approx: %u, By math Library: %Lf\n", i,
-               ceil_lglg(i), ceil(log2(log2(CAST(long double) i))));
+        printf("N: %zu, By approx: %u, By math Library: %Lf\n", i, ceil_lglg(i),
+               ceil(log2(log2(CAST(long double) i))));
     }
     return EXIT_SUCCESS;
 }
 
 unsigned int ceil_lglg(unsigned long long const N) {
-    size_t lglgN = 0;
-    for (size_t t = 2; t < N; lglgN++, t *= t);
+    register size_t lglgN = 0;
+    for (register size_t t = 2; t < N; lglgN++, t *= t);
     return CAST(unsigned) lglgN;
 }
