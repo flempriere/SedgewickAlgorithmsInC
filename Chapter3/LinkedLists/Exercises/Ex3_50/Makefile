@@ -27,8 +27,8 @@ vpath %.c $(sort $(dir) $(SOURCE_DIRS) $(SOURCE_VPATHS))
 # Explicitly stated Input and Output #
 ######################################
 
-EXE = ex3_39.exe
-PROJECT = ex3_39
+EXE = ex3_50.exe
+PROJECT = ex3_50
 #Any .c files to be included, without including their whole directory
 # should not include their directory.
 # Their directory must be put in the .c vpath variable.

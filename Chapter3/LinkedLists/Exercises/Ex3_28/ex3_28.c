@@ -5,6 +5,7 @@ Modify program 3.28 to reduce the number of excessive circular loops it makes.
 */
 #include <stdlib.h>
 #include <stdio.h>
+#include "../../../../MacroLibrary/Utility.h"
 
 /**
  * @brief Key type for node structure
@@ -46,27 +47,27 @@ int main(int argc, char* argv[argc+1]) {
         return EXIT_FAILURE;
     }
 
-    size_t N = strtoull(argv[1], NULL, 0);
-    size_t M = strtoull(argv[2], NULL, 0);
+    register size_t const N = strtoull(argv[1], nullptr, 0);
+    register size_t const M = strtoull(argv[2], nullptr, 0);
 
     if (!(N && M)) {
         fprintf(stderr, "N and M must both be > 0\n");
         return EXIT_FAILURE;
     }
 
-    node* t = malloc(sizeof(*t));
-    node* x = t;
+    register node* t = calloc(1, SIZEOF_VARTYPE(*t));
+    register node* x = t;
     t->item = 1;
     t->next = t;
 
-    for (key i = 2; i <= N; i++) {
-        x = (x->next = malloc(sizeof(*x)));
+    for (register key i = 2; i <= N; i++) {
+        x = (x->next = calloc(1, SIZEOF_VARTYPE(*x)));
         x->item = i;
     }
     x->next = t;
     while (x != x->next) {
-        for (key i = 1; i < M; i++) x = x->next;
-        x->next = x->next->next; N--;
+        for (register key i = 1; i < M; i++) x = x->next;
+        x->next = x->next->next;
     }
     printf("%zu\n", x->item);
     return EXIT_SUCCESS;

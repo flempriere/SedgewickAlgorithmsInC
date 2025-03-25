@@ -1,6 +1,6 @@
 # A Simple Makefile
 # Template VERSION = 1.0.0
-# Date generated on: 2025-03-20
+# Date generated on: 2025-03-23
 
 ##############
 # BUILD Mode #
@@ -43,6 +43,7 @@ CEXTRA =
 CFILES := $(notdir $(foreach D, $(SOURCE_DIRS), $(wildcard $(D)/*.c)))
 CFILES += $(notdir $(CEXTRA))
 OBJS := $(addprefix $(BUILDDIR)/, $(CFILES:.c=.o))
+DEPS := $(OBJS:.o=.d)
 
 #####################
 # Compiler Settings #
@@ -75,6 +76,7 @@ FLAGS_linker =
 
 # Select the flags
 BUILDFLAGS = $(FLAGS_$(BUILD))
+BUILDFLAGS += $(OPT_$(BUILD))
 
 CFLAGS = $(STD) $(FLAGS_warning) $(FLAGS_address) $(INCLUDES) $(BUILDFLAGS) $(FLAGS_dependencies)
 

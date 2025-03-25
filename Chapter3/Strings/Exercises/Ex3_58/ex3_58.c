@@ -19,14 +19,13 @@
 #include <string.h>
 
 /**
- * @brief Copies src into dest, allocating dest
- * as new memory. a pointer to dest is returned.
+ * @brief Returns a copy of src allocated as new memory.
  *
  * @param src string to copy
- * @param dest pointer to memory to be copied into
+ *
  * @return char* pointer to new copy
  */
-char* my_strcpy(char* dest, char const* src);
+char* my_strcpy(char const* src);
 
 /**
  * @brief Concatenates the s1 and s2 string. New
@@ -35,7 +34,7 @@ char* my_strcpy(char* dest, char const* src);
  *
  * @param s1 first part of the concatenated string
  * @param s2  second part of the concatenated string
- * @return char* pointer to concatenated string
+ * @return char* pointer to newly concatenated string
  */
 char* my_strcat(char const* s1, char const* s2);
 /**
@@ -53,8 +52,7 @@ int main(int argc, char* argv[argc + 1]) {
         return EXIT_FAILURE;
     }
     printf("Input string: %s\n", argv[1]);
-    register char* dest = nullptr;
-    dest = my_strcpy(dest, argv[1]);
+    register char* dest = my_strcpy(argv[1]);
     printf("Copied string: %s\n", dest);
     register char* concat = my_strcat(dest, argv[1]);
     printf("Concatenated string: %s\n", concat);
@@ -65,10 +63,10 @@ int main(int argc, char* argv[argc + 1]) {
     return EXIT_SUCCESS;
 }
 
-char* my_strcpy(char* dest, char const* src) {
-    dest = calloc(strlen(src) + 1, SIZEOF_VARTYPE(*src));
-    char* h = dest;
-    while ((*dest++ = *src++));
+char* my_strcpy(char const* src) {
+    register char* cpy = calloc(strlen(src) + 1, SIZEOF_VARTYPE(*src));
+    char* h = cpy;
+    while ((*cpy++ = *src++));
     return h;
 }
 

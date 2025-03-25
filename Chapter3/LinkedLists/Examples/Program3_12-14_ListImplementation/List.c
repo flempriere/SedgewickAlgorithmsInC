@@ -15,8 +15,11 @@ conventions protect against undefined parameters.
 
 */
 
-#include <stdlib.h>
 #include "List.h"
+
+#include "../../../../MacroLibrary/Utility.h"
+
+#include <stdlib.h>
 
 /**
  * @brief list of allocated, unused nodes
@@ -24,44 +27,34 @@ conventions protect against undefined parameters.
  */
 LISTNode* freeList;
 
-void LISTinitNodes(size_t N) {
-    freeList = malloc((N+1)*sizeof(typeof_unqual(*freeList)));
-    for (size_t i = 0; i < N+1; i++) {
-        freeList[i].next = &freeList[i+1];
+void LISTinit_nodes(size_t const N) {
+    freeList = calloc(N + 1, SIZEOF_VARTYPE(*freeList));
+    for (register size_t i = 0; i < N + 1; i++) {
+        freeList[i].next = &freeList[i + 1];
     }
     freeList[N].next = nullptr;
 }
 
-LISTNode *LISTnewNode(LISTItem k)
-{
-    LISTNode* x = LISTdeleteNext(freeList);
+LISTNode* LISTnew_node(LISTItem const k) {
+    LISTNode* x = LISTdelete_next(freeList);
     x->item = k;
     x->next = x;
     return x;
 }
 
-void LISTfreeNode(LISTNode* n) {
-    LISTinsertNext(freeList, n);    
-}
+void LISTfree_node(LISTNode* const n) { LISTinsert_next(freeList, n); }
 
-void LISTinsertNext(LISTNode* x, LISTNode* y) {
+void LISTinsert_next(LISTNode* const x, LISTNode* const y) {
     y->next = x->next;
     x->next = y;
 }
 
-LISTNode* LISTdeleteNext(LISTNode* x)
-{
+LISTNode* LISTdelete_next(LISTNode* const x) {
     LISTNode* t = x->next;
     x->next = t->next;
     return t;
 }
 
-LISTNode* LISTnext(LISTNode* x)
-{
-    return x->next;
-}
+LISTNode* LISTnext(LISTNode const* const x) { return x->next; }
 
-LISTItem LISTitem(LISTNode* x)
-{
-    return x->item;
-}
+LISTItem LISTitem(LISTNode const* const x) { return x->item; }
