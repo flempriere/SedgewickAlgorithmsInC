@@ -55,7 +55,7 @@ void print_list(node const* head);
  * @exception if the @x and @t are in the same
  * list, the function terminates without merging.
  */
-void merge_lists(node* x, node* t);
+void merge_lists(node* const x, node* const t);
 
 /**
  * @brief Test driver code for merge_lists. Creates
@@ -137,7 +137,7 @@ void print_list(node const* head) {
     printf("%zu\n", head->item);
 }
 
-void merge_lists(node* xp, node* tp) {
+void merge_lists(node* const xp, node* const tp) {
     register node* t_prev;
     for (t_prev = tp; t_prev->next != tp; t_prev = t_prev->next) {
         if (t_prev == xp) return;    // x and t in the same list

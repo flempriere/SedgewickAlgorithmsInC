@@ -25,24 +25,24 @@ conventions protect against undefined parameters.
  * @brief list of allocated, unused nodes
  * for use in lists.
  */
-LISTNode* freeList;
+LISTNode* free_list;
 
 void LISTinit_nodes(size_t const N) {
-    freeList = calloc(N + 1, SIZEOF_VARTYPE(*freeList));
+    free_list = calloc(N + 1, SIZEOF_VARTYPE(*free_list));
     for (register size_t i = 0; i < N + 1; i++) {
-        freeList[i].next = &freeList[i + 1];
+        free_list[i].next = &free_list[i + 1];
     }
-    freeList[N].next = nullptr;
+    free_list[N].next = nullptr;
 }
 
 LISTNode* LISTnew_node(LISTItem const k) {
-    LISTNode* x = LISTdelete_next(freeList);
+    LISTNode* x = LISTdelete_next(free_list);
     x->item = k;
     x->next = x;
     return x;
 }
 
-void LISTfree_node(LISTNode* const n) { LISTinsert_next(freeList, n); }
+void LISTfree_node(LISTNode* const n) { LISTinsert_next(free_list, n); }
 
 void LISTinsert_next(LISTNode* const x, LISTNode* const y) {
     y->next = x->next;

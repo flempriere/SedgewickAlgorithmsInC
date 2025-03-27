@@ -49,7 +49,7 @@ void print_list(node const* const head);
  * @param x node such that x->next->next becomes t->next
  * @param t node such that t->next becomes x->next->next
  */
-void move_node(node* x, node* t);
+void move_node(node* const x, node* const t);
 
 /**
  * @brief Test driver code for moveNodes. Creates
@@ -98,7 +98,7 @@ int main(int argc, char* argv[argc + 1]) {
     register node* stp = t;
 
     t->item = 1, t->next = t;
-    for (key i = 2; i <= N; i++) {
+    for (register key i = 2; i <= N; i++) {
         x = (x->next = calloc(1, SIZEOF_VARTYPE(*x)));
         x->item = i;
         x->next = t;
@@ -120,7 +120,7 @@ void print_list(node const* const head) {
     printf("%zu\n", head->item);
 }
 
-void move_node(node* x, node* t) {
+void move_node(node* const x, node* const t) {
     // edge case: (x == t)
     // t->(t_nxt_nxt)->(t_nxt)->...
     if (x == t) {

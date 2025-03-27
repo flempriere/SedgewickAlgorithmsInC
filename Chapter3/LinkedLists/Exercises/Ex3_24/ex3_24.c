@@ -34,7 +34,7 @@ struct node {
  * @param t - node
  * @return size_t
  */
-size_t count_nodes(node const* t);
+size_t count_nodes(node const* const t);
 
 /**
  * @brief Test driver for count nodes,
@@ -80,7 +80,7 @@ int main(int argc, char* argv[argc + 1]) {
     return EXIT_SUCCESS;
 }
 
-size_t count_nodes(node const* t) {
+size_t count_nodes(node const* const t) {
     size_t sz = 1;
     for (register node const* s = t->next; s != t; s = s->next, sz++);
     return sz;

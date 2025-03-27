@@ -7,17 +7,13 @@ containing all the same items, in the same order)
 
 #include <stdio.h>
 #include <stdlib.h>
+#include "../../../../MacroLibrary/Utility.h"
 
 /**
  * @brief Number of random nodes
  * to generate for test driver.
  */
-#define N 10
-/**
- * @brief Exlusive upper bound for random node key values
- * 
- */
-#define MAX_NUM 100
+constexpr unsigned int N = 10u;
 
 /**
  * @brief Linked List node with
@@ -37,7 +33,7 @@ struct node {
  * 
  * @param head 
  */
-void LISTprintList(node* head);
+void print_list(node const* head);
 /**
  * @brief Creates a deep copy of the
  * list and returns a pointer to the copy.
@@ -48,13 +44,13 @@ void LISTprintList(node* head);
  * 
  * @return node* pointer to new list
  */
-node* copyList(node* head) {
+node* copy_list(node const* head) {
 
-    node* new_head = malloc(sizeof(typeof_unqual(*new_head)));
+    node* const new_head = calloc(1, SIZEOF_VARTYPE(*new_head));
     node* tail = new_head;
 
     for (head=head->next; head != nullptr; head = head->next) {
-        tail->next = malloc(sizeof(typeof_unqual(*head)));
+        tail->next = calloc(1, SIZEOF_VARTYPE(*head));
         tail = tail->next;
         tail->k = head->k;
     }
@@ -65,24 +61,24 @@ node* copyList(node* head) {
 int main(int argc, char* argv[argc+1]) {
 
     //generate a list of N nodes numbered 1 to 10 with a dummy head
-    node* nodes = malloc((N+1)*sizeof(typeof_unqual(*nodes)));
+    register node* const nodes = calloc(N+1, SIZEOF_VARTYPE(*nodes));
 
-    for (size_t i = 1; i <= N; i++) {
+    for (register size_t i = 1; i <= N; i++) {
         nodes[i-1].next = &nodes[i];
         nodes[i].k = i;
     }
     nodes[N].next = nullptr;
 
     printf("Initial List:\n");
-    LISTprintList(nodes);
-    node* new_head = copyList(nodes);
+    print_list(nodes);
+    register node* const new_head = copy_list(nodes);
     printf("Copied list:\n");
-    LISTprintList(new_head);
+    print_list(new_head);
 
     return EXIT_SUCCESS;
 }
 
-void LISTprintList(node* head) {
+void print_list(node const* head) {
     for (head = head->next; head != nullptr; head = head->next) {
         printf("%zu->", head->k);
     }

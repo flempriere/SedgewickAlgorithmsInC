@@ -47,8 +47,8 @@ typedef struct node {
  * @return EXIT_SUCCESS on completion
  */
 int main(int argc, char* argv[argc + 1]) {
-    size_t mArray[] = { 2, 3, 5, 10 };
-    size_t nArray[] = { 10000, 100000, 1000000, 10000000 };
+    constexpr size_t mArray[] = { 2, 3, 5, 10 };
+    constexpr size_t nArray[] = { 10000, 100000, 1000000, 10000000 };
 
     for (register size_t i = 0; i < N_CASES; i++) {
         register size_t N = nArray[i];
