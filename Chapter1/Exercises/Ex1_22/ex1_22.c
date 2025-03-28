@@ -7,11 +7,9 @@ Repeat for N = 10^3, 10^4, 10^5, 10^6
 
 #include "../../../MacroLibrary/Generic.h"
 #include "../../../MacroLibrary/Random.h"
-#include "../../../MacroLibrary/Utility.h"
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <time.h>
 
 /**
  * @brief max value of a vertex across any run

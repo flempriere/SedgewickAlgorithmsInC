@@ -6,10 +6,11 @@ Exercise 1-8:
     - Using Path compression by halving algorithm
 */
 
+#include "../../../MacroLibrary/Generic.h"
+#include "../../../MacroLibrary/Utility.h"
+
 #include <stdio.h>
 #include <stdlib.h>
-
-#include "../../../MacroLibrary/Generic.h"
 
 /**
  * @brief Input pair values must be less than N
@@ -81,13 +82,7 @@ int main(int argc, char* argv[argc + 1]) {
         tot_access += n_access;
     }
     printf("id array accesses: %zu\n", tot_access);
-
-    if (!feof(stdin)) {
-        fprintf(stderr, "Error occured during read\n");
-        return EXIT_FAILURE;
-    }
-
-    return EXIT_SUCCESS;
+    return read_ended_successfully(stdin) ? EXIT_SUCCESS : EXIT_FAILURE;
 }
 
 void printArr(size_t const len, size_t a[len]) {

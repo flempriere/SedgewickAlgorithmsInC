@@ -26,7 +26,7 @@ size_t lg(size_t x);
  * @return EXIT_SUCCESS
  */
 int main(int argc, char* argv[argc + 1]) {
-    register size_t N = 10;
+    register size_t N = 10u;
     for (register size_t i = 1; i <= 6; i++, N *= 10) {
         printf("%7zu %2zu %9zu\n", N, lg(N), N * lg(N));
     }

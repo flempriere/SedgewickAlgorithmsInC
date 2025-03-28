@@ -64,6 +64,13 @@ void LISTinsert_next(LISTNode* const x, LISTNode* const y);
  * @return ListNode* deleted node if it exists, else nullptr
  */
 LISTNode* LISTdelete_next(LISTNode* const x);
+
+/**
+ * @brief Frees all memory associated with the linked list
+ * 
+ * @param x 
+ */
+void LISTdeinit_list(void);
 /**
  * @brief Returns the next node in the list
  * after x

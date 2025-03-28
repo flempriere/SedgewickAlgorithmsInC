@@ -41,14 +41,14 @@ struct node {
  * key value k if there is sufficent memory allocated
  * for a new node, else nullptr.
  */
-LISTNode* LISTnewNode(LISTItem k);
+LISTNode* LISTnew_node(LISTItem const k);
 /**
  * @brief delete the ListNode n and free its
  * associated memory.
  * 
  * @param n valid ListNode*
  */
-void LISTfreeNode(LISTNode* n);
+void LISTfree_node(LISTNode* n);
 /**
  * @brief free's every second node on the list pointed
  * to be n.
@@ -56,14 +56,14 @@ void LISTfreeNode(LISTNode* n);
  * @param n
  * @return ListNode* pointing to the new head
  */
-LISTNode* LISTfreeEverySecondNode(LISTNode* n);
+LISTNode* LISTfree_every_second_node(LISTNode* const n);
 /**
  * @brief Insert the node y after x
  * 
  * @param x node such that x->next = y after function call
  * @param y node to be inserted in the list containing x
  */
-void LISTinsertNext(LISTNode* x, LISTNode* y);
+void LISTinsert_next(LISTNode* const x, LISTNode* const y);
 /**
  * @brief Delete the node after x from the LinkedList
  * and return it's pointer
@@ -71,7 +71,16 @@ void LISTinsertNext(LISTNode* x, LISTNode* y);
  * @param x node *before* the node to be deleted
  * @return ListNode* deleted node if it exists, else nullptr
  */
-LISTNode* LISTdeleteNext(LISTNode* x);
+LISTNode* LISTdelete_next(LISTNode* const x);
+
+/**
+ * @brief free's all nodes on the list pointed
+ * to be n
+ *
+ * @param n
+ */
+ void LISTfree_all_nodes(LISTNode* n);
+ 
 /**
  * @brief Returns the next node in the list
  * after x
@@ -79,19 +88,19 @@ LISTNode* LISTdeleteNext(LISTNode* x);
  * @param x - ListNode* 
  * @return ListNode* x->next if it exists, else nullptr
  */
-LISTNode* LISTnext(LISTNode* x);
+LISTNode* LISTnext(LISTNode const* const x);
 /**
  * @brief Returns the key value of the node x
  * 
  * @param x ListNode*
  * @return ListItem key value of x
  */
-LISTItem LISTitem(LISTNode* x);
+LISTItem LISTitem(LISTNode const * const x);
 
 /**
  * @brief Prints out a representation of the list
  * pointed to by h
  */
-void LISTprintList(LISTNode* h);
+void LISTprint_list(LISTNode const* h);
 
 

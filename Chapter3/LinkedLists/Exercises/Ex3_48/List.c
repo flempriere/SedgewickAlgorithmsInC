@@ -9,34 +9,27 @@ rather than a circular list.
 
 */
 
-#include <stdlib.h>
-#include <stdio.h>
+#include "../../../../MacroLibrary/Utility.h"
 #include "List_div5.h"
 
-/**
- * @brief list of allocated, unused nodes
- * for use in lists.
- */
-LISTNode* freeList;
+#include <stdio.h>
+#include <stdlib.h>
 
-LISTNode *LISTnewNode(LISTItem k)
-{
-    LISTNode* x = malloc(sizeof(typeof_unqual(*x)));
+LISTNode* LISTnew_node(LISTItem const k) {
+    LISTNode* x = calloc(1, SIZEOF_VARTYPE(*x));
     x->item = k;
     x->next = nullptr;
     return x;
 }
 
-void LISTfreeNode(LISTNode* n) {
-    free(n);    
-}
+void LISTfree_node(LISTNode* const n) { free(n); }
 
-LISTNode* LISTfreeEveryFifthNode(LISTNode* n) {
-    LISTNode* cur = n;
-    size_t i = 1;
+LISTNode* LISTfree_every_fifth_node(LISTNode* const n) {
+    register LISTNode* cur = n;
+    register size_t i = 1;
     while (cur->next) {
-        if (!((i+1) % 5)) {
-            free(LISTdeleteNext(cur));
+        if (!((i + 1) % 5)) {
+            free(LISTdelete_next(cur));
             i++;
             if (!(cur->next)) break;
         }
@@ -46,31 +39,34 @@ LISTNode* LISTfreeEveryFifthNode(LISTNode* n) {
     return n;
 }
 
-void LISTprintList(LISTNode* h) {
-    for (; h != nullptr; h = h->next) {
-        printf("%zu->", h->item);
-    }
-    printf("X\n");
-}
-
-void LISTinsertNext(LISTNode* x, LISTNode* y) {
+void LISTinsert_next(LISTNode* const x, LISTNode* const y) {
     y->next = x->next;
     x->next = y;
 }
 
-LISTNode* LISTdeleteNext(LISTNode* x)
-{
-    LISTNode* t = x->next;
+LISTNode* LISTdelete_next(LISTNode* const x) {
+    register LISTNode* t = x->next;
     x->next = t->next;
     return t;
 }
 
-LISTNode* LISTnext(LISTNode* x)
-{
-    return x->next;
+void LISTfree_all_nodes(LISTNode* n) {
+    do {
+        register LISTNode* cur = n->next;
+        free(n);
+        n = cur;
+    } while (n);
 }
 
-LISTItem LISTitem(LISTNode* x)
-{
-    return x->item;
+LISTNode* LISTnext(LISTNode const* const x) { return x->next; }
+
+LISTItem LISTitem(LISTNode const* const x) { return x->item; }
+
+void LISTprint_list(LISTNode const* h) {
+    register LISTNode const* cur = h;
+    do {
+        printf("%zu->", cur->item);
+        cur = cur->next;
+    } while (cur);
+    printf("X\n");
 }

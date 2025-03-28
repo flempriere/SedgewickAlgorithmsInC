@@ -20,7 +20,7 @@ Exercise 2-7:
  *
  * @see newtons_method
  */
-#define eps 1e-6
+ constexpr long double eps = 1e-6L;
 
 /**
  * @brief Finds a root of the the function @f

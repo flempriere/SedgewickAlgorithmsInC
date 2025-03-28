@@ -8,11 +8,9 @@ generated each time.
 
 #include "../../../MacroLibrary/Generic.h"
 #include "../../../MacroLibrary/Random.h"
-#include "../../../MacroLibrary/Utility.h"
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <time.h>
 
 /**
  * @brief maximum value of a vertex across all runs

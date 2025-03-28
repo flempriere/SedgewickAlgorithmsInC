@@ -13,7 +13,7 @@ in a linkedList
  * @brief Number of test nodes to generate
  * 
  */
-#define DEFAULT_N 25
+constexpr unsigned int DEFAULT_N = 25u;
 
 /**
  * @brief Generates a list of size N, then frees
@@ -26,16 +26,18 @@ in a linkedList
  */
 int main(int argc, char* argv[argc+1]) {
 
-    size_t N = (argc == 2) ? (strtoull(argv[1], nullptr, 0)) : DEFAULT_N;
+    register size_t const N = (argc == 2) ? (strtoull(argv[1], nullptr, 0)) : DEFAULT_N;
 
-    LISTNode* head = LISTnewNode(1);
-    LISTNode* cur = head;
-    for (size_t i = 2; i <= N; i++) {
-        LISTinsertNext(cur, LISTnewNode(i));
+    register LISTNode* head = LISTnew_node(1);
+    register LISTNode* cur = head;
+    for (register size_t i = 2; i <= N; i++) {
+        LISTinsert_next(cur, LISTnew_node(i));
         cur = LISTnext(cur);
     }
-    LISTprintList(head);
-    head = LISTfreeEverySecondNode(head);
-    LISTprintList(head);
+    LISTprint_list(head);
+    head = LISTfree_every_second_node(head);
+    LISTprint_list(head);
+
+    LISTfree_all_nodes(head);
     return EXIT_SUCCESS;
 }

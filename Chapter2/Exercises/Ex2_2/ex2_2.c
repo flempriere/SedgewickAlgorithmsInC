@@ -36,7 +36,7 @@ int main(int argc, char* argv[argc + 1]) {
         }
         register clock_t const toc = clock();
 
-        printf("N: %zu, time: %lf seconds\n", LIMITS[i],
+        printf("N: %zu, time: %.6lf seconds\n", LIMITS[i],
                CAST(double)(toc - tic) / CLOCKS_PER_SEC);
     }
     return EXIT_SUCCESS;

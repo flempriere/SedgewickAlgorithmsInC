@@ -13,6 +13,7 @@ computation.
 
 #include "../../../../MacroLibrary/Random.h"
 #include "../../../../MacroLibrary/Utility.h"
+#include "../../../../MacroLibrary/NumberParse.h"
 
 #include <limits.h>
 #include <stdio.h>
@@ -45,7 +46,13 @@ int main(int argc, char* argv[argc + 1]) {
         fprintf(stderr, "Usage: ./app N\n");
         return EXIT_FAILURE;
     }
-    size_t const N = strtoull(argv[1], nullptr, 0);
+    size_t nRead;
+    if(!NUMPARSE(&nRead, argv[1])) {
+        fprintf(stderr, "Failed to parse number\n");
+        return EXIT_FAILURE;
+    }
+    register size_t const N = nRead;
+
     register double m1 = 0.0;
     register double m2 = 0.0;
 

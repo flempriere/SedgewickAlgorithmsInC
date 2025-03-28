@@ -4,9 +4,6 @@ interpreting N/2 as ceil(N/2) for the formula
 
 C_N = C_(N/2) + 1 for N >= 2 with C_1 = 1
 */
-
-#include "../../../MacroLibrary/Generic.h"
-
 #include <stdio.h>
 #include <stdlib.h>
 

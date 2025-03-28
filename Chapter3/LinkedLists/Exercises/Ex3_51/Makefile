@@ -12,12 +12,25 @@ $(if $(filter $(BUILD), $(VALID_BUILDS)),,$(error Invalid BUILD option: $(BUILD)
 
 BUILDDIR = $(CURDIR)/$(BUILD)
 
+USE_V2_INTERFACE ?= 0
+VALID_INTERFACE := 0 1
+$(if $(filter $(USE_V2_INTERFACE), $(VALID_INTERFACE)),, $(error Invalid interface option: $(INTERFACE)))
+
+LIB_DIR_0 = ../../Examples/Program3_12-14_ListImplementation
+LIB_DIR_1 = ../Ex3_47
+LIB_DIR = $(LIB_DIR_$(USE_V2_INTERFACE))
+
+DEFINE_0 := -U USE_V2_INTERFACE
+DEFINE_1 := -D USE_V2_INTERFACE
+DEFINE = $(DEFINE_$(USE_V2_INTERFACE))
+
+
 ###############################
 # Search Directories for Code #
 ###############################
 
-INCLUDE_DIRS = . ./includes
-SOURCE_DIRS = . ./src
+INCLUDE_DIRS = . ./includes $(LIB_DIR)
+SOURCE_DIRS = . ./src $(LIB_DIR)
 SOURCE_VPATHS = 
 
 vpath %.c $(sort $(dir) $(SOURCE_DIRS) $(SOURCE_VPATHS))
@@ -78,7 +91,7 @@ FLAGS_linker =
 BUILDFLAGS = $(FLAGS_$(BUILD))
 BUILDFLAGS += $(OPT_$(BUILD))
 
-CFLAGS = $(STD) $(FLAGS_warning) $(FLAGS_address) $(INCLUDES) $(BUILDFLAGS) $(FLAGS_dependencies)
+CFLAGS = $(STD) $(FLAGS_warning) $(FLAGS_address) $(INCLUDES) $(DEFINE) $(BUILDFLAGS) $(FLAGS_dependencies)
 
 ###########
 # Recipes #

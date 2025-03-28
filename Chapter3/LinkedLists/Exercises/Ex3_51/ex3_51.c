@@ -10,7 +10,7 @@ This program will output the timings
 */
 
 #ifdef USE_V2_INTERFACE
-    #include "../Ex3_50/List_v2.h"
+    #include "../Ex3_47/List_v3.h"
     constexpr bool new_interface = true;
 #else
     #include "../../Examples/Program3_12-14_ListImplementation/List.h"
@@ -19,22 +19,15 @@ This program will output the timings
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <time.h>
-
-/**
- * @brief Defines which interface is in use
- * set to 1 for original program 3.14 interface
- * else 0 for updated interface.
- * 
- */
-#define LIST_MODE 0
+#include "../../../../MacroLibrary/Random.h"
+#include "../../../../MacroLibrary/Utility.h"
 
 /**
  * @brief First value of N for test cases,
  * each successive case is 10x larger
  * 
  */
-#define INIT_N 10000
+constexpr size_t INIT_N = 10000u;
 
 /**
  * @brief Number of N cases to test
@@ -42,13 +35,13 @@ This program will output the timings
  * @see INIT_N
  * 
  */
-#define N_CASES 4
+constexpr size_t N_CASES = 4u;
 
 /**
  * @brief Value of M for test case
  * 
  */
-#define DEFAULT_M 2
+constexpr size_t DEFAULT_M = 2u;
 
 /**
  * @brief Test the runtime for various memory allocation
@@ -62,28 +55,39 @@ This program will output the timings
  */
 int main(int argc, char* argv[argc+1]) {
 
-    size_t M = DEFAULT_M;
-    size_t N = INIT_N;
-    srand(time(nullptr));
+    register size_t const M = DEFAULT_M;
+    register size_t N = INIT_N;
+    
+    RAND_SEED_TIME;
+
     printf("Running with %s list\n", (new_interface) ? "ex3.50" : "program3_14");
-    for (size_t i = 0; i < N_CASES; i++, N *= 10) {
+    
+    for (register size_t i = 0; i < N_CASES; i++, N *= 10) {
+    
     printf("Test Case: M: %zu, N: %zu", M, N);
-    clock_t tic = clock();
+    register clock_t tic = clock();
     #ifndef USE_V2_INTERFACE
-        LISTinitNodes(N); //needed for the original allocation
+        LISTinit_nodes(N); //needed for the original allocation
     #endif
-        LISTNode* x = LISTnewNode(1);
-        for (size_t i = 2; i <= N; i++) {
-            LISTNode* t = LISTnewNode(i);
-            LISTinsertNext(x, t);
+        register LISTNode* x = LISTnew_node(1);
+        for (register size_t i = 2; i <= N; i++) {
+            LISTNode* t = LISTnew_node(i);
+            LISTinsert_next(x, t);
             x = t;
         }
         while(x != LISTnext(x)) {
-            for (size_t i = 1; i < M; i++) x = LISTnext(x);
-            LISTfreeNode(LISTdeleteNext(x));
+            for (register size_t i = 1; i < M; i++) x = LISTnext(x);
+            LISTfree_node(LISTdelete_next(x));
         }
-        clock_t toc = clock();
-        printf("\t Time: %g\n", (double)(toc - tic) / CLOCKS_PER_SEC);
+        register clock_t toc = clock();
+        printf("\t Time: %Lg\n", CAST(long double)(toc - tic) / CLOCKS_PER_SEC);
+
+        #ifndef USE_V2_INTERFACE
+            LISTdeinit_list();
+        #else 
+            LISTfree_all_nodes();
+        #endif
     }
+
     return EXIT_SUCCESS;
 }

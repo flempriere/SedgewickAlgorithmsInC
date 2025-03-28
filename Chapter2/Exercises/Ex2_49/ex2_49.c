@@ -9,7 +9,6 @@
     Play around with changing the typedef and corresponding KEY_MAX to different
     size integers.
  */
-#include "../../../MacroLibrary/Generic.h"
 #include "../../../MacroLibrary/Random.h"
 
 #include <stdint.h>
@@ -38,7 +37,7 @@ typedef uint16_t key;
  * @brief Largest valid key value
  *
  */
-#define KEY_MAX UINT16_MAX
+constexpr key KEY_MAX = UINT16_MAX;
 
 /**
  * @brief Fills an array of a of length

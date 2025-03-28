@@ -8,34 +8,27 @@ rather than a circular list.
 
 */
 
-#include <stdlib.h>
-#include <stdio.h>
+#include "../../../../MacroLibrary/Utility.h"
 #include "List_removeEven.h"
 
-/**
- * @brief list of allocated, unused nodes
- * for use in lists.
- */
-LISTNode* freeList;
+#include <stdio.h>
+#include <stdlib.h>
 
-LISTNode *LISTnewNode(LISTItem k)
-{
-    LISTNode* x = malloc(sizeof(typeof_unqual(*x)));
+LISTNode* LISTnew_node(LISTItem const k) {
+    LISTNode* x = calloc(1, SIZEOF_VARTYPE(*x));
     x->item = k;
     x->next = nullptr;
     return x;
 }
 
-void LISTfreeNode(LISTNode* n) {
-    free(n);    
-}
+void LISTfree_node(LISTNode* n) { free(n); }
 
-LISTNode* LISTfreeEverySecondNode(LISTNode* n) {
+LISTNode* LISTfree_every_second_node(LISTNode* const n) {
     LISTNode* cur = n;
     bool delete = true;
     while (cur->next) {
         if (delete) {
-            free(LISTdeleteNext(cur));
+            free(LISTdelete_next(cur));
             delete = !delete;
             if (!(cur->next)) break;
         }
@@ -45,31 +38,30 @@ LISTNode* LISTfreeEverySecondNode(LISTNode* n) {
     return n;
 }
 
-void LISTprintList(LISTNode* h) {
-    for (; h != nullptr; h = h->next) {
-        printf("%zu->", h->item);
-    }
-    printf("X\n");
-}
-
-void LISTinsertNext(LISTNode* x, LISTNode* y) {
+void LISTinsert_next(LISTNode* const x, LISTNode* const y) {
     y->next = x->next;
     x->next = y;
 }
 
-LISTNode* LISTdeleteNext(LISTNode* x)
-{
+LISTNode* LISTdelete_next(LISTNode* const x) {
     LISTNode* t = x->next;
     x->next = t->next;
     return t;
 }
 
-LISTNode* LISTnext(LISTNode* x)
-{
-    return x->next;
+void LISTfree_all_nodes(LISTNode* n) {
+    do {
+        register LISTNode* cur = n->next;
+        free(n);
+        n = cur;
+    } while (n);
 }
 
-LISTItem LISTitem(LISTNode* x)
-{
-    return x->item;
+LISTNode* LISTnext(LISTNode const* const x) { return x->next; }
+
+LISTItem LISTitem(LISTNode const* const x) { return x->item; }
+
+void LISTprint_list(LISTNode const* h) {
+    for (; h != nullptr; h = h->next) { printf("%zu->", h->item); }
+    printf("X\n");
 }

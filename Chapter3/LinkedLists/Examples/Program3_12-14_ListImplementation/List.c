@@ -54,6 +54,9 @@ LISTNode* LISTdelete_next(LISTNode* const x) {
     x->next = t->next;
     return t;
 }
+void LISTdeinit_list(void) {
+    free(free_list);
+} 
 
 LISTNode* LISTnext(LISTNode const* const x) { return x->next; }
 
