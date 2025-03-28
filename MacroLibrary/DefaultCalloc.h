@@ -22,7 +22,7 @@
  * @remark use case 1: DEFAULTCalloc() - returns a block of memory for one char
  * use case 2: DEFAULTCalloc(n) - returns a block of memory for n chars
  * use case 3: DEFAULTCalloc(, x) - returns a block of memory for a single
- * typeof(x) 
+ * typeof(x)
  * use case 4: DEFAULTCalloc(n, x) - returns a block of memory for n
  * typeof(x).
  */

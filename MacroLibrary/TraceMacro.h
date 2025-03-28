@@ -78,6 +78,7 @@
 #define TRACE_VALUE(F, X)                                                  \
     do {                                                                   \
         if (TRACE_ON)                                                      \
-            fprintf(stderr, TRACE_FORMAT("%s:" UTILITY_STRGY(__LINE__) ": " F, X), \
+            fprintf(stderr,                                                \
+                    TRACE_FORMAT("%s:" UTILITY_STRGY(__LINE__) ": " F, X), \
                     __func__, TRACE_CONVERT(X));                           \
     } while (false)

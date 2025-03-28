@@ -27,7 +27,7 @@
  * @remark Error if more than two arguments are given.
  */
 #define DEFAULT1(DEF0, ...) \
-    ID_I##__VA_OPT__(Iplus_DEFAULT)(DEF_0 __VA_OPT__(, ) __VA_ARGS__)
+    ID_I##__VA_OPT__(Iplus_DEFAULT)(DEF0 __VA_OPT__(, ) __VA_ARGS__)
 
 #define ID_IIplus_DEFAULT(_01, ...) ID_I(__VA_ARGS__)
 
@@ -36,30 +36,31 @@
  * Fill with defaults from the first two.
  */
 #define DEFAULT2(DEF0, DEF1, ...) \
-    ID_II##__VA_OPT__(Iplus_DEFAULT)(DEF_0, DEF_1 __VA_OPT__(, ) __VA_ARGS__)
+    ID_II##__VA_OPT__(Iplus_DEFAULT)(DEF0, DEF1 __VA_OPT__(, ) __VA_ARGS__)
 
-#define ID_IIIplusDEFAULT(DEFO, DEF1, _01, ...) \
+#define ID_IIIplus_DEFAULT(DEFO, DEF1, _01, ...) \
     DEFAULT1(DEF0, _01), DEFAULT1(DEF1, __VA_ARGS__)
 
-#define DEFAULT3(DEF0, DEF1, DEF2, ...)                    \
-    ID_III##__VA_OPT__(Iplus_DEFAULT)(DEF_0, DEF_1, DEF_2, \
-                                      __VA_OPT__(, ) __VA_ARGS__)
+#define DEFAULT3(DEF0, DEF1, DEF2, ...)           \
+    ID_III##__VA_OPT__(Iplus_DEFAULT)(DEF0, DEF1, \
+                                      DEF2 __VA_OPT__(, ) __VA_ARGS__)
 
-#define ID_IIIIplusDEFAULT(DEF0, DEF1, DEF2, _01, ...) \
+#define ID_IIIIplus_DEFAULT(DEF0, DEF1, DEF2, _01, ...) \
     DEFAULT1(DEF0, _01), DEFAULT2(DEF1, DEF2, __VA_ARGS__)
 
-#define DEFAULT4(DEF0, DEF1, DEF2, DEF3, ...)               \
-    ID_IIII##__VA_OPT__(Iplus_DEFAULT)(DEF_0, DEF_1, DEF_2, \
-                                       __VA_OPT__(, ) __VA_ARGS__)
+#define DEFAULT4(DEF0, DEF1, DEF2, DEF3, ...)            \
+    ID_IIII##__VA_OPT__(Iplus_DEFAULT)(DEF0, DEF1, DEF2, \
+                                       DEF3 __VA_OPT__(, ) __VA_ARGS__)
 
-#define ID_IIIIIplusDEFAULT(DEF0, DEF1, DEF2, DEF3, _01, ...) \
+#define ID_IIIIIplus_DEFAULT(DEF0, DEF1, DEF2, DEF3, _01, ...) \
     DEFAULT1(DEF0, _01), DEFAULT3(DEF1, DEF2, DEF3, __VA_ARGS__)
 
-/* Macros for function calls with default arguments */
+/* Macros for function calls with default
+ * arguments */
 
 #define CALL1(FUNC, DEF0, ...) FUNC(DEFAULT1(DEF0, __VA_ARGS__))
 #define CALL2(FUNC, DEF0, DEF1, ...) FUNC(DEFAULT2(DEF0, DEF1, __VA_ARGS__))
 #define CALL3(FUNC, DEF0, DEF1, DEF2, ...) \
-    FUNC(DEFAULT3(DEF0, DEF1, DEF2, __VA_ARGS))
+    FUNC(DEFAULT3(DEF0, DEF1, DEF2, __VA_ARGS__))
 #define CALL4(FUNC, DEF0, DEF1, DEF2, DEF3, ...) \
     FUNC(DEFAULT4(DEF0, DEF1, DEF2, DEF3, __VA_ARGS__))
