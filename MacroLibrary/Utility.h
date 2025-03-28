@@ -11,15 +11,24 @@
  * @copyright Copyright (c) 2025
  *
  */
+ #pragma once
 
- // Cast
- /**
+// Cast
+/**
  * @brief Make a cast explicit
- * 
+ *
  */
- #define CAST(T) (T)
+#define CAST(T) (T)
 
- // Sizeof
+/**
+ * @brief Check if value is an integer constant expression
+ *
+ */
+#define isice(...) is_zero_ice(!((__VA_ARGS__) || 1))
+
+//
+
+// Sizeof
 
 /**
  * @brief Return the size of a variables type.
@@ -27,7 +36,7 @@
  * @remark sizeof does this normally, we're just
  * making this explicit.
  */
- #define SIZEOF_VARTYPE(A) (sizeof(typeof(A)))
+#define SIZEOF_VARTYPE(A) (sizeof(typeof(A)))
 
 // Stringification Macros
 
@@ -41,7 +50,7 @@
  * @brief Stringify token with argument replacement.
  *
  */
-#define UTILITY_STRGY(x) MACRO_STRINGIFY(x)
+#define UTILITY_STRGY(x) UTILITY_STRINGIFY(x)
 
 // VA_ARG List featues
 

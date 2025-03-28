@@ -9,6 +9,8 @@
  * @copyright Copyright (c) 2025
  *
  */
+#pragma once
+
 #include "Utility.h"
 
 #include <stdio.h>
@@ -20,46 +22,62 @@
 #endif
 
 /**
- * @brief A function to print a  list of values
- *
- * @remark This function is only to be called through the macro @TRACE_VALUES.
- */
-static inline void TRACE_trace_values(FILE* s, char const func[static 1],
-                                      char const line[static 1],
-                                      char const expr[static 1],
-                                      char const head[static 1], size_t len,
-                                      long double const arr[len]) {
-    fprintf(s, "%s:%s: (%s) %s %Lg", func, line, expr, head, arr[0]);
-    for (size_t i = 1; i < len - 1; i++) { fprintf(s, " %Lg", arr[i]); }
-    fputc('\n', s);
-}
+ ** @brief Returns a format that is suitable for @c fprintf
+ **
+ ** @return The argument @a F must be a string literal,
+ ** so the return value will also be one.
+ **
+ **/
+#define TRACE_FORMAT(F, X)                  \
+    _Generic((X) + 0LL,                     \
+        unsigned long long: "" F " %llu\n", \
+        long long: "" F " %lld\n",          \
+        float: "" F " %.8f\n",              \
+        double: "" F " %.12f\n",            \
+        long double: "" F " %.20Lf\n",      \
+        default: "" F " %p\n")
 
 /**
- * @brief Submacro called by @MACRO_TRACE_VALUES
- *
- */
-#define TRACE_TRACE_VALUES0(NARGS, EXPR, HEAD, ...)                           \
-    do {                                                                      \
-        if (TRACE_ON) {                                                       \
-            if (NARGS > 1) {                                                  \
-                TRACE_trace_values(stderr, __func__, UTILITY_STRGY(__LINE__), \
-                                   "" EXPR "", "" HEAD "", N_ARGS,            \
-                                   (long double const[NARGS]) {__VA_ARGS__}); \
-            } else {                                                          \
-                fprintf(stderr, "%s:", UTILITY_STRGY(__LINE__) ": %s\n",      \
-                        __func__ HEAD);                                       \
-            }                                                                 \
-        }                                                                     \
-    } while (false);
+ ** @brief Returns a value that forcibly can be interpreted as
+ ** pointer value
+ **
+ ** That is, any pointer will be returned as such, but other
+ ** arithmetic values will result in a @c nullptr.
+ **/
+#define TRACE_POINTER(X)             \
+    _Generic((X) + 0LL,              \
+        unsigned long long: nullptr, \
+        long long: nullptr,          \
+        float: nullptr,              \
+        double: nullptr,             \
+        long double: nullptr,        \
+        default: (X))
 
 /**
- * @brief Traces a list of arguments without having to specify the type of
- * each argument.
- *
- * @remark This constructs a temporary array of long double, therefore implicit
- * conversion to that type is always guaranteed.
- */
-#define TRACE_TRACE_VALUES(...)                                        \
-    TRACE_TRACE_VALUES0(UTILITY_VA_ARG_LEN(__VA_ARGS__), #__VA_ARGS__, \
-                        __VA_ARGS__)
-                        
+ ** @brief Returns a value that is promoted either to a wide
+ ** integer, to a floating point, or to a @c void* if @a X is a
+ ** pointer
+ **/
+#define TRACE_CONVERT(X)               \
+    _Generic((X) + 0LL,                \
+        unsigned long long: (X) + 0LL, \
+        long long: (X) + 0LL,          \
+        float: (X) + 0LL,              \
+        double: (X) + 0LL,             \
+        long double: (X) + 0LL,        \
+        default: ((void*) { nullptr } = TRACE_POINTER(X)))
+
+/**
+ ** @brief Traces a value without having to specify a format
+ **
+ ** This variant works correctly with non-void pointers.
+ **
+ ** The formats are tunable by changing the specifiers in
+ ** ::TRACE_FORMAT.
+ **/
+#define TRACE_VALUE(F, X)                                                  \
+    do {                                                                   \
+        if (TRACE_ON)                                                      \
+            fprintf(stderr, TRACE_FORMAT("%s:" UTILITY_STRGY(__LINE__) ": " F, X), \
+                    __func__, TRACE_CONVERT(X));                           \
+    } while (false)
