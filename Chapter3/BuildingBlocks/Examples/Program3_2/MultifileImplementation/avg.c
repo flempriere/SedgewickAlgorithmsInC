@@ -4,8 +4,8 @@ an interface file (num.h) and an implementation file (num.c)
 */
 #include "../../../../../MacroLibrary/NumberParse.h"
 #include "../../../../../MacroLibrary/Random.h"
-#include "../../../../../MacroLibrary/Utility.h"
 #include "../../../../../MacroLibrary/Statistics.h"
+#include "../../../../../MacroLibrary/Utility.h"
 #include "src/Number.h"
 
 #include <stdio.h>
@@ -14,9 +14,9 @@ an interface file (num.h) and an implementation file (num.c)
 
 /**
  * @brief Converts a random number to a double.
- * 
+ *
  * Designed to wrap the NUMBERrandom in the interface for calculateStatistics
- * @return double 
+ * @return double
  */
 static inline double rand_num_to_double(void);
 /**
@@ -33,15 +33,14 @@ int main(int argc, char* argv[argc + 1]) {
         fprintf(stderr, "Usage: ./app N\n");
         return EXIT_FAILURE;
     }
-    register size_t const N = NUMPARSEexit_on_fail(N, argv[1 ]);
+    register size_t const N = NUMPARSEexit_on_fail(N, argv[1]);
     RAND_SEED_TIME;
 
-    register STATSmeasures results = STATScalculate_statistics(rand_num_to_double, N);
+    register STATSmeasures results =
+        STATScalculate_statistics(rand_num_to_double, N);
     STATSsummary_print(results);
 
     return EXIT_SUCCESS;
 }
 
-double rand_num_to_double(void) {
-    return CAST(double) NUMBERrandom();
-}
+double rand_num_to_double(void) { return CAST(double) NUMBERrandom(); }

@@ -6,7 +6,9 @@ N random integers from 0 to r-1 with rand() % r and computing
 the avg and std. dev. for r = 10, 100, 1000, N = 10^3, 10^4,
 10^5, 10^6.
 */
+#include "../../../../MacroLibrary/DefaultCalloc.h"
 #include "../../../../MacroLibrary/Random.h"
+#include "../../../../MacroLibrary/Statistics.h"
 #include "../../../../MacroLibrary/Utility.h"
 #include "src/NumberInt.h"
 
@@ -38,6 +40,15 @@ constexpr size_t N_INIT = 10000u;
 constexpr unsigned int R_INIT = 10u;
 
 /**
+ * @brief Wraps the NUMBERrandom interface in the required structure
+ * for the statistics.h calling methods.
+ *
+ * @param ub upper bound.
+ * @return double
+ */
+static inline double rand_num_to_double(double ub);
+
+/**
  * @brief Test the random number generator by
  * generating numbers between 0 and r - 1 using
  * rand() % (r), N times and compute the avg
@@ -59,21 +70,25 @@ int main(int argc, char* argv[argc + 1]) {
         for (register size_t j = 0; j < R_CASES;
              r *= 10, j++) {    // iterate over r values
 
-            register double m1 = 0.0;
-            register double m2 = 0.0;
+            register STATSmeasures sm =
+                STATScalculate_statistics(rand_num_to_double, n, r);
 
-            for (register size_t k = 0; k < n; k++) {
-                register Number x = NUMBERrandom(r);
-                m1 += x / CAST(double) n;
-                m2 += (CAST(double) x * x) / CAST(double) n;
-            }
-            printf("Results for N: %zu, R: %d\n", n, r);
-            printf("       Average: %f\n", m1);
-            printf("Std. deviation: %f\n", sqrt(m2 - m1 * m1));
+            size_t buf_sz =
+                CAST(size_t)
+                    snprintf(nullptr, 0, "Results for N: %zu, R: %d", n, r) +
+                1;
+            char* const buf = DEFAULTCALLOC(buf_sz, buf);
+            snprintf(buf, (buf_sz), "Results for N: %zu, R: %d", n, r);
+            STATSsummary_print(sm, buf);
+            free(buf);
         }
         printf("\n");
         r = R_INIT;
     }
 
     return EXIT_SUCCESS;
+}
+
+static inline double rand_num_to_double(double ub) {
+    return CAST(double) NUMBERrandom(CAST(Number) ub);
 }

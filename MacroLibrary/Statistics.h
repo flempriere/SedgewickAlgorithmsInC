@@ -36,7 +36,6 @@ typedef struct STATSmeasures {
     double std_dev;
 } STATSmeasures;
 
-
 /**
  * @brief Calculate the standard deviation given the first and second moment.
  *
@@ -54,22 +53,21 @@ typedef struct STATSmeasures {
  * @param sm
  * @return STATSmoments
  */
- static inline STATSmoments STATSmeasures_to_moments(STATSmeasures sm) {
+static inline STATSmoments STATSmeasures_to_moments(STATSmeasures sm) {
     return CAST(STATSmoments){ .m1 = sm.avg,
                                .m2 = pow(sm.std_dev, 2) + sm.avg * sm.avg };
 }
 
 /**
  * @brief Converts a STATSmoments struct into the equivalent STATSmeasures
- * 
- * @param sm 
- * @return STATSmeasures 
+ *
+ * @param sm
+ * @return STATSmeasures
  */
 static inline STATSmeasures STATSmoments_to_measures(STATSmoments sm) {
     return CAST(STATSmeasures){ .avg = sm.m1,
                                 .std_dev = sqrt(sm.m2 - sm.m1 * sm.m1) };
 }
-
 
 STATSmeasures STATScalculate_statistics(double f(void), size_t n) {
     register double m1 = 0.0;
@@ -82,6 +80,22 @@ STATSmeasures STATScalculate_statistics(double f(void), size_t n) {
     }
     return CAST(STATSmeasures){ .avg = m1, .std_dev = STD_DEV(m1, m2) };
 }
+
+STATSmeasures STATScalculate_statistics_I(double f(double), size_t n,
+                                          double arg) {
+    register double m1 = 0.0;
+    register double m2 = 0.0;
+
+    for (register size_t i = 0; i < n; i++) {
+        register double x = f(arg);
+        m1 += (x) / CAST(double) n;
+        m2 += (x * x) / CAST(double) n;
+    }
+    return CAST(STATSmeasures){ .avg = m1, .std_dev = STD_DEV(m1, m2) };
+}
+
+#define STATScalculate_statistics(f, n, ...) \
+    (STATScalculate_statistics##__VA_OPT__(_I))(f, n __VA_OPT__(, ) __VA_ARGS__)
 
 /**
  * @brief Print out statistical moments with an optional header string *s.
@@ -104,7 +118,7 @@ void STATSmeasures_print(STATSmeasures const sm, char const* const s) {
 /**
  * @brief Default arguments version of STATSmoments_to_print, by default the
  * optional header string is set to nullptr.
- * 
+ *
  */
 #define STATSmoments_print(sm, ...) \
     CALL2_ND1(STATSmoments_print, sm, nullptr __VA_OPT__(, ) __VA_ARGS__)
@@ -112,11 +126,10 @@ void STATSmeasures_print(STATSmeasures const sm, char const* const s) {
 /**
  * @brief Default arguments version of STATSmoments_to_print, by default the
  * optional header string is set to nullptr.
- * 
+ *
  */
 #define STATSmeasures_print(sm, ...) \
     CALL2_ND1(STATSmeasures_print, sm, nullptr __VA_OPT__(, ) __VA_ARGS__)
-
 
 /**
  * @brief Type generic interface for printing statistical summaries.
@@ -125,9 +138,9 @@ void STATSmeasures_print(STATSmeasures const sm, char const* const s) {
  *@remark the CAST(type) {0} in the second _Generic ensure that all codepaths
  * are syntacically valid, but are unreachable. (If we used pointers we could
  * make a dummy function and cast to the (void *) to generate linkage errors at
- * compile time.) 
+ * compile time.)
  */
- 
+
 #define STATSsummary_print(sm, ...)                                            \
     _Generic(sm,                                                               \
         STATSmoments: STATSmoments_print(_Generic(sm,                          \
