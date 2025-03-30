@@ -4,15 +4,15 @@ Exercise 3.23
 Modify Program 3.8 to work for a d-dimensional point.
 */
 
+#include "../../../../MacroLibrary/DefaultCalloc.h"
 #include "../../../../MacroLibrary/Generic.h"
+#include "../../../../MacroLibrary/NumberParse.h"
 #include "../../../../MacroLibrary/Random.h"
-#include "../../../../MacroLibrary/Utility.h"
-#include "Point_dDim.h"
+#include "src/Point_dDim.h"
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <tgmath.h>
-#include <time.h>
 
 /**
  * @brief Extract dimension from an input string.
@@ -41,10 +41,14 @@ int main(int argc, char* argv[argc + 1]) {
     }
 
     Dimension const dim = getDim(argv[1]);
-    size_t const N = strtoull(argv[2], NULL, 0);
-    double const d = strtod(argv[3], nullptr);
+    size_t const N = NUMPARSEexit_on_fail(N, argv[2]);
+    double const d = NUMPARSEexit_on_fail(d, argv[3]);
 
-    Point_DDIM* const a = calloc(N, (SIZEOF_VARTYPE(*a)));
+    Point_DDIM* const a = DEFAULTCallocNVAR(N, *a);
+    if (!a) {
+        fprintf(stderr, "Failed to allocate Point array\n");
+        return EXIT_FAILURE;
+    }
 
     for (register size_t i = 0; i < N; i++) {
         for (register Dimension idx = 0; idx < dim; idx++) {
@@ -64,6 +68,6 @@ int main(int argc, char* argv[argc + 1]) {
 }
 
 Dimension getDim(char s[static 1]) {
-    Dimension dim = strtoull(s, nullptr, 0);
+    Dimension dim = NUMPARSEexit_on_fail(dim, s);
     return MIN(dim, POINT_DDIM_MAX_DIM);
 }

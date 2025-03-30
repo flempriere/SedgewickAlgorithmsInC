@@ -4,11 +4,12 @@ Exercise 3.21
 Modify program 3.7 to generate a heads with probability lambda/N
 */
 
+#include "../../../../MacroLibrary/DefaultCalloc.h"
+#include "../../../../MacroLibrary/NumberParse.h"
 #include "../../../../MacroLibrary/Random.h"
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <time.h>
 
 /**
  * @brief Probability of heads factor.
@@ -23,7 +24,7 @@ constexpr double LAMBDA = 10.0;
  * @return true if result is heads,
  * @return false if result is tails
  */
-bool heads(double const lambda, size_t const N);
+static inline bool heads(double const lambda, size_t const N);
 
 /**
  * @brief Performs M experiments each consisting
@@ -45,12 +46,16 @@ int main(int argc, char* argv[argc + 1]) {
         fprintf(stderr, "Error: requires arguments N and M\n");
         return EXIT_FAILURE;
     }
-    register size_t const N = strtoull(argv[1], NULL, 0);
-    register size_t const M = strtoull(argv[2], NULL, 0);
+    register size_t const N = NUMPARSEexit_on_fail(N, argv[1]);
+    register size_t const M = NUMPARSEexit_on_fail(M, argv[2]);
 
     RAND_SEED_TIME;
 
-    size_t* const f = calloc((N + 1), sizeof(typeof(*f)));
+    size_t* const f = DEFAULTCallocNVAR(N + 1, *f);
+    if (!f) {
+        fprintf(stderr, "Error allocating frequency graph\n");
+        return EXIT_FAILURE;
+    }
 
     for (register size_t i = 0; i < M; i++) {
         register size_t cnt = 0;
@@ -69,6 +74,6 @@ int main(int argc, char* argv[argc + 1]) {
     return EXIT_SUCCESS;
 }
 
-bool heads(double const lambda, size_t const N) {
+static inline bool heads(double const lambda, size_t const N) {
     return RAND_WEIGHTED_COIN_TOSS(lambda / CAST(double) N);
 }

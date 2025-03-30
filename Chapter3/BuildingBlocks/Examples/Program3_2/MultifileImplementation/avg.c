@@ -26,12 +26,7 @@ int main(int argc, char* argv[argc + 1]) {
         return EXIT_FAILURE;
     }
 
-    size_t nRead;
-    if (!NUMPARSE(&nRead, argv[1])) {
-        fprintf(stderr, "Failed to initialise N\n");
-        return EXIT_FAILURE;
-    }
-    register size_t const N = nRead;
+    register size_t const N = NUMPARSEexit_on_fail(N, argv[1 ]);
     printf("%zu\n", N);
 
     register double m1 = 0.0;

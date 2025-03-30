@@ -8,12 +8,12 @@ This implementation repeats the experiment M times where M is a command line
 argument.
 
 */
+#include "../../../../MacroLibrary/NumberParse.h"
 #include "../../../../MacroLibrary/Random.h"
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <tgmath.h>
-#include <time.h>
 
 /**
  * @brief largest number we can generate
@@ -40,17 +40,20 @@ int main(int argc, char* argv[argc + 1]) {
         return EXIT_FAILURE;
     }
     size_t a[MAX_NUM];
-    register size_t const M = strtoull(argv[1], NULL, 0);
+
+    register size_t const M = NUMPARSEexit_on_fail(M, argv[1]);
+
+    RAND_SEED_TIME;
+
     register double m1 = 0.0;
     register double m2 = 0.0;
-    RAND_SEED_TIME;
 
     for (register size_t k = 0; k < M; k++) {
         register size_t nGen = 0;
         for (register size_t i = 0; i < MAX_NUM; i++) a[i] = 0;
         register size_t nSeen = 0;
         while (nSeen < MAX_NUM) {
-            size_t i = RAND_NUM(MAX_NUM);
+            register size_t i = RAND_NUM(MAX_NUM);
             if (!(a[i]++)) { nSeen++; }
             nGen++;
         }
@@ -60,5 +63,6 @@ int main(int argc, char* argv[argc + 1]) {
     printf("===== Results, M = %zu =====\n", M);
     printf("       Average: %f\n", m1);
     printf("Std. deviation: %f\n", sqrt(m2 - m1 * m1));
-    return 0;
+
+    return EXIT_SUCCESS;
 }

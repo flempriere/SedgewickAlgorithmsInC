@@ -6,8 +6,8 @@ in programs such as the sieve of eratosthenes.
 This takes in the size of the array to allocate as a command line argument
 
 */
-
-#include "../../../../MacroLibrary/Utility.h"
+#include "../../../../MacroLibrary/DefaultCalloc.h"
+#include "../../../../MacroLibrary/NumberParse.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -24,9 +24,14 @@ int main(int argc, char* argv[argc + 1]) {
         return EXIT_FAILURE;
     }
 
-    size_t const N = strtoull(argv[1], nullptr, 0);
+    register size_t const N = NUMPARSEexit_on_fail(N, argv[1]);
 
-    size_t* const a = calloc(N, SIZEOF_VARTYPE(*a));
+    size_t* const a = DEFAULTCallocNVAR(N, *a);
+    if (!a) {
+        fprintf(stderr, "Allocation of a failed\n");
+        return EXIT_FAILURE;
+    }
+    printf("Allocated array of %zu bytes\n", N * sizeof(*a));
     free(a);
     return EXIT_SUCCESS;
 }

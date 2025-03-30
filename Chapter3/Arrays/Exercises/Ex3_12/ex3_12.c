@@ -41,7 +41,7 @@ bool a[N];
 /**
  * @brief type used as the building blocks of the
  * bit array. Exercise: change and compare the result.
- * 
+ *
  */
 typedef unsigned int bit_component;
 /**
@@ -83,10 +83,10 @@ static inline void sieve_of_erastothenes_bool(void) {
 
 /**
  * @brief Indicate if the i-th bit of the bit array is set.
- * 
+ *
  * @param i index of the bit to check.
  * @return true if the bit is set else
- * @return false 
+ * @return false
  */
 static inline bool BITa_ith_bit(size_t i) {
     return BITa[i / BITS_PER_COMPONENT] & (MASK << (i % BITS_PER_COMPONENT));
@@ -95,7 +95,7 @@ static inline bool BITa_ith_bit(size_t i) {
 /**
  * @brief Perform the sieve of erastothenes using
  * an underlying bit array representation.
- * 
+ *
  */
 static inline void sieve_of_erastothenes_bit(void) {
     for (register size_t i = 2; i < N; i++) {
@@ -110,9 +110,9 @@ static inline void sieve_of_erastothenes_bit(void) {
 
 /**
  * @brief Time the runtime of a function.
- * 
- * @param f 
- * @return long double 
+ *
+ * @param f
+ * @return long double
  */
 long double time_function(void (*const f)(void)) {
     register clock_t const tic = clock();
@@ -146,5 +146,6 @@ int main(int argc, char* argv[argc + 1]) {
 
     for (register size_t i = 2; i < N; i++) { assert(a[i] == BITa_ith_bit(i)); }
     printf("=== Approaches Agree===\n");
+
     return EXIT_SUCCESS;
 }

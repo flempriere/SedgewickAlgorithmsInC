@@ -2,6 +2,7 @@
 Exercise 3.5. Implement a version of Program 3.2 that supports bit types
 (values that can be zero or one)
 */
+#include "../../../../MacroLibrary/NumberParse.h"
 #include "../../../../MacroLibrary/Random.h"
 #include "../../../../MacroLibrary/Utility.h"
 #include "src/NumberBit.h"
@@ -21,7 +22,7 @@ int main(int argc, char* argv[argc + 1]) {
         fprintf(stderr, "Usage: ./app N\n");
         return EXIT_FAILURE;
     }
-    size_t const N = strtoull(argv[1], nullptr, 0);
+    register size_t const N = NUMPARSEexit_on_fail(N, argv[1]);
     register double m1 = 0.0;
     register double m2 = 0.0;
 

@@ -29,5 +29,6 @@ int main(int argc, char* argv[argc + 1]) {
 
     for (register size_t i = 0; i < size; i++) { printf(" %zu ", a[i]); }
     printf("\n");
+
     return EXIT_SUCCESS;
 }

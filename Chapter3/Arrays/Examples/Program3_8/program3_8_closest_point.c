@@ -6,7 +6,8 @@ randomly generated points in the unit square that can be connected by a
 straight line of length < d using the point datatype introduced earlier.
 */
 
-#include "../../../../MacroLibrary/Utility.h"
+#include "../../../../MacroLibrary/DefaultCalloc.h"
+#include "../../../../MacroLibrary/NumberParse.h"
 #include "../../../../MacroLibrary/Random.h"
 #include "../../../BuildingBlocks/Examples/Program3_3-4/Point.h"
 
@@ -31,10 +32,17 @@ int main(int argc, char* argv[argc + 1]) {
     }
 
     RAND_SEED_TIME;
-    register double const d = strtod(argv[2], nullptr);
-    register size_t const N = strtoull(argv[1], NULL, 0);
 
-    register Point* const a = calloc(N, SIZEOF_VARTYPE(*a));
+    register double const d = NUMPARSEexit_on_fail(d, argv[2]);
+
+    register size_t const N = NUMPARSEexit_on_fail(N, argv[1]);
+
+    register Point* const a = DEFAULTCallocNVAR(N, *a);
+    if (!a) {
+        fprintf(stderr, "Failed to initialise Point array\n");
+        return EXIT_FAILURE;
+    }
+
     for (register size_t i = 0; i < N; i++) {
         {
             a[i].x = RAND_UNIFORM();
@@ -52,3 +60,4 @@ int main(int argc, char* argv[argc + 1]) {
     free(a);
     return EXIT_SUCCESS;
 }
+
