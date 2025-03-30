@@ -7,7 +7,7 @@
 ##############
 
 BUILD ?= debug
-VALID_BUILDS := debug release
+VALID_BUILDS := debug release speed
 $(if $(filter $(BUILD), $(VALID_BUILDS)),,$(error Invalid BUILD option: $(BUILD)))
 
 BUILDDIR = $(CURDIR)/$(BUILD)
@@ -59,6 +59,7 @@ INCLUDES = $(addprefix -I, $(INCLUDE_DIRS))
 # Optimisation level for a given build
 OPT_debug = -O
 OPT_release = -O2
+OPT_speed = -O3
 
 # Flags for warning, memory sanitiser
 FLAGS_warning = -Wall -Werror -Wextra -Wpedantic -Wno-unused-parameter        -Wconversion
@@ -70,6 +71,7 @@ FLAGS_dependencies = -MP -MD
 # Build Mode flags
 FLAGS_release = -g -march=native
 FLAGS_debug = -g3
+FLAGS_speed = -march=native
 
 #Linker
 FLAGS_linker = 

@@ -46,13 +46,13 @@ static inline double POINTslope(Point const p, Point const q) {
         return -INFINITY;
 }
 
-double POINTdistance(Point p, Point q) {
+double POINTdistance(Point const p, Point const q) {
     double dx = POINTdx(p, q);
     double dy = POINTdy(p, q);
     return sqrt(dx * dx + dy * dy);
 }
 
-bool POINTis_collinear(Point p, Point q, Point r) {
+bool POINTis_collinear(Point const p, Point const q, Point const r) {
     /*if two of the points are the same then
     always colinear with third */
     if (POINTis_equal(p, q) || POINTis_equal(q, r)) { return true; }

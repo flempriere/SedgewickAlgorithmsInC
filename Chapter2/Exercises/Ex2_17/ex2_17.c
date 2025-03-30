@@ -28,19 +28,19 @@ constexpr size_t MAX_INT = 50u;
  * @brief Calculates the N-th Fibonacchi number
  *
  */
-unsigned long long FIBONACCHI_NUMBER(size_t const N);
+unsigned long long FIBONACCHI_NUMBER(size_t const n);
 
 /**
  * @brief approximates lg(F_N)
  *
  */
-unsigned int APPROX_FLOOR_LG_FIB(size_t const N);
+unsigned int APPROX_FLOOR_LG_FIB(size_t const n);
 
 /**
  * @brief Calculates lg(F_N) exactly.
  *
  */
-unsigned int EXACT_FLOOR_LG_FIB(size_t const N);
+unsigned int EXACT_FLOOR_LG_FIB(size_t const n);
 
 /**
  * @brief Calculates floor(lg(F_N)) using
@@ -57,27 +57,27 @@ int main(int argc, char* argv[argc + 1]) {
     return EXIT_SUCCESS;
 }
 
-unsigned long long FIBONACCHI_NUMBER(size_t const N) {
+unsigned long long FIBONACCHI_NUMBER(size_t const n) {
     // cache for calculated values
     static size_t FIB_NUM[MAX_INT] = { 0, 1 };
     static size_t MAX_N = 1;    // max calculated fib num;
 
-    while (++MAX_N <= N) {
+    while (++MAX_N <= n) {
         FIB_NUM[MAX_N] = FIB_NUM[MAX_N - 1] + FIB_NUM[MAX_N - 2];
     }
     --MAX_N;
-    return FIB_NUM[N];
+    return FIB_NUM[n];
 }
 
-unsigned int APPROX_FLOOR_LG_FIB(size_t const N) {
+unsigned int APPROX_FLOOR_LG_FIB(size_t const n) {
     constexpr long double GOLDEN_RATIO = 1.61803L;
     static unsigned int exact_sln[] = { INT_MAX, 0, 0, 1 };
-    if (N <= 3) return exact_sln[N];
+    if (n <= 3) return exact_sln[n];
 
-    return CAST(unsigned int) floor(N * log2(GOLDEN_RATIO) - 0.5L * log2(5.0L));
+    return CAST(unsigned int) floor(n * log2(GOLDEN_RATIO) - 0.5L * log2(5.0L));
 }
 
-unsigned int EXACT_FLOOR_LG_FIB(size_t const N) {
+unsigned int EXACT_FLOOR_LG_FIB(size_t const n) {
     return CAST(unsigned int)
-        floor(log2(CAST(long double) FIBONACCHI_NUMBER(N)));
+        floor(log2(CAST(long double) FIBONACCHI_NUMBER(n)));
 }

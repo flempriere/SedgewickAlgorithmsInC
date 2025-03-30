@@ -36,7 +36,7 @@ int main(int argc, char* argv[argc + 1]) {
     char line[MAXLINE];
     size_t a[MAX_NUM] = {};
 
-    while (fgets(line, sizeof(line), stdin) != NULL) {
+    while (fgets(line, sizeof(line), stdin) != nullptr) {
         size_t i;
         if (!NUMPARSE(&i, line) || i > MAX_NUM) continue;
         a[i]++;

@@ -5,6 +5,7 @@ Program 3.3 and Program 3.4 for the following task. Read a sequence of points
 closest to the first.
 */
 
+#include "../../../../MacroLibrary/Utility.h"
 #include "../../Examples/Program3_3-4/Point.h"
 
 #include <stdio.h>
@@ -25,31 +26,29 @@ constexpr size_t MAX_LINE = 1000u;
  * @return EXIT_SUCCESS
  */
 int main(int argc, char * [argc + 1]) {
-
     register bool first_set = true;
     register Point first = {};
     register Point closest = {};
-    double min_distance = INFINITY;
+    register double min_distance = INFINITY;
 
     char line[MAX_LINE];
 
-    while (fgets(line, sizeof(line), stdin) != NULL) {
-        Number x, y;
+    while (fgets(line, sizeof(line), stdin) != nullptr) {
+        Number x;
+        Number y;
         if (sscanf(line, "%lf %lf", &x, &y) != 2) {
             printf("Error: must input pairs of points\n");
             return EXIT_FAILURE;
         }
         if (first_set) {
-            first.x = x;
-            first.y = y;
+            first = CAST(Point){ .x = x, .y = y };
             first_set = false;
         } else {
             register Point candidate = { .x = x, .y = y };
-            register double cand_dist;
-            if ((cand_dist = POINTdistance(first, candidate)) < min_distance) {
+            register double cand_dist = POINTdistance(first, candidate);
+            if (cand_dist < min_distance) {
                 min_distance = cand_dist;
-                closest.x = candidate.x;
-                closest.y = candidate.y;
+                closest = candidate;
             }
         }
     }

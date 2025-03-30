@@ -20,7 +20,7 @@ constexpr size_t MAX_N = 20u;
 /**
  * @brief Calculate ceil(lg(lg(N)))
  */
-unsigned int ceil_lglg(unsigned long long const N);
+unsigned int ceil_lglg(unsigned long long const n);
 
 /**
  * @brief Calculate ceil(lg(lg(N)))  via our
@@ -36,8 +36,8 @@ int main(int argc, char* argv[argc + 1]) {
     return EXIT_SUCCESS;
 }
 
-unsigned int ceil_lglg(unsigned long long const N) {
+unsigned int ceil_lglg(unsigned long long const n) {
     register size_t lglgN = 0;
-    for (register size_t t = 2; t < N; lglgN++, t *= t);
+    for (register size_t t = 2; t < n; lglgN++, t *= t);
     return CAST(unsigned) lglgN;
 }

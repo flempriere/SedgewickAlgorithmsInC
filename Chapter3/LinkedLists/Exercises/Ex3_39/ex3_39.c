@@ -7,8 +7,8 @@ all items on the given list for which the function returns
 a nonzero value
 */
 
+#include "../../../../MacroLibrary/DefaultCalloc.h"
 #include "../../../../MacroLibrary/Generic.h"
-#include "../../../../MacroLibrary/Utility.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -47,6 +47,14 @@ void print_list(node const* head);
  */
 bool is_even(node const* const l);
 
+/**
+ * @brief Removes all nodes on a list that compare true to a given
+ * cmp function.
+ *
+ * @param h head of the list to check.
+ * @param cmp comparison function, that takes in a node* and returns true or
+ * false.
+ */
 void remove_nodes_by_function(node* h, bool cmp(node const* const));
 
 /**
@@ -58,7 +66,7 @@ void remove_nodes_by_function(node* h, bool cmp(node const* const));
  */
 int main(int argc, char* argv[argc + 1]) {
     // generate a list of N nodes numbered 1 to 10 with a dummy head
-    node* const nodes = calloc(N + 1, SIZEOF_VARTYPE(*nodes));
+    node* const nodes = CALLOC_FAILS_EXIT(N + 1, *nodes);
 
     for (register size_t i = 1; i <= N; i++) {
         nodes[i - 1].next = &nodes[i];
@@ -68,7 +76,9 @@ int main(int argc, char* argv[argc + 1]) {
 
     printf("Initial List:\n");
     print_list(nodes);
+
     remove_nodes_by_function(nodes, is_even);
+
     printf("List after removal:\n");
     print_list(nodes);
 

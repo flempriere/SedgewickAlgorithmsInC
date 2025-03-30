@@ -36,12 +36,12 @@ long double Harmonic_N_Exact(size_t const x);
 
 /**
  * @brief find the value of i such that floor(f(i)) = N for
- * N = 0 up to maxN (inclusive).
+ * N = 0 up to max_n (inclusive).
  *
  * @param f
- * @param maxN
+ * @param max_n
  */
-void find_i_st_f_i_is_n(long double (*const f)(size_t N), size_t maxN);
+void find_i_st_f_i_is_n(long double (*const f)(size_t n), size_t max_n);
 
 /**
  * @brief Calculate the smallest values of
@@ -72,9 +72,9 @@ long double Harmonic_N_Exact(size_t const x) {
     return cache[x];
 }
 
-void find_i_st_f_i_is_n(long double (*const f)(size_t N), size_t maxN) {
+void find_i_st_f_i_is_n(long double (*const f)(size_t n), size_t max_n) {
     register size_t n = 1;
-    for (register size_t i = 1; i <= maxN; i++) {
+    for (register size_t i = 1; i <= max_n; i++) {
         for (; floor((*f)(n)) != i; n++);
         printf("i: %10zu\tn: %10zu:\tH_n: %Lf\n", i, n, (*f)(n));
     }

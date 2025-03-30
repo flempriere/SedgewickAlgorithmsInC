@@ -6,7 +6,8 @@ the circle M times an eliminate the corresponding node. We then close the circle
 and repeat until there is one index left.
 */
 
-#include "../../../../MacroLibrary/Utility.h"
+#include "../../../../MacroLibrary/DefaultCalloc.h"
+#include "../../../../MacroLibrary/NumberParse.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -47,21 +48,22 @@ int main(int argc, char* argv[argc + 1]) {
         fprintf(stderr, "Requires arguments N M\n");
         return EXIT_FAILURE;
     }
-    register size_t const N = strtoull(argv[1], nullptr, 0);
-    register size_t const M = strtoull(argv[2], nullptr, 0);
+    register size_t const N = NUMPARSEexit_on_fail(N, argv[1]);
+    register size_t const M = NUMPARSEexit_on_fail(M, argv[2]);
 
     if (!(N && M)) {
         fprintf(stderr, "Error: N and M must be > 0\n");
         return EXIT_FAILURE;
     }
 
-    register node* const t = calloc(1, SIZEOF_VARTYPE(*t));
+    register node* const t = CALLOC_FAILS_EXIT(*t);
     register node* x = t;
     t->item = 1;
     t->next = t;
 
     for (register size_t i = 2; i <= N; i++) {
-        x = (x->next = calloc(1, SIZEOF_VARTYPE(*x)));
+        x = (x->next = CALLOC_FAILS_EXIT(*x));
+
         x->item = i;
         x->next = t;
     }

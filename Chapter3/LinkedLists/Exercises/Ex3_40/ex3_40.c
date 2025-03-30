@@ -6,8 +6,9 @@ and a function that takes a link as an argument - removes those
 arguments from the original list and returns them in a new list
 */
 
+#include "../../../../MacroLibrary/DefaultCalloc.h"
 #include "../../../../MacroLibrary/Generic.h"
-#include "../../../../MacroLibrary/Utility.h"
+#include "../../../../MacroLibrary/TraceMacro.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -35,7 +36,7 @@ struct node {
  *
  * @param head
  */
-void print_list(node const* head);
+void print_list(node const head[static 1]);
 /**
  * @brief test if the key associated with a
  * node is even.
@@ -44,9 +45,17 @@ void print_list(node const* head);
  * @return true if l->k is even else
  * @return false
  */
-bool is_even(node const* const l);
+bool is_even(node const head[const static 1]);
 
-node* partition_nodes_by_function(node* h, bool cmp(node const* const));
+/**
+ * @brief Extracts all nodes from a list that compare true to a supplied
+ * comparison function and returns them as a new list.
+ *
+ * @param h head of the list to partition.
+ * @param cmp comparison function.
+ * @return node* head of the new list, nullptr if failed to make the new node.
+ */
+node* partition_nodes_by_function(node h[static 1], bool cmp(node const [const static 1]));
 
 /**
  * @brief Test driver, generate a list of nodes
@@ -57,7 +66,7 @@ node* partition_nodes_by_function(node* h, bool cmp(node const* const));
  */
 int main(int argc, char* argv[argc + 1]) {
     // generate a list of N nodes numbered 1 to 10 with a dummy head
-    node* const nodes = calloc(N + 1, SIZEOF_VARTYPE(*nodes));
+    node* const nodes = CALLOC_FAILS_EXIT(N + 1, *nodes);
 
     for (register size_t i = 1; i <= N; i++) {
         nodes[i - 1].next = &nodes[i];
@@ -67,26 +76,34 @@ int main(int argc, char* argv[argc + 1]) {
 
     printf("Initial List:\n");
     print_list(nodes);
+
     node* eliminated = partition_nodes_by_function(nodes, is_even);
+    if (!eliminated) return EXIT_FAILURE;
+
     printf("List after removal:\n");
     print_list(nodes);
+
     printf("New list after removal:\n");
     print_list(eliminated);
 
     return EXIT_SUCCESS;
 }
 
-void print_list(node const* head) {
+void print_list(node const head[static 1]) {
     for (head = head->next; head != nullptr; head = head->next) {
         printf("%zu->", head->k);
     }
     printf("X\n");
 }
 
-bool is_even(node const* const l) { return IS_EVEN(l->k); }
+bool is_even(node const l[const static 1]) { return IS_EVEN(l->k); }
 
 node* partition_nodes_by_function(node* h, bool cmp(node const* const)) {
-    node* elimHead = malloc(sizeof(typeof_unqual(*elimHead)));
+    node* elimHead = DEFAULTCALLOC(*elimHead);
+    if (!elimHead) {
+        TRACE_CALL("allocation failed\n");
+        return nullptr;
+    }
     node* elimTail = elimHead;
 
     for (; !(h == nullptr || h->next == nullptr); h = h->next) {

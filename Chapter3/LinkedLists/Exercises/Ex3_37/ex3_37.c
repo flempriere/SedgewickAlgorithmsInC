@@ -5,13 +5,12 @@ Implement a function for linked lists that exchanges the positions of the
 nodes after the nodes nodes referenced by two given links t and u.
 */
 
+#include "../../../../MacroLibrary/DefaultCalloc.h"
 #include "../../../../MacroLibrary/Generic.h"
 #include "../../../../MacroLibrary/Random.h"
-#include "../../../../MacroLibrary/Utility.h"
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <time.h>
 
 /**
  * @brief Exlusive upper bound for random node key values
@@ -45,7 +44,7 @@ void print_list(node const* head);
  * @param t
  * @param u
  */
-void exchange_after(node const* const t, node const* const u);
+void exchange_after(node* const t, node* const u);
 
 /**
  * @brief Tests ExchangeAfter by generating N
@@ -56,9 +55,10 @@ void exchange_after(node const* const t, node const* const u);
  */
 int main(int argc, char* argv[argc + 1]) {
     // generate a list of N nodes numbered 1 to 10 with a dummy head
-    node* const nodes = calloc((N + 1), SIZEOF_VARTYPE(*nodes));
+    node* const nodes = CALLOC_FAILS_EXIT(N + 1, *nodes);
 
     RAND_SEED_TIME;
+
     for (register size_t i = 1; i <= N; i++) {
         nodes[i - 1].next = &nodes[i];
         nodes[i].k = i;
@@ -67,9 +67,11 @@ int main(int argc, char* argv[argc + 1]) {
 
     printf("Initial List:\n");
     print_list(nodes);
+
     register size_t i = RAND_NUM(N + 1);
-    register size_t j = RAND_NUM(N + 1);
+    register size_t j = RAND_NUM(N); //don't want to generate last node
     exchange_after(&nodes[i], &nodes[j]);
+
     printf("List after exchange of nodes after %zu & %zu\n", i, j);
     print_list(nodes);
 
@@ -83,7 +85,7 @@ void print_list(node const* head) {
     printf("X\n");
 }
 
-void exchange_after(node const* const t, node const* const u) {
+void exchange_after(node* const t, node* const u) {
     node* t_nxt = t->next;
     node* u_nxt = u->next;
 

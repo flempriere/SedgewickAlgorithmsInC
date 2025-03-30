@@ -5,7 +5,7 @@ and returns a link to a copy of the list (a new list
 containing all the same items, in the same order)
 */
 
-#include "../../../../MacroLibrary/Utility.h"
+#include "../../../../MacroLibrary/DefaultCalloc.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -46,11 +46,11 @@ void print_list(node const* head);
  * @return node* pointer to new list
  */
 node* copy_list(node const* head) {
-    node* const new_head = calloc(1, SIZEOF_VARTYPE(*new_head));
+    node* const new_head = CALLOC_FAILS_EXIT(*new_head);
     node* tail = new_head;
 
     for (head = head->next; head != nullptr; head = head->next) {
-        tail->next = calloc(1, SIZEOF_VARTYPE(*head));
+        tail->next = CALLOC_FAILS_EXIT(*tail->next);
         tail = tail->next;
         tail->k = head->k;
     }
@@ -60,7 +60,7 @@ node* copy_list(node const* head) {
 
 int main(int argc, char* argv[argc + 1]) {
     // generate a list of N nodes numbered 1 to 10 with a dummy head
-    register node* const nodes = calloc(N + 1, SIZEOF_VARTYPE(*nodes));
+    register node* const nodes = CALLOC_FAILS_EXIT(N + 1, *nodes);
 
     for (register size_t i = 1; i <= N; i++) {
         nodes[i - 1].next = &nodes[i];
@@ -70,7 +70,9 @@ int main(int argc, char* argv[argc + 1]) {
 
     printf("Initial List:\n");
     print_list(nodes);
+
     register node* const new_head = copy_list(nodes);
+
     printf("Copied list:\n");
     print_list(new_head);
 

@@ -39,16 +39,13 @@ int main(int argc, char* argv[argc + 1]) {
     Point* const a = CALLOC_FAILS_EXIT(N, *a);
 
     for (register size_t i = 0; i < N; i++) {
-        {
-            a[i].x = RAND_UNIFORM();
-            a[i].y = RAND_UNIFORM();
-        }
+        a[i] = CAST(Point){ .x = RAND_UNIFORM(), .y = RAND_UNIFORM() };
     }
 
     for (register size_t i = 0; i < N; i++) {
         for (register size_t j = i + 1; j < N; j++) {
-            register double d;
-            if ((d = POINTdistance(a[i], a[j])) < min_dist) {
+            register double d = POINTdistance(a[i], a[j]);
+            if (d < min_dist) {
                 p1 = i;
                 p2 = j;
                 min_dist = d;

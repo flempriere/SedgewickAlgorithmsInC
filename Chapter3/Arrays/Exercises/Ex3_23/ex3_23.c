@@ -40,9 +40,9 @@ int main(int argc, char* argv[argc + 1]) {
         return EXIT_FAILURE;
     }
 
-    Dimension const dim = getDim(argv[1]);
-    size_t const N = NUMPARSEexit_on_fail(N, argv[2]);
-    double const d = NUMPARSEexit_on_fail(d, argv[3]);
+    register Dimension const dim = getDim(argv[1]);
+    register size_t const N = NUMPARSEexit_on_fail(N, argv[2]);
+    register double const d = NUMPARSEexit_on_fail(d, argv[3]);
 
     Point_DDIM* const a = CALLOC_FAILS_EXIT(N, *a);
 
@@ -64,6 +64,6 @@ int main(int argc, char* argv[argc + 1]) {
 }
 
 Dimension getDim(char s[static 1]) {
-    Dimension dim = NUMPARSEexit_on_fail(dim, s);
+    register Dimension dim = NUMPARSEexit_on_fail(dim, s);
     return MIN(dim, POINT_DDIM_MAX_DIM);
 }

@@ -10,7 +10,6 @@
  *
  */
 #pragma once
-
 /* Macros to output their given arguments */
 
 #define ID_()

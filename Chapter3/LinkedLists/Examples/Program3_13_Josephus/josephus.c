@@ -5,6 +5,7 @@ This program for the Josephus problem is a client program that utilises
 the list interface from Program 3.12 and the Program 3.14 implementation.
 */
 
+#include "../../../../MacroLibrary/NumberParse.h"
 #include "../Program3_12-14_ListImplementation/List.h"
 
 #include <stdio.h>
@@ -26,8 +27,8 @@ int main(int argc, char* argv[argc + 1]) {
         fprintf(stderr, "Usage is ./josephus N M\n");
         return EXIT_FAILURE;
     }
-    register size_t const N = strtoull(argv[1], nullptr, 0);
-    register size_t const M = strtoull(argv[2], nullptr, 0);
+    register size_t const N = NUMPARSEexit_on_fail(N, argv[1]);
+    register size_t const M = NUMPARSEexit_on_fail(M, argv[2]);
     if (!(N && M)) {
         fprintf(stderr, "Error: N and M must be > 0\n");
         return EXIT_FAILURE;

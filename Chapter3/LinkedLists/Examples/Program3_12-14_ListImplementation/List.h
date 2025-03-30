@@ -30,9 +30,12 @@ struct node {
  *
  * @param N > 0
  *
+ * @return true if init succeeds, else
+ * @return false
+ *
  * @see ListNode
  */
-void LISTinit_nodes(size_t const N);
+bool LISTinit_nodes(size_t const N);
 /**
  * @brief Returns a new node with key value k
  *
@@ -67,8 +70,8 @@ LISTNode* LISTdelete_next(LISTNode* const x);
 
 /**
  * @brief Frees all memory associated with the linked list
- * 
- * @param x 
+ *
+ * @param x
  */
 void LISTdeinit_list(void);
 /**

@@ -3,7 +3,7 @@ Exercise 3.30
 Run Program 3.9 for M = 2,3,5,10 and N = 10^3, 10^4, 10^5, 10^6.
 */
 
-#include "../../../../MacroLibrary/Utility.h"
+#include "../../../../MacroLibrary/DefaultCalloc.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -55,13 +55,13 @@ int main(int argc, char* argv[argc + 1]) {
         for (register size_t j = 0; j < M_CASES; j++) {
             register size_t M = mArray[j];
 
-            register node* const t = calloc(1, SIZEOF_VARTYPE(*t));
+            register node* const t = CALLOC_FAILS_EXIT(*t);
             register node* x = t;
             t->item = 1;
             t->next = t;
 
             for (register key k = 2; k <= N; k++) {
-                x = (x->next = calloc(1, SIZEOF_VARTYPE(*x)));
+                x = (x->next = CALLOC_FAILS_EXIT(*x));
                 x->item = k;
             }
             x->next = t;

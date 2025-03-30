@@ -4,7 +4,8 @@ Write a function that given two pointers x and t to elements in a list,
 moves the node following t to the node following x.
 */
 
-#include "../../../../MacroLibrary/Utility.h"
+#include "../../../../MacroLibrary/DefaultCalloc.h"
+#include "../../../../MacroLibrary/NumberParse.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -73,9 +74,9 @@ int main(int argc, char* argv[argc + 1]) {
         return EXIT_FAILURE;
     }
 
-    register size_t const N = strtoull(argv[1], nullptr, 0);
-    register size_t const x_idx = strtoull(argv[2], nullptr, 0);
-    register size_t const t_idx = strtoull(argv[3], nullptr, 0);
+    register size_t const N = NUMPARSEexit_on_fail(N, argv[1]);
+    register size_t const x_idx = NUMPARSEexit_on_fail(x_idx, argv[2]);
+    register size_t const t_idx = NUMPARSEexit_on_fail(t_idx, argv[3]);
 
     if (!(N && x_idx && t_idx)) {
         fprintf(stderr, "Error: N, x, t must all be > 0\n");
@@ -92,24 +93,26 @@ int main(int argc, char* argv[argc + 1]) {
         return EXIT_FAILURE;
     }
 
-    register node* const t = calloc(1, SIZEOF_VARTYPE(*t));
+    register node* const t = CALLOC_FAILS_EXIT(*t);
     register node* x = t;
     register node* srt = t;
     register node* stp = t;
 
     t->item = 1, t->next = t;
     for (register key i = 2; i <= N; i++) {
-        x = (x->next = calloc(1, SIZEOF_VARTYPE(*x)));
+        x = (x->next = CALLOC_FAILS_EXIT(*x));
         x->item = i;
         x->next = t;
         if (i == x_idx) srt = x;
         if (i == t_idx) stp = x;
     }
+
     printf("List premove: \n");
     print_list(srt);
     move_node(srt, stp);
     printf("List postmove: \n");
     print_list(srt);
+
     return EXIT_SUCCESS;
 }
 

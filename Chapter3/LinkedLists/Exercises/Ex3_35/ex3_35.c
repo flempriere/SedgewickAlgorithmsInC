@@ -5,12 +5,12 @@ Write a function that moves the smallest item on a given list to the be
 first node on a list
 
 */
+#include "../../../../MacroLibrary/DefaultCalloc.h"
+#include "../../../../MacroLibrary/NumberParse.h"
 #include "../../../../MacroLibrary/Random.h"
-#include "../../../../MacroLibrary/Utility.h"
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <time.h>
 /**
  * @brief Number of random nodes to generate for test driver
  *
@@ -58,10 +58,11 @@ bool assert_smallest_at_front(node const* h);
 int main(int argc, char* argv[argc + 1]) {
     // generate a list of N random numbers with a dummy head
     register size_t const N =
-        (argc == 2) ? strtoull(argv[1], nullptr, 0) : DEFAULT_N;
-    node* const nodes = calloc(N + 1, SIZEOF_VARTYPE(*nodes));
+        (argc == 2) ? NUMPARSEexit_on_fail(N, argv[1]) : DEFAULT_N;
+    node* const nodes = CALLOC_FAILS_EXIT(N + 1, *nodes);
 
     RAND_SEED_TIME;
+
     for (register size_t i = 1; i <= N; i++) {
         register size_t k = RAND_NUM(MAX_NUM);
         nodes[i - 1].next = &nodes[i];
@@ -71,9 +72,12 @@ int main(int argc, char* argv[argc + 1]) {
 
     printf("Initial List:\n");
     print_list(nodes);
+
     move_smallest_to_front(nodes);
+
     printf("List after smallest moved to front:\n");
     print_list(nodes);
+
     printf("Smallest at the front?: %s\n",
            (assert_smallest_at_front(nodes) ? "true" : "false"));
 

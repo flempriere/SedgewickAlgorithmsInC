@@ -6,9 +6,8 @@ positions after the nodes in odd positions in the list, preversing the
 relative order of both the evens and the odds.
 
 */
+#include "../../../../MacroLibrary/DefaultCalloc.h"
 #include "../../../../MacroLibrary/Generic.h"
-#include "../../../../MacroLibrary/Random.h"
-#include "../../../../MacroLibrary/Utility.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -55,7 +54,7 @@ void partition_odds_and_evens(node* const h);
  */
 int main(int argc, char* argv[argc + 1]) {
     // generate a list of N random numbers with a dummy head
-    node* const nodes = calloc(N + 1, SIZEOF_VARTYPE(*nodes));
+    node* const nodes = CALLOC_FAILS_EXIT(N+1, *nodes);
 
     for (register size_t i = 1; i <= N; i++) {
         nodes[i - 1].next = &nodes[i];
@@ -65,7 +64,9 @@ int main(int argc, char* argv[argc + 1]) {
 
     printf("Initial List:\n");
     print_list(nodes);
+
     partition_odds_and_evens(nodes);
+
     printf("List after partition:\n");
     print_list(nodes);
 
@@ -80,9 +81,9 @@ void print_list(node const* head) {
 }
 
 void partition_odds_and_evens(node* const h) {
-    register node* odd_head = calloc(1, SIZEOF_VARTYPE(*h));
+    register node* odd_head = CALLOC_FAILS_EXIT(*odd_head);
     register node* odd_tail = odd_head;
-    register node* even_head = calloc(1, SIZEOF_VARTYPE(*h));
+    register node* even_head = CALLOC_FAILS_EXIT(*even_head);
     register node* even_tail = even_head;
 
     // build two lists, one for odd, one for even
@@ -100,6 +101,7 @@ void partition_odds_and_evens(node* const h) {
     even_tail->next = nullptr;
     odd_tail->next = even_head->next;
     h->next = odd_head->next;
+
     free(even_head);
     free(odd_head);
 }

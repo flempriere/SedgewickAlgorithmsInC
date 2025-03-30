@@ -34,7 +34,7 @@ typedef struct {
  * @param q point
  * @return double
  */
-double POINTdistance(Point p, Point q);
+double POINTdistance(Point const p, Point const q);
 
 /**
  * @brief Check if two points are equal
@@ -44,7 +44,7 @@ double POINTdistance(Point p, Point q);
  * @return true  if points equal,
  * @return false if points differ
  */
-static inline bool POINTis_equal(Point p, Point q) {
+static inline bool POINTis_equal(Point const p, Point const q) {
     return POINTdistance(p, q) < POINT_TOLERANCE;
 }
 
@@ -60,4 +60,4 @@ static inline bool POINTis_equal(Point p, Point q) {
  *
  * @see TOLERANCE
  */
-bool POINTis_collinear(Point p, Point q, Point r);
+bool POINTis_collinear(Point const p, Point const q, Point const r);

@@ -3,7 +3,7 @@ Exercise 3.31
 Run Program 3.9 plot the results for M = 10, with N = 2 to 1000.
 */
 
-#include "../../../../MacroLibrary/Utility.h"
+#include "../../../../MacroLibrary/DefaultCalloc.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -43,13 +43,13 @@ int main(int argc, char* argv[argc + 1]) {
     constexpr size_t M = 10;
 
     for (register size_t N = 2; N < N_MAX; N++) {
-        register node* t = calloc(1, SIZEOF_VARTYPE(*t));
+        register node* t = CALLOC_FAILS_EXIT(*t);
         register node* x = t;
         t->item = 1;
         t->next = t;
 
         for (register key k = 2; k <= N; k++) {
-            x = (x->next = calloc(1, SIZEOF_VARTYPE(*x)));
+            x = (x->next = CALLOC_FAILS_EXIT(*x));
             x->item = k;
         }
         x->next = t;

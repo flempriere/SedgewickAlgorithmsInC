@@ -3,6 +3,7 @@ Exercise 3.33
 Modify Program 3.9 that uses an array of indices to implement
 the linked list
 */
+#include "../../../../MacroLibrary/NumberParse.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -59,8 +60,8 @@ int main(int argc, char* argv[argc + 1]) {
         fprintf(stderr, "Error: requires args N M\n");
         return EXIT_FAILURE;
     }
-    register size_t const N = strtoull(argv[1], nullptr, 0);
-    register size_t const M = strtoull(argv[2], nullptr, 0);
+    register size_t const N = NUMPARSEexit_on_fail(N, argv[1]);
+    register size_t const M = NUMPARSEexit_on_fail(M, argv[2]);
 
     if (!(M && N)) {
         fprintf(stderr, "Error: N and M must be > 0\n");
@@ -71,6 +72,7 @@ int main(int argc, char* argv[argc + 1]) {
         item[i] = i + 1;
         next[i] = (i + 1) % N;
     }
+
     register link x = N;
     register size_t n = N;
     while (x != next[x]) {

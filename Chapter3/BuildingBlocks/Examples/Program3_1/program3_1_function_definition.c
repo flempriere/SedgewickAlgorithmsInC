@@ -17,7 +17,7 @@ and the function definition which provides a concrete implementation.
  * arguments
  *
  */
-size_t lg(size_t x);
+size_t lg(size_t n);
 
 /**
  * @brief Tabulate N, lg(N) and Nlg(N)
@@ -33,8 +33,8 @@ int main(int argc, char* argv[argc + 1]) {
     return EXIT_SUCCESS;
 }
 
-size_t lg(size_t N) {
+size_t lg(size_t n) {
     register size_t i;
-    for (i = 0; N > 0; i++, N /= 2);
+    for (i = 0; n > 0; i++, n /= 2);
     return i;
 }

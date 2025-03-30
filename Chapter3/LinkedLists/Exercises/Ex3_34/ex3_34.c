@@ -5,12 +5,12 @@ Write a function that moves the largest item on a given list to be
 the final node on a list.
 
 */
+#include "../../../../MacroLibrary/DefaultCalloc.h"
+#include "../../../../MacroLibrary/NumberParse.h"
 #include "../../../../MacroLibrary/Random.h"
-#include "../../../../MacroLibrary/Utility.h"
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <time.h>
 
 /**
  * @brief Number of random nodes to generate for test driver
@@ -70,10 +70,11 @@ bool assert_largest_at_end(node const* h);
 int main(int argc, char* argv[argc + 1]) {
     // generate a list of N random numbers with a dummy head
     register size_t const N =
-        (argc == 2) ? strtoull(argv[1], nullptr, 0) : DEFAULT_N;
-    node* const nodes = calloc((N + 1), SIZEOF_VARTYPE(*nodes));
+        (argc == 2) ? NUMPARSEexit_on_fail(N, argv[1]) : DEFAULT_N;
+    node* const nodes = CALLOC_FAILS_EXIT(N+1, *nodes);
 
     RAND_SEED_TIME;
+
     for (register size_t i = 1; i <= N; i++) {
         register size_t k = RAND_NUM(MAX_NUM);
         nodes[i - 1].next = &nodes[i];
@@ -83,7 +84,9 @@ int main(int argc, char* argv[argc + 1]) {
 
     printf("Initial List:\n");
     print_list(nodes);
+
     move_largest_to_end(nodes);
+
     printf("List after largest moved to end:\n");
     print_list(nodes);
     printf("Largest at the end?: %s\n",

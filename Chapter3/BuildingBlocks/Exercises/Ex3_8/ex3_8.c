@@ -34,10 +34,11 @@ int main(int argc, char * [argc + 1]) {
 
     for (size_t i = 0;
          i < N_POINTS && fgets(line, sizeof(line), stdin) != nullptr; i++) {
-        Number x, y;
+        Number x;
+        Number y;
         if (sscanf(line, "%lf %lf", &x, &y) != 2) {
             printf("Error: must input points as pairs of numbers\n");
-            return EXIT_FAILURE;
+            continue;
         }
         points[i] = (Point) { .x = x, .y = y };
     }

@@ -9,7 +9,8 @@ elements N + 1... 2N, x should be a number in the first list and t a
 number in the second.
 */
 
-#include "../../../../MacroLibrary/Utility.h"
+#include "../../../../MacroLibrary/DefaultCalloc.h"
+#include "../../../../MacroLibrary/NumberParse.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -80,9 +81,9 @@ int main(int argc, char* argv[argc + 1]) {
         fprintf(stderr, "Error: Call structure is ./%s N x t\n", argv[0]);
         return EXIT_FAILURE;
     }
-    register size_t const N = strtoull(argv[1], nullptr, 0);
-    register key const x_idx = strtoull(argv[2], nullptr, 0);
-    register key const t_idx = strtoull(argv[3], nullptr, 0);
+    register size_t const N = NUMPARSEexit_on_fail(N, argv[1]);
+    register key const x_idx = NUMPARSEexit_on_fail(x_idx, argv[2]);
+    register key const t_idx = NUMPARSEexit_on_fail(t_idx, argv[3]);
 
     if (!(N && x_idx && t_idx)) {
         fprintf(stderr, "Error: N, x, t must all be > 0\n");
@@ -99,25 +100,25 @@ int main(int argc, char* argv[argc + 1]) {
         return EXIT_FAILURE;
     }
 
-    register node* t = calloc(1, SIZEOF_VARTYPE(*t));
+    register node* t = CALLOC_FAILS_EXIT(*t);
     register node* x = t;
     register node* xp = t;
 
     t->item = 1, t->next = t;
     for (register size_t i = 2; i <= N; i++) {
-        x = (x->next = calloc(1, SIZEOF_VARTYPE(*x)));
+        x = (x->next = CALLOC_FAILS_EXIT(*x));
         x->item = i;
         x->next = t;
         if (i == x_idx) xp = x;
     }
 
-    t = calloc(1, SIZEOF_VARTYPE(*t));
+    t = CALLOC_FAILS_EXIT(*t);
     x = t;
     register node* tp = t;
 
     t->item = N + 1, t->next = t;
     for (register key i = N + 2; i <= 2 * N; i++) {
-        x = (x->next = calloc(1, SIZEOF_VARTYPE(*x)));
+        x = (x->next = CALLOC_FAILS_EXIT(*x));
         x->item = i;
         x->next = t;
         if (i == t_idx) tp = x;

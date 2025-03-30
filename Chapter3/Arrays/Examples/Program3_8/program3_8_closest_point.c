@@ -40,10 +40,7 @@ int main(int argc, char* argv[argc + 1]) {
     register Point* const a = CALLOC_FAILS_EXIT(N, *a);
 
     for (register size_t i = 0; i < N; i++) {
-        {
-            a[i].x = RAND_UNIFORM();
-            a[i].y = RAND_UNIFORM();
-        }
+        { a[i] = CAST(Point){ .x = RAND_UNIFORM(), .y = RAND_UNIFORM() }; }
     }
 
     register size_t cnt = 0;
@@ -56,4 +53,3 @@ int main(int argc, char* argv[argc + 1]) {
     free(a);
     return EXIT_SUCCESS;
 }
-

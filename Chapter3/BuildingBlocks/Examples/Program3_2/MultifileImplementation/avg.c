@@ -5,12 +5,20 @@ an interface file (num.h) and an implementation file (num.c)
 #include "../../../../../MacroLibrary/NumberParse.h"
 #include "../../../../../MacroLibrary/Random.h"
 #include "../../../../../MacroLibrary/Utility.h"
+#include "../../../../../MacroLibrary/Statistics.h"
 #include "src/Number.h"
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <tgmath.h>
 
+/**
+ * @brief Converts a random number to a double.
+ * 
+ * Designed to wrap the NUMBERrandom in the interface for calculateStatistics
+ * @return double 
+ */
+static inline double rand_num_to_double(void);
 /**
  * @brief Calculate the average and standard deviation
  * of a collection of random numbers.
@@ -25,23 +33,15 @@ int main(int argc, char* argv[argc + 1]) {
         fprintf(stderr, "Usage: ./app N\n");
         return EXIT_FAILURE;
     }
-
     register size_t const N = NUMPARSEexit_on_fail(N, argv[1 ]);
-    printf("%zu\n", N);
-
-    register double m1 = 0.0;
-    register double m2 = 0.0;
-
-    register Number x;
     RAND_SEED_TIME;
 
-    for (register size_t i = 0; i < N; i++) {
-        x = NUMBERrandom();
-        m1 += (x) / CAST(double) N;
-        m2 += (CAST(double) x * x) / CAST(double) N;
-    }
-    printf("       Average: %f\n", m1);
-    printf("Std. deviation: %f\n", sqrt(m2 - m1 * m1));
+    register STATSmeasures results = STATScalculate_statistics(rand_num_to_double, N);
+    STATSsummary_print(results);
 
     return EXIT_SUCCESS;
+}
+
+double rand_num_to_double(void) {
+    return CAST(double) NUMBERrandom();
 }

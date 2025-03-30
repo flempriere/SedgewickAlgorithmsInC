@@ -49,8 +49,8 @@ int main(int argc, char* argv[argc + 1]) {
         }
 
         printf("Running using N: %zu\n", N);
-        printf("       Average: %f\n", m1);
-        printf("Std. deviation: %f\n", sqrt(m2 - m1 * m1));
+        printf("        Average: %f\n", m1);
+        printf(" Std. deviation: %f\n", sqrt(m2 - m1 * m1));
     }
 
     return EXIT_SUCCESS;

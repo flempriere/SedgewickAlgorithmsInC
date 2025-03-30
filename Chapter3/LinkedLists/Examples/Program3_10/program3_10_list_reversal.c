@@ -2,7 +2,7 @@
 This function reverses a list, returning a pointer to the final node,
 which is now the new head node. The first node link is now a nullptr.
 */
-#include "../../../../MacroLibrary/Utility.h"
+#include "../../../../MacroLibrary/DefaultCalloc.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -27,6 +27,22 @@ struct node {
 };
 
 /**
+ * @brief Builds a list of N nodes labeled 1 through to N.
+ * 
+ * @param h 
+ * @param N 
+ */
+void build_list(node* h, size_t N);
+
+/**
+ * @brief Prints out the linked list and optionally 
+ * 
+ * @param h head of the list
+ * @param freeList flags if the list should be freed after printing.
+ */
+void print_list(node* h, bool freeList);
+
+/**
  * @brief Reverse a linkedList. This modifies
  * the linkedlist in place.
  *
@@ -41,32 +57,15 @@ node* reverse(node* const x);
  * @return EXIT_SUCCESS on successful completion
  */
 int main(int argc, char* argv[argc + 1]) {
-    constexpr size_t N = 10;
-    register node* const head = calloc(1, SIZEOF_VARTYPE(*head));
+    constexpr size_t N = 10u;
+
+    register node* const head = CALLOC_FAILS_EXIT(*head);
     head->k = 0;
-    register node* x = head;
-
-    for (register size_t i = 1; i < N; i++) {
-        register node* const t = calloc(1, SIZEOF_VARTYPE(*head));
-        t->next = nullptr;
-        t->k = i;
-        x->next = t;
-        x = x->next;
-    }
-
-    for (register node const* h = head; h != nullptr; h = h->next) {
-        printf("%zu->", h->k);
-    }
-    printf("X\n");
+    build_list(head, N);
+    print_list(head, false);
 
     // demonstrate reversed node and free.
-    for (register node* h = reverse(head); h != nullptr;) {
-        printf("%zu->", h->k);
-        register node* tmp = h->next;
-        free(h);
-        h = tmp;
-    }
-    printf("X\n");
+    print_list(reverse(head), true);
 
     return EXIT_SUCCESS;
 }
@@ -82,4 +81,26 @@ node* reverse(node* const x) {
         y = t;
     }
     return r;
+}
+
+void build_list(node* h, size_t n) {
+    for (register size_t i = 1; i < n; i++) {
+        register node* const t = CALLOC_FAILS_EXIT(*t);
+        t->next = nullptr;
+        t->k = i;
+        h->next = t;
+        h = h->next;
+    }
+}
+
+void print_list(node* h, bool freeList) {
+    while(h != nullptr) {
+        printf("%zu->", h->k);
+        register node* h_nxt = h->next;
+        if (freeList) {
+            free(h);
+        }
+        h = h_nxt;
+    }
+    printf("X\n"); 
 }

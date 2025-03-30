@@ -4,7 +4,8 @@ Write a function that returns the number of nodes on a circular list,
 given a pointer to one of the nodes on the list
 */
 
-#include "../../../../MacroLibrary/Utility.h"
+#include "../../../../MacroLibrary/DefaultCalloc.h"
+#include "../../../../MacroLibrary/NumberParse.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -52,10 +53,10 @@ int main(int argc, char* argv[argc + 1]) {
         fprintf(stderr, "Missing arguments N M\n");
         return EXIT_FAILURE;
     }
-    register size_t const N = strtoull(argv[1], NULL, 0);
-    register size_t const s_idx = strtoull(argv[2], NULL, 0);
+    register size_t const N = NUMPARSEexit_on_fail(N, argv[1]);
+    register size_t const s_idx = NUMPARSEexit_on_fail(s_idx, argv[2]);
 
-    if (!N || !s_idx) {
+    if (!(N && s_idx)) {
         fprintf(stderr, "Error: N and M must be > 0\n");
         return EXIT_FAILURE;
     }
@@ -65,13 +66,13 @@ int main(int argc, char* argv[argc + 1]) {
         return EXIT_FAILURE;
     }
 
-    register node* const t = calloc(1, SIZEOF_VARTYPE(*t));
+    register node* const t = CALLOC_FAILS_EXIT(*t);
     register node* x = t;
     register node const* s = t;    // pointer to start count from.
 
     t->item = 1, t->next = t;
     for (register key i = 2; i <= N; i++) {
-        x = (x->next = calloc(1, SIZEOF_VARTYPE(*x)));
+        x = (x->next = CALLOC_FAILS_EXIT(*x));
         x->item = i;
         x->next = t;
         if (i == s_idx) s = x;

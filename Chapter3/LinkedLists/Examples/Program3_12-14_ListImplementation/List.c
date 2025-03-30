@@ -17,7 +17,7 @@ conventions protect against undefined parameters.
 
 #include "List.h"
 
-#include "../../../../MacroLibrary/Utility.h"
+#include "../../../../MacroLibrary/DefaultCalloc.h"
 
 #include <stdlib.h>
 
@@ -27,12 +27,16 @@ conventions protect against undefined parameters.
  */
 LISTNode* free_list;
 
-void LISTinit_nodes(size_t const N) {
-    free_list = calloc(N + 1, SIZEOF_VARTYPE(*free_list));
+bool LISTinit_nodes(size_t const N) {
+    free_list = DEFAULTCALLOC(N + 1, *free_list);
+    if (!free_list) return false;
+
     for (register size_t i = 0; i < N + 1; i++) {
         free_list[i].next = &free_list[i + 1];
     }
+
     free_list[N].next = nullptr;
+    return true;
 }
 
 LISTNode* LISTnew_node(LISTItem const k) {
@@ -54,9 +58,7 @@ LISTNode* LISTdelete_next(LISTNode* const x) {
     x->next = t->next;
     return t;
 }
-void LISTdeinit_list(void) {
-    free(free_list);
-} 
+void LISTdeinit_list(void) { free(free_list); }
 
 LISTNode* LISTnext(LISTNode const* const x) { return x->next; }
 

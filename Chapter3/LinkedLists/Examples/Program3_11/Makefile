@@ -70,6 +70,7 @@ FLAGS_dependencies = -MP -MD
 # Build Mode flags
 FLAGS_release = -g -march=native
 FLAGS_debug = -g3
+FLAGS_speed = -march=native
 
 #Linker
 FLAGS_linker = 
