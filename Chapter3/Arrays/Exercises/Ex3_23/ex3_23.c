@@ -44,11 +44,7 @@ int main(int argc, char* argv[argc + 1]) {
     size_t const N = NUMPARSEexit_on_fail(N, argv[2]);
     double const d = NUMPARSEexit_on_fail(d, argv[3]);
 
-    Point_DDIM* const a = DEFAULTCallocNVAR(N, *a);
-    if (!a) {
-        fprintf(stderr, "Failed to allocate Point array\n");
-        return EXIT_FAILURE;
-    }
+    Point_DDIM* const a = CALLOC_FAILS_EXIT(N, *a);
 
     for (register size_t i = 0; i < N; i++) {
         for (register Dimension idx = 0; idx < dim; idx++) {

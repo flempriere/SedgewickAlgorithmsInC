@@ -36,11 +36,8 @@ int main(int argc, char* argv[argc + 1]) {
     register size_t p1 = 0;
     register size_t p2 = 0;
 
-    Point* const a = DEFAULTCallocNVAR(N, *a);
-    if (!a) {
-        fprintf(stderr, "Failed to allocate Point array]\n");
-        return EXIT_FAILURE;
-    }
+    Point* const a = CALLOC_FAILS_EXIT(N, *a);
+
     for (register size_t i = 0; i < N; i++) {
         {
             a[i].x = RAND_UNIFORM();

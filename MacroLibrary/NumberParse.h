@@ -17,6 +17,7 @@
 
 #include <errno.h>
 #include <limits.h>
+#include <stdio.h>
 #include <stdlib.h>
 
 /* Integer Parsing variants */
@@ -360,3 +361,128 @@ bool NUMPARSEtold(long double* out, char s[static 1], char** end) {
                                     long double*: out,                        \
                                     default: nullptr),                        \
                                 s, nullptr __VA_OPT__(, ) __VA_ARGS__))
+
+// Variants of NUMPARSE that cause program exit if the read fails.
+
+unsigned long long NUMPARSEtoull_exit_on_fail(char s[static 1], char** end,
+                                              int base) {
+    unsigned long long read;
+    if (!NUMPARSEtoull(&read, s, end, base)) { exit(EXIT_FAILURE); }
+    return read;
+}
+
+unsigned long NUMPARSEtoul_exit_on_fail(char s[static 1], char** end,
+                                        int base) {
+    unsigned long read;
+    if (!NUMPARSEtoul(&read, s, end, base)) { exit(EXIT_FAILURE); }
+    return read;
+}
+
+unsigned NUMPARSEtoui_exit_on_fail(char s[static 1], char** end, int base) {
+    unsigned read;
+    if (!NUMPARSEtoui(&read, s, end, base)) { exit(EXIT_FAILURE); }
+    return read;
+}
+
+unsigned short NUMPARSEtous_exit_on_fail(char s[static 1], char** end,
+                                         int base) {
+    unsigned short read;
+    if (!NUMPARSEtous(&read, s, end, base)) { exit(EXIT_FAILURE); }
+    return read;
+}
+
+unsigned char NUMPARSEtouc_exit_on_fail(char s[static 1], char** end,
+                                        int base) {
+    unsigned char read;
+    if (!NUMPARSEtouc(&read, s, end, base)) { exit(EXIT_FAILURE); }
+    return read;
+}
+
+long long NUMPARSEtoll_exit_on_fail(char s[static 1], char** end, int base) {
+    long long read;
+    if (!NUMPARSEtoll(&read, s, end, base)) { exit(EXIT_FAILURE); }
+    return read;
+}
+
+long NUMPARSEtol_exit_on_fail(char s[static 1], char** end, int base) {
+    long read;
+    if (!NUMPARSEtol(&read, s, end, base)) { exit(EXIT_FAILURE); }
+    return read;
+}
+
+int NUMPARSEtoi_exit_on_fail(char s[static 1], char** end, int base) {
+    int read;
+    if (!NUMPARSEtoi(&read, s, end, base)) { exit(EXIT_FAILURE); }
+    return read;
+}
+
+short NUMPARSEtos_exit_on_fail(char s[static 1], char** end, int base) {
+    short read;
+    if (!NUMPARSEtos(&read, s, end, base)) { exit(EXIT_FAILURE); }
+    return read;
+}
+
+signed char NUMPARSEtosc_exit_on_fail(char s[static 1], char** end, int base) {
+    signed char read;
+    if (!NUMPARSEtosc(&read, s, end, base)) { exit(EXIT_FAILURE); }
+    return read;
+}
+
+char NUMPARSEtoc_exit_on_fail(char s[static 1], char** end, int base) {
+    char read;
+    if (!NUMPARSEtoc(&read, s, end, base)) { exit(EXIT_FAILURE); }
+    return read;
+}
+
+long double NUMPARSEtold_exit_on_fail(char s[static 1], char** end) {
+    long double read;
+    if (!NUMPARSEtold(&read, s, end)) { exit(EXIT_FAILURE); }
+    return read;
+}
+
+double NUMPARSEtod_exit_on_fail(char s[static 1], char** end) {
+    double read;
+    if (!NUMPARSEtod(&read, s, end)) { exit(EXIT_FAILURE); }
+    return read;
+}
+
+float NUMPARSEtof_exit_on_fail(char s[static 1], char** end) {
+    float read;
+    if (!NUMPARSEtof(&read, s, end)) { exit(EXIT_FAILURE); }
+    return read;
+}
+
+/**
+ * @brief Parse  a number from a given string and return it. Exits the program
+ * if the parse fails. Used for reading in required command line constants.
+ */
+#define NUMPARSEexit_on_fail(out, s, ...)                                     \
+    _Generic(out,                                                             \
+        unsigned char: CALL3_ND1(NUMPARSEtouc_exit_on_fail, s, nullptr,       \
+                                 0 __VA_OPT__(, ) __VA_ARGS__),               \
+        unsigned short: CALL3_ND1(NUMPARSEtous_exit_on_fail, s, nullptr,      \
+                                  0 __VA_OPT__(, ) __VA_ARGS__),              \
+        unsigned int: CALL3_ND1(NUMPARSEtoui_exit_on_fail, s, nullptr,        \
+                                0 __VA_OPT__(, ) __VA_ARGS__),                \
+        unsigned long: CALL3_ND1(NUMPARSEtoul_exit_on_fail, s, nullptr,       \
+                                 0 __VA_OPT__(, ) __VA_ARGS__),               \
+        unsigned long long: CALL3_ND1(NUMPARSEtoull_exit_on_fail, s, nullptr, \
+                                      0 __VA_OPT__(, ) __VA_ARGS__),          \
+        char: CALL3_ND1(NUMPARSEtoc_exit_on_fail, s, nullptr,                 \
+                        0 __VA_OPT__(, ) __VA_ARGS__),                        \
+        signed char: CALL3_ND1(NUMPARSEtosc_exit_on_fail, s, nullptr,         \
+                               0 __VA_OPT__(, ) __VA_ARGS__),                 \
+        short: CALL3_ND1(NUMPARSEtos_exit_on_fail, s, nullptr,                \
+                         0 __VA_OPT__(, ) __VA_ARGS__),                       \
+        int: CALL3_ND1(NUMPARSEtoi_exit_on_fail, s, nullptr,                  \
+                       0 __VA_OPT__(, ) __VA_ARGS__),                         \
+        long: CALL3_ND1(NUMPARSEtol_exit_on_fail, s, nullptr,                 \
+                        0 __VA_OPT__(, ) __VA_ARGS__),                        \
+        long long: CALL3_ND1(NUMPARSEtoll_exit_on_fail, s, nullptr,           \
+                             0 __VA_OPT__(, ) __VA_ARGS__),                   \
+        float: CALL2_ND1(NUMPARSEtof_exit_on_fail, s,                         \
+                         nullptr __VA_OPT__(, ) __VA_ARGS__),                 \
+        double: CALL2_ND1(NUMPARSEtod_exit_on_fail, s,                        \
+                          nullptr __VA_OPT__(, ) __VA_ARGS__),                \
+        long double: CALL2_ND1(NUMPARSEtold_exit_on_fail, s,                  \
+                               nullptr __VA_OPT__(, ) __VA_ARGS__))

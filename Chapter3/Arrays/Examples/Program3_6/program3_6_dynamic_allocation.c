@@ -26,11 +26,8 @@ int main(int argc, char* argv[argc + 1]) {
 
     register size_t const N = NUMPARSEexit_on_fail(N, argv[1]);
 
-    size_t* const a = DEFAULTCallocNVAR(N, *a);
-    if (!a) {
-        fprintf(stderr, "Allocation of a failed\n");
-        return EXIT_FAILURE;
-    }
+    size_t* const a = CALLOC_FAILS_EXIT(N, *a);
+
     printf("Allocated array of %zu bytes\n", N * sizeof(*a));
     free(a);
     return EXIT_SUCCESS;

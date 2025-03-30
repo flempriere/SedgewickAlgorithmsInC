@@ -10,23 +10,9 @@
  */
 #pragma once
 
-#include "DefaultArguments.h"
+#include "TraceMacro.h"
 
 #include <stdlib.h>
-
-/**
- * @brief Calloc with optional arguments, by default with no arguments
- * this function will return one byte. This avoids the implementation
- * defined behaviour of returning a size 0.
- *
- * @remark use case 1: DEFAULTCalloc() - returns a block of memory for one char
- * use case 2: DEFAULTCalloc(n) - returns a block of memory for n chars
- * use case 3: DEFAULTCalloc(, x) - returns a block of memory for a single
- * typeof(x)
- * use case 4: DEFAULTCalloc(n, x) - returns a block of memory for n
- * typeof(x).
- */
-#define DEFAULTCalloc(...) CALL2(calloc, 1, sizeof(char), __VA_ARGS__)
 
 /**
  * @brief Allocate enough memory for a single instance of a variable x.
@@ -41,4 +27,60 @@
  * @param n Number of instances of x to instantiate.
  * @param x Variable to instance.
  */
-#define DEFAULTCallocNVAR(n, x) calloc(n, sizeof(x))
+#define DEFAULTCallocVAR_N(n, x) calloc(n, sizeof(x))
+
+/**
+ * @brief Calloc with optional arguments, by default takes in one variable
+ * and returns enough memory for one instance of the variable. If a size is
+ * optionally provided then
+ *
+ * @remark use case 1: DEFAULTCalloc(x) - returns a block of memory for one x
+ * use case 2: DEFAULTCalloc(n, x) - returns a block of memory for n instances
+ * of x
+ * use case 3: DEFAULTCalloc(x, n) - fails, must follow calloc call structure.
+ *
+ * use case 4: DEFAULTCalloc(x, n, t) - fails too many args supplied. 
+ */
+#define DEFAULTCALLOC(x, ...) \
+    DEFAULTCallocVAR##__VA_OPT__(_N)(x __VA_OPT__(, ) __VA_ARGS__)
+
+/**
+ * @brief Variant of calloc that checks alloc succeeds and calls exit if
+ * unsuccessful.
+ *
+ * @param nmemb
+ * @param size
+ * @return void* allocated memory.
+ */
+static inline void* calloc_exit_on_fail(size_t const nmemb, size_t const size) {
+    void* res = calloc(nmemb, size);
+    if (!res) {
+        TRACE_CALL("Failed to allocate memory");
+        exit(EXIT_FAILURE);
+    }
+    return res;
+}
+
+/**
+ * @brief Allocate enough memory for a single instance of a variable x.
+ * Exits the program if allocation fails.
+ *
+ * @param x variable to instance.
+ */
+ #define CallocEXIT_FAIL_VAR(x) calloc_exit_on_fail(1, sizeof(x))
+
+ /**
+  * @brief Allocate enough memory for n instances of a variable x.
+  *
+  * @param n Number of instances of x to instantiate.
+  * @param x Variable to instance.
+  */
+ #define CallocEXIT_FAIL_VAR_N(n, x) calloc_exit_on_fail(n, sizeof(x))
+ 
+/**
+ * @brief Version of @DEFAULTCALLOC that exits the program if
+ * the allocation fails. 
+ * 
+ */
+#define CALLOC_FAILS_EXIT(x, ...) \
+    CallocEXIT_FAIL_VAR##__VA_OPT__(_N)(x __VA_OPT__(, ) __VA_ARGS__)

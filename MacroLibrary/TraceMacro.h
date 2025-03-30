@@ -82,3 +82,14 @@
                     TRACE_FORMAT("%s:" UTILITY_STRGY(__LINE__) ": " F, X), \
                     __func__, TRACE_CONVERT(X));                           \
     } while (false)
+
+/**
+ * @brief Traces a function call without requiring a value to print.
+ * 
+ */
+#define TRACE_CALL(F)                                                        \
+    do {                                                                     \
+        if (TRACE_ON)                                                        \
+            fprintf(stderr, "%s:" UTILITY_STRGY(__LINE__) ": " F, __func__); \
+    } while (false)
+    

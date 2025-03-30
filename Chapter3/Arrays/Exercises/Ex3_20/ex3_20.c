@@ -51,11 +51,7 @@ int main(int argc, char* argv[argc + 1]) {
 
     RAND_SEED_TIME;
 
-    size_t* const f = DEFAULTCallocNVAR(N + 1, *f);
-    if (!f) {
-        fprintf(stderr, "Failed to allocate frequency array\n");
-        return EXIT_FAILURE;
-    }
+    size_t* const f = CALLOC_FAILS_EXIT(N + 1, *f);
 
     for (register size_t i = 0; i < M; i++) {
         register size_t cnt = 0;

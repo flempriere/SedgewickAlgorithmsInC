@@ -236,26 +236,6 @@ static inline unsigned long long maxull(unsigned long long a,
         double: DBL_MAX,                \
         long double: LDBL_MAX)
 
-// Generic power
-#define pow(X, Y) \
-    _Generic                                                      \
-  (                                                             \
-   (void (*)(typeof((X)+(Y)+0ULL), typeof((Y)+0ULL)))nullptr,   \
-   /* Second argument is an integer. */                         \
-   void (*)(float,              unsigned long long): pownf,     \
-   void (*)(double,             unsigned long long): pown,      \
-   void (*)(unsigned long long, unsigned long long): pown,      \
-   void (*)(long double,        unsigned long long): pownl,     \
-   /* Second argument is a floating point. */                   \
-   void (*)(float,                           float): powf,      \
-   void (*)(long double,                     float): powl,      \
-   void (*)(long double,                    double): powl,      \
-   void (*)(long double,               long double): powl,      \
-   /* Second argument is a floating-point, and first */         \
-   /* is double or integer.                          */         \
-   default:                                          pow)       \
-  ((X), (Y))
-
 // generic snprintf
 
 /**
