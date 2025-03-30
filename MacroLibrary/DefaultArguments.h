@@ -58,9 +58,24 @@
 /* Macros for function calls with default
  * arguments */
 
+// all arguments default
+
 #define CALL1(FUNC, DEF0, ...) FUNC(DEFAULT1(DEF0, __VA_ARGS__))
 #define CALL2(FUNC, DEF0, DEF1, ...) FUNC(DEFAULT2(DEF0, DEF1, __VA_ARGS__))
 #define CALL3(FUNC, DEF0, DEF1, DEF2, ...) \
     FUNC(DEFAULT3(DEF0, DEF1, DEF2, __VA_ARGS__))
 #define CALL4(FUNC, DEF0, DEF1, DEF2, DEF3, ...) \
     FUNC(DEFAULT4(DEF0, DEF1, DEF2, DEF3, __VA_ARGS__))
+
+// must supply first argument
+#define CALL2_ND1(FUNC, _0, DEF0, ...) FUNC(_0, DEFAULT1(DEF0, __VA_ARGS__))
+#define CALL3_ND1(FUNC, _0, DEF0, DEF1, ...) \
+    FUNC(_0, DEFAULT2(DEF0, DEF1, __VA_ARGS__))
+#define CALL4_ND1(FUNC, _0, DEF0, DEF1, DEF2, ...) \
+    FUNC(_0, DEFAULT3(DEF0, DEF1, DEF2, __VA_ARGS__))
+
+// fixed first two arguments
+#define CALL3_ND2(FUNC, _0, _1, DEF0, ...) \
+    FUNC(_0, _1, DEFAULT1(DEF0, __VA_ARGS__))
+#define CALL4_ND2(FUNC, _0, _1, DEF0, DEF1, ...) \
+    FUNC(_0, _1, DEFAULT2(DEF0, DEF1, __VA_ARGS__))

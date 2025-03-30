@@ -35,20 +35,23 @@ constexpr size_t N_INIT = 10u;
 int main(int argc, char* argv[argc + 1]) {
     register size_t N = N_INIT;
 
-    register Triangle t;
+    RAND_SEED_TIME;
+
     for (register size_t j = 0; j < N_CASES; N *= 10, j++) {
         register double m1 = 0.0;
         register double m2 = 0.0;
 
         for (register size_t i = 0; i < N; i++) {
-            t = TRIANGLErandom();
+            register Triangle t = TRIANGLErandom();
             register double triangle_area = TRIANGLEarea(t);
             m1 += (triangle_area) / CAST(double) N;
             m2 += (triangle_area * triangle_area) / CAST(double) N;
         }
+
         printf("Running using N: %zu\n", N);
         printf("       Average: %f\n", m1);
         printf("Std. deviation: %f\n", sqrt(m2 - m1 * m1));
     }
+
     return EXIT_SUCCESS;
 }

@@ -1,9 +1,7 @@
 // Interface for the number type
 #pragma once
-#include "../../../../../MacroLibrary/Utility.h"
 
 #include <limits.h>
-#include <tgmath.h>
 
 /**
  * @brief localised typedef for number type being used

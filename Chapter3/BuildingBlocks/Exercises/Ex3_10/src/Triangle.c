@@ -11,8 +11,8 @@ We use Heron's formula to compute the area.
 #include <tgmath.h>
 
 double TRIANGLEarea(Triangle const t) {
-    /*         (b)
-     *      [ab]     [bc]
+    /*          (b)
+     *      [ab]    [bc]
      *   (a)    [ac]    (c)
      */
     double const ab = POINTdistance(t.a, t.b);

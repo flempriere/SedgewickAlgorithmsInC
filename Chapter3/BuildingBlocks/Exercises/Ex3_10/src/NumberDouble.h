@@ -1,5 +1,5 @@
 /**
- * @file numDouble.h
+ * @file NumberDouble.h
  * @author Felix Lempriere
  * @brief Number interface with an explicitly typedefed Double.
  * @version 0.1

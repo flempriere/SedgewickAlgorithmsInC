@@ -27,3 +27,18 @@
  * typeof(x).
  */
 #define DEFAULTCalloc(...) CALL2(calloc, 1, sizeof(char), __VA_ARGS__)
+
+/**
+ * @brief Allocate enough memory for a single instance of a variable x.
+ *
+ * @param x variable to instance.
+ */
+#define DEFAULTCallocVAR(x) calloc(1, sizeof(x))
+
+/**
+ * @brief Allocate enough memory for n instances of a variable x.
+ *
+ * @param n Number of instances of x to instantiate.
+ * @param x Variable to instance.
+ */
+#define DEFAULTCallocNVAR(n, x) calloc(n, sizeof(x))

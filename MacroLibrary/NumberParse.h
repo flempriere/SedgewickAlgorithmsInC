@@ -50,7 +50,7 @@ bool NUMPARSEtoull(unsigned long long* out, char s[static 1], char** end,
         TRACE_VALUE("Out of range of type unsigned long long", s);
     } else {
         errno = prev_errno;
-        *out = ull;
+        if (out) *out = ull;
         return true;
     }
     return false;
@@ -70,7 +70,7 @@ bool NUMPARSEtoul(unsigned long* out, char s[static 1], char** end, int base) {
         TRACE_VALUE("Out of range of type unsigned long", s);
     } else {
         errno = prev_errno;
-        *out = ul;
+        if (out) *out = ul;
         return true;
     }
     return false;
@@ -82,7 +82,7 @@ bool NUMPARSEtoui(unsigned* out, char s[static 1], char** end, int base) {
     if (NUMPARSEtoul(&l, s, &stop, base)) {
         if (end) *end = stop;
         if ((l < UINT_MAX)) {
-            *out = CAST(unsigned) l;
+            if (out) *out = CAST(unsigned) l;
             return true;
         }
         TRACE_VALUE("Out of range of type unsigned", l);
@@ -96,7 +96,7 @@ bool NUMPARSEtous(unsigned short* out, char s[static 1], char** end, int base) {
     if (NUMPARSEtoul(&l, s, &stop, base)) {
         if (end) *end = stop;
         if ((l < USHRT_MAX)) {
-            *out = CAST(unsigned short) l;
+            if (out) *out = CAST(unsigned short) l;
             return true;
         }
         TRACE_VALUE("Out of range of type unsigned short", l);
@@ -110,7 +110,7 @@ bool NUMPARSEtouc(unsigned char* out, char s[static 1], char** end, int base) {
     if (NUMPARSEtoul(&l, s, &stop, base)) {
         if (end) *end = stop;
         if ((l < UCHAR_MAX)) {
-            *out = CAST(unsigned char) l;
+            if (out) *out = CAST(unsigned char) l;
             return true;
         }
         TRACE_VALUE("Out of range of type unsigned char", l);
@@ -132,7 +132,7 @@ bool NUMPARSEtoll(long long* out, char s[static 1], char** end, int base) {
         TRACE_VALUE("Out of range of type long long", s);
     } else {
         errno = prev_errno;
-        *out = ll;
+        if (out) *out = ll;
         return true;
     }
     return false;
@@ -152,7 +152,7 @@ bool NUMPARSEtol(long* out, char s[static 1], char** end, int base) {
         TRACE_VALUE("Out of range of type long", s);
     } else {
         errno = prev_errno;
-        *out = l;
+        if (out) *out = l;
         return true;
     }
     return false;
@@ -166,7 +166,7 @@ bool NUMPARSEtoi(int* out, char s[static 1], char** end, int base) {
         if ((l < INT_MIN) || (l > INT_MAX)) {
             TRACE_VALUE("Out of range of type int", l);
         } else {
-            *out = CAST(int) l;
+            if (out) *out = CAST(int) l;
             return true;
         }
     }
@@ -181,7 +181,7 @@ bool NUMPARSEtos(short* out, char s[static 1], char** end, int base) {
         if ((l < SHRT_MIN) || (l > SHRT_MAX)) {
             TRACE_VALUE("Out of range of type short", l);
         } else {
-            *out = CAST(short) l;
+            if (out) *out = CAST(short) l;
             return true;
         }
     }
@@ -196,7 +196,7 @@ bool NUMPARSEtosc(signed char* out, char s[static 1], char** end, int base) {
         if ((l < SCHAR_MIN) || (l > SCHAR_MAX)) {
             TRACE_VALUE("Out of range of type signed char", l);
         } else {
-            *out = CAST(signed char) l;
+            if (out) *out = CAST(signed char) l;
             return true;
         }
     }
@@ -211,7 +211,7 @@ bool NUMPARSEtoc(char* out, char s[static 1], char** end, int base) {
         if ((l < CHAR_MIN) || (l > CHAR_MAX)) {
             TRACE_VALUE("Out of range of type char", l);
         } else {
-            *out = CAST(char) l;
+            if (out) *out = CAST(char) l;
             return true;
         }
     }
@@ -232,7 +232,7 @@ bool NUMPARSEtof(float* out, char s[static 1], char** end) {
         TRACE_VALUE("Out of range of type float", s);
     } else {
         errno = prev_errno;
-        *out = f;
+        if (out) *out = f;
         return true;
     }
     return false;
@@ -252,7 +252,7 @@ bool NUMPARSEtod(double* out, char s[static 1], char** end) {
         TRACE_VALUE("Out of range of type double", s);
     } else {
         errno = prev_errno;
-        *out = f;
+        if (out) *out = f;
         return true;
     }
     return false;
@@ -272,7 +272,7 @@ bool NUMPARSEtold(long double* out, char s[static 1], char** end) {
         TRACE_VALUE("Out of range of type long double", s);
     } else {
         errno = prev_errno;
-        *out = f;
+        if (out) *out = f;
         return true;
     }
     return false;
@@ -287,66 +287,76 @@ bool NUMPARSEtold(long double* out, char s[static 1], char** end) {
  * @return true if value successfully extracted, else
  * @return false.
  */
-#define NUMPARSE(out, ...)                                                     \
-    _Generic(CAST(typeof(out)) nullptr,                                        \
-        unsigned char*: CALL4(NUMPARSEtouc, nullptr, "0", nullptr, 0,          \
-                              _Generic(CAST(typeof(out)) nullptr,              \
-                                  unsigned char*: out,                         \
-                                  default: nullptr) __VA_OPT__(, )             \
-                                  __VA_ARGS__),                                \
-        unsigned short*: CALL4(NUMPARSEtous, nullptr, "0", nullptr, 0,         \
-                               _Generic(CAST(typeof(out)) nullptr,             \
-                                   unsigned short*: out,                       \
-                                   default: nullptr) __VA_OPT__(, )            \
-                                   __VA_ARGS__),                               \
-        unsigned int*: CALL4(NUMPARSEtoui, nullptr, "0", nullptr, 0,           \
-                             _Generic(CAST(typeof(out)) nullptr,               \
-                                 unsigned int*: out,                           \
-                                 default: nullptr) __VA_OPT__(, )              \
-                                 __VA_ARGS__),                                 \
-        unsigned long*: CALL4(NUMPARSEtoul, nullptr, "0", nullptr, 0,          \
-                              _Generic(CAST(typeof(out)) nullptr,              \
-                                  unsigned long*: out,                         \
-                                  default: nullptr) __VA_OPT__(, )             \
-                                  __VA_ARGS__),                                \
-        unsigned long long*: CALL4(NUMPARSEtoull, nullptr, "0", nullptr, 0,    \
-                                   _Generic(CAST(typeof(out)) nullptr,         \
-                                       unsigned long long*: out,               \
-                                       default: nullptr) __VA_OPT__(, )        \
-                                       __VA_ARGS__),                           \
-        char*: CALL4(NUMPARSEtoc, nullptr, "0", nullptr, 0,                    \
-                     _Generic(CAST(typeof(out)) nullptr,                       \
-                         char*: out,                                           \
-                         default: nullptr) __VA_OPT__(, ) __VA_ARGS__),        \
-        signed char*: CALL4(NUMPARSEtosc, nullptr, "0", nullptr, 0,            \
-                            _Generic(CAST(typeof(out)) nullptr,                \
-                                signed char*: out,                             \
-                                default: nullptr) __VA_OPT__(, ) __VA_ARGS__), \
-        short*: CALL4(NUMPARSEtos, nullptr, "0", nullptr, 0,                   \
-                      _Generic(CAST(typeof(out)) nullptr,                      \
-                          short*: out,                                         \
-                          default: nullptr) __VA_OPT__(, ) __VA_ARGS__),       \
-        int*: CALL4(NUMPARSEtoi, nullptr, "0", nullptr, 0,                     \
-                    _Generic(CAST(typeof(out)) nullptr,                        \
-                        int*: out,                                             \
-                        default: nullptr) __VA_OPT__(, ) __VA_ARGS__),         \
-        long*: CALL4(NUMPARSEtol, nullptr, "0", nullptr, 0,                    \
-                     _Generic(CAST(typeof(out)) nullptr,                       \
-                         long*: out,                                           \
-                         default: nullptr) __VA_OPT__(, ) __VA_ARGS__),        \
-        long long*: CALL4(NUMPARSEtoll, nullptr, "0", nullptr, 0,              \
-                          _Generic(CAST(typeof(out)) nullptr,                  \
-                              long long*: out,                                 \
-                              default: nullptr) __VA_OPT__(, ) __VA_ARGS__),   \
-        float*: CALL3(NUMPARSEtof, nullptr, "0", nullptr,                      \
-                      _Generic(CAST(typeof(out)) nullptr,                      \
-                          float*: out,                                         \
-                          default: nullptr) __VA_OPT__(, ) __VA_ARGS__),       \
-        double*: CALL3(NUMPARSEtod, nullptr, "0", nullptr,                     \
-                       _Generic(CAST(typeof(out)) nullptr,                     \
-                           double*: out,                                       \
-                           default: nullptr) __VA_OPT__(, ) __VA_ARGS__),      \
-        long double*: CALL3(NUMPARSEtold, nullptr, "0", nullptr,               \
-                            _Generic(CAST(typeof(out)) nullptr,                \
-                                long double*: out,                             \
-                                default: nullptr) __VA_OPT__(, ) __VA_ARGS__))
+#define NUMPARSE(out, s, ...)                                                 \
+    _Generic(CAST(typeof(out)) nullptr,                                       \
+        unsigned char*: CALL4_ND2(NUMPARSEtouc,                               \
+                                  _Generic(CAST(typeof(out)) nullptr,         \
+                                      unsigned char*: out,                    \
+                                      default: nullptr),                      \
+                                  s, nullptr, 0 __VA_OPT__(, ) __VA_ARGS__),  \
+        unsigned short*: CALL4_ND2(NUMPARSEtous,                              \
+                                   _Generic(CAST(typeof(out)) nullptr,        \
+                                       unsigned short*: out,                  \
+                                       default: nullptr),                     \
+                                   s, nullptr, 0 __VA_OPT__(, ) __VA_ARGS__), \
+        unsigned int*: CALL4_ND2(NUMPARSEtoui,                                \
+                                 _Generic(CAST(typeof(out)) nullptr,          \
+                                     unsigned int*: out,                      \
+                                     default: nullptr),                       \
+                                 s, nullptr, 0 __VA_OPT__(, ) __VA_ARGS__),   \
+        unsigned long*: CALL4_ND2(NUMPARSEtoul,                               \
+                                  _Generic(CAST(typeof(out)) nullptr,         \
+                                      unsigned long*: out,                    \
+                                      default: nullptr),                      \
+                                  s, nullptr, 0 __VA_OPT__(, ) __VA_ARGS__),  \
+        unsigned long long*: CALL4_ND2(NUMPARSEtoull,                         \
+                                       _Generic(CAST(typeof(out)) nullptr,    \
+                                           unsigned long long*: out,          \
+                                           default: nullptr),                 \
+                                       s, nullptr,                            \
+                                       0 __VA_OPT__(, ) __VA_ARGS__),         \
+        char*: CALL4_ND2(NUMPARSEtoc,                                         \
+                         _Generic(CAST(typeof(out)) nullptr,                  \
+                             char*: out,                                      \
+                             default: nullptr),                               \
+                         s, nullptr, 0 __VA_OPT__(, ) __VA_ARGS__),           \
+        signed char*: CALL4_ND2(NUMPARSEtosc,                                 \
+                                _Generic(CAST(typeof(out)) nullptr,           \
+                                    signed char*: out,                        \
+                                    default: nullptr),                        \
+                                s, nullptr, 0 __VA_OPT__(, ) __VA_ARGS__),    \
+        short*: CALL4_ND2(NUMPARSEtos,                                        \
+                          _Generic(CAST(typeof(out)) nullptr,                 \
+                              short*: out,                                    \
+                              default: nullptr),                              \
+                          s, nullptr, 0 __VA_OPT__(, ) __VA_ARGS__),          \
+        int*: CALL4_ND2(NUMPARSEtoi,                                          \
+                        _Generic(CAST(typeof(out)) nullptr,                   \
+                            int*: out,                                        \
+                            default: nullptr),                                \
+                        s, nullptr, 0 __VA_OPT__(, ) __VA_ARGS__),            \
+        long*: CALL4_ND2(NUMPARSEtol,                                         \
+                         _Generic(CAST(typeof(out)) nullptr,                  \
+                             long*: out,                                      \
+                             default: nullptr),                               \
+                         s, nullptr, 0 __VA_OPT__(, ) __VA_ARGS__),           \
+        long long*: CALL4_ND2(NUMPARSEtoll,                                   \
+                              _Generic(CAST(typeof(out)) nullptr,             \
+                                  long long*: out,                            \
+                                  default: nullptr),                          \
+                              s, nullptr, 0 __VA_OPT__(, ) __VA_ARGS__),      \
+        float*: CALL3_ND2(NUMPARSEtof,                                        \
+                          _Generic(CAST(typeof(out)) nullptr,                 \
+                              float*: out,                                    \
+                              default: nullptr),                              \
+                          s, nullptr __VA_OPT__(, ) __VA_ARGS__),             \
+        double*: CALL3_ND2(NUMPARSEtod,                                       \
+                           _Generic(CAST(typeof(out)) nullptr,                \
+                               double*: out,                                  \
+                               default: nullptr),                             \
+                           s, nullptr __VA_OPT__(, ) __VA_ARGS__),            \
+        long double*: CALL3_ND2(NUMPARSEtold,                                 \
+                                _Generic(CAST(typeof(out)) nullptr,           \
+                                    long double*: out,                        \
+                                    default: nullptr),                        \
+                                s, nullptr __VA_OPT__(, ) __VA_ARGS__))

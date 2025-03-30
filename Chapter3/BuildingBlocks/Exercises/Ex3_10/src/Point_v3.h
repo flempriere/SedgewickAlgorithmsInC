@@ -9,7 +9,7 @@
  * @brief Numerical tolerance equality calculations
  *
  */
-#define POINTTOLERANCE 10e-4
+constexpr double POINT_TOLERANCE = 10e-4;
 
 /**
  * @brief Two-dimensional Point data type
@@ -40,18 +40,8 @@ double POINTdistance(Point const p, Point const q);
  * @return false if points differ
  */
 static inline bool POINTis_equal(Point const p, Point const q) {
-    return POINTdistance(p, q) < POINTTOLERANCE;
+    return POINTdistance(p, q) < POINT_TOLERANCE;
 }
-
-/**
- * @brief Calculates the slope between
- * two points.
- *
- * @param p point
- * @param q point
- * @return double
- */
-double POINTslope(Point const p, Point const q);
 
 /**
  * @brief Determines if three points are collinear

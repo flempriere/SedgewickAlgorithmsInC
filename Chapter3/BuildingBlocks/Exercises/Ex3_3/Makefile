@@ -16,11 +16,11 @@ BUILDDIR = $(CURDIR)/$(BUILD)
 # Search Directories for Code #
 ###############################
 
-INCLUDE_DIRS = . ./includes
-SOURCE_DIRS = . ./src
+INCLUDE_DIRS = . ./includes ../Ex3_2/src
+SOURCE_DIRS = . ./src ../Ex3_2/src
 SOURCE_VPATHS = 
 
-vpath %.c $(sort $(dir) $(SOURCE_DIRS) $(SOURCE_VPATHS)) ../Ex3_2
+vpath %.c $(sort $(dir) $(SOURCE_DIRS) $(SOURCE_VPATHS)) 
 
 
 ######################################
@@ -32,7 +32,7 @@ PROJECT = ex3_3
 #Any .c files to be included, without including their whole directory
 # should not include their directory.
 # Their directory must be put in the .c vpath variable.
-CEXTRA =  NumberInt.c
+CEXTRA = 
 
 ###################################
 # Generated .c, obj and src files #

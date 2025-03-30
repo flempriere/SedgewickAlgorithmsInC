@@ -8,7 +8,7 @@
  * collinear calculation.
  *
  */
-#define TOLERANCE 10e-4
+constexpr double POINT_TOLERANCE = 10e-4;
 
 /**
  * @brief Localises numerical data definition
@@ -45,7 +45,7 @@ double POINTdistance(Point p, Point q);
  * @return false if points differ
  */
 static inline bool POINTis_equal(Point p, Point q) {
-    return POINTdistance(p, q) < TOLERANCE;
+    return POINTdistance(p, q) < POINT_TOLERANCE;
 }
 
 /**
@@ -60,4 +60,4 @@ static inline bool POINTis_equal(Point p, Point q) {
  *
  * @see TOLERANCE
  */
-bool POINTisCollinear(Point p, Point q, Point r);
+bool POINTis_collinear(Point p, Point q, Point r);

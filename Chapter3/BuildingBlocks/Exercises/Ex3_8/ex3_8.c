@@ -3,7 +3,7 @@ Exercise 3.8. Extend the point data type to provide a function determining
 if three points are collinear to within a tolerance of 10^(-4).
 */
 
-#include "Point_v2.h"
+#include "src/Point_v2.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -32,8 +32,8 @@ int main(int argc, char * [argc + 1]) {
 
     char line[MAX_LINE];
 
-    for (size_t i = 0; i < N_POINTS && fgets(line, sizeof(line), stdin) != NULL;
-         i++) {
+    for (size_t i = 0;
+         i < N_POINTS && fgets(line, sizeof(line), stdin) != nullptr; i++) {
         Number x, y;
         if (sscanf(line, "%lf %lf", &x, &y) != 2) {
             printf("Error: must input points as pairs of numbers\n");
@@ -44,6 +44,6 @@ int main(int argc, char * [argc + 1]) {
     printf("The points (%f, %f), (%f, %f) and (%f, %f) are %s collinear\n",
            points[0].x, points[0].y, points[1].x, points[1].y, points[2].x,
            points[2].y,
-           (POINTisCollinear(points[0], points[1], points[2])) ? "" : "not");
+           (POINTis_collinear(points[0], points[1], points[2])) ? "" : "not");
     return EXIT_SUCCESS;
 }

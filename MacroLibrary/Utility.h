@@ -103,3 +103,5 @@ static inline bool read_ended_successfully(FILE* stream) {
     if (!result) fprintf(stderr, "Error occured during read\n");
     return result;
 }
+
+#define ARRAY_2D_IDX(R, C, W) ((R)*(W) + (C)) 

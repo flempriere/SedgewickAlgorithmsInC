@@ -11,15 +11,14 @@ typedef localises the reference to the datatype being used for the underlying
 computation.
 */
 
+#include "../../../../MacroLibrary/NumberParse.h"
 #include "../../../../MacroLibrary/Random.h"
 #include "../../../../MacroLibrary/Utility.h"
-#include "../../../../MacroLibrary/NumberParse.h"
 
 #include <limits.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <tgmath.h>
-#include <time.h>
 
 /**
  * @brief Typedef to obscure underlying numerical type.
@@ -47,20 +46,19 @@ int main(int argc, char* argv[argc + 1]) {
         return EXIT_FAILURE;
     }
     size_t nRead;
-    if(!NUMPARSE(&nRead, argv[1])) {
-        fprintf(stderr, "Failed to parse number\n");
+    if (!NUMPARSE(&nRead, argv[1])) {
+        fprintf(stderr, "Failed to initialise N\n");
         return EXIT_FAILURE;
     }
     register size_t const N = nRead;
 
+    RAND_SEED_TIME;
+
     register double m1 = 0.0;
     register double m2 = 0.0;
 
-    register Number x;
-    RAND_SEED_TIME;
-
     for (register size_t i = 0; i < N; i++) {
-        x = CAST(Number) RAND_NUM(NUM_MAX);
+        register Number x = CAST(Number) RAND_NUM(NUM_MAX);
         m1 += (x) / CAST(double) N;
         m2 += (CAST(double) x * x) / CAST(double) N;
     }

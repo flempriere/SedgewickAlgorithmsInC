@@ -25,9 +25,10 @@ constexpr size_t MAX_LINE = 1000u;
  * @return EXIT_SUCCESS
  */
 int main(int argc, char * [argc + 1]) {
-    bool first_set = true;
-    Point first = {};
-    Point closest = {};
+
+    register bool first_set = true;
+    register Point first = {};
+    register Point closest = {};
     double min_distance = INFINITY;
 
     char line[MAX_LINE];
@@ -36,15 +37,15 @@ int main(int argc, char * [argc + 1]) {
         Number x, y;
         if (sscanf(line, "%lf %lf", &x, &y) != 2) {
             printf("Error: must input pairs of points\n");
-            return 1;
+            return EXIT_FAILURE;
         }
         if (first_set) {
             first.x = x;
             first.y = y;
             first_set = false;
         } else {
-            Point candidate = { .x = x, .y = y };
-            double cand_dist;
+            register Point candidate = { .x = x, .y = y };
+            register double cand_dist;
             if ((cand_dist = POINTdistance(first, candidate)) < min_distance) {
                 min_distance = cand_dist;
                 closest.x = candidate.x;

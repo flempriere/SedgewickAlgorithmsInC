@@ -1,4 +1,4 @@
-// Implementation of num.h
+// Implementation of Number.h
 
 #include "NumberDouble.h"
 

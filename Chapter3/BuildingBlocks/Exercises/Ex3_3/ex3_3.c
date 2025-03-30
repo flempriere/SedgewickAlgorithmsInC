@@ -11,7 +11,7 @@ as Exercise 3.2
 */
 #include "../../../../MacroLibrary/Random.h"
 #include "../../../../MacroLibrary/Utility.h"
-#include "../Ex3_2/NumberInt.h"
+#include "../Ex3_2/src/NumberInt.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -57,17 +57,19 @@ constexpr Number R_INIT = 10u;
 int main(int argc, char* argv[argc + 1]) {
     register size_t n = N_INIT;
     register Number r = R_INIT;
+
     RAND_SEED_TIME;
 
     for (register size_t i = 0; i < N_CASES;
          n *= 10, i++) {    // iterate over N values
         for (register size_t j = 0; j < R_CASES;
              r *= 10, j++) {    // iterate over r values
+
             register double m1 = 0.0;
             register double m2 = 0.0;
-            register Number x;
+
             for (register size_t k = 0; k < n; k++) {
-                x = NUMBERrandom(r);
+                register Number x = NUMBERrandom(r);
                 m1 += x / CAST(double) n;
                 m2 += (CAST(double) x * x) / CAST(double) n;
             }

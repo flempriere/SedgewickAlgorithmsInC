@@ -2,14 +2,14 @@
 Multifile implementation of Program 3.2 that utilises a client file (avg.c)
 an interface file (num.h) and an implementation file (num.c)
 */
+#include "../../../../../MacroLibrary/NumberParse.h"
 #include "../../../../../MacroLibrary/Random.h"
 #include "../../../../../MacroLibrary/Utility.h"
-#include "num.h"
+#include "src/Number.h"
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <tgmath.h>
-#include <time.h>
 
 /**
  * @brief Calculate the average and standard deviation
@@ -26,12 +26,19 @@ int main(int argc, char* argv[argc + 1]) {
         return EXIT_FAILURE;
     }
 
-    register size_t const N = strtoull(argv[1], nullptr, 0);
+    size_t nRead;
+    if (!NUMPARSE(&nRead, argv[1])) {
+        fprintf(stderr, "Failed to initialise N\n");
+        return EXIT_FAILURE;
+    }
+    register size_t const N = nRead;
+    printf("%zu\n", N);
+
     register double m1 = 0.0;
     register double m2 = 0.0;
-    RAND_SEED_TIME;
 
     register Number x;
+    RAND_SEED_TIME;
 
     for (register size_t i = 0; i < N; i++) {
         x = NUMBERrandom();
