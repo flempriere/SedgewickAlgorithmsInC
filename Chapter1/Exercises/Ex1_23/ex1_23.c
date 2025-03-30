@@ -63,8 +63,8 @@ int main(int argc, char* argv[argc + 1]) {
 
         for (register size_t n_unions = 0; n_unions < N - 1;
              p = RAND_NUM(N), q = RAND_NUM(N), n_edges++) {
-            register size_t i;
-            register size_t j;
+            size_t i;
+            size_t j;
             for (i = p; i != id[i]; i = id[i]) { id[i] = id[id[i]]; }
             for (j = q; j != id[j]; j = id[j]) { id[j] = id[id[j]]; }
 

@@ -18,9 +18,9 @@
 #include <stdio.h>
 
 // Assert types are compatible
-#define static_assert_compatible(A, B, REASON)                            \
-    static_assert(                                                        \
-        _Generic((typeof(A)*) nullptr, typeof(B)*: true, default: false), \
+#define static_assert_compatible(A, B, REASON)                          \
+    static_assert(                                                      \
+        _Generic((typeof(A)*) nullptr, typeof(B) *: true, default: false), \
         "Expected compatible types: " REASON " have " #A " and " #B "\n");
 
 // Type Generic Conditionals
@@ -52,15 +52,15 @@
  * @brief Swap A and B
  *
  */
-#define SWAP(A, B)                                                       \
-    do {                                                                 \
-        auto SWAPA = (A);                                                \
-        auto SWAPB = (B);                                                \
-        static_assert_compatible(                                        \
-            SWAPA, SWAPB, #A " and " #B "must have compatible types\n"); \
-        auto SWAPtmp = SWAPA;                                            \
-        SWAPA = SWAPB;                                                   \
-        SWAPB = SWAPtmp;                                                 \
+#define SWAP(A, B)                                                         \
+    do {                                                                   \
+        auto const SWAPA = &(A);                                           \
+        auto const SWAPB = &(B);                                           \
+        static_assert_compatible(                                          \
+            *SWAPA, *SWAPB, #A " and " #B "must have compatible types\n"); \
+        auto SWAPtmp = *SWAPA;                                             \
+        *SWAPA = *SWAPB;                                                   \
+        *SWAPB = SWAPtmp;                                                 \
     } while (false)
 
 // Type generic minimum

@@ -63,8 +63,8 @@ int main(int argc, char* argv[argc + 1]) {
            sscanf(line, "%zu %zu", &p, &q) == 2) {
         if (p >= N || q >= N) continue;
 
-        register size_t i;
-        register size_t j;
+        size_t i;
+        size_t j;
         for (i = p; i != id[i]; i = id[i]) { id[i] = id[id[i]]; }
         for (j = q; j != id[j]; j = id[j]) { id[j] = id[id[j]]; }
 

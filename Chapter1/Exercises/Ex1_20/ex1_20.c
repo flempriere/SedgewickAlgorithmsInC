@@ -55,8 +55,8 @@ int main(int argc, char* argv[argc + 1]) {
     }
     while (fgets(line, sizeof(line), stdin) &&
            sscanf(line, "%zu %zu", &p, &q) == 2) {
-        register size_t i;
-        register size_t j;
+        size_t i;
+        size_t j;
         for (i = p; n_acc++, i != id[i]; i = id[i], n_acc++);
         for (j = q; n_acc++, j != id[j]; j = id[j], n_acc++);
 

@@ -59,8 +59,9 @@ int main(int argc, char* argv[argc + 1]) {
            sscanf(line, "%zu %zu", &p, &q) == 2) {
         if (p >= N || q >= N) continue;
         register size_t n_access = 0;
-        register size_t i;
-        register size_t j;
+
+        size_t i;
+        size_t j;
         for (i = p; n_access += 1, i != id[i]; i = id[i], n_access += 1) {
             id[i] = id[id[i]];
             n_access += 3;

@@ -59,9 +59,10 @@ int main(int argc, char* argv[argc + 1]) {
     while (fgets(line, sizeof(line), stdin) &&
            sscanf(line, "%zu %zu", &p, &q) == 2) {
         if (p >= N || q >= N) continue;
-        register size_t i;
-        register size_t j;
         register size_t n_access = 0;
+
+        size_t i;
+        size_t j;
         // find the root
         for (i = p; n_access += 1, i != id[i]; i = id[i], n_access += 1);
 

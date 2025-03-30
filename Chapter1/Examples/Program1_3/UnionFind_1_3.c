@@ -48,8 +48,8 @@ int main(int argc, char* argv[argc + 1]) {
     }
     while (fgets(line, sizeof(line), stdin) &&
            sscanf(line, "%zu %zu", &p, &q) == 2) {
-        register size_t i;
-        register size_t j;
+        size_t i;
+        size_t j;
         if (p >= N || q >= N) continue;    // bounds checking
         for (i = p; i != id[i]; i = id[i]);
         for (j = q; j != id[j]; j = id[j]);
