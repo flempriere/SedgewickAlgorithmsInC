@@ -57,12 +57,12 @@ int main(int argc, char* argv[argc + 1]) {
             sz[i] = 1;
         }
 
-        register size_t p = RAND_NUM(N);
-        register size_t q = RAND_NUM(N);
+        register size_t p = RANDuint(N);
+        register size_t q = RANDuint(N);
         register size_t n_edges = 1;
 
         for (register size_t n_unions = 0; n_unions < N - 1;
-             p = RAND_NUM(N), q = RAND_NUM(N), n_edges++) {
+             p = RANDuint(N), q = RANDuint(N), n_edges++) {
             size_t i;
             size_t j;
             for (i = p; i != id[i]; i = id[i]) { id[i] = id[id[i]]; }

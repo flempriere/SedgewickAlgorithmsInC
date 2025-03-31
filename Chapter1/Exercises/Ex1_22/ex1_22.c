@@ -58,12 +58,12 @@ int main(int argc, char* argv[argc + 1]) {
         }
         RAND_SEED_TIME;
 
-        register size_t p = RAND_NUM(n);
-        register size_t q = RAND_NUM(n);
+        register size_t p = RANDuint(n);
+        register size_t q = RANDuint(n);
 
         register size_t n_edges = 1;
         for (register size_t n_unions = 0; n_unions < n - 1;
-             p = RAND_NUM(n), q = RAND_NUM(n), n_edges++) {
+             p = RANDuint(n), q = RANDuint(n), n_edges++) {
             size_t i;
             size_t j;
             for (i = p; i != id[i]; i = id[i]) { id[i] = id[id[i]]; }

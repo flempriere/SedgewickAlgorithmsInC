@@ -10,6 +10,7 @@ argument.
 */
 #include "../../../../MacroLibrary/NumberParse.h"
 #include "../../../../MacroLibrary/Random.h"
+#include "../../../../MacroLibrary/Statistics.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -21,6 +22,13 @@ argument.
  */
 constexpr size_t MAX_NUM = 1000u;
 
+/**
+ * @brief generates numbers until all possible values are computed and returns
+ * the number of numbers generated.
+ *
+ * @return double
+ */
+double n_generated(void);
 /**
  * @brief Generates random positive integers
  * up to MAX_NUM until all values are generated.
@@ -39,30 +47,32 @@ int main(int argc, char* argv[argc + 1]) {
         fprintf(stderr, "Error: call structure is ./ex3_18 M\n");
         return EXIT_FAILURE;
     }
-    size_t a[MAX_NUM];
 
     register size_t const M = NUMPARSEexit_on_fail(M, argv[1]);
 
     RAND_SEED_TIME;
 
-    register double m1 = 0.0;
-    register double m2 = 0.0;
+    register STATSmeasures sm = STATScalculate_statistics(n_generated, M);
 
-    for (register size_t k = 0; k < M; k++) {
-        register size_t nGen = 0;
-        for (register size_t i = 0; i < MAX_NUM; i++) a[i] = 0;
-        register size_t nSeen = 0;
-        while (nSeen < MAX_NUM) {
-            register size_t i = RAND_NUM(MAX_NUM);
-            if (!(a[i]++)) { nSeen++; }
-            nGen++;
-        }
-        m1 += ((double) nGen) / CAST(double) M;
-        m2 += ((double) (nGen * nGen)) / CAST(double) M;
-    }
-    printf("===== Results, M = %zu =====\n", M);
-    printf("       Average: %f\n", m1);
-    printf("Std. deviation: %f\n", sqrt(m2 - m1 * m1));
+    STATSsummary_print(sm, "===== Results, M = %zu =====", M);
 
     return EXIT_SUCCESS;
+}
+
+double n_generated(void) {
+    static bool seen[MAX_NUM];
+
+    for (register size_t i = 0; i < MAX_NUM; i++) seen[i] = false;
+    register size_t n_gen = 0;
+    register size_t n_seen = 0;
+    for (; n_seen < MAX_NUM; n_gen++) {
+        register size_t i = RANDuint(MAX_NUM);
+        if (!seen[i]) {
+            seen[i] = !seen[i];
+            n_seen++;
+        }
+    }
+    n_seen--;    // accounts for the fact we stop when we find them all so
+                 // subtract one to get the number before we saw them all.
+    return CAST(double) n_gen;
 }

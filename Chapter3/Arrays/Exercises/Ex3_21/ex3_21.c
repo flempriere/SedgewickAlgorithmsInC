@@ -71,5 +71,5 @@ int main(int argc, char* argv[argc + 1]) {
 }
 
 static inline bool heads(double const lambda, size_t const N) {
-    return RAND_WEIGHTED_COIN_TOSS(lambda / CAST(double) N);
+    return RAND_COIN_TOSS(lambda / CAST(double) N);
 }

@@ -39,6 +39,12 @@ typedef uint16_t key;
 constexpr key KEY_MAX = UINT16_MAX;
 
 /**
+ * @brief Generate a random key with value up to KEY_MAX (exclusive)
+ * 
+ * @return key 
+ */
+static inline key rand_key(void);
+/**
  * @brief Fills an array of a of length
  * len with random integers from 0 to KEY_MAX
  *
@@ -107,7 +113,7 @@ size_t search(key const v, size_t l, size_t r, key a[r + 1]) {
 size_t countMatches(size_t const n, size_t const m, key a[m]) {
     register size_t matches = 0;
     for (register size_t i = 0; i < n; i++) {
-        register key num = CAST(key) RAND_NUM(KEY_MAX);
+        register key num = rand_key();
         matches += (search(num, 0, m - 1, a) == NOT_FOUND) ? 0 : 1;
     }
     return matches;
@@ -115,6 +121,11 @@ size_t countMatches(size_t const n, size_t const m, key a[m]) {
 
 void fill_array(size_t const len, key a[len]) {
     for (register size_t i = 0; i < len; i++) {
-        a[i] = CAST(key) RAND_NUM(KEY_MAX);
+        a[i] = rand_key();
     }
+}
+
+
+static inline key rand_key(void) {
+    return CAST(key) RANDuint(KEY_MAX);
 }

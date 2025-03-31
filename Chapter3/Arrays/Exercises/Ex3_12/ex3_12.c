@@ -138,7 +138,7 @@ int main(int argc, char* argv[argc + 1]) {
     // turn on all bits
     for (register size_t i = 0; i < NCOMPONENTS; i++) {
         for (register size_t j = 0; j < BITS_PER_COMPONENT; j++) {
-            BITa[i] |= MASK << j;    // mask promoted to int, so cut back
+            BITa[i] |= MASK << j;
         }
     }
     printf("Time taken for bit implementation array: %Lf\n",

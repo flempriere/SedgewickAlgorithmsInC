@@ -6,4 +6,4 @@
 
 #include "../../../../../MacroLibrary/Random.h"
 
-Number NUMBERrandom(void) { return RAND_NUM(2); }
+Number NUMBERrandom(void) { return RANDuint(2); }

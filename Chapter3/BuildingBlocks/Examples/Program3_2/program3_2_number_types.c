@@ -56,7 +56,7 @@ int main(int argc, char* argv[argc + 1]) {
     register double m2 = 0.0;
 
     for (register size_t i = 0; i < N; i++) {
-        register Number x = CAST(Number) RAND_NUM(NUM_MAX);
+        register Number x = CAST(Number) RANDuint(NUM_MAX);
         m1 += (x) / CAST(double) N;
         m2 += (CAST(double) x * x) / CAST(double) N;
     }

@@ -5,5 +5,5 @@
 #include "../../Ex3_2/src/NumberInt.h"
 
 Number NUMBERrandom(Number const ub) {
-    return CAST(Number)(RAND_UNIFORM() * ub);
+    return CAST(Number)(RANDuniform() * ub);
 }

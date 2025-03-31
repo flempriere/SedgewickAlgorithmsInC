@@ -4,4 +4,4 @@
 
 #include "../../../../../MacroLibrary/Random.h"
 
-Number NUMBERrandom(void) { return RAND_UNIFORM(); }
+Number NUMBERrandom(void) { return RANDuniform(); }

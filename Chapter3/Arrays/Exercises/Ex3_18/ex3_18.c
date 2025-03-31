@@ -10,11 +10,11 @@ argument.
 */
 #include "../../../../MacroLibrary/NumberParse.h"
 #include "../../../../MacroLibrary/Random.h"
+#include "../../../../MacroLibrary/Statistics.h"
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <tgmath.h>
-#include <time.h>
 
 /**
  * @brief Exclusive upper bound
@@ -23,6 +23,13 @@ argument.
  */
 constexpr size_t MAX_NUM = 1000u;
 
+/**
+ * @brief Returns the number of random positive integers generated before
+ * a repeat.
+ *
+ * @return double
+ */
+double n_generated(void);
 /**
  * @brief Generates random positive integers
  * up to MAX_NUM until a value is repeated.
@@ -41,28 +48,22 @@ int main(int argc, char* argv[argc + 1]) {
         fprintf(stderr, "Error: call structure is ./ex3_18 M\n");
         return EXIT_FAILURE;
     }
-    size_t a[MAX_NUM];
     register size_t const M = NUMPARSEexit_on_fail(M, argv[1]);
 
     RAND_SEED_TIME;
 
-    register double m1 = 0.0;
-    register double m2 = 0.0;
-
-    for (register size_t k = 0; k < M; k++) {
-        register size_t nGen = 0;
-        for (register size_t i = 0; i < MAX_NUM; i++) a[i] = 0;
-        while (true) {
-            register size_t i = RAND_NUM(MAX_NUM);
-            if (a[i]++) { break; }
-            nGen++;
-        }
-        m1 += (CAST(double) nGen) / CAST(double) M;
-        m2 += (CAST(double)(nGen * nGen)) / CAST(double) M;
-    }
-    printf("===== Results, M = %zu =====\n", M);
-    printf("       Average: %f\n", m1);
-    printf("Std. deviation: %f\n", sqrt(m2 - m1 * m1));
-
+    register STATSmeasures sm = STATScalculate_statistics(n_generated, M);
+    STATSsummary_print(sm, "===== Results for M = %zu =====", M);
     return EXIT_SUCCESS;
+}
+
+double n_generated(void) {
+    static size_t seen[MAX_NUM];
+    for (register size_t i = 0; i < MAX_NUM; i++) seen[i] = 0;
+    register size_t n_gen = 0;
+    for (;; n_gen++) {
+        register size_t i = RANDuint(MAX_NUM);
+        if (seen[i]++) { break; }
+    }
+    return CAST(double) n_gen;
 }

@@ -6,4 +6,4 @@
 
 #include <limits.h>
 
-Number NUMBERrandom(void) { return CAST(Number) RAND_NUM(NUM_MAX); }
+Number NUMBERrandom(void) { return CAST(Number) RANDuint(NUM_MAX); }

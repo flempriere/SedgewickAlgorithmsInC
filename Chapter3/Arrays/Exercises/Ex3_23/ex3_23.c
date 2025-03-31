@@ -48,7 +48,7 @@ int main(int argc, char* argv[argc + 1]) {
 
     for (register size_t i = 0; i < N; i++) {
         for (register Dimension idx = 0; idx < dim; idx++) {
-            a[i].x[idx] = RAND_UNIFORM();
+            a[i].x[idx] = RANDuniform();
         }
     }
 

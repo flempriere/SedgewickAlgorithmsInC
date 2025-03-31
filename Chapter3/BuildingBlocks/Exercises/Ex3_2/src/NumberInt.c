@@ -4,4 +4,4 @@
 
 #include "../../../../../MacroLibrary/Random.h"
 
-Number NUMBERrandom(Number const upper_bound) { return RAND_NUM(upper_bound); }
+Number NUMBERrandom(Number const upper_bound) { return RANDuint(upper_bound); }

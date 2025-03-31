@@ -39,7 +39,7 @@ int main(int argc, char* argv[argc + 1]) {
     Point* const a = CALLOC_FAILS_EXIT(N, *a);
 
     for (register size_t i = 0; i < N; i++) {
-        a[i] = CAST(Point){ .x = RAND_UNIFORM(), .y = RAND_UNIFORM() };
+        a[i] = CAST(Point){ .x = RANDuniform(), .y = RANDuniform() };
     }
 
     for (register size_t i = 0; i < N; i++) {

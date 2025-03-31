@@ -70,4 +70,4 @@ int main(int argc, char* argv[argc + 1]) {
     return EXIT_SUCCESS;
 }
 
-static inline bool heads(double const p) { return RAND_WEIGHTED_COIN_TOSS(p); }
+static inline bool heads(double const p) { return RAND_COIN_TOSS(p); }
