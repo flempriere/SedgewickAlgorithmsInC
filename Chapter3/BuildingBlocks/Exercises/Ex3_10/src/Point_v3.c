@@ -54,10 +54,10 @@ double POINTdistance(Point const p, Point const q) {
     return sqrt(dx * dx + dy * dy);
 }
 
-bool POLARPOINTis_collinear(Point const p, Point const q, Point const r) {
+bool POLARPOINTcollinear(Point const p, Point const q, Point const r) {
     /*if two of the points are the same then
 always colinear with third */
-    if (POINTis_equal(p, q) || POINTis_equal(q, r)) { return true; }
+    if (POINTequal(p, q) || POINTequal(q, r)) { return true; }
 
     double m_pq = POINTslope(p, q);
     double m_qr = POINTslope(p, q);

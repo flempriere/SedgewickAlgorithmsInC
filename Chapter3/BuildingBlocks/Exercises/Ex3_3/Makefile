@@ -16,8 +16,8 @@ BUILDDIR = $(CURDIR)/$(BUILD)
 # Search Directories for Code #
 ###############################
 
-INCLUDE_DIRS = . ./includes ../Ex3_2/src
-SOURCE_DIRS = . ./src ../Ex3_2/src
+INCLUDE_DIRS = . ./includes
+SOURCE_DIRS = . ./src
 SOURCE_VPATHS = 
 
 vpath %.c $(sort $(dir) $(SOURCE_DIRS) $(SOURCE_VPATHS)) 

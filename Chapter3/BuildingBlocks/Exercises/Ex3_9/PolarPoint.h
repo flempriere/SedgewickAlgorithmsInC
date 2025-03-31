@@ -45,7 +45,7 @@ double POLARPOINTdistance(PolarPoint const p, PolarPoint const q);
  * @return true
  * @return false
  */
-static inline bool POLARPOINTis_equal(PolarPoint const p, PolarPoint const q) {
+static inline bool POLARPOINTequal(PolarPoint const p, PolarPoint const q) {
     return POLARPOINTdistance(p, q) < POLARPOINT_TOLERANCE;
 }
 
@@ -61,5 +61,5 @@ static inline bool POLARPOINTis_equal(PolarPoint const p, PolarPoint const q) {
  *
  * @see TOLERANCE
  */
-bool POLARPOINTis_collinear(PolarPoint const p, PolarPoint const q,
-                            PolarPoint const r);
+bool POLARPOINTcollinear(PolarPoint const p, PolarPoint const q,
+                         PolarPoint const r);

@@ -9,6 +9,9 @@ over the data.
 
 typedef localises the reference to the datatype being used for the underlying
 computation.
+
+For future statistical exercises we have extracted this to the Statistics.h
+header in the MacroLibrary folder.
 */
 
 #include "../../../../MacroLibrary/NumberParse.h"

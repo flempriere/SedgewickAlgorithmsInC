@@ -18,7 +18,7 @@ Provides the implementation for the distance function provided in point.h
  * @param p
  * @return double
  */
-static inline double POLARPOINTxcoordinate(PolarPoint const p) {
+static inline double POLARPOINTx(PolarPoint const p) {
     return p.r * cos(p.theta);
 }
 
@@ -28,7 +28,7 @@ static inline double POLARPOINTxcoordinate(PolarPoint const p) {
  * @param p
  * @return double
  */
-static inline double POLARPOINTycoordinate(PolarPoint const p) {
+static inline double POLARPOINTy(PolarPoint const p) {
     return p.r * sin(p.theta);
 }
 
@@ -40,7 +40,7 @@ static inline double POLARPOINTycoordinate(PolarPoint const p) {
  * @return double
  */
 static inline double POLARPOINTdx(PolarPoint const p, PolarPoint const q) {
-    return POLARPOINTxcoordinate(q) - POLARPOINTxcoordinate(p);
+    return POLARPOINTx(q) - POLARPOINTx(p);
 }
 
 /**
@@ -51,7 +51,7 @@ static inline double POLARPOINTdx(PolarPoint const p, PolarPoint const q) {
  * @return double
  */
 static inline double POLARPOINTdy(PolarPoint const p, PolarPoint const q) {
-    return POLARPOINTycoordinate(q) - POLARPOINTycoordinate(p);
+    return POLARPOINTy(q) - POLARPOINTy(p);
 }
 
 /**
@@ -82,10 +82,10 @@ double POLARPOINTdistance(PolarPoint const p, PolarPoint const q) {
     return sqrt(dx * dx + dy * dy);
 }
 
-bool POLARPOINTis_collinear(PolarPoint const p, PolarPoint const q,
-                            PolarPoint const r) {
+bool POLARPOINTcollinear(PolarPoint const p, PolarPoint const q,
+                         PolarPoint const r) {
     // if two points equal, collinear
-    if (POLARPOINTis_equal(p, q) || POLARPOINTis_equal(q, r)) { return true; }
+    if (POLARPOINTequal(p, q) || POLARPOINTequal(q, r)) { return true; }
 
     double const m_pq = POLARPOINTslope(p, q);
     double const m_qr = POLARPOINTslope(q, r);

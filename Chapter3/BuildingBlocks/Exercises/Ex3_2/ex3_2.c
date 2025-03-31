@@ -6,7 +6,6 @@ N random integers from 0 to r-1 with rand() % r and computing
 the avg and std. dev. for r = 10, 100, 1000, N = 10^3, 10^4,
 10^5, 10^6.
 */
-#include "../../../../MacroLibrary/DefaultCalloc.h"
 #include "../../../../MacroLibrary/Random.h"
 #include "../../../../MacroLibrary/Statistics.h"
 #include "../../../../MacroLibrary/Utility.h"
@@ -73,14 +72,7 @@ int main(int argc, char* argv[argc + 1]) {
             register STATSmeasures sm =
                 STATScalculate_statistics(rand_num_to_double, n, r);
 
-            size_t buf_sz =
-                CAST(size_t)
-                    snprintf(nullptr, 0, "Results for N: %zu, R: %d", n, r) +
-                1;
-            char* const buf = DEFAULTCALLOC(buf_sz, buf);
-            snprintf(buf, (buf_sz), "Results for N: %zu, R: %d", n, r);
-            STATSsummary_print(sm, buf);
-            free(buf);
+            STATSsummary_print(sm, "Results for N: %zu, R: %u", n, r);
         }
         printf("\n");
         r = R_INIT;

@@ -10,6 +10,7 @@ Calc. avg, std.dev and use the same r and N cases
 as Exercise 3.2
 */
 #include "../../../../MacroLibrary/Random.h"
+#include "../../../../MacroLibrary/Statistics.h"
 #include "../../../../MacroLibrary/Utility.h"
 #include "../Ex3_2/src/NumberInt.h"
 
@@ -41,6 +42,14 @@ constexpr size_t N_INIT = 10000u;
 constexpr Number R_INIT = 10u;
 
 /**
+ * @brief Wraps the NUMBERrandom interface in the required structure
+ * for the statistics.h calling methods.
+ *
+ * @param ub upper bound.
+ * @return double
+ */
+static inline double rand_num_to_double(double ub);
+/**
  * @brief Test the random number generator by
  * generating doubles between 0 and 1 using
  * rand() then expanding to integers in the interval
@@ -65,21 +74,18 @@ int main(int argc, char* argv[argc + 1]) {
         for (register size_t j = 0; j < R_CASES;
              r *= 10, j++) {    // iterate over r values
 
-            register double m1 = 0.0;
-            register double m2 = 0.0;
+            register STATSmeasures const sm =
+                STATScalculate_statistics(rand_num_to_double, n, r);
 
-            for (register size_t k = 0; k < n; k++) {
-                register Number x = NUMBERrandom(r);
-                m1 += x / CAST(double) n;
-                m2 += (CAST(double) x * x) / CAST(double) n;
-            }
-            printf("Results for N: %zu, R: %u\n", n, r);
-            printf("       Average: %f\n", m1);
-            printf("Std. deviation: %f\n", sqrt(m2 - m1 * m1));
+            STATSsummary_print(sm, "Results for N: %zu, R: %u", n, r);
         }
         printf("\n");
         r = R_INIT;
     }
 
     return EXIT_SUCCESS;
+}
+
+static inline double rand_num_to_double(double ub) {
+    return CAST(double) NUMBERrandom(CAST(Number) ub);
 }

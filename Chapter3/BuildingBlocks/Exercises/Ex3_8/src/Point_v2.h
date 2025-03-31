@@ -44,7 +44,7 @@ double POINTdistance(Point const p, Point const q);
  * @return true  if points equal,
  * @return false if points differ
  */
-static inline bool POINTis_equal(Point const p, Point const q) {
+static inline bool POINTequal(Point const p, Point const q) {
     return POINTdistance(p, q) < POINT_TOLERANCE;
 }
 
@@ -60,4 +60,4 @@ static inline bool POINTis_equal(Point const p, Point const q) {
  *
  * @see TOLERANCE
  */
-bool POINTis_collinear(Point const p, Point const q, Point const r);
+bool POINTcollinear(Point const p, Point const q, Point const r);

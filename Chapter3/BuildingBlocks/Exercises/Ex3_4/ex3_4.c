@@ -3,6 +3,7 @@ Exercise 3_4 implementation utilising num.c and num.h from Program 3.2
 based on the implementations in exercise 3.2 and exercise 3.3
 */
 #include "../../../../MacroLibrary/Random.h"
+#include "../../../../MacroLibrary/Statistics.h"
 #include "../../../../MacroLibrary/Utility.h"
 #include "src/Number_v2.h"
 
@@ -36,16 +37,22 @@ constexpr Number R_INIT = 2u;
 constexpr size_t RESULTS_ARR_SIZE = N_CASES * R_CASES;
 
 /**
- * @brief prints the statistics in a common format.
+ * @brief Wraps the random number by modulus function in the interface
+ * for the calculate_statistics function from Statistics.h.
  *
- * @param s header string to print.
- * @param n Number of Numbers to generate.
- * @param r Upper bound on numbers to generate.
- * @param avg average
- * @param sd standard deviation
+ * @param d
+ * @return double
  */
-void printStatistics(char s[static 1], size_t n, Number r, double avg,
-                     double sd);
+static inline double rand_mod_to_double(double d);
+
+/**
+ * @brief Wraps the random number by truncation function in the interface
+ * for calculate_statistics function from Statistics.h.
+ *
+ * @param d
+ * @return double
+ */
+static inline double rand_trunc_to_double(double d);
 
 /**
  * @brief Calculate the statistics using a given rng. Bool flag notes if
@@ -53,15 +60,13 @@ void printStatistics(char s[static 1], size_t n, Number r, double avg,
  * calculate the difference.
  *
  * @param rng Number generation function.
- * @param Aavg array to store the avg results in,
- * @param Astd_dev array to store the std_dev results in,
+ * @param results array of STATSmeasures to store the results in.
  * @param subtract Marks if we subtract the results from existing statistics
  * in the array.
  */
-void calculateStatistics(Number rng(Number ub),
-                         double Aavg[static RESULTS_ARR_SIZE],
-                         double Astd_dev[static RESULTS_ARR_SIZE],
-                         bool subtract);
+void run_rng_experiment(double rng(double ub),
+                        STATSmeasures results[static RESULTS_ARR_SIZE],
+                        bool subtract);
 /**
  * @brief Test the random number generator
  * using both the methods given in Exercise 3.2
@@ -77,16 +82,15 @@ int main(int argc, char* argv[argc + 1]) {
     register size_t n = N_INIT;
     register Number r = R_INIT;
 
-    double Davg[RESULTS_ARR_SIZE];
-    double Dstd_dev[RESULTS_ARR_SIZE];
+    STATSmeasures resA[RESULTS_ARR_SIZE];
 
     RAND_SEED_TIME;
 
     printf("Testing rand() with modulus\n");
-    calculateStatistics(NUMBERrandom_modulus, Davg, Dstd_dev, false);
+    run_rng_experiment(rand_mod_to_double, resA, false);
 
     printf("Testing rand() via rescaled doubles\n");
-    calculateStatistics(NUMBERrandom_truncate, Davg, Dstd_dev, true);
+    run_rng_experiment(rand_trunc_to_double, resA, true);
 
     printf("Comparing the difference: \n");
 
@@ -94,52 +98,41 @@ int main(int argc, char* argv[argc + 1]) {
     for (register size_t i = 0; i < N_CASES; i++, n *= 10) {
         r = R_INIT;
         for (register size_t j = 0; j < R_CASES; j++, r *= r) {
-            printStatistics("Difference for", n, r,
-                            Davg[ARRAY_2D_IDX(i, j, R_CASES)],
-                            Dstd_dev[ARRAY_2D_IDX(i, j, R_CASES)]);
+            STATSsummary_print(resA[ARRAY_2D_IDX(i, j, R_CASES)],
+                               "Difference for N: %zu, R: %u", n, r);
         }
     }
-
     return EXIT_SUCCESS;
 }
 
-void printStatistics(char s[static 1], size_t n, Number r, double avg,
-                     double sd) {
-    printf("%s N: %zu, R: %u\n", s, n, r);
-    printf("       Average: %f\n", avg);
-    printf("Std. deviation: %f\n", sd);
-}
-
-void calculateStatistics(Number rng(Number ub),
-                         double Aavg[static RESULTS_ARR_SIZE],
-                         double Astd_dev[static RESULTS_ARR_SIZE],
-                         bool subtract) {
+void run_rng_experiment(double rng(double ub),
+                        STATSmeasures results[static RESULTS_ARR_SIZE],
+                        bool subtract) {
     register size_t n = N_INIT;
-    for (register size_t i = 0; i < N_CASES;
-         n *= 10, i++) {    // iterate over N values
+    for (register size_t i = 0; i < N_CASES; n *= 10, i++) {
         register Number r = R_INIT;
 
-        for (register size_t j = 0; j < R_CASES;
-             r *= r, j++) {    // iterate over r values
-            register double m1 = 0.0;
-            register double m2 = 0.0;
+        for (register size_t j = 0; j < R_CASES; r *= r, j++) {
+            register STATSmeasures sm = STATScalculate_statistics(rng, n, r);
 
-            for (register size_t k = 0; k < n; k++) {
-                register Number x = rng(r);
-                m1 += (x) / CAST(double) n;
-                m2 += ((double) x * x) / CAST(double) n;
-            }
-            register double std_dev = sqrt(m2 - m1 * m1);
-            printStatistics("Results for", n, r, m1, std_dev);
+            STATSsummary_print(sm, "Results for N: %zu, R: %u", n, r);
+
+            size_t idx = ARRAY_2D_IDX(i, j, R_CASES);
             if (subtract) {
-                Aavg[ARRAY_2D_IDX(i, j, R_CASES)] -= m1;
-                Astd_dev[ARRAY_2D_IDX(i, j, R_CASES)] -= std_dev;
+                results[idx] = STATSmeasures_difference(results[idx], sm);
             } else {
-                Aavg[ARRAY_2D_IDX(i, j, R_CASES)] = m1;
-                Astd_dev[ARRAY_2D_IDX(i, j, R_CASES)] = std_dev;
+                results[idx] = sm;
             }
         }
         printf("\n");
         r = R_INIT;
     }
+}
+
+static inline double rand_mod_to_double(double d) {
+    return CAST(double) NUMBERrandom_modulus(CAST(Number) d);
+}
+
+static inline double rand_trunc_to_double(double d) {
+    return CAST(double) NUMBERrandom_truncate(CAST(Number) d);
 }

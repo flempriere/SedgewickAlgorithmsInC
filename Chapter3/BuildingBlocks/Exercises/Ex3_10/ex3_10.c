@@ -5,9 +5,8 @@ that generates random triples of pairs of floats between 0 and 1 and computes
 empircally the average area of the triangles generated.
 
 */
-
 #include "../../../../MacroLibrary/Random.h"
-#include "../../../../MacroLibrary/Utility.h"
+#include "../../../../MacroLibrary/Statistics.h"
 #include "src/Triangle.h"
 
 #include <stdio.h>
@@ -27,6 +26,13 @@ constexpr size_t N_CASES = 5u;
 constexpr size_t N_INIT = 10u;
 
 /**
+ * @brief Generate a random triangle and return its area.
+ *
+ * Wrapper interface suitable for the Statistics calculate_statistics method.
+ * @return double
+ */
+static inline double rand_triangle_area(void);
+/**
  * @brief For N = N_INIT, 10(N_INIT), 100(N_INIT)
  * Generates N random triangles, calculates their
  * area, and determines the avg and std.dev statistics.
@@ -38,20 +44,15 @@ int main(int argc, char* argv[argc + 1]) {
     RAND_SEED_TIME;
 
     for (register size_t j = 0; j < N_CASES; N *= 10, j++) {
-        register double m1 = 0.0;
-        register double m2 = 0.0;
+        register STATSmeasures sm =
+            STATScalculate_statistics(rand_triangle_area, N);
 
-        for (register size_t i = 0; i < N; i++) {
-            register Triangle t = TRIANGLErandom();
-            register double triangle_area = TRIANGLEarea(t);
-            m1 += (triangle_area) / CAST(double) N;
-            m2 += (triangle_area * triangle_area) / CAST(double) N;
-        }
-
-        printf("Running using N: %zu\n", N);
-        printf("        Average: %f\n", m1);
-        printf(" Std. deviation: %f\n", sqrt(m2 - m1 * m1));
+        STATSsummary_print(sm, "Running using N: %zu", N);
     }
 
     return EXIT_SUCCESS;
+}
+
+static inline double rand_triangle_area(void) {
+    return TRIANGLEarea(TRIANGLErandom());
 }

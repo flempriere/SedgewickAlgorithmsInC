@@ -3,6 +3,7 @@ Exercise 3.8. Extend the point data type to provide a function determining
 if three points are collinear to within a tolerance of 10^(-4).
 */
 
+#include "../../../../MacroLibrary/Utility.h"
 #include "src/Point_v2.h"
 
 #include <stdio.h>
@@ -40,11 +41,11 @@ int main(int argc, char * [argc + 1]) {
             printf("Error: must input points as pairs of numbers\n");
             continue;
         }
-        points[i] = (Point) { .x = x, .y = y };
+        points[i] = CAST(Point){ .x = x, .y = y };
     }
     printf("The points (%f, %f), (%f, %f) and (%f, %f) are %s collinear\n",
            points[0].x, points[0].y, points[1].x, points[1].y, points[2].x,
            points[2].y,
-           (POINTis_collinear(points[0], points[1], points[2])) ? "" : "not");
+           (POINTcollinear(points[0], points[1], points[2])) ? "" : "not");
     return EXIT_SUCCESS;
 }

@@ -14,7 +14,6 @@
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <time.h>
 
 /**
  * @brief Maximum number of random integers to store
@@ -60,7 +59,7 @@ size_t countMatches(size_t const n, size_t const m, key a[m]);
  * @brief Value representing a value not in search
  *
  */
-#define NOT_FOUND SIZE_MAX
+constexpr size_t NOT_FOUND = SIZE_MAX;
 
 /**
  * @brief Finds the index of v in a searching
