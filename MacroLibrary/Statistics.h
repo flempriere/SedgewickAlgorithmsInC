@@ -13,8 +13,10 @@
 
 #include "DefaultArguments.h"
 #include "Utility.h"
+#include "stdarg.h"
 
 #include <stddef.h>
+#include <stdio.h>
 #include <tgmath.h>
 
 /**
@@ -53,9 +55,21 @@ typedef struct STATSmeasures {
  * @param sm
  * @return STATSmoments
  */
-static inline STATSmoments STATSmeasures_to_moments(STATSmeasures sm) {
+static inline STATSmoments STATSmeasures_to_moments(STATSmeasures const sm) {
     return CAST(STATSmoments){ .m1 = sm.avg,
                                .m2 = pow(sm.std_dev, 2) + sm.avg * sm.avg };
+}
+
+/**
+ * @brief Calculates the difference between two STATSmoments. (sm1 - sm2).
+ *
+ * @param sm1
+ * @param sm2
+ * @return STATSmoments
+ */
+static inline STATSmoments STATSmoments_difference(STATSmoments const sm1,
+                                                   STATSmoments const sm2) {
+    return CAST(STATSmoments){ .m1 = sm1.m1 - sm2.m1, .m2 = sm1.m2 - sm2.m2 };
 }
 
 /**
@@ -67,6 +81,19 @@ static inline STATSmoments STATSmeasures_to_moments(STATSmeasures sm) {
 static inline STATSmeasures STATSmoments_to_measures(STATSmoments sm) {
     return CAST(STATSmeasures){ .avg = sm.m1,
                                 .std_dev = sqrt(sm.m2 - sm.m1 * sm.m1) };
+}
+
+/**
+ * @brief Calculates the difference between two STATSmeasures (sm1 - sm2).
+ *
+ * @param sm1
+ * @param sm2
+ * @return STATSmoments
+ */
+static inline STATSmeasures STATSmeasures_difference(STATSmeasures const sm1,
+                                                     STATSmeasures const sm2) {
+    return CAST(STATSmeasures){ .avg = sm1.avg - sm2.avg,
+                                .std_dev = sm1.std_dev - sm2.std_dev };
 }
 
 STATSmeasures STATScalculate_statistics(double f(void), size_t n) {
@@ -100,17 +127,37 @@ STATSmeasures STATScalculate_statistics_I(double f(double), size_t n,
 /**
  * @brief Print out statistical moments with an optional header string *s.
  *
- * @param s optional header, use nullptr if not printing.
+ * @param s optional header string with format specifiers, use nullptr if not
+ * printing.
  * @param sm
  */
-void STATSmoments_print(STATSmoments const sm, char const* const s) {
-    if (s) puts(s);
+void STATSmoments_print(STATSmoments const sm, char const* const s, ...) {
+    if (s) {
+        va_list ap;
+        va_start(ap);
+        vprintf(s, ap);
+        putchar('\n');
+        va_end(ap);
+    }
     printf("       First moment: %f\n", sm.m1);
     printf("      Second moment: %f\n", sm.m2);
 }
 
-void STATSmeasures_print(STATSmeasures const sm, char const* const s) {
-    if (s) puts(s);
+/**
+ * @brief Print out statistical measures with an optional header string *s.
+ *
+ * @param s optional header string with format specifiers, use nullptr if not
+ * printing.
+ * @param sm
+ */
+void STATSmeasures_print(STATSmeasures const sm, char const* const s, ...) {
+    if (s) {
+        va_list ap;
+        va_start(ap);
+        vprintf(s, ap);
+        putchar('\n');
+        va_end(ap);
+    }
     printf("            Average: %f\n", sm.avg);
     printf(" Standard Deviation: %f\n", sm.std_dev);
 }
@@ -121,7 +168,7 @@ void STATSmeasures_print(STATSmeasures const sm, char const* const s) {
  *
  */
 #define STATSmoments_print(sm, ...) \
-    CALL2_ND1(STATSmoments_print, sm, nullptr __VA_OPT__(, ) __VA_ARGS__)
+    CALL2_ND1OPT(STATSmoments_print, sm, nullptr __VA_OPT__(, ) __VA_ARGS__)
 
 /**
  * @brief Default arguments version of STATSmoments_to_print, by default the
@@ -129,7 +176,7 @@ void STATSmeasures_print(STATSmeasures const sm, char const* const s) {
  *
  */
 #define STATSmeasures_print(sm, ...) \
-    CALL2_ND1(STATSmeasures_print, sm, nullptr __VA_OPT__(, ) __VA_ARGS__)
+    CALL2_ND1OPT(STATSmeasures_print, sm, nullptr __VA_OPT__(, ) __VA_ARGS__)
 
 /**
  * @brief Type generic interface for printing statistical summaries.

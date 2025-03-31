@@ -10,17 +10,20 @@
  */
 #pragma once
 
+#include "DefaultCalloc.h"
+#include "TraceMacro.h"
 #include "Utility.h"
 
 #include <float.h>
 #include <limits.h>
 #include <stdarg.h>
+#include <stddef.h>
 #include <stdio.h>
 
 // Assert types are compatible
-#define static_assert_compatible(A, B, REASON)                          \
-    static_assert(                                                      \
-        _Generic((typeof(A)*) nullptr, typeof(B) *: true, default: false), \
+#define static_assert_compatible(A, B, REASON)                            \
+    static_assert(                                                        \
+        _Generic((typeof(A)*) nullptr, typeof(B)*: true, default: false), \
         "Expected compatible types: " REASON " have " #A " and " #B "\n");
 
 // Type Generic Conditionals
@@ -60,7 +63,7 @@
             *SWAPA, *SWAPB, #A " and " #B "must have compatible types\n"); \
         auto SWAPtmp = *SWAPA;                                             \
         *SWAPA = *SWAPB;                                                   \
-        *SWAPB = SWAPtmp;                                                 \
+        *SWAPB = SWAPtmp;                                                  \
     } while (false)
 
 // Type generic minimum
@@ -246,7 +249,6 @@ static inline unsigned long long maxull(unsigned long long a,
  ** first and then the buffer, so the buffer can be specified as array
  ** parameter that depends on the that size.
  **/
-[[maybe_unused]]
 static inline int snprintf_swapped(size_t n, char s[restrict static n],
                                    char const* restrict form, ...) {
     va_list ap;
@@ -257,16 +259,25 @@ static inline int snprintf_swapped(size_t n, char s[restrict static n],
 }
 
 /**
- ** @brief A type-generic interface to `snprintf` that checks arguments.
- **
- ** We distinguish two cases. First if the first argument is `nullptr`
- ** the second argument is forced to `0` and the function `snprintf`
- ** is called. If it is not `nullptr` a function `snprintf_swapped`
- ** that just swaps the first two arguments is called. Because
- ** that function has the size argument first and then the buffer, the
- ** buffer can be specified as array parameter that depends on the
- ** that size.
- **/
+ * @brief Same as snprintf_swapped, but for vsnprintf.
+ *
+ */
+static inline int vsnprintf_swapped(size_t n, char s[restrict static n],
+                                    char const* restrict form, va_list arg) {
+    return vsnprintf(s, n, form, arg);
+}
+
+/**
+** @brief A type-generic interface to `snprintf` that checks arguments.
+**
+** We distinguish two cases. First if the first argument is `nullptr`
+** the second argument is forced to `0` and the function `snprintf`
+** is called. If it is not `nullptr` a function `snprintf_swapped`
+** that just swaps the first two arguments is called. Because
+** that function has the size argument first and then the buffer, the
+** buffer can be specified as array parameter that depends on the
+** that size.
+**/
 #define GENERICsnprintf(S, N, F, ...)                                     \
     _Generic((S),                                                         \
         nullptr_t: snprintf(nullptr, GENERIC_IF(isice(N), (N), 0),        \
@@ -275,3 +286,42 @@ static inline int snprintf_swapped(size_t n, char s[restrict static n],
                  _Generic((S), nullptr_t: 1, default: (N)),               \
                  _Generic((S), nullptr_t: (char[1]) { 0 }, default: (S)), \
                  (F) __VA_OPT__(, ) __VA_ARGS__))
+
+/**
+ * @brief Create a formatted string object.
+ *
+ * @param s formatted string specifier
+ * @param ... format variables
+ *
+ * @remark This function allocates memory for the returned string, it is the
+ * caller's responsibility to free the memory when they're done.
+ *
+ * @return char* - null-terminated string on success, else
+ * @return nullptr.
+ */
+char* create_formatted_string(char s[static 1], ...) {
+    va_list args1;
+    va_start(args1);
+    va_list args2;
+    va_copy(args2, args1);
+
+    // calculate the size needed for the buffer, and then ensure we allocate.
+    int sz = vsnprintf(nullptr, 0, s, args1);
+    if (sz < 0) {
+        TRACE_VALUE("Invalid encoding in format specifier string", s);
+        goto cleanup;
+    }
+
+    size_t buf_sz = CAST(size_t) sz + 1;
+    char* buf = DEFAULTCALLOC(buf_sz, *buf);
+    if (!buf) goto cleanup;
+
+    va_end(args1);
+    vsnprintf_swapped(buf_sz, buf, s, args2);
+    va_end(args2);
+    return buf;
+cleanup:
+    va_end(args1);
+    va_end(args2);
+    return nullptr;
+}

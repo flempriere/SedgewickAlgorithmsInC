@@ -18,6 +18,7 @@
  * @brief Make a cast explicit
  *
  */
+#include <stdint.h>
 #include <stdio.h>
 
 #define CAST(T) (T)
@@ -104,4 +105,4 @@ static inline bool read_ended_successfully(FILE* stream) {
     return result;
 }
 
-#define ARRAY_2D_IDX(R, C, W) ((R)*(W) + (C)) 
+#define ARRAY_2D_IDX(R, C, W) ((R) * (W) + (C))
