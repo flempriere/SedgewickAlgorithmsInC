@@ -46,20 +46,23 @@ LISTNode* LISTnew_node(LISTItem const k) {
     return x;
 }
 
-void LISTfree_node(LISTNode* const n) { LISTinsert_next(free_list, n); }
+void LISTfree_node(LISTNode n[const static 1]) {
+    LISTinsert_next(free_list, n);
+}
 
-void LISTinsert_next(LISTNode* const x, LISTNode* const y) {
+void LISTinsert_next(LISTNode x[const static 1], LISTNode y[const static 1]) {
     y->next = x->next;
     x->next = y;
 }
 
-LISTNode* LISTdelete_next(LISTNode* const x) {
+LISTNode* LISTdelete_next(LISTNode x[const static 1]) {
     LISTNode* t = x->next;
     x->next = t->next;
     return t;
 }
+
 void LISTdeinit_list(void) { free(free_list); }
 
-LISTNode* LISTnext(LISTNode const* const x) { return x->next; }
+LISTNode* LISTnext(LISTNode const x[const static 1]) { return x->next; }
 
-LISTItem LISTitem(LISTNode const* const x) { return x->item; }
+LISTItem LISTitem(LISTNode const x[const static 1]) { return x->item; }

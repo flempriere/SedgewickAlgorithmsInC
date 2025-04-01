@@ -5,7 +5,7 @@ and returns a link to a copy of the list (a new list
 containing all the same items, in the same order)
 */
 
-#include "../../../../MacroLibrary/DefaultCalloc.h"
+#include "../Ex3_24/src/Node.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -17,24 +17,22 @@ containing all the same items, in the same order)
 constexpr unsigned int N = 10u;
 
 /**
- * @brief Linked List node with
- * key and next element.
+ * @brief function to cleanup a partially constructed list copy if the
+ * construction runs out of memory during the construction.
  *
+ * @param h
+ * @param stop
+ * @return nullptr_t
  */
-typedef struct node node;
-
-struct node {
-    size_t k;
-    node* next;
-};
-
-/**
- * @brief Print out the LinkedList starting
- * from the node head.
- *
- * @param head
- */
-void print_list(node const* head);
+static inline nullptr_t copy_failed_cleanup(NODENode* h, NODENode* stop) {
+    while (h != stop) {
+        NODENode* tmp = h;
+        h = h->next;
+        free(tmp);
+    }
+    free(stop);
+    return nullptr;
+}
 /**
  * @brief Creates a deep copy of the
  * list and returns a pointer to the copy.
@@ -43,14 +41,17 @@ void print_list(node const* head);
  * @param head - start of the list to be copied,
  * assume a dummy head.
  *
- * @return node* pointer to new list
+ * @return Node* pointer to new list else nullptr if allocation fails.
  */
-node* copy_list(node const* head) {
-    node* const new_head = CALLOC_FAILS_EXIT(*new_head);
-    node* tail = new_head;
+NODENode* copy_list(NODENode head[static 1]) {
+    NODENode* const new_head = DEFAULTCALLOC(*new_head);
+    if (!new_head) return nullptr;
+
+    NODENode* tail = new_head;
 
     for (head = head->next; head != nullptr; head = head->next) {
-        tail->next = CALLOC_FAILS_EXIT(*tail->next);
+        tail->next = DEFAULTCALLOC(*(tail->next));
+        if (!(tail->next)) return copy_failed_cleanup(new_head, tail);
         tail = tail->next;
         tail->k = head->k;
     }
@@ -60,28 +61,17 @@ node* copy_list(node const* head) {
 
 int main(int argc, char* argv[argc + 1]) {
     // generate a list of N nodes numbered 1 to 10 with a dummy head
-    register node* const nodes = CALLOC_FAILS_EXIT(N + 1, *nodes);
-
-    for (register size_t i = 1; i <= N; i++) {
-        nodes[i - 1].next = &nodes[i];
-        nodes[i].k = i;
-    }
-    nodes[N].next = nullptr;
+    register NODENode* const nodes = NODEbuild_lin_list_dummy_head(N, gen_key_idx);
 
     printf("Initial List:\n");
-    print_list(nodes);
+    NODEprint_null_terminated_list(nodes[0].next);
 
-    register node* const new_head = copy_list(nodes);
+    register NODENode* const copied_list = copy_list(nodes);
 
     printf("Copied list:\n");
-    print_list(new_head);
+    NODEprint_null_terminated_list(copied_list->next);
 
+    NODEdelete_null_terminated_list(copied_list);
+    free(nodes);
     return EXIT_SUCCESS;
-}
-
-void print_list(node const* head) {
-    for (head = head->next; head != nullptr; head = head->next) {
-        printf("%zu->", head->k);
-    }
-    printf("X\n");
 }

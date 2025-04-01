@@ -1,43 +1,68 @@
 /*
 Program 3.9
 
-Solves the josephus problem. Arranging N nodes in a circle, we go around
-the circle M times an eliminate the corresponding node. We then close the circle
+Solves the josephus problem. Arranging N Nodes in a circle, we go around
+the circle M times an eliminate the corresponding Node. We then close the circle
 and repeat until there is one index left.
 */
 
 #include "../../../../MacroLibrary/DefaultCalloc.h"
 #include "../../../../MacroLibrary/NumberParse.h"
+#include "../../../../MacroLibrary/Utility.h"
 
 #include <stdio.h>
 #include <stdlib.h>
 
 /**
- * @brief Key type for node structure
+ * @brief Key type for Node structure
  *
  */
 typedef size_t key;
 
 /**
- * @brief LinkedList node
+ * @brief LinkedList Node
  * consisting of a @key
- * and next node.
+ * and next Node.
  *
  * @see key
  */
-typedef struct node node;
+typedef struct Node Node;
 
-struct node {
+struct Node {
     key item;
-    node* next;
+    Node* next;
 };
 
+static inline Node* make_node(key k, Node* nxt) {
+    Node* t = CALLOC_FAILS_EXIT(*t);
+    *t = CAST(Node){ .item = k, .next = nxt };
+    return t;
+}
+/**
+ * @brief Builds a list of N Nodes for the josephus problem and returns the
+ * head of the list.
+ *
+ * @param N
+ * @return Node*
+ */
+Node* build_list(size_t n);
+
+/**
+ * @brief Evaluate the Josephus problem and return the final key.
+ *
+ * @remark frees the Nodes as they are deleted.
+ *
+ * @param h Starting point on the list.
+ * @param m number of hops before elimination.
+ * @return key
+ */
+key compute_josephus(Node h[static 1], size_t m);
 /**
  * @brief Determine the final person eliminated
  * in the Josephus problem consisting of N people
  * eliminating after M hops.
  *
- * @param argv[1] N - number of nodes > 0
+ * @param argv[1] N - number of Nodes > 0
  * @param argv[2] M - number of skips > 0
  *
  * @return EXIT_SUCCESS on successful termination else
@@ -56,24 +81,35 @@ int main(int argc, char* argv[argc + 1]) {
         return EXIT_FAILURE;
     }
 
-    register node* const t = CALLOC_FAILS_EXIT(*t);
-    register node* x = t;
-    t->item = 1;
+    register Node* t = build_list(N);
+
+    register key res = compute_josephus(t, M);
+
+    printf("%zu\n", res);
+
+    return EXIT_SUCCESS;
+}
+
+Node* build_list(size_t n) {
+    if (!n) return nullptr;
+    Node* t = make_node(1, nullptr);
     t->next = t;
-
-    for (register size_t i = 2; i <= N; i++) {
-        x = (x->next = CALLOC_FAILS_EXIT(*x));
-
-        x->item = i;
-        x->next = t;
+    register Node* x = t;
+    for (register size_t i = 2; i <= n; i++) {
+        x->next = make_node(i, t);
+        x = x->next;
     }
-    while (x != x->next) {
-        for (register size_t i = 1; i < M; i++) x = x->next;
-        register node* tmp = x->next;
-        x->next = x->next->next;
+    return x;
+}
+
+key compute_josephus(Node h[static 1], size_t m) {
+    while (h != h->next) {
+        for (register size_t i = 1; i < m; i++) h = h->next;
+        register Node* tmp = h->next;
+        h->next = h->next->next;
         free(tmp);
     }
-    printf("%zu\n", x->item);
-    free(x);
-    return EXIT_SUCCESS;
+    key k = h->item;
+    free(h);
+    return k;
 }

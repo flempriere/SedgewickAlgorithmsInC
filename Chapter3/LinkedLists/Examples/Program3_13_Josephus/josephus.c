@@ -11,6 +11,24 @@ the list interface from Program 3.12 and the Program 3.14 implementation.
 #include <stdio.h>
 #include <stdlib.h>
 
+
+/**
+ * @brief Builds a list of size N for the josephus problem.
+ * 
+ * @param N 
+ * @return LISTNode* 
+ */
+LISTNode* build_list(size_t n);
+
+/**
+ * @brief Calculate the josephus problem taking m steps around the list per
+ * elimination.
+ * 
+ * @param x 
+ * @param m 
+ * @return LISTItem key value of the last node remaining.
+ */
+LISTItem NODEcalculate_josephus(LISTNode x[static 1], size_t m);
 /**
  * @brief Determine the final person eliminated
  * in the Josephus problem consisting of N people
@@ -35,16 +53,28 @@ int main(int argc, char* argv[argc + 1]) {
     }
 
     LISTinit_nodes(N);
+    register LISTNode* x = build_list(N);
+
+    printf("%zu\n", NODEcalculate_josephus(x, M));
+    return EXIT_SUCCESS;
+}
+
+LISTNode* build_list(size_t n) {
     register LISTNode* x = LISTnew_node(1);
-    for (register size_t i = 2; i <= N; i++) {
+    for (register size_t i = 2; i <= n; i++) {
         register LISTNode* t = LISTnew_node(i);
         LISTinsert_next(x, t);
         x = t;
     }
+    return x;
+}
+
+LISTItem NODEcalculate_josephus(LISTNode x[static 1], size_t m) {
     while (x != LISTnext(x)) {
-        for (register size_t i = 1; i < M; i++) x = LISTnext(x);
+        for (register size_t i = 1; i < m; i++) x = LISTnext(x);
         LISTfree_node(LISTdelete_next(x));
     }
-    printf("%zu\n", LISTitem(x));
-    return EXIT_SUCCESS;
+    LISTItem k = LISTitem(x);
+    LISTfree_node(LISTdelete_next(x));
+    return k;
 }

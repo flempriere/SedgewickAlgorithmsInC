@@ -9,40 +9,11 @@ elements N + 1... 2N, x should be a number in the first list and t a
 number in the second.
 */
 
-#include "../../../../MacroLibrary/DefaultCalloc.h"
 #include "../../../../MacroLibrary/NumberParse.h"
+#include "../Ex3_24/src/Node.h"
 
 #include <stdio.h>
 #include <stdlib.h>
-
-/**
- * @brief Key type for node structure
- *
- */
-typedef size_t key;
-/**
- * @brief LinkedList node
- * consisting of a @key
- * and next node.
- *
- * @see key
- */
-typedef struct node node;
-
-struct node {
-    key item;
-    node* next;
-};
-
-/**
- * @brief Prints the list containing @head
- * treating @head as the start of the list
- * in the format key_head->key_{head -> next}
- * etc. The end of the list is denoted by ->X
- *
- * @param head node* to take as start of the list
- */
-void print_list(node const* head);
 
 /**
  * @brief Given a list containing @x and a seperate list
@@ -50,14 +21,26 @@ void print_list(node const* head);
  * in the list containing @x after @x with @t being
  * treated as the head of the second list.
  *
- * @param x representative node of the first list
- * @param t representative node of the second list
+ * @param x representative Node of the first list
+ * @param t representative Node of the second list
  *
  * @exception if the @x and @t are in the same
  * list, the function terminates without merging.
  */
-void merge_lists(node* const x, node* const t);
+void merge_lists(NODENode x[static 1], NODENode t[static 1]);
 
+/**
+ * @brief Builds a list for testing. Has nodes labelled srt_key up to n
+ * inclusive, and sets the pointer idx to point to the x_idx labelled Node.
+ *
+ * @param n
+ * @param srt_key
+ * @param x_idx
+ * @param idx
+ * @return Node*
+ */
+NODENode* build_list(size_t const n, size_t const srt_key, size_t x_idx,
+                 NODENode* idx[static 1]);
 /**
  * @brief Test driver code for merge_lists. Creates
  * two lists of size @N, and then merges the list
@@ -68,9 +51,9 @@ void merge_lists(node* const x, node* const t);
  * Nodes in the second list are numbered N+1 ... 2N
  *
  * @param argv[0] N, number of nodes in each list
- * @param argv[1] x, node in the first list to insert
+ * @param argv[1] x, Node in the first list to insert
  * the second list after, 0 < x <= N
- * @param argv[2] t, node from the second list to treat
+ * @param argv[2] t, Node from the second list to treat
  * as the head, N < x <= 2N
  *
  * @return EXIT_SUCCESS on sucessful completion else
@@ -82,8 +65,8 @@ int main(int argc, char* argv[argc + 1]) {
         return EXIT_FAILURE;
     }
     register size_t const N = NUMPARSEexit_on_fail(N, argv[1]);
-    register key const x_idx = NUMPARSEexit_on_fail(x_idx, argv[2]);
-    register key const t_idx = NUMPARSEexit_on_fail(t_idx, argv[3]);
+    register NODEKey const x_idx = NUMPARSEexit_on_fail(x_idx, argv[2]);
+    register NODEKey const t_idx = NUMPARSEexit_on_fail(t_idx, argv[3]);
 
     if (!(N && x_idx && t_idx)) {
         fprintf(stderr, "Error: N, x, t must all be > 0\n");
@@ -100,50 +83,44 @@ int main(int argc, char* argv[argc + 1]) {
         return EXIT_FAILURE;
     }
 
-    register node* t = CALLOC_FAILS_EXIT(*t);
-    register node* x = t;
-    register node* xp = t;
+    NODENode* xp;
+    build_list(N, 1, x_idx, &xp);
 
-    t->item = 1, t->next = t;
-    for (register size_t i = 2; i <= N; i++) {
-        x = (x->next = CALLOC_FAILS_EXIT(*x));
-        x->item = i;
-        x->next = t;
-        if (i == x_idx) xp = x;
-    }
+    NODENode* tp;
+    build_list(2 * N, N + 1, t_idx, &tp);
 
-    t = CALLOC_FAILS_EXIT(*t);
-    x = t;
-    register node* tp = t;
-
-    t->item = N + 1, t->next = t;
-    for (register key i = N + 2; i <= 2 * N; i++) {
-        x = (x->next = CALLOC_FAILS_EXIT(*x));
-        x->item = i;
-        x->next = t;
-        if (i == t_idx) tp = x;
-    }
-    print_list(xp);
-    print_list(tp);
+    NODEprint_circular_list(xp);
+    NODEprint_circular_list(tp);
     merge_lists(xp, tp);
-    print_list(xp);
+    NODEprint_circular_list(xp);
 
+    NODEdelete_circular_list(xp);
     return EXIT_SUCCESS;
 }
 
-void print_list(node const* head) {
-    for (register node* t = head->next; t != head; t = t->next) {
-        printf("%zu->", t->item);
-    }
-    printf("%zu\n", head->item);
-}
-
-void merge_lists(node* const xp, node* const tp) {
-    register node* t_prev;
+void merge_lists(NODENode xp[static 1], NODENode tp[static 1]) {
+    register NODENode* t_prev;
     for (t_prev = tp; t_prev->next != tp; t_prev = t_prev->next) {
         if (t_prev == xp) return;    // x and t in the same list
-    }    // find the node linking to tp
+    }    // find the Node linking to tp
 
     t_prev->next = xp->next;
     xp->next = tp;
+}
+
+NODENode* build_list(size_t n, size_t srt_key, size_t x_idx, NODENode* idx[static 1]) {
+    register NODENode* t = NODEmake_node(1, nullptr);
+    t->next = nullptr;
+
+    register NODENode* x = t;
+    *idx = t;
+
+    t->k = srt_key++, t->next = t;
+    for (register size_t i = srt_key; i <= n; i++) {
+        x = (x->next = CALLOC_FAILS_EXIT(*x));
+        x->k = i;
+        x->next = t;
+        if (i == x_idx) *idx = x;
+    }
+    return t;
 }

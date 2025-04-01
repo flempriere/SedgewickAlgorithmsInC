@@ -1,34 +1,23 @@
 /*
 Exercise 3.28
 
-Modify program 3.28 to reduce the number of excessive circular loops it makes.
+Modify Program 3.9 to reduce the number of excessive circular loops it makes.
 */
 
-#include "../../../../MacroLibrary/DefaultCalloc.h"
 #include "../../../../MacroLibrary/NumberParse.h"
+#include "../Ex3_24/src/Node.h"
 
 #include <stdio.h>
 #include <stdlib.h>
 
 /**
- * @brief Key type for node structure
+ * @brief Builds a josephus list of size n and returns a pointer to the head
+ * of the list.
  *
+ * @param n
+ * @return Node*
  */
-typedef size_t key;
-
-/**
- * @brief LinkedList node
- * consisting of a @key
- * and next node.
- *
- * @see key
- */
-typedef struct node node;
-
-struct node {
-    key item;
-    node* next;
-};
+NODENode* build_list(size_t const n);
 
 /**
  * @brief Improves the efficiency of Program 3.9
@@ -57,21 +46,19 @@ int main(int argc, char* argv[argc + 1]) {
         return EXIT_FAILURE;
     }
 
-    register node* t = CALLOC_FAILS_EXIT(*t);
-    register node* x = t;
-    t->item = 1;
-    t->next = t;
+    register NODENode* t = build_list(N);
+    printf("%zu\n", NODEcalculate_josephus(t, M));
 
-    for (register key i = 2; i <= N; i++) {
-        x = (x->next = CALLOC_FAILS_EXIT(*x));
-        x->item = i;
+    return EXIT_SUCCESS;
+}
+
+NODENode* build_list(size_t const n) {
+    NODENode* t = NODEmake_node(1, nullptr);
+    register NODENode* x = t;
+
+    for (register NODEKey i = 2; i <= n; i++) {
+        x = (x->next = NODEmake_node(i, nullptr));
     }
     x->next = t;
-    while (x != x->next) {
-        for (register key i = 1; i < M; i++) x = x->next;
-        x->next = x->next->next;
-    }
-    printf("%zu\n", x->item);
-    
-    return EXIT_SUCCESS;
+    return x;
 }

@@ -1,45 +1,18 @@
 /*
 Exercise 3.27
 Write a function that given two pointers x and t to elements in a list,
-moves the node following t to the node following x.
+moves the Node following t to the Node following x.
 */
 
-#include "../../../../MacroLibrary/DefaultCalloc.h"
 #include "../../../../MacroLibrary/NumberParse.h"
+#include "../Ex3_24/src/Node.h"
 
 #include <stdio.h>
 #include <stdlib.h>
-/**
- * @brief Key type for node structure
- *
- */
-typedef size_t key;
-/**
- * @brief LinkedList node
- * consisting of a @key
- * and next node.
- *
- * @see key
- */
-typedef struct node node;
-struct node {
-    key item;
-    node* next;
-};
 
 /**
- * @brief Prints the list containing @head
- * treating @head as the start of the list
- * in the format key_head->key_{head -> next}
- * etc. The end of the list is denoted by ->X
- *
- * @param head node* to take as start of the list
- */
-void print_list(node const* const head);
-
-/**
- * @brief Moves the node following @t to the position
- * following the node following @x.
+ * @brief Moves the Node following @t to the position
+ * following the Node following @x.
  *
  * i.e. if t' = t->next and x' = x->next pre function
  * call, post function call x'->next = t'.
@@ -47,20 +20,22 @@ void print_list(node const* const head);
  * Note we preseve the rest of the list ordering, i.e.
  * t->next becomes equivalent to t->next->next before the
  * function call, and t'->next = x'->next before the call.
- * @param x node such that x->next->next becomes t->next
- * @param t node such that t->next becomes x->next->next
+ * @param x Node such that x->next->next becomes t->next
+ * @param t Node such that t->next becomes x->next->next
  */
-void move_node(node* const x, node* const t);
+void move_node(NODENode x[const static 1], NODENode t[const static 1]);
 
+NODENode* setup_list(size_t const n, size_t const srt_idx, NODENode* srt[static 1],
+                 size_t const stp_idx, NODENode* stp[static 1]);
 /**
  * @brief Test driver code for moveNodes. Creates
  * a list of size @N, and then calls @moveNode to
  * move @t->next to @x->next->next.
  *
  * @param argv[0] N, number of nodes in the list
- * @param argv[1] x, node such that after the fn call
+ * @param argv[1] x, Node such that after the fn call
  * x->next->next = t' (where t' is the original t->next)
- * @param argv[2] t, node such that the current t->next
+ * @param argv[2] t, Node such that the current t->next
  * becomes x->next->next
  *
  * @return EXIT_SUCCESS on sucessful completion else
@@ -92,51 +67,54 @@ int main(int argc, char* argv[argc + 1]) {
         fprintf(stderr, "Error: t must be between N+1 and 2N\n");
         return EXIT_FAILURE;
     }
+    NODENode* srt;
+    NODENode* stp;
 
-    register node* const t = CALLOC_FAILS_EXIT(*t);
-    register node* x = t;
-    register node* srt = t;
-    register node* stp = t;
-
-    t->item = 1, t->next = t;
-    for (register key i = 2; i <= N; i++) {
-        x = (x->next = CALLOC_FAILS_EXIT(*x));
-        x->item = i;
-        x->next = t;
-        if (i == x_idx) srt = x;
-        if (i == t_idx) stp = x;
-    }
+    setup_list(N, x_idx, &srt, t_idx,
+               &stp);    // need to cast since can't convert to const
 
     printf("List premove: \n");
-    print_list(srt);
+    NODEprint_circular_list(srt);
     move_node(srt, stp);
     printf("List postmove: \n");
-    print_list(srt);
+    NODEprint_circular_list(srt);
+
+    NODEdelete_circular_list(srt);
 
     return EXIT_SUCCESS;
 }
 
-void print_list(node const* const head) {
-    for (register node const* t = head->next; t != head; t = t->next) {
-        printf("%zu->", t->item);
-    }
-    printf("%zu\n", head->item);
-}
-
-void move_node(node* const x, node* const t) {
+void move_node(NODENode x[const static 1], NODENode t[const static 1]) {
     // edge case: (x == t)
     // t->(t_nxt_nxt)->(t_nxt)->...
     if (x == t) {
-        register node* t_nxt = t->next;
+        register NODENode* t_nxt = t->next;
         t->next = t_nxt->next;
         t_nxt->next = t->next->next;
         t->next->next = t_nxt;
     } else {
-        register node* t_nxt = t->next;
-        register node* x_nxt = x->next;
+        register NODENode* t_nxt = t->next;
+        register NODENode* x_nxt = x->next;
 
         t->next = t_nxt->next;
         t_nxt->next = x_nxt->next;
         x_nxt->next = t_nxt;
     }
+}
+
+NODENode* setup_list(size_t const n, size_t const srt_idx, NODENode* srt[static 1],
+                 size_t const stp_idx, NODENode* stp[static 1]) {
+    register NODENode* t = NODEmake_node(1, nullptr);
+    *srt = t;
+    *stp = t;
+
+    t->next = t;
+
+    register NODENode* x = t;
+    for (register size_t i = 2; i <= n; i++) {
+        x = (x->next = NODEmake_node(i, t));
+        if (i == srt_idx) *srt = x;
+        if (i == stp_idx) *stp = x;
+    }
+    return t;
 }

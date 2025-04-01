@@ -18,9 +18,9 @@ typedef size_t LISTItem;
  *
  * @see key
  */
-typedef struct node LISTNode;
+typedef struct LISTNode LISTNode;
 
-struct node {
+struct LISTNode {
     LISTItem item;
     LISTNode* next;
 };
@@ -36,6 +36,7 @@ struct node {
  * @see ListNode
  */
 bool LISTinit_nodes(size_t const N);
+
 /**
  * @brief Returns a new node with key value k
  *
@@ -51,14 +52,14 @@ LISTNode* LISTnew_node(LISTItem const k);
  *
  * @param n valid ListNode*
  */
-void LISTfree_node(LISTNode* const n);
+void LISTfree_node(LISTNode n[const static 1]);
 /**
  * @brief Insert the node y after x
  *
  * @param x node such that x->next = y after function call
  * @param y node to be inserted in the list containing x
  */
-void LISTinsert_next(LISTNode* const x, LISTNode* const y);
+void LISTinsert_next(LISTNode x[const static 1], LISTNode y[const static 1]);
 /**
  * @brief Delete the node after x from the LinkedList
  * and return it's pointer
@@ -66,7 +67,7 @@ void LISTinsert_next(LISTNode* const x, LISTNode* const y);
  * @param x node *before* the node to be deleted
  * @return ListNode* deleted node if it exists, else nullptr
  */
-LISTNode* LISTdelete_next(LISTNode* const x);
+LISTNode* LISTdelete_next(LISTNode x[const static 1]);
 
 /**
  * @brief Frees all memory associated with the linked list
@@ -81,11 +82,11 @@ void LISTdeinit_list(void);
  * @param x - ListNode*
  * @return ListNode* x->next if it exists, else nullptr
  */
-LISTNode* LISTnext(LISTNode const* const x);
+LISTNode* LISTnext(LISTNode const x[const static 1]);
 /**
  * @brief Returns the key value of the node x
  *
  * @param x ListNode*
  * @return ListItem key value of x
  */
-LISTItem LISTitem(LISTNode const* const x);
+LISTItem LISTitem(LISTNode const x[const static 1]);

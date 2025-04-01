@@ -21,12 +21,12 @@
 #define RAND_SEED_TIME srand(CAST(unsigned int) time(nullptr))
 
 /**
- * @brief Generate a random number between 0 and ub (exlusive)
+ * @brief Generate a random unsigned int between 0 and ub (exlusive)
  *
  * @param ub positive integer < @RAND_MAX
  * @return unsigned int from [0, ub).
  */
-static inline unsigned int RAND_NUM(unsigned int ub) {
+static inline unsigned int RANDuint(unsigned int ub) {
     return CAST(unsigned) rand() % ub;
 }
 
@@ -35,7 +35,7 @@ static inline unsigned int RAND_NUM(unsigned int ub) {
  *
  * @return double
  */
-static inline double RAND_UNIFORM(void) { return 1.0 * rand() / RAND_MAX; }
+static inline double RANDuniform(void) { return 1.0 * rand() / RAND_MAX; }
 
 /**
  * @brief Performs a weighted coin toss
@@ -44,15 +44,8 @@ static inline double RAND_UNIFORM(void) { return 1.0 * rand() / RAND_MAX; }
  * @return true if successful else
  * @return false
  */
-static inline bool RAND_WEIGHTED_COIN_TOSS(long double weight) {
-    return (RAND_UNIFORM() < weight);
+static inline bool RANDcoin_toss(long double weight) {
+    return (RANDuniform() < weight);
 }
 
-/**
- * @brief Performs a weighted coin toss
- * and return true if successful
- * @param weight probability of
- * @return true
- * @return false
- */
-static inline bool RAND_COIN_TOSS(void) { return RAND_WEIGHTED_COIN_TOSS(0.5); }
+#define RAND_COIN_TOSS(...) CALL1(RANDcoin_toss, 0.5, __VA_ARGS__)

@@ -4,47 +4,45 @@ Write a function that returns the number of nodes on a circular list,
 given a pointer to one of the nodes on the list
 */
 
-#include "../../../../MacroLibrary/DefaultCalloc.h"
 #include "../../../../MacroLibrary/NumberParse.h"
+#include "src/Node.h"
 
 #include <stdio.h>
 #include <stdlib.h>
 
 /**
- * @brief Key type for node structure
+ * @brief builds the list for the count nodes returning the pointer set at
+ * s_idx for counting on a circular list.
  *
+ * @param n
+ * @param s_idx
+ * @return Node*
  */
-typedef size_t key;
-/**
- * @brief LinkedList node
- * consisting of a @key
- * and next node.
- *
- * @see key
- */
-typedef struct node node;
-struct node {
-    key item;
-    node* next;
-};
+NODENode* build_list(size_t const n, size_t const s_idx);
 
+/**
+ * @brief Delete the circular list pointed to by h
+ *
+ * @param h
+ */
+void delete_list(NODENode* h);
 /**
  * @brief Counts the number of nodes
  * on a given linkedlist @t.
  *
- * @param t - node
+ * @param t - Node
  * @return size_t
  */
-size_t count_nodes(node const* const t);
+size_t count_nodes(NODENode const t[const static 1]);
 
 /**
  * @brief Test driver for count nodes,
  * generates a linkedlist of length @N
  * and starts the counts nodes from the
- * @M-th node.
+ * @M-th Node.
  *
  * @param argv[0] - number of nodes in list
- * @param argv[1] - node to start count from.
+ * @param argv[1] - Node to start count from.
  * @return EXIT_SUCCESS on completion else
  * @return EXIT_FAILURE
  */
@@ -66,23 +64,27 @@ int main(int argc, char* argv[argc + 1]) {
         return EXIT_FAILURE;
     }
 
-    register node* const t = CALLOC_FAILS_EXIT(*t);
-    register node* x = t;
-    register node const* s = t;    // pointer to start count from.
-
-    t->item = 1, t->next = t;
-    for (register key i = 2; i <= N; i++) {
-        x = (x->next = CALLOC_FAILS_EXIT(*x));
-        x->item = i;
-        x->next = t;
-        if (i == s_idx) s = x;
-    }
+    NODENode* s = build_list(N, s_idx);
     printf("%zu\n", count_nodes(s));
+
+    NODEdelete_circular_list(s);
     return EXIT_SUCCESS;
 }
 
-size_t count_nodes(node const* const t) {
+size_t count_nodes(NODENode const t[const static 1]) {
     size_t sz = 1;
-    for (register node const* s = t->next; s != t; s = s->next, sz++);
+    for (register NODENode const* s = t->next; s != t; s = s->next, sz++);
     return sz;
+}
+
+NODENode* build_list(size_t const n, size_t const s_idx) {
+    register NODENode* t = NODEmake_node(1, nullptr);
+    t->next = t;
+    register NODENode* s = t;
+    register NODENode* x = t;
+    for (register NODEKey i = 2; i <= n; i++) {
+        x = (x->next = NODEmake_node(i, t));
+        if (i == s_idx) s = x;
+    }
+    return s;
 }

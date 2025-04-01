@@ -27,6 +27,19 @@ typedef size_t key;
 typedef size_t link;
 
 /**
+ * @brief Calculates the Josephus problem assuming a linked list represented
+ * using parallel arrays.
+ *
+ * @param h starting link
+ * @param m number of hops per elimination.
+ * @param n total size of the linked list array
+ * @param it items array
+ * @param nxt next array
+ * @return key of the last element left.
+ */
+key NODEcalculate_josephus(link h, size_t const m, size_t const n, key it[n],
+                       link nxt[n]);
+/**
  * @brief Prints the current state of the parallel
  * @it and @nxt arrays representing a linked list.
  *
@@ -34,8 +47,16 @@ typedef size_t link;
  * @param it Key array of the linkedlist, at least size N
  * @param nxt Link array of the linkedlist, at least size N
  */
-void print_state(size_t const N, key const it[N], link const nxt[N]);
+void print_state(size_t const n, key const it[n], link const nxt[n]);
 
+/**
+ * @brief Initialises the linked list structure.
+ *
+ * @param n
+ * @param it
+ * @param nxt
+ */
+void init_list(size_t n, key it[n], link nxt[n]);
 /**
  * @brief Version of the Josephus Problem [Program 3.9]
  * that utilises a parallel array structure to implement
@@ -68,20 +89,11 @@ int main(int argc, char* argv[argc + 1]) {
         return EXIT_FAILURE;
     }
 
-    for (register key i = 0; i < N; i++) {
-        item[i] = i + 1;
-        next[i] = (i + 1) % N;
-    }
+    init_list(N, item, next);
 
     register link x = N;
-    register size_t n = N;
-    while (x != next[x]) {
-        print_state(n, item, next);
-        for (register link i = 1; i < M; i++) x = next[x];
-        printf("%2zu\n", item[next[x]]);
-        next[x] = next[next[x]];
-    }
-    printf("Result: %2zu\n", item[x]);
+
+    printf("Final Key: %2zu\n", NODEcalculate_josephus(x, M, N, item, next));
     return EXIT_SUCCESS;
 }
 
@@ -91,4 +103,22 @@ void print_state(size_t const N, key const it[N], link const nxt[N]) {
     printf("\nNext: ");
     for (size_t i = 0; i < N; i++) { printf("%2zu ", nxt[i]); }
     printf("\n");
+}
+
+void init_list(size_t const n, key it[n], link nxt[n]) {
+    for (register key i = 0; i < n; i++) {
+        it[i] = i + 1;
+        nxt[i] = (i + 1) % n;
+    }
+}
+
+key NODEcalculate_josephus(link h, size_t const m, size_t const n, key it[n],
+                       link nxt[n]) {
+    while (h != nxt[h]) {
+        print_state(n, it, nxt);
+        for (register link i = 1; i < m; i++) h = nxt[h];
+        printf("%2zu\n", it[nxt[h]]);
+        nxt[h] = nxt[nxt[h]];
+    }
+    return it[h];
 }

@@ -4,29 +4,11 @@ Write a function that returns the number of nodes between two pointers x and
 t on a circular linked list.
 */
 
-#include "../../../../MacroLibrary/DefaultCalloc.h"
 #include "../../../../MacroLibrary/NumberParse.h"
+#include "../Ex3_24/src/Node.h"
 
 #include <stdio.h>
 #include <stdlib.h>
-
-/**
- * @brief Key type for node structure
- *
- */
-typedef size_t key;
-/**
- * @brief LinkedList node
- * consisting of a @key
- * and next node.
- *
- * @see key
- */
-typedef struct node node;
-struct node {
-    key item;
-    node* next;
-};
 
 /**
  * @brief Counts the number of nodes between
@@ -35,22 +17,36 @@ struct node {
  * of nodes is counted from @x to @t, which may be
  * different than those from @t to @x.
  *
- * @param x starting node
- * @param t terminating node
+ * @param x starting Node
+ * @param t terminating Node
  * @return size_t, 0 if @x == @t else > 0
  */
-size_t count_nodes_between(node const* x, node const* t);
+size_t count_nodes_between(NODENode const x[static 1], NODENode const t[static 1]);
+
+/**
+ * @brief Set the up list objects
+ *
+ * @param n
+ * @param srt_idx
+ * @param srt
+ * @param stp_idx
+ * @param stp
+ * @return Node*
+ */
+NODENode* setup_list(size_t const n, size_t const srt_idx,
+                 NODENode const* srt[static 1], size_t const stp_idx,
+                 NODENode const* stp[static 1]);
 
 /**
  * @brief Test driver for countNodesBetween
  * reads @N, @x, @t from the command line, then
  * generates a list of size @N, and calls
  * countNodesBetween to determine the number
- * of nodes between the @x-th and @t-th node.
+ * of nodes between the @x-th and @t-th Node.
  *
  * @param argv[1] N, number of nodes
- * @param argv[2] x, node to start count from
- * @param argv[3] t, node to count until.
+ * @param argv[2] x, Node to start count from
+ * @param argv[3] t, Node to count until.
  * @return EXIT_SUCCESS on successful completion else
  * @return EXIT_FAILURE
  */
@@ -73,32 +69,35 @@ int main(int argc, char* argv[argc + 1]) {
         return EXIT_FAILURE;
     }
 
-    register node* const t = CALLOC_FAILS_EXIT(*t);
-    register node* x = t;
-    register node const* srt = t;
-    register node const* stp = t;
-
-    t->item = 1, t->next = t;
-    for (register key i = 2; i <= N; i++) {
-        x = (x->next = CALLOC_FAILS_EXIT(*x));
-        x->item = i;
-        x->next = t;
-        if (i == x_idx) srt = x;
-        if (i == t_idx) stp = x;
-    }
+    NODENode const* srt;
+    NODENode const* stp;
+    register NODENode* t = setup_list(N, x_idx, &srt, t_idx, &stp);
     printf("%zu\n", count_nodes_between(srt, stp));
 
-    for (register node* h = t->next; h != t;) {
-        register node* tmp = h->next;
-        free(h);
-        h = tmp;
-    }
-    free(t);
+    NODEdelete_circular_list(t);
     return EXIT_SUCCESS;
 }
 
-size_t count_nodes_between(node const* x, node const* t) {
+size_t count_nodes_between(NODENode const x[static 1], NODENode const t[static 1]) {
     register size_t sz = 0;
     for (; x != t; x = x->next, sz++);
     return sz;
+}
+
+NODENode* setup_list(size_t const n, size_t const srt_idx,
+                 NODENode const* srt[static 1], size_t const stp_idx,
+                 NODENode const* stp[static 1]) {
+    register NODENode* t = NODEmake_node(1, nullptr);
+    *srt = t;
+    *stp = t;
+
+    t->next = t;
+
+    register NODENode* x = t;
+    for (register size_t i = 2; i <= n; i++) {
+        x = (x->next = NODEmake_node(i, t));
+        if (i == srt_idx) *srt = x;
+        if (i == stp_idx) *stp = x;
+    }
+    return t;
 }

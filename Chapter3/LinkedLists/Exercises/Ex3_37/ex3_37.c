@@ -5,37 +5,18 @@ Implement a function for linked lists that exchanges the positions of the
 nodes after the nodes nodes referenced by two given links t and u.
 */
 
-#include "../../../../MacroLibrary/DefaultCalloc.h"
 #include "../../../../MacroLibrary/Generic.h"
 #include "../../../../MacroLibrary/Random.h"
+#include "../Ex3_24/src/Node.h"
 
 #include <stdio.h>
 #include <stdlib.h>
 
 /**
- * @brief Exlusive upper bound for random node key values
+ * @brief Exlusive upper bound for random Node key values
  *
  */
 constexpr unsigned int N = 10u;
-
-/**
- * @brief Linked List node with
- * key and next element.
- */
-typedef struct node node;
-
-struct node {
-    size_t k;
-    node* next;
-};
-
-/**
- * @brief Print out the LinkedList starting
- * from the node head.
- *
- * @param head
- */
-void print_list(node const* head);
 
 /**
  * @brief Exchanges the nodes after @t
@@ -44,7 +25,7 @@ void print_list(node const* head);
  * @param t
  * @param u
  */
-void exchange_after(node* const t, node* const u);
+void exchange_after(NODENode t[const static 1], NODENode u[const static 1]);
 
 /**
  * @brief Tests ExchangeAfter by generating N
@@ -54,42 +35,30 @@ void exchange_after(node* const t, node* const u);
  * @return EXIT_SUCCESS
  */
 int main(int argc, char* argv[argc + 1]) {
-    // generate a list of N nodes numbered 1 to 10 with a dummy head
-    node* const nodes = CALLOC_FAILS_EXIT(N + 1, *nodes);
-
     RAND_SEED_TIME;
-
-    for (register size_t i = 1; i <= N; i++) {
-        nodes[i - 1].next = &nodes[i];
-        nodes[i].k = i;
-    }
-    nodes[N].next = nullptr;
+    // generate a list of N nodes numbered 0 to 9 with a dummy head
+    NODENode* const nodes = NODEbuild_lin_list_dummy_head(N, gen_key_idx);
 
     printf("Initial List:\n");
-    print_list(nodes);
+    NODEprint_null_terminated_list(nodes[0].next);
 
-    register size_t i = RAND_NUM(N + 1);
-    register size_t j = RAND_NUM(N); //don't want to generate last node
-    exchange_after(&nodes[i], &nodes[j]);
+    register size_t const i = RANDuint(N);
+    register size_t const j = RANDuint(N - 1);    // don't want to generate last
+                                                  // Node
+    exchange_after(&nodes[i + 1], &nodes[j + 1]);
 
     printf("List after exchange of nodes after %zu & %zu\n", i, j);
-    print_list(nodes);
+    NODEprint_null_terminated_list(nodes[0].next);
 
+    free(nodes);
     return EXIT_SUCCESS;
 }
 
-void print_list(node const* head) {
-    for (head = head->next; head != nullptr; head = head->next) {
-        printf("%zu->", head->k);
-    }
-    printf("X\n");
-}
+void exchange_after(NODENode t[const static 1], NODENode u[const static 1]) {
+    NODENode* t_nxt = t->next;
+    NODENode* u_nxt = u->next;
 
-void exchange_after(node* const t, node* const u) {
-    node* t_nxt = t->next;
-    node* u_nxt = u->next;
-
-    // return if either is nullptr or they are the same node
+    // return if either is nullptr or they are the same Node
     if (!(t_nxt && u_nxt) || t == u) return;
     SWAP(t->next, u->next);
     SWAP(t_nxt->next, u_nxt->next);
