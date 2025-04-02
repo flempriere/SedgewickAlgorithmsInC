@@ -9,7 +9,7 @@
     Play around with changing the typedef and corresponding KEY_MAX to different
     size integers.
  */
-#include "../../../MacroLibrary/Random.h"
+#include "MacroLibrary/Random.h"
 
 #include <stdint.h>
 #include <stdio.h>
@@ -40,8 +40,8 @@ constexpr key KEY_MAX = UINT16_MAX;
 
 /**
  * @brief Generate a random key with value up to KEY_MAX (exclusive)
- * 
- * @return key 
+ *
+ * @return key
  */
 static inline key rand_key(void);
 /**
@@ -120,12 +120,7 @@ size_t countMatches(size_t const n, size_t const m, key a[m]) {
 }
 
 void fill_array(size_t const len, key a[len]) {
-    for (register size_t i = 0; i < len; i++) {
-        a[i] = rand_key();
-    }
+    for (register size_t i = 0; i < len; i++) { a[i] = rand_key(); }
 }
 
-
-static inline key rand_key(void) {
-    return CAST(key) RANDuint(KEY_MAX);
-}
+static inline key rand_key(void) { return CAST(key) RANDUINT(KEY_MAX); }

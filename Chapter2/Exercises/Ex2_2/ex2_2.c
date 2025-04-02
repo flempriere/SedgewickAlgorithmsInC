@@ -3,7 +3,7 @@ Exercise 2-2:
     Determine the runtime of the inner triple loop for N = 10, 100, 1000
 */
 
-#include "../../../MacroLibrary/Utility.h"
+#include "MacroLibrary/Utility.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -21,7 +21,7 @@ constexpr size_t N_SCALES = 3u;
  * @param n
  * @return size_t sum.
  */
-static inline size_t triple_loop(size_t n);
+static inline size_t triple_loop(size_t const n);
 /**
  * @brief times the runtime of a triple nested
  * for loop each iterating N = 10, 100, 1000
@@ -43,7 +43,7 @@ int main(int argc, char* argv[argc + 1]) {
     return EXIT_SUCCESS;
 }
 
-static inline size_t triple_loop(size_t n) {
+static inline size_t triple_loop(size_t const n) {
     size_t cnt = 0;
     for (register size_t j = 0; j < n; j++) {
         for (register size_t k = 0; k < n; k++) {

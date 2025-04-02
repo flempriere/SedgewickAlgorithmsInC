@@ -5,7 +5,7 @@ Exercise 2-13:
     Utilises the fact that 2^(2^i) = 2^(2^(i - 1)) * 2^(2^(i - 1))
     to efficiently calculate the next possible term.
 */
-#include "../../../MacroLibrary/Utility.h"
+#include "MacroLibrary/Utility.h"
 
 #include <stdio.h>
 #include <stdlib.h>

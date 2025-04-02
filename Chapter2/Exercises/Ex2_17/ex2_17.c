@@ -11,7 +11,7 @@ with a 64bit size_t type.
 use exact table for n = 0, 1, 2, 3 and return SIZE_MAX to signify -inf.
 */
 
-#include "../../../MacroLibrary/Utility.h"
+#include "MacroLibrary/Utility.h"
 
 #include <limits.h>
 #include <stdio.h>

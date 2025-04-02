@@ -5,7 +5,7 @@ This uses both sedgewick's approximation and the definition for comparison,
 there are slight discrepancies between the two for low n.
 */
 
-#include "../../../MacroLibrary/Utility.h"
+#include "MacroLibrary/Utility.h"
 
 #include <stdio.h>
 #include <stdlib.h>

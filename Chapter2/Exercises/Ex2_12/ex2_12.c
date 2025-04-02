@@ -4,7 +4,7 @@ Exercise 2-12:
     the harmonic numbers.
 */
 
-#include "../../../MacroLibrary/Utility.h"
+#include "MacroLibrary/Utility.h"
 
 #include <stdio.h>
 #include <stdlib.h>
