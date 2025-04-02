@@ -5,9 +5,9 @@ Write a function that moves the smallest item on a given list to the be
 first Node on a list
 
 */
-#include "../../../../MacroLibrary/NumberParse.h"
-#include "../../../../MacroLibrary/Random.h"
-#include "../Ex3_24/src/Node.h"
+#include "List/Node/Node.h"
+#include "MacroLibrary/NumberParse.h"
+#include "MacroLibrary/Random.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -41,7 +41,8 @@ int main(int argc, char* argv[argc + 1]) {
 
     RAND_SEED_TIME;
 
-    NODENode* const nodes = NODEbuild_lin_list_dummy_head(N, gen_key_rand);
+    NODENode* const nodes = NODEbuild_lin_list_dummy_head(N, NODEgen_key_rand);
+    if (!nodes) return EXIT_FAILURE;
 
     printf("Initial List:\n");
     NODEprint_null_terminated_list(nodes[0].next);
@@ -59,7 +60,7 @@ int main(int argc, char* argv[argc + 1]) {
 }
 
 void move_smallest_to_front(NODENode h[static 1]) {
-    if (!(h->next)) return;         // empty list
+    if (!(h->next)) return;             // empty list
     register NODENode* min_pred = h;    // the predecessor to the current min
     for (register NODENode* cur = h->next; cur->next; cur = cur->next) {
         if (cur->next->k < min_pred->next->k) min_pred = cur;
@@ -74,6 +75,7 @@ void move_smallest_to_front(NODENode h[static 1]) {
 
 bool assert_smallest_at_front(NODENode const h[static 1]) {
     h = h->next;
+    if (!h) return true;    // list has only one element.
     register size_t smallest = h->k;
     for (h = h->next; h != nullptr; h = h->next) {
         if (h->k < smallest) return false;

@@ -4,16 +4,37 @@ Exercise 3.23
 Modify Program 3.8 to work for a d-dimensional point.
 */
 
-#include "../../../../MacroLibrary/DefaultCalloc.h"
-#include "../../../../MacroLibrary/Generic.h"
-#include "../../../../MacroLibrary/NumberParse.h"
-#include "../../../../MacroLibrary/Random.h"
-#include "src/Point_dDim.h"
+#include "MacroLibrary/DefaultCalloc.h"
+#include "MacroLibrary/Generic.h"
+#include "MacroLibrary/NumberParse.h"
+#include "MacroLibrary/Random.h"
+#include "include/Point_dDim.h"
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <tgmath.h>
 
+/**
+ * @brief Fill an array @a of @dim dimensional points with @n randomly
+ * generated points.
+ * 
+ * @param dim 
+ * @param n 
+ * @param a 
+ */
+void generate_random_points(Dimension dim, size_t const n, Point_DDIM a[n]);
+
+/**
+ * @brief Count the number of edges between @dim dimensional points in the
+ * array @a of length less than @d. 
+ * 
+ * @param d 
+ * @param dim 
+ * @param n 
+ * @param a 
+ * @return size_t 
+ */
+size_t count_close_pairs(double const d, Dimension dim, size_t const n, Point_DDIM const a[n]);
 /**
  * @brief Extract dimension from an input string.
  *
@@ -45,25 +66,33 @@ int main(int argc, char* argv[argc + 1]) {
     register double const d = NUMPARSEexit_on_fail(d, argv[3]);
 
     Point_DDIM* const a = CALLOC_FAILS_EXIT(N, *a);
-
-    for (register size_t i = 0; i < N; i++) {
-        for (register Dimension idx = 0; idx < dim; idx++) {
-            a[i].x[idx] = RANDuniform();
-        }
-    }
-
-    register size_t count = 0;
-    for (register size_t i = 0; i < N; i++) {
-        for (register size_t j = i + 1; j < N; j++) {
-            if (POINT_DDIMdistance(a[i], a[j], dim) < d) { count++; }
-        }
-    }
+    generate_random_points(dim, N, a);
+    register size_t count = count_close_pairs(d, dim, N, a);
     printf("%zu edges shorter than %f\n", count, d);
 
+    free(a);
     return EXIT_SUCCESS;
 }
 
 Dimension getDim(char s[static 1]) {
     register Dimension dim = NUMPARSEexit_on_fail(dim, s);
-    return MIN(dim, POINT_DDIM_MAX_DIM);
+    return MIN(dim, POINT_DDIMMAX_DIM);
+}
+
+void generate_random_points(Dimension dim, size_t const n, Point_DDIM a[n]) {
+    for (register size_t i = 0; i < n; i++) {
+        for (register Dimension idx = 0; idx < dim; idx++) {
+            a[i].x[idx] = RANDUNIFORM();
+        }
+    }
+}
+
+size_t count_close_pairs(double const d, Dimension dim, size_t const n, Point_DDIM const a[n]) {
+    register size_t count = 0;
+    for (register size_t i = 0; i < n; i++) {
+        for (register size_t j = i + 1; j < n; j++) {
+            if (POINT_DDIMdistance(a[i], a[j], dim) < d) { count++; }
+        }
+    }
+    return count;
 }

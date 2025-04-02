@@ -3,7 +3,7 @@ Exercise 3.33
 Modify Program 3.9 that uses an array of indices to implement
 the linked list
 */
-#include "../../../../MacroLibrary/NumberParse.h"
+#include "MacroLibrary/NumberParse.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -38,7 +38,7 @@ typedef size_t link;
  * @return key of the last element left.
  */
 key NODEcalculate_josephus(link h, size_t const m, size_t const n, key it[n],
-                       link nxt[n]);
+                           link nxt[n]);
 /**
  * @brief Prints the current state of the parallel
  * @it and @nxt arrays representing a linked list.
@@ -113,7 +113,7 @@ void init_list(size_t const n, key it[n], link nxt[n]) {
 }
 
 key NODEcalculate_josephus(link h, size_t const m, size_t const n, key it[n],
-                       link nxt[n]) {
+                           link nxt[n]) {
     while (h != nxt[h]) {
         print_state(n, it, nxt);
         for (register link i = 1; i < m; i++) h = nxt[h];

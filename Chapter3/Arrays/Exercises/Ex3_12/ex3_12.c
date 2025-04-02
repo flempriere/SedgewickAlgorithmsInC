@@ -18,7 +18,7 @@ First we assume each number is prime, then we get the smallest prime p we have
 yet to examine and set all a[j*p] to 0 for all j > 2 s.t jp <= N
 
 */
-#include "../../../../MacroLibrary/Utility.h"
+#include "MacroLibrary/Utility.h"
 
 #include <assert.h>
 #include <limits.h>

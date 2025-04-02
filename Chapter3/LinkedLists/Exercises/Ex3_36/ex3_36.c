@@ -6,8 +6,8 @@ positions after the nodes in odd positions in the list, preversing the
 relative order of both the evens and the odds.
 
 */
-#include "../../../../MacroLibrary/Generic.h"
-#include "../Ex3_24/src/Node.h"
+#include "List/Node/Node.h"
+#include "MacroLibrary/Generic.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -37,7 +37,8 @@ void partition_odds_and_evens(NODENode h[const static 1]);
  */
 int main(int argc, char* argv[argc + 1]) {
     // generate a list of N numbers indexed from zero.
-    NODENode* const nodes = NODEbuild_lin_list_dummy_head(N, gen_key_idx);
+    NODENode* const nodes = NODEbuild_lin_list_dummy_head(N, NODEgen_key_idx);
+    if (!nodes) return EXIT_FAILURE;
     printf("Initial List:\n");
     NODEprint_null_terminated_list(nodes[0].next);
 

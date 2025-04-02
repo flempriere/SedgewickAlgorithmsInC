@@ -9,8 +9,8 @@ elements N + 1... 2N, x should be a number in the first list and t a
 number in the second.
 */
 
-#include "../../../../MacroLibrary/NumberParse.h"
-#include "../Ex3_24/src/Node.h"
+#include "List/Node/Node.h"
+#include "MacroLibrary/NumberParse.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -37,10 +37,11 @@ void merge_lists(NODENode x[static 1], NODENode t[static 1]);
  * @param srt_key
  * @param x_idx
  * @param idx
- * @return Node*
+ * @return Node* head of the list on success, else
+ * @return nullptr
  */
 NODENode* build_list(size_t const n, size_t const srt_key, size_t x_idx,
-                 NODENode* idx[static 1]);
+                     NODENode* idx[static 1]);
 /**
  * @brief Test driver code for merge_lists. Creates
  * two lists of size @N, and then merges the list
@@ -84,14 +85,19 @@ int main(int argc, char* argv[argc + 1]) {
     }
 
     NODENode* xp;
-    build_list(N, 1, x_idx, &xp);
+    if (build_list(N, 1, x_idx, &xp) == nullptr) { return EXIT_FAILURE; }
 
     NODENode* tp;
-    build_list(2 * N, N + 1, t_idx, &tp);
+    if (build_list(2 * N, N + 1, t_idx, &tp) == nullptr) {
+        NODEdelete_circular_list(xp);
+        return EXIT_FAILURE;
+    }
 
+    printf("==== Lists before Merge ===\n");
     NODEprint_circular_list(xp);
     NODEprint_circular_list(tp);
     merge_lists(xp, tp);
+    printf("==== Lists after Merge ====\n");
     NODEprint_circular_list(xp);
 
     NODEdelete_circular_list(xp);
@@ -108,8 +114,10 @@ void merge_lists(NODENode xp[static 1], NODENode tp[static 1]) {
     xp->next = tp;
 }
 
-NODENode* build_list(size_t n, size_t srt_key, size_t x_idx, NODENode* idx[static 1]) {
+NODENode* build_list(size_t n, size_t srt_key, size_t x_idx,
+                     NODENode* idx[static 1]) {
     register NODENode* t = NODEmake_node(1, nullptr);
+    if (!t) return nullptr;
     t->next = nullptr;
 
     register NODENode* x = t;
@@ -117,9 +125,11 @@ NODENode* build_list(size_t n, size_t srt_key, size_t x_idx, NODENode* idx[stati
 
     t->k = srt_key++, t->next = t;
     for (register size_t i = srt_key; i <= n; i++) {
-        x = (x->next = CALLOC_FAILS_EXIT(*x));
-        x->k = i;
-        x->next = t;
+        x = (x->next = NODEmake_node(i, t));
+        if (x == nullptr) {
+            NODEdelete_circular_list(t);
+            return nullptr;
+        }
         if (i == x_idx) *idx = x;
     }
     return t;

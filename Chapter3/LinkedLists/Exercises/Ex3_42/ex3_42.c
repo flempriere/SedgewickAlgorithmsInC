@@ -5,48 +5,26 @@ Implements a version of program 3.11 that does not use
 head nodes.
  */
 
-#include "../../../../MacroLibrary/Random.h"
-#include "../../../../MacroLibrary/Utility.h"
+#include "List/Node/Node.h"
+#include "MacroLibrary/Random.h"
 
 #include <stdio.h>
 #include <stdlib.h>
-
-/**
- * @brief Key type for node structure
- *
- */
-typedef size_t key;
-/**
- * @brief LinkedList node
- * consisting of a @key
- * and next node.
- *
- * @see key
- */
-typedef struct node node;
-struct node {
-    key k;
-    node* next;
-};
 
 /**
  * @brief Number of random numbers to generate
  *
  */
 constexpr size_t N = 10u;
-/**
- * @brief Exclusive upper bound on valid key values
- *
- */
-constexpr unsigned int MAX_KEY = 1000u;
 
 /**
- * @brief Print out a linked list starting at
- * the given node.
+ * @brief Performs an insertion sort on the list pointed to by h.
+ * Assuming a linear non-dummy head implementation.
  *
- * @param head
+ * @param h
+ * @return NODENode* head of the now sorted list.
  */
-void print_list(node const* head);
+NODENode* insertion_sort(NODENode* h);
 /**
  * @brief Generates an unsorted linked list on
  * N nodes with random integers from 0 up to MAX_KEY-1.
@@ -59,42 +37,38 @@ void print_list(node const* head);
  * @see N, @see MAX_KEY
  */
 int main(int argc, char* argv[argc + 1]) {
-    register node* head_i = nullptr;    // pointer to head of input
-    register node* t = nullptr;         // tail of input
-
     RAND_SEED_TIME;
 
     // generate the list
-    for (register size_t i = 0; i < N; i++) {
-        if (!t) {    // handle case where list is initially empty
-            head_i = calloc(1, SIZEOF_VARTYPE(*t));
-            t = head_i;
-        } else {
-            t->next = calloc(1, SIZEOF_VARTYPE(*t));
-            t = t->next;
-        }
-        t->next = nullptr;
-        t->k = RAND_NUM(MAX_KEY);
-    }
+    register NODENode* head = NODEbuild_lin_list(N, NODEgen_key_rand);
+    if (!head) return EXIT_FAILURE;
+
     printf("===unsorted input===\n");
-    print_list(head_i);
+    NODEprint_null_terminated_list(head);
 
     // perform insertion sort
-    register node* head_o = nullptr;    // head of insertion sort
-    register node* x = nullptr;         // scan for sorted list
-    register node* u = nullptr;         // start of unaccessed sorted list
+    head = insertion_sort(head);
+    printf("===sorted output===\n");
+    NODEprint_null_terminated_list(head);
 
-    for (t = head_i; t != nullptr; t = u) {
-        u = t->next;
-        if (!head_o) {    // handle case list initially empty
-            head_o = t;
-            head_o->next = nullptr;
+    NODEdelete_null_terminated_list(head);
+    return EXIT_SUCCESS;
+}
+
+NODENode* insertion_sort(NODENode* h) {
+    register NODENode* out = nullptr;
+    for (register NODENode* t = h; t != nullptr; t = h) {
+        h = t->next;
+        if (!out) {
+            out = t;
+            out->next = nullptr;
         } else {
-            if (head_o->k > t->k) {    // handle case new node is new head
-                t->next = head_o;
-                head_o = t;
+            if (out->k > t->k) {
+                t->next = out;
+                out = t;
             } else {
-                for (x = head_o; x->next != nullptr; x = x->next) {
+                register NODENode* x = out;
+                for (; x->next != nullptr; x = x->next) {
                     if (x->next->k > t->k) break;
                 }
                 t->next = x->next;
@@ -102,18 +76,5 @@ int main(int argc, char* argv[argc + 1]) {
             }
         }
     }
-    printf("===sorted output===\n");
-    print_list(head_o);
-
-    for (register node* cur = head_o; cur != nullptr;) {
-        node* tmp = cur;
-        cur = cur->next;
-        free(tmp);
-    }
-    return EXIT_SUCCESS;
-}
-
-void print_list(node const* h) {
-    for (; h != nullptr; h = h->next) printf("%zu->", h->k);
-    printf("X\n");
+    return out;
 }

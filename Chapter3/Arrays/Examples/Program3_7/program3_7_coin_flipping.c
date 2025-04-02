@@ -13,13 +13,12 @@ value -- is critical to the efficiency of many computational procedures
 
 utilises C23 bool, use _Bool or <stdbool.h> for older standards
 */
-#include "../../../../MacroLibrary/DefaultCalloc.h"
-#include "../../../../MacroLibrary/NumberParse.h"
-#include "../../../../MacroLibrary/Random.h"
+#include "MacroLibrary/DefaultCalloc.h"
+#include "MacroLibrary/NumberParse.h"
+#include "MacroLibrary/Random.h"
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <time.h>
 
 /**
  * @brief performs a coin toss
@@ -27,7 +26,7 @@ utilises C23 bool, use _Bool or <stdbool.h> for older standards
  * @return true if result is heads,
  * @return false if result is tails
  */
-static inline bool heads(void) { return RAND_COIN_TOSS(); }
+static inline bool heads(void) { return RANDCOIN_TOSS(); }
 
 /**
  * @brief Performs M experiments each consisting

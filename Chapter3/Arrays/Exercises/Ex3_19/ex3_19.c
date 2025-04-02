@@ -8,9 +8,9 @@ This implementation repeats the experiment M times where M is a command line
 argument.
 
 */
-#include "../../../../MacroLibrary/NumberParse.h"
-#include "../../../../MacroLibrary/Random.h"
-#include "../../../../MacroLibrary/Statistics.h"
+#include "MacroLibrary/NumberParse.h"
+#include "MacroLibrary/Random.h"
+#include "MacroLibrary/Statistics.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -66,7 +66,7 @@ double n_generated(void) {
     register size_t n_gen = 0;
     register size_t n_seen = 0;
     for (; n_seen < MAX_NUM; n_gen++) {
-        register size_t i = RANDuint(MAX_NUM);
+        register size_t i = RANDUINT(MAX_NUM);
         if (!seen[i]) {
             seen[i] = !seen[i];
             n_seen++;

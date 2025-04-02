@@ -1,6 +1,6 @@
 # A Simple Makefile
 # Template VERSION = 1.0.0
-# Date generated on: 2025-03-23
+# Date generated on: 2025-04-02
 
 ##############
 # BUILD Mode #
@@ -16,8 +16,9 @@ BUILDDIR = $(CURDIR)/$(BUILD)
 # Search Directories for Code #
 ###############################
 
-INCLUDE_DIRS = . ./includes
-SOURCE_DIRS = . ./src
+PROJECT_DIR = /home/flempriere/personal_projects/SedgewickAlgorithmsInC
+INCLUDE_DIRS = . ./include /home/flempriere/personal_projects/SedgewickAlgorithmsInC /home/flempriere/personal_projects/SedgewickAlgorithmsInC/Interfaces
+SOURCE_DIRS = . ./src ./include/src
 SOURCE_VPATHS = 
 
 vpath %.c $(sort $(dir) $(SOURCE_DIRS) $(SOURCE_VPATHS))
@@ -70,7 +71,6 @@ FLAGS_dependencies = -MP -MD
 # Build Mode flags
 FLAGS_release = -g -march=native
 FLAGS_debug = -g3
-FLAGS_speed = -march=native
 
 #Linker
 FLAGS_linker = 

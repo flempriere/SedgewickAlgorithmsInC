@@ -9,10 +9,10 @@ by multiplying by r and truncating.
 Calc. avg, std.dev and use the same r and N cases
 as Exercise 3.2
 */
-#include "../../../../MacroLibrary/Random.h"
-#include "../../../../MacroLibrary/Statistics.h"
-#include "../../../../MacroLibrary/Utility.h"
-#include "../Ex3_2/src/NumberInt.h"
+#include "MacroLibrary/Random.h"
+#include "MacroLibrary/Statistics.h"
+#include "MacroLibrary/Utility.h"
+#include "Number/v1/NumberInt/NumberInt.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -48,7 +48,7 @@ constexpr Number R_INIT = 10u;
  * @param ub upper bound.
  * @return double
  */
-static inline double rand_num_to_double(double ub);
+static inline double rand_num_to_double(double const ub);
 /**
  * @brief Test the random number generator by
  * generating doubles between 0 and 1 using
@@ -86,6 +86,6 @@ int main(int argc, char* argv[argc + 1]) {
     return EXIT_SUCCESS;
 }
 
-static inline double rand_num_to_double(double ub) {
+static inline double rand_num_to_double(double const ub) {
     return CAST(double) NUMBERrandom(CAST(Number) ub);
 }

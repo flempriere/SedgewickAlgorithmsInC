@@ -5,9 +5,9 @@ that generates random triples of pairs of floats between 0 and 1 and computes
 empircally the average area of the triangles generated.
 
 */
-#include "../../../../MacroLibrary/Random.h"
-#include "../../../../MacroLibrary/Statistics.h"
-#include "src/Triangle.h"
+#include "MacroLibrary/Random.h"
+#include "MacroLibrary/Statistics.h"
+#include "include/Triangle.h"
 
 #include <stdio.h>
 #include <stdlib.h>

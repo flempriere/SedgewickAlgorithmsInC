@@ -5,9 +5,9 @@ Implement a function for linked lists that exchanges the positions of the
 nodes after the nodes nodes referenced by two given links t and u.
 */
 
-#include "../../../../MacroLibrary/Generic.h"
-#include "../../../../MacroLibrary/Random.h"
-#include "../Ex3_24/src/Node.h"
+#include "List/Node/Node.h"
+#include "MacroLibrary/Generic.h"
+#include "MacroLibrary/Random.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -37,13 +37,14 @@ void exchange_after(NODENode t[const static 1], NODENode u[const static 1]);
 int main(int argc, char* argv[argc + 1]) {
     RAND_SEED_TIME;
     // generate a list of N nodes numbered 0 to 9 with a dummy head
-    NODENode* const nodes = NODEbuild_lin_list_dummy_head(N, gen_key_idx);
+    NODENode* const nodes = NODEbuild_lin_list_dummy_head(N, NODEgen_key_idx);
+    if (!nodes) return EXIT_FAILURE;
 
     printf("Initial List:\n");
     NODEprint_null_terminated_list(nodes[0].next);
 
-    register size_t const i = RANDuint(N);
-    register size_t const j = RANDuint(N - 1);    // don't want to generate last
+    register size_t const i = RANDUINT(N);
+    register size_t const j = RANDUINT(N - 1);    // don't want to generate last
                                                   // Node
     exchange_after(&nodes[i + 1], &nodes[j + 1]);
 

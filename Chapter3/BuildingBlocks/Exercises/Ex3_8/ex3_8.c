@@ -3,8 +3,8 @@ Exercise 3.8. Extend the point data type to provide a function determining
 if three points are collinear to within a tolerance of 10^(-4).
 */
 
-#include "../../../../MacroLibrary/Utility.h"
-#include "src/Point_v2.h"
+#include "MacroLibrary/Utility.h"
+#include "include/Point_v2.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -28,7 +28,7 @@ constexpr size_t N_POINTS = 3u;
  *
  * @return EXIT_SUCCESS on success, else EXIT_FAILURE
  */
-int main(int argc, char * [argc + 1]) {
+int main(int argc, char* argv[argc + 1]) {
     Point points[N_POINTS];
 
     char line[MAX_LINE];

@@ -5,8 +5,8 @@ Program 3.3 and Program 3.4 for the following task. Read a sequence of points
 closest to the first.
 */
 
-#include "../../../../MacroLibrary/Utility.h"
-#include "../../Examples/Program3_3-4/Point.h"
+#include "MacroLibrary/Utility.h"
+#include "Point/v1/Point.h"
 
 #include <stdio.h>
 #include <stdlib.h>

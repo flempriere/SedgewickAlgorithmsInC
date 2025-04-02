@@ -4,8 +4,8 @@ Write a function that returns the number of nodes on a circular list,
 given a pointer to one of the nodes on the list
 */
 
-#include "../../../../MacroLibrary/NumberParse.h"
-#include "src/Node.h"
+#include "MacroLibrary/NumberParse.h"
+#include "include/Node.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -20,12 +20,6 @@ given a pointer to one of the nodes on the list
  */
 NODENode* build_list(size_t const n, size_t const s_idx);
 
-/**
- * @brief Delete the circular list pointed to by h
- *
- * @param h
- */
-void delete_list(NODENode* h);
 /**
  * @brief Counts the number of nodes
  * on a given linkedlist @t.
@@ -65,6 +59,7 @@ int main(int argc, char* argv[argc + 1]) {
     }
 
     NODENode* s = build_list(N, s_idx);
+    if (!s) return EXIT_FAILURE;
     printf("%zu\n", count_nodes(s));
 
     NODEdelete_circular_list(s);
@@ -79,11 +74,16 @@ size_t count_nodes(NODENode const t[const static 1]) {
 
 NODENode* build_list(size_t const n, size_t const s_idx) {
     register NODENode* t = NODEmake_node(1, nullptr);
+    if (!t) return nullptr;
     t->next = t;
     register NODENode* s = t;
     register NODENode* x = t;
     for (register NODEKey i = 2; i <= n; i++) {
         x = (x->next = NODEmake_node(i, t));
+        if (!x) {
+            NODEdelete_circular_list(t);
+            return nullptr;
+        }
         if (i == s_idx) s = x;
     }
     return s;

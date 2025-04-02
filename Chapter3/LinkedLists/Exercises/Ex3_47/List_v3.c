@@ -10,7 +10,7 @@ See implementation of freeAllNodes()
 
 #include "List_v3.h"
 
-#include "../../../../MacroLibrary/Utility.h"
+#include "../../../../MacroLibrary/DefaultCalloc.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -22,7 +22,8 @@ See implementation of freeAllNodes()
 LISTNode* free_list;
 
 LISTNode* LISTnew_node(LISTItem const k) {
-    register LISTNode* x = calloc(1, SIZEOF_VARTYPE(*x));
+    register LISTNode* x = DEFAULTCALLOC(*x);
+    if (!x) 
     x->item = k;
     x->next = x;
     return x;

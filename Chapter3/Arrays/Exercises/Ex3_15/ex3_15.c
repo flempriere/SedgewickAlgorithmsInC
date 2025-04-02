@@ -5,7 +5,7 @@ Program 3.5.
 
 The approaches agree, but the program runs slower
 */
-#include "../../../../MacroLibrary/Utility.h"
+#include "MacroLibrary/Utility.h"
 
 #include <assert.h>
 #include <stdio.h>
@@ -49,7 +49,7 @@ bool b[N];
  *
  * @param n maximum number to check for primality.
  */
-static inline void sieve_of_eratosthenes_guarded(size_t n) {
+static inline void sieve_of_eratosthenes_guarded(size_t const n) {
     for (register size_t k = 2; k < n; k++) {
         if (a[k]) {
             for (register size_t j = k; k * j < n; j++) a[k * j] = 0;
@@ -63,7 +63,7 @@ static inline void sieve_of_eratosthenes_guarded(size_t n) {
  *
  * @param n maximum number to check for primality.
  */
-static inline void sieve_of_eratosthenes_unguarded(size_t n) {
+static inline void sieve_of_eratosthenes_unguarded(size_t const n) {
     for (register size_t k = 2; k < n; k++) {
         for (register size_t j = k; k * j < n; j++) b[k * j] = 0;
     }
@@ -92,7 +92,7 @@ int main(int argc, char* argv[argc + 1]) {
             b[j] = true;
         }
 
-        printf("N: %zu, Time for guarded: %Lf, Time for unguarded: %Lf\n", n,
+        printf("N: %zu\tTime for guarded: %Lf\tTime for unguarded: %Lf\n", n,
                time_function(sieve_of_eratosthenes_guarded, n),
                time_function(sieve_of_eratosthenes_unguarded, n));
 

@@ -12,8 +12,8 @@ the output.
 We use dummy head nodes that point to the first true Node of the list.
  */
 
-#include "../../../../MacroLibrary/DefaultCalloc.h"
-#include "../../../../MacroLibrary/Random.h"
+#include "MacroLibrary/DefaultCalloc.h"
+#include "MacroLibrary/Random.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -64,15 +64,16 @@ constexpr key MAX_KEY = 1000u;
  * @param h
  * @param N
  */
-void build_list(Node h[static 1], size_t n);
+void build_list(Node h[static 1], size_t const n);
 
 /**
- * @brief Prints out the linked list and optionally
+ * @brief Prints out the linked list and optionally frees the nodes
+ * assumes the representation is a linear list with non-dummy head.
  *
  * @param h head of the list
  * @param freeList flags if the list should be freed after printing.
  */
-void print_list(Node* h, bool freeList);
+void print_list(Node* h, bool const freeList);
 
 /**
  * @brief insertion sort the linked list with dummy head @in, and attach
@@ -110,17 +111,17 @@ int main(int argc, char* argv[argc + 1]) {
     return EXIT_SUCCESS;
 }
 
-void build_list(Node h[static 1], size_t n) {
+void build_list(Node h[static 1], size_t const n) {
     for (register size_t i = 0; i < n; i++) {
         h->next = CALLOC_FAILS_EXIT(*h);
         h = h->next;
         h->next = nullptr;
 
-        h->k = RANDuint(MAX_KEY);
+        h->k = RANDUINT(MAX_KEY);
     }
 }
 
-void print_list(Node* h, bool freeList) {
+void print_list(Node* h, bool const freeList) {
     while (h != nullptr) {
         printf("%zu->", h->k);
         register Node* h_nxt = h->next;

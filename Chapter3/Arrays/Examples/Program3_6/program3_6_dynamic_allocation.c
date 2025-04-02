@@ -6,8 +6,8 @@ in programs such as the sieve of eratosthenes.
 This takes in the size of the array to allocate as a command line argument
 
 */
-#include "../../../../MacroLibrary/DefaultCalloc.h"
-#include "../../../../MacroLibrary/NumberParse.h"
+#include "MacroLibrary/DefaultCalloc.h"
+#include "MacroLibrary/NumberParse.h"
 
 #include <stdio.h>
 #include <stdlib.h>

@@ -6,9 +6,9 @@ the circle M times an eliminate the corresponding Node. We then close the circle
 and repeat until there is one index left.
 */
 
-#include "../../../../MacroLibrary/DefaultCalloc.h"
-#include "../../../../MacroLibrary/NumberParse.h"
-#include "../../../../MacroLibrary/Utility.h"
+#include "MacroLibrary/DefaultCalloc.h"
+#include "MacroLibrary/NumberParse.h"
+#include "MacroLibrary/Utility.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -45,7 +45,7 @@ static inline Node* make_node(key k, Node* nxt) {
  * @param N
  * @return Node*
  */
-Node* build_list(size_t n);
+Node* build_list(size_t const n);
 
 /**
  * @brief Evaluate the Josephus problem and return the final key.
@@ -56,7 +56,7 @@ Node* build_list(size_t n);
  * @param m number of hops before elimination.
  * @return key
  */
-key compute_josephus(Node h[static 1], size_t m);
+key compute_josephus(Node h[static 1], size_t const m);
 /**
  * @brief Determine the final person eliminated
  * in the Josephus problem consisting of N people
@@ -82,15 +82,13 @@ int main(int argc, char* argv[argc + 1]) {
     }
 
     register Node* t = build_list(N);
-
     register key res = compute_josephus(t, M);
-
     printf("%zu\n", res);
 
     return EXIT_SUCCESS;
 }
 
-Node* build_list(size_t n) {
+Node* build_list(size_t const n) {
     if (!n) return nullptr;
     Node* t = make_node(1, nullptr);
     t->next = t;
@@ -102,7 +100,7 @@ Node* build_list(size_t n) {
     return x;
 }
 
-key compute_josephus(Node h[static 1], size_t m) {
+key compute_josephus(Node h[static 1], size_t const m) {
     while (h != h->next) {
         for (register size_t i = 1; i < m; i++) h = h->next;
         register Node* tmp = h->next;

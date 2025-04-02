@@ -1,6 +1,6 @@
 # A Simple Makefile
 # Template VERSION = 1.0.0
-# Date generated on: 2025-03-23
+# Date generated on: 2025-04-02
 
 ##############
 # BUILD Mode #
@@ -16,8 +16,9 @@ BUILDDIR = $(CURDIR)/$(BUILD)
 # Search Directories for Code #
 ###############################
 
-INCLUDE_DIRS = . ./includes ../Program3_12-14_ListImplementation/
-SOURCE_DIRS = . ./src ../Program3_12-14_ListImplementation/
+PROJECT_DIR = /home/flempriere/personal_projects/SedgewickAlgorithmsInC
+INCLUDE_DIRS = . ./include /home/flempriere/personal_projects/SedgewickAlgorithmsInC /home/flempriere/personal_projects/SedgewickAlgorithmsInC/Interfaces
+SOURCE_DIRS = . ./src ./include/src $(PROJECT_DIR)/Interfaces/List/v1/src
 SOURCE_VPATHS = 
 
 vpath %.c $(sort $(dir) $(SOURCE_DIRS) $(SOURCE_VPATHS))

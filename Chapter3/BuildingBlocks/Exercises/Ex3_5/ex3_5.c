@@ -2,11 +2,11 @@
 Exercise 3.5. Implement a version of Program 3.2 that supports bit types
 (values that can be zero or one)
 */
-#include "../../../../MacroLibrary/NumberParse.h"
-#include "../../../../MacroLibrary/Random.h"
-#include "../../../../MacroLibrary/Statistics.h"
-#include "../../../../MacroLibrary/Utility.h"
-#include "src/NumberBit.h"
+#include "MacroLibrary/NumberParse.h"
+#include "MacroLibrary/Random.h"
+#include "MacroLibrary/Statistics.h"
+#include "MacroLibrary/Utility.h"
+#include "include/NumberBit.h"
 
 #include <stdio.h>
 #include <stdlib.h>

@@ -17,8 +17,8 @@ BUILDDIR = $(CURDIR)/$(BUILD)
 ###############################
 
 PROJECT_DIR = /home/flempriere/personal_projects/SedgewickAlgorithmsInC
-INCLUDE_DIRS = . ./includes /home/flempriere/personal_projects/SedgewickAlgorithmsInC /home/flempriere/personal_projects/SedgewickAlgorithmsInC/Interfaces
-SOURCE_DIRS = . ./src
+INCLUDE_DIRS = . ./include /home/flempriere/personal_projects/SedgewickAlgorithmsInC /home/flempriere/personal_projects/SedgewickAlgorithmsInC/Interfaces
+SOURCE_DIRS = . ./src ./include/src
 SOURCE_VPATHS = 
 
 vpath %.c $(sort $(dir) $(SOURCE_DIRS) $(SOURCE_VPATHS))

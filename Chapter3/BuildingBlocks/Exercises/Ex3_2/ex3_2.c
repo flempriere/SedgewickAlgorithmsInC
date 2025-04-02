@@ -6,10 +6,10 @@ N random integers from 0 to r-1 with rand() % r and computing
 the avg and std. dev. for r = 10, 100, 1000, N = 10^3, 10^4,
 10^5, 10^6.
 */
-#include "../../../../MacroLibrary/Random.h"
-#include "../../../../MacroLibrary/Statistics.h"
-#include "../../../../MacroLibrary/Utility.h"
-#include "src/NumberInt.h"
+#include "MacroLibrary/Random.h"
+#include "MacroLibrary/Statistics.h"
+#include "MacroLibrary/Utility.h"
+#include "include/NumberInt.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -45,7 +45,7 @@ constexpr unsigned int R_INIT = 10u;
  * @param ub upper bound.
  * @return double
  */
-static inline double rand_num_to_double(double ub);
+static inline double rand_num_to_double(double const ub);
 
 /**
  * @brief Test the random number generator by
@@ -81,6 +81,6 @@ int main(int argc, char* argv[argc + 1]) {
     return EXIT_SUCCESS;
 }
 
-static inline double rand_num_to_double(double ub) {
+static inline double rand_num_to_double(double const ub) {
     return CAST(double) NUMBERrandom(CAST(Number) ub);
 }

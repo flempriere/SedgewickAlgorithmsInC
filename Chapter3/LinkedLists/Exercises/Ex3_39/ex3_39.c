@@ -7,8 +7,8 @@ all items on the given list for which the function returns
 a nonzero value
 */
 
-#include "../../../../MacroLibrary/DefaultCalloc.h"
-#include "../../../../MacroLibrary/Generic.h"
+#include "List/Node/Node.h"
+#include "MacroLibrary/Generic.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -20,24 +20,6 @@ a nonzero value
 constexpr unsigned int N = 10u;
 
 /**
- * @brief Linked List node with
- * key and next element.
- *
- */
-typedef struct node node;
-
-struct node {
-    size_t k;
-    node* next;
-};
-/**
- * @brief Print out the LinkedList starting
- * from the node head.
- *
- * @param head
- */
-void print_list(node const* head);
-/**
  * @brief test if the key associated with a
  * node is even.
  *
@@ -45,7 +27,7 @@ void print_list(node const* head);
  * @return true if l->k is even else
  * @return false
  */
-bool is_even(node const* const l);
+bool is_even(NODENode const l[const static 1]);
 
 /**
  * @brief Removes all nodes on a list that compare true to a given
@@ -55,7 +37,8 @@ bool is_even(node const* const l);
  * @param cmp comparison function, that takes in a node* and returns true or
  * false.
  */
-void remove_nodes_by_function(node* h, bool cmp(node const* const));
+void remove_nodes_by_function(NODENode* h,
+                              bool cmp(NODENode const[const static 1]));
 
 /**
  * @brief Test driver, generate a list of nodes
@@ -66,38 +49,27 @@ void remove_nodes_by_function(node* h, bool cmp(node const* const));
  */
 int main(int argc, char* argv[argc + 1]) {
     // generate a list of N nodes numbered 1 to 10 with a dummy head
-    node* const nodes = CALLOC_FAILS_EXIT(N + 1, *nodes);
-
-    for (register size_t i = 1; i <= N; i++) {
-        nodes[i - 1].next = &nodes[i];
-        nodes[i].k = i;
-    }
-    nodes[N].next = nullptr;
+    NODENode* const nodes = NODEbuild_lin_list_dummy_head(N, NODEgen_key_idx);
+    if (!nodes) return EXIT_FAILURE;
 
     printf("Initial List:\n");
-    print_list(nodes);
+    NODEprint_null_terminated_list(nodes[0].next);
 
     remove_nodes_by_function(nodes, is_even);
 
     printf("List after removal:\n");
-    print_list(nodes);
+    NODEprint_null_terminated_list(nodes[0].next);
 
+    free(nodes);
     return EXIT_SUCCESS;
 }
 
-void print_list(node const* head) {
-    for (head = head->next; head != nullptr; head = head->next) {
-        printf("%zu->", head->k);
-    }
-    printf("X\n");
-}
+bool is_even(NODENode const l[const static 1]) { return IS_EVEN(l->k); }
 
-bool is_even(node const* const l) { return IS_EVEN(l->k); }
-
-void remove_nodes_by_function(node* h, bool cmp(node const* const)) {
+void remove_nodes_by_function(NODENode* h, bool cmp(NODENode const* const)) {
     for (; !(h == nullptr || h->next == nullptr); h = h->next) {
         if (cmp(h->next)) {
-            node* h_nxt = h->next;
+            NODENode* h_nxt = h->next;
             h->next = h_nxt->next;
         }
     }

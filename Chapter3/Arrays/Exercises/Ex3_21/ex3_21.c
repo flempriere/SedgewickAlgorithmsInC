@@ -4,9 +4,9 @@ Exercise 3.21
 Modify program 3.7 to generate a heads with probability lambda/N
 */
 
-#include "../../../../MacroLibrary/DefaultCalloc.h"
-#include "../../../../MacroLibrary/NumberParse.h"
-#include "../../../../MacroLibrary/Random.h"
+#include "MacroLibrary/DefaultCalloc.h"
+#include "MacroLibrary/NumberParse.h"
+#include "MacroLibrary/Random.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -71,5 +71,5 @@ int main(int argc, char* argv[argc + 1]) {
 }
 
 static inline bool heads(double const lambda, size_t const N) {
-    return RAND_COIN_TOSS(lambda / CAST(double) N);
+    return RANDCOIN_TOSS(lambda / CAST(double) N);
 }

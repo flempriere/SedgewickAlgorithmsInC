@@ -5,9 +5,9 @@ Modify program 3.7 to generate a heads with probability p and then test the
 results for p = 1/6.
 */
 
-#include "../../../../MacroLibrary/DefaultCalloc.h"
-#include "../../../../MacroLibrary/NumberParse.h"
-#include "../../../../MacroLibrary/Random.h"
+#include "MacroLibrary/DefaultCalloc.h"
+#include "MacroLibrary/NumberParse.h"
+#include "MacroLibrary/Random.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -70,4 +70,4 @@ int main(int argc, char* argv[argc + 1]) {
     return EXIT_SUCCESS;
 }
 
-static inline bool heads(double const p) { return RAND_COIN_TOSS(p); }
+static inline bool heads(double const p) { return RANDCOIN_TOSS(p); }

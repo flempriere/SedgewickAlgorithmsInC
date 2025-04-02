@@ -4,8 +4,8 @@ Exercise 3.28
 Modify Program 3.9 to reduce the number of excessive circular loops it makes.
 */
 
-#include "../../../../MacroLibrary/NumberParse.h"
-#include "../Ex3_24/src/Node.h"
+#include "List/Node/Node.h"
+#include "MacroLibrary/NumberParse.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -47,6 +47,7 @@ int main(int argc, char* argv[argc + 1]) {
     }
 
     register NODENode* t = build_list(N);
+    if (!t) return EXIT_FAILURE;
     printf("%zu\n", NODEcalculate_josephus(t, M));
 
     return EXIT_SUCCESS;
@@ -54,10 +55,12 @@ int main(int argc, char* argv[argc + 1]) {
 
 NODENode* build_list(size_t const n) {
     NODENode* t = NODEmake_node(1, nullptr);
+    if (!t) return nullptr;
     register NODENode* x = t;
 
     for (register NODEKey i = 2; i <= n; i++) {
         x = (x->next = NODEmake_node(i, nullptr));
+        if (!x) return NODEclean_failed_build(t);
     }
     x->next = t;
     return x;

@@ -8,7 +8,7 @@ using a polar representation
  * collinear calculation.
  *
  */
-constexpr double POLARPOINT_TOLERANCE = 10e-4;
+constexpr double POLARPOINTTOLERANCE = 10e-4;
 
 /**
  * @brief Localises numerical data definition
@@ -46,7 +46,7 @@ double POLARPOINTdistance(PolarPoint const p, PolarPoint const q);
  * @return false
  */
 static inline bool POLARPOINTequal(PolarPoint const p, PolarPoint const q) {
-    return POLARPOINTdistance(p, q) < POLARPOINT_TOLERANCE;
+    return POLARPOINTdistance(p, q) < POLARPOINTTOLERANCE;
 }
 
 /**

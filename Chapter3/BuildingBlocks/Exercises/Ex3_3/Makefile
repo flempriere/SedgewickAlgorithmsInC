@@ -1,6 +1,6 @@
 # A Simple Makefile
 # Template VERSION = 1.0.0
-# Date generated on: 2025-03-23
+# Date generated on: 2025-04-02
 
 ##############
 # BUILD Mode #
@@ -16,11 +16,12 @@ BUILDDIR = $(CURDIR)/$(BUILD)
 # Search Directories for Code #
 ###############################
 
-INCLUDE_DIRS = . ./includes
-SOURCE_DIRS = . ./src
+PROJECT_DIR = /home/flempriere/personal_projects/SedgewickAlgorithmsInC
+INCLUDE_DIRS = . ./include /home/flempriere/personal_projects/SedgewickAlgorithmsInC /home/flempriere/personal_projects/SedgewickAlgorithmsInC/Interfaces
+SOURCE_DIRS = . ./src ./include/src
 SOURCE_VPATHS = 
 
-vpath %.c $(sort $(dir) $(SOURCE_DIRS) $(SOURCE_VPATHS)) 
+vpath %.c $(sort $(dir) $(SOURCE_DIRS) $(SOURCE_VPATHS))
 
 
 ######################################
@@ -32,7 +33,7 @@ PROJECT = ex3_3
 #Any .c files to be included, without including their whole directory
 # should not include their directory.
 # Their directory must be put in the .c vpath variable.
-CEXTRA = 
+CEXTRA =  
 
 ###################################
 # Generated .c, obj and src files #

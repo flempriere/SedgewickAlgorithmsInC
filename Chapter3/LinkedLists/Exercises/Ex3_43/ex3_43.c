@@ -1,34 +1,26 @@
 /*
 Exercise 3.43
 
-Implement a version of Program 3.9 that uses a head node.
+Implement a version of Program 3.9 that uses a head NODENode.
 */
 
-#include "../../../../MacroLibrary/Utility.h"
+#include "List/Node/Node.h"
 
 #include <stdio.h>
 #include <stdlib.h>
 
+static inline NODEKey label_josephus_nodes(void) {
+    return NODEgen_key_idx() + 1;
+}
 /**
- * @brief Key type for node structure
+ * @brief Calculate the Josephus function for a linear linked list with
+ * a dummy head.
  *
+ * @param h
+ * @param m
+ * @return NODEKey
  */
-typedef size_t key;
-
-/**
- * @brief LinkedList node
- * consisting of a @key
- * and next node.
- *
- * @see key
- */
-typedef struct node node;
-
-struct node {
-    key item;
-    node* next;
-};
-
+NODEKey calculate_josephus(NODENode h[static 1], size_t const m);
 /**
  * @brief Determine the final person eliminated
  * in the Josephus problem consisting of N people
@@ -37,6 +29,7 @@ struct node {
  * @param argv[1] N - number of nodes > 0
  * @param argv[2] M - number of skips > 0
  *
+ * If the list is empty then returns 0
  * @return EXIT_SUCCESS on successful termination else
  * @return EXIT_FAILURE
  */
@@ -53,26 +46,26 @@ int main(int argc, char* argv[argc + 1]) {
     }
 
     // initialise the list
-    node* const nodes = calloc(N + 1, SIZEOF_VARTYPE(*nodes));
-    register node* head = nodes;
+    NODENode* const nodes =
+        NODEbuild_lin_list_dummy_head(N, label_josephus_nodes);
 
-    // build list
-    for (register size_t i = 1; i <= N; i++) {
-        nodes[i].item = i;
-        nodes[i - 1].next = &nodes[i];
-    }
-    nodes[N].next = nullptr;
+    if (!nodes) return EXIT_FAILURE;
 
-    register node* x = head;
-    while (head->next->next != nullptr) {
-        for (register size_t i = 1; i < M; i++) {
-            x = x->next;
-            if (!x) x = head->next;    // reach end of list
-        }
-        if ((x->next))
-            x->next = x->next->next;
-        else { head->next = head->next->next; }
-    }
-    printf("%zu\n", head->next->item);
+    printf("%zu\n", calculate_josephus(nodes, M));
+    free(nodes);
     return EXIT_SUCCESS;
+}
+
+NODEKey calculate_josephus(NODENode h[static 1], size_t const m) {
+    register NODENode* x = h;
+    if (!h->next) return 0;
+    while (h->next->next != nullptr) {
+        for (register size_t i = 1; i < m; i++) {
+            (x->next == nullptr) ? (x = h->next) : (x = x->next);
+        }
+        if (x->next)
+            x->next = x->next->next;
+        else { h->next = h->next->next; }
+    }
+    return h->next->k;
 }

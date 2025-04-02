@@ -2,11 +2,11 @@
 Multifile implementation of Program 3.2 that utilises a client file (avg.c)
 an interface file (num.h) and an implementation file (num.c)
 */
-#include "../../../../../MacroLibrary/NumberParse.h"
-#include "../../../../../MacroLibrary/Random.h"
-#include "../../../../../MacroLibrary/Statistics.h"
-#include "../../../../../MacroLibrary/Utility.h"
-#include "src/Number.h"
+#include "MacroLibrary/NumberParse.h"
+#include "MacroLibrary/Random.h"
+#include "MacroLibrary/Statistics.h"
+#include "MacroLibrary/Utility.h"
+#include "include/NumberShort.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -18,7 +18,7 @@ an interface file (num.h) and an implementation file (num.c)
  * Designed to wrap the NUMBERrandom in the interface for calculateStatistics
  * @return double
  */
-static inline double rand_num_to_double(void);
+static inline double rand_num_to_double(double ub);
 /**
  * @brief Calculate the average and standard deviation
  * of a collection of random numbers.
@@ -37,10 +37,12 @@ int main(int argc, char* argv[argc + 1]) {
     RAND_SEED_TIME;
 
     register STATSmeasures results =
-        STATScalculate_statistics(rand_num_to_double, N);
+        STATScalculate_statistics(rand_num_to_double, N, NUM_MAX);
     STATSsummary_print(results);
 
     return EXIT_SUCCESS;
 }
 
-double rand_num_to_double(void) { return CAST(double) NUMBERrandom(); }
+double rand_num_to_double(double const ub) {
+    return CAST(double) NUMBERrandom(CAST(Number) ub);
+}

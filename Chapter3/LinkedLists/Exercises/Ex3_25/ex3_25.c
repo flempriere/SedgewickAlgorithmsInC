@@ -4,8 +4,8 @@ Write a function that returns the number of nodes between two pointers x and
 t on a circular linked list.
 */
 
-#include "../../../../MacroLibrary/NumberParse.h"
-#include "../Ex3_24/src/Node.h"
+#include "List/Node/Node.h"
+#include "MacroLibrary/NumberParse.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -21,7 +21,8 @@ t on a circular linked list.
  * @param t terminating Node
  * @return size_t, 0 if @x == @t else > 0
  */
-size_t count_nodes_between(NODENode const x[static 1], NODENode const t[static 1]);
+size_t count_nodes_between(NODENode const x[static 1],
+                           NODENode const t[static 1]);
 
 /**
  * @brief Set the up list objects
@@ -31,11 +32,12 @@ size_t count_nodes_between(NODENode const x[static 1], NODENode const t[static 1
  * @param srt
  * @param stp_idx
  * @param stp
- * @return Node*
+ * @return Node* head of the list on success, else
+ * @return nullptr
  */
 NODENode* setup_list(size_t const n, size_t const srt_idx,
-                 NODENode const* srt[static 1], size_t const stp_idx,
-                 NODENode const* stp[static 1]);
+                     NODENode const* srt[static 1], size_t const stp_idx,
+                     NODENode const* stp[static 1]);
 
 /**
  * @brief Test driver for countNodesBetween
@@ -72,30 +74,36 @@ int main(int argc, char* argv[argc + 1]) {
     NODENode const* srt;
     NODENode const* stp;
     register NODENode* t = setup_list(N, x_idx, &srt, t_idx, &stp);
+    if (!t) return EXIT_FAILURE;
     printf("%zu\n", count_nodes_between(srt, stp));
 
     NODEdelete_circular_list(t);
     return EXIT_SUCCESS;
 }
 
-size_t count_nodes_between(NODENode const x[static 1], NODENode const t[static 1]) {
+size_t count_nodes_between(NODENode const x[static 1],
+                           NODENode const t[static 1]) {
     register size_t sz = 0;
     for (; x != t; x = x->next, sz++);
     return sz;
 }
 
 NODENode* setup_list(size_t const n, size_t const srt_idx,
-                 NODENode const* srt[static 1], size_t const stp_idx,
-                 NODENode const* stp[static 1]) {
+                     NODENode const* srt[static 1], size_t const stp_idx,
+                     NODENode const* stp[static 1]) {
     register NODENode* t = NODEmake_node(1, nullptr);
+    if (!t) return nullptr;
+    t->next = t;
     *srt = t;
     *stp = t;
-
-    t->next = t;
 
     register NODENode* x = t;
     for (register size_t i = 2; i <= n; i++) {
         x = (x->next = NODEmake_node(i, t));
+        if (!x) {
+            NODEdelete_circular_list(t);
+            return nullptr;
+        }
         if (i == srt_idx) *srt = x;
         if (i == stp_idx) *stp = x;
     }

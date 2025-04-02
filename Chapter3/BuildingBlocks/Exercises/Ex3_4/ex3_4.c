@@ -2,10 +2,10 @@
 Exercise 3_4 implementation utilising num.c and num.h from Program 3.2
 based on the implementations in exercise 3.2 and exercise 3.3
 */
-#include "../../../../MacroLibrary/Random.h"
-#include "../../../../MacroLibrary/Statistics.h"
-#include "../../../../MacroLibrary/Utility.h"
-#include "src/Number_v2.h"
+#include "MacroLibrary/Random.h"
+#include "MacroLibrary/Statistics.h"
+#include "MacroLibrary/Utility.h"
+#include "include/Number_v2.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -43,7 +43,7 @@ constexpr size_t RESULTS_ARR_SIZE = N_CASES * R_CASES;
  * @param d
  * @return double
  */
-static inline double rand_mod_to_double(double d);
+static inline double rand_mod_to_double(double const d);
 
 /**
  * @brief Wraps the random number by truncation function in the interface
@@ -52,7 +52,7 @@ static inline double rand_mod_to_double(double d);
  * @param d
  * @return double
  */
-static inline double rand_trunc_to_double(double d);
+static inline double rand_trunc_to_double(double const d);
 
 /**
  * @brief Calculate the statistics using a given rng. Bool flag notes if
@@ -129,10 +129,10 @@ void run_rng_experiment(double rng(double ub),
     }
 }
 
-static inline double rand_mod_to_double(double d) {
+static inline double rand_mod_to_double(double const d) {
     return CAST(double) NUMBERrandom_modulus(CAST(Number) d);
 }
 
-static inline double rand_trunc_to_double(double d) {
+static inline double rand_trunc_to_double(double const d) {
     return CAST(double) NUMBERrandom_truncate(CAST(Number) d);
 }

@@ -2,8 +2,8 @@
 This function reverses a list, returning a pointer to the final Node,
 which is now the new head Node. The first Node link is now a nullptr.
 */
-#include "../../../../MacroLibrary/DefaultCalloc.h"
-#include "../../../../MacroLibrary/Utility.h"
+#include "MacroLibrary/DefaultCalloc.h"
+#include "MacroLibrary/Utility.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -34,15 +34,16 @@ struct Node {
  * @param h head to build the list onto.
  * @param N Number of nodes to build.
  */
-void build_list(Node h[static 1], size_t n);
+void build_list(Node h[static 1], size_t const n);
 
 /**
- * @brief Prints out the linked list and optionally
+ * @brief Prints out the linked list and optionally frees the nodes as
+ * it goes. Assumes a linear linked list with non-dummy head.
  *
  * @param h head of the list
  * @param freeList flags if the list should be freed after printing.
  */
-void print_list(Node* h, bool freeList);
+void print_list(Node* h, bool const freeList);
 
 /**
  * @brief Reverse a linkedList. This modifies
@@ -62,7 +63,7 @@ int main(int argc, char* argv[argc + 1]) {
     constexpr size_t N = 10u;
 
     Node* const head = CALLOC_FAILS_EXIT(*head);
-    *head = CAST(Node) {.k = 0, .next = nullptr};
+    *head = CAST(Node){ .k = 0, .next = nullptr };
     build_list(head, N);
     print_list(head, false);
 
@@ -85,7 +86,7 @@ Node* reverse(Node* const x) {
     return r;
 }
 
-void build_list(Node h[static 1], size_t n) {
+void build_list(Node h[static 1], size_t const n) {
     for (register size_t i = 1; i < n; i++) {
         register Node* const t = CALLOC_FAILS_EXIT(*t);
         t->next = nullptr;
@@ -95,7 +96,7 @@ void build_list(Node h[static 1], size_t n) {
     }
 }
 
-void print_list(Node* h, bool freeList) {
+void print_list(Node* h, bool const freeList) {
     while (h != nullptr) {
         printf("%zu->", h->k);
         register Node* h_nxt = h->next;

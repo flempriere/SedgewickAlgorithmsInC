@@ -4,8 +4,8 @@ Write a function that given two pointers x and t to elements in a list,
 moves the Node following t to the Node following x.
 */
 
-#include "../../../../MacroLibrary/NumberParse.h"
-#include "../Ex3_24/src/Node.h"
+#include "List/Node/Node.h"
+#include "MacroLibrary/NumberParse.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -25,8 +25,22 @@ moves the Node following t to the Node following x.
  */
 void move_node(NODENode x[const static 1], NODENode t[const static 1]);
 
-NODENode* setup_list(size_t const n, size_t const srt_idx, NODENode* srt[static 1],
-                 size_t const stp_idx, NODENode* stp[static 1]);
+/**
+ * @brief Set the up list for testing, with two pointers into the list
+ * at the correct index to test move_node.
+ *
+ * @param n
+ * @param srt_idx
+ * @param srt
+ * @param stp_idx
+ * @param stp
+ * @return NODENode* head of the lsit on success else
+ * @return nullptr.
+ */
+NODENode* setup_list(size_t const n, size_t const srt_idx,
+                     NODENode* srt[static 1], size_t const stp_idx,
+                     NODENode* stp[static 1]);
+
 /**
  * @brief Test driver code for moveNodes. Creates
  * a list of size @N, and then calls @moveNode to
@@ -70,8 +84,8 @@ int main(int argc, char* argv[argc + 1]) {
     NODENode* srt;
     NODENode* stp;
 
-    setup_list(N, x_idx, &srt, t_idx,
-               &stp);    // need to cast since can't convert to const
+    if (setup_list(N, x_idx, &srt, t_idx, &stp) == nullptr)
+        return EXIT_FAILURE;    // need to cast since can't convert to const
 
     printf("List premove: \n");
     NODEprint_circular_list(srt);
@@ -102,9 +116,11 @@ void move_node(NODENode x[const static 1], NODENode t[const static 1]) {
     }
 }
 
-NODENode* setup_list(size_t const n, size_t const srt_idx, NODENode* srt[static 1],
-                 size_t const stp_idx, NODENode* stp[static 1]) {
+NODENode* setup_list(size_t const n, size_t const srt_idx,
+                     NODENode* srt[static 1], size_t const stp_idx,
+                     NODENode* stp[static 1]) {
     register NODENode* t = NODEmake_node(1, nullptr);
+    if (!t) return nullptr;
     *srt = t;
     *stp = t;
 
@@ -113,6 +129,10 @@ NODENode* setup_list(size_t const n, size_t const srt_idx, NODENode* srt[static 
     register NODENode* x = t;
     for (register size_t i = 2; i <= n; i++) {
         x = (x->next = NODEmake_node(i, t));
+        if (!x) {
+            NODEdelete_circular_list(t);
+            return nullptr;
+        }
         if (i == srt_idx) *srt = x;
         if (i == stp_idx) *stp = x;
     }

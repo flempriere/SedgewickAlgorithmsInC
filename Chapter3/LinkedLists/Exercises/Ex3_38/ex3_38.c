@@ -5,7 +5,7 @@ and returns a link to a copy of the list (a new list
 containing all the same items, in the same order)
 */
 
-#include "../Ex3_24/src/Node.h"
+#include "List/Node/Node.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -44,24 +44,22 @@ static inline nullptr_t copy_failed_cleanup(NODENode* h, NODENode* stop) {
  * @return Node* pointer to new list else nullptr if allocation fails.
  */
 NODENode* copy_list(NODENode head[static 1]) {
-    NODENode* const new_head = DEFAULTCALLOC(*new_head);
+    NODENode* const new_head = NODEmake_node(0, nullptr);
     if (!new_head) return nullptr;
 
     NODENode* tail = new_head;
 
     for (head = head->next; head != nullptr; head = head->next) {
-        tail->next = DEFAULTCALLOC(*(tail->next));
-        if (!(tail->next)) return copy_failed_cleanup(new_head, tail);
-        tail = tail->next;
-        tail->k = head->k;
+        tail = (tail->next = NODEmake_node(head->k, nullptr));
+        if (!(tail)) return NODEclean_failed_build(new_head);
     }
-    tail->next = nullptr;
     return new_head;
 }
 
 int main(int argc, char* argv[argc + 1]) {
     // generate a list of N nodes numbered 1 to 10 with a dummy head
-    register NODENode* const nodes = NODEbuild_lin_list_dummy_head(N, gen_key_idx);
+    register NODENode* const nodes =
+        NODEbuild_lin_list_dummy_head(N, NODEgen_key_idx);
 
     printf("Initial List:\n");
     NODEprint_null_terminated_list(nodes[0].next);

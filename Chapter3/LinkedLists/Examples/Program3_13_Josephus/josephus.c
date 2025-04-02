@@ -5,8 +5,8 @@ This program for the Josephus problem is a client program that utilises
 the list interface from Program 3.12 and the Program 3.14 implementation.
 */
 
-#include "../../../../MacroLibrary/NumberParse.h"
-#include "../Program3_12-14_ListImplementation/List.h"
+#include "MacroLibrary/NumberParse.h"
+#include "List/v1/List.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -18,7 +18,7 @@ the list interface from Program 3.12 and the Program 3.14 implementation.
  * @param N 
  * @return LISTNode* 
  */
-LISTNode* build_list(size_t n);
+LISTNode* build_list(size_t const n);
 
 /**
  * @brief Calculate the josephus problem taking m steps around the list per
@@ -28,7 +28,7 @@ LISTNode* build_list(size_t n);
  * @param m 
  * @return LISTItem key value of the last node remaining.
  */
-LISTItem NODEcalculate_josephus(LISTNode x[static 1], size_t m);
+LISTItem NODEcalculate_josephus(LISTNode x[static 1], size_t const m);
 /**
  * @brief Determine the final person eliminated
  * in the Josephus problem consisting of N people
@@ -52,14 +52,19 @@ int main(int argc, char* argv[argc + 1]) {
         return EXIT_FAILURE;
     }
 
-    LISTinit_nodes(N);
+    if(!LISTinit_nodes(N)) {
+        fprintf(stderr, "Failed to build Josephus List\n");
+        return EXIT_FAILURE;
+    }
     register LISTNode* x = build_list(N);
 
     printf("%zu\n", NODEcalculate_josephus(x, M));
+
+    LISTdeinit_list();
     return EXIT_SUCCESS;
 }
 
-LISTNode* build_list(size_t n) {
+LISTNode* build_list(size_t const n) {
     register LISTNode* x = LISTnew_node(1);
     for (register size_t i = 2; i <= n; i++) {
         register LISTNode* t = LISTnew_node(i);
@@ -69,7 +74,7 @@ LISTNode* build_list(size_t n) {
     return x;
 }
 
-LISTItem NODEcalculate_josephus(LISTNode x[static 1], size_t m) {
+LISTItem NODEcalculate_josephus(LISTNode x[static 1], size_t const m) {
     while (x != LISTnext(x)) {
         for (register size_t i = 1; i < m; i++) x = LISTnext(x);
         LISTfree_node(LISTdelete_next(x));

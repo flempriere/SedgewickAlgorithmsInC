@@ -5,9 +5,9 @@ Write a function that moves the largest item on a given list to be
 the final Node on a list.
 
 */
-#include "../../../../MacroLibrary/NumberParse.h"
-#include "../../../../MacroLibrary/Random.h"
-#include "../Ex3_24/src/Node.h"
+#include "List/Node/Node.h"
+#include "MacroLibrary/NumberParse.h"
+#include "MacroLibrary/Random.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -51,7 +51,8 @@ int main(int argc, char* argv[argc + 1]) {
         (argc == 2) ? NUMPARSEexit_on_fail(N, argv[1]) : DEFAULT_N;
 
     RAND_SEED_TIME;
-    NODENode* const nodes = NODEbuild_lin_list_dummy_head(N, gen_key_rand);
+    NODENode* const nodes = NODEbuild_lin_list_dummy_head(N, NODEgen_key_rand);
+    if (!nodes) return EXIT_FAILURE;
 
     printf("Initial List:\n");
     NODEprint_null_terminated_list(nodes[0].next);
@@ -70,7 +71,7 @@ int main(int argc, char* argv[argc + 1]) {
 
 void move_largest_to_end(NODENode h[static 1]) {
     if (!(h->next)) return;    // empty list
-    NODENode* max_pred = h;        // the predecessor to the current max
+    NODENode* max_pred = h;    // the predecessor to the current max
     for (h = h->next; h->next; h = h->next) {
         if (h->next->k > max_pred->next->k) max_pred = h;
     }

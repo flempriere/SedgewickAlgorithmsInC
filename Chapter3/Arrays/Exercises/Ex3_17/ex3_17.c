@@ -5,7 +5,8 @@ Count the number of different (positive) integers less than 1000 that appear
 in an input stream.
 
 */
-#include "../../../../MacroLibrary/NumberParse.h"
+#include "MacroLibrary/NumberParse.h"
+#include "MacroLibrary/Utility.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -44,5 +45,5 @@ int main(int argc, char* argv[argc + 1]) {
     for (register size_t i = 0; i < MAX_NUM; i++) {
         if (a[i]) printf("%4zu:%4zu\n", i, a[i]);
     }
-    return EXIT_SUCCESS;
+    return read_ended_successfully(stdin) ? EXIT_SUCCESS : EXIT_FAILURE;
 }
