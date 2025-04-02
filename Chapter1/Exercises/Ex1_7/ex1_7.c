@@ -6,8 +6,8 @@ Exercise 1-7:
     - Using Weighted Quick Union algorithm
 */
 
-#include "../../../MacroLibrary/Generic.h"
-#include "../../../MacroLibrary/Utility.h"
+#include "MacroLibrary/Generic.h"
+#include "MacroLibrary/Utility.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -78,7 +78,7 @@ int main(int argc, char* argv[argc + 1]) {
         printf("array acceses for (%zu, %zu): %zu\n", p, q, n_acc);
         tot_acc += n_acc;
     }
-    printf("Number of id array accesses: %zu\n", tot_acc);
+    printf("Total accesses: %zu\n", tot_acc);
     return read_ended_successfully(stdin) ? EXIT_SUCCESS : EXIT_FAILURE;
 }
 

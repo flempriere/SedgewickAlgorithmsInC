@@ -6,7 +6,7 @@ Exercise 1-4:
     - Using Quick Find algorithm
 */
 
-#include "../../../MacroLibrary/Utility.h"
+#include "MacroLibrary/Utility.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -79,9 +79,10 @@ int main(void) {
         printf(" %zu %zu\n", p, q);
     updateArrayAccesses:
         printArr(N, id);
-        printf("array acceses for (%zu, %zu): %zu\n", p, q, n_accesses);
+        printf("array accesses for (%zu, %zu): %zu\n", p, q, n_accesses);
         tot_accesses += n_accesses;
     }
+    printf("Total accesses: %zu\n", tot_accesses);
     return read_ended_successfully(stdin) ? EXIT_SUCCESS : EXIT_FAILURE;
 }
 

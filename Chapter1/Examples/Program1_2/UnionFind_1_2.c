@@ -10,7 +10,7 @@ Program 1.2: Quick Union solution to the connectivity problem
 - all array.
 */
 
-#include "../../../MacroLibrary/Utility.h"
+#include "MacroLibrary/Utility.h"
 
 #include <stdio.h>
 #include <stdlib.h>

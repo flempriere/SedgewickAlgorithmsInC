@@ -8,8 +8,8 @@ Path compression by halving: During find operations every node touched is has
 its parent replaced by its grandparent.
 */
 
-#include "../../../MacroLibrary/Generic.h"
-#include "../../../MacroLibrary/Utility.h"
+#include "MacroLibrary/Generic.h"
+#include "MacroLibrary/Utility.h"
 
 #include <stdio.h>
 #include <stdlib.h>

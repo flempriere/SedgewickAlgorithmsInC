@@ -4,8 +4,8 @@ Exercise 1-20:
     - Compare the timing of this with Program 1.3
 */
 
-#include "../../../MacroLibrary/Generic.h"
-#include "../../../MacroLibrary/Utility.h"
+#include "MacroLibrary/Generic.h"
+#include "MacroLibrary/Utility.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -67,10 +67,8 @@ int main(int argc, char* argv[argc + 1]) {
         sz[i] = MAX(sz[i], sz[j] + 1);
         n_acc++;
         printf(" %zu %zu\n", p, q);
-        printArr(N, id);
+        // printArr(N, id);
     }
-    printf("Number of id array accesses: %zu\n", n_acc);
-
     return read_ended_successfully(stdin) ? EXIT_SUCCESS : EXIT_FAILURE;
 }
 

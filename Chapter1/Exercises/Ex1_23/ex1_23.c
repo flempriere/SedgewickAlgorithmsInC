@@ -6,8 +6,8 @@ This program repeats for N = 100 to 1000 and prints the total number of edges
 generated each time.
 */
 
-#include "../../../MacroLibrary/Generic.h"
-#include "../../../MacroLibrary/Random.h"
+#include "MacroLibrary/Generic.h"
+#include "MacroLibrary/Random.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -57,12 +57,12 @@ int main(int argc, char* argv[argc + 1]) {
             sz[i] = 1;
         }
 
-        register size_t p = RANDuint(N);
-        register size_t q = RANDuint(N);
+        register size_t p = RANDUINT(N);
+        register size_t q = RANDUINT(N);
         register size_t n_edges = 1;
 
         for (register size_t n_unions = 0; n_unions < N - 1;
-             p = RANDuint(N), q = RANDuint(N), n_edges++) {
+             p = RANDUINT(N), q = RANDUINT(N), n_edges++) {
             size_t i;
             size_t j;
             for (i = p; i != id[i]; i = id[i]) { id[i] = id[id[i]]; }

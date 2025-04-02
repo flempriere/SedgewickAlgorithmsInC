@@ -5,8 +5,8 @@ loop until N - 1 unions are performed. Print the total number of edges
 Repeat for N = 10^3, 10^4, 10^5, 10^6
 */
 
-#include "../../../MacroLibrary/Generic.h"
-#include "../../../MacroLibrary/Random.h"
+#include "MacroLibrary/Generic.h"
+#include "MacroLibrary/Random.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -58,12 +58,12 @@ int main(int argc, char* argv[argc + 1]) {
         }
         RAND_SEED_TIME;
 
-        register size_t p = RANDuint(n);
-        register size_t q = RANDuint(n);
+        register size_t p = RANDUINT(n);
+        register size_t q = RANDUINT(n);
 
         register size_t n_edges = 1;
         for (register size_t n_unions = 0; n_unions < n - 1;
-             p = RANDuint(n), q = RANDuint(n), n_edges++) {
+             p = RANDUINT(n), q = RANDUINT(n), n_edges++) {
             size_t i;
             size_t j;
             for (i = p; i != id[i]; i = id[i]) { id[i] = id[id[i]]; }

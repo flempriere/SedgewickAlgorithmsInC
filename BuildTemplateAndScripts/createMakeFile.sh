@@ -14,7 +14,10 @@ get_dirname () {
 
 set_default_makefile_variables ( ) {
     today=$(date +%Y-%m-%d)
-    HEADER_DIR=". ./includes"
+    project_dir="/home/flempriere/personal_projects/SedgewickAlgorithmsInC"
+    interface_dir="${project_dir}/Interfaces"
+
+    HEADER_DIR=". ./includes ${project_dir} ${interface_dir}"
     SOURCE_DIR=". ./src"
     SOURCE_VPATHS=
     CEXTRA=
@@ -39,6 +42,7 @@ set_default_makefile_variables ( ) {
 
 create_from_template () {
     sed -e "s@{%DATE_GENERATED%}@$today@g" \
+    -e "s@{%PROJECT_DIR%}@$project_dir@g" \
     -e "s@{%HEADER_DIR%}@$HEADER_DIR@g" \
     -e "s@{%SOURCE_DIRS%}@$SOURCE_DIR@g" \
     -e "s@{%SOURCE_VPATHS%}@$SOURCE_VPATH@g" \

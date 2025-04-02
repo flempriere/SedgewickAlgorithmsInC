@@ -16,6 +16,7 @@ BUILDDIR = $(CURDIR)/$(BUILD)
 # Search Directories for Code #
 ###############################
 
+PROJECT_DIR = {%PROJECT_DIR%}
 INCLUDE_DIRS = {%HEADER_DIR%}
 SOURCE_DIRS = {%SOURCE_DIRS%}
 SOURCE_VPATHS = {%SOURCE_VPATHS%}

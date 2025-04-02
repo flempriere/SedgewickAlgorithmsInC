@@ -5,7 +5,7 @@ Exercise 1-5:
     - count the total number of array accesses (overall and per edge)
     - Using Quick Union algorithm
 */
-#include "../../../MacroLibrary/Utility.h"
+#include "MacroLibrary/Utility.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -70,10 +70,10 @@ int main(void) {
         printf(" %zu %zu\n", p, q);
         printArr(N, id);
     updateArrayAccesses:
-        printf("array acceses for (%zu, %zu): %zu\n", p, q, n_acc);
+        printf("array accesses for (%zu, %zu): %zu\n", p, q, n_acc);
         tot_accesses += n_acc;
     }
-    printf("Number of id array accesses: %zu\n", tot_accesses);
+    printf("Total accesses: %zu\n", tot_accesses);
     return read_ended_successfully(stdin) ? EXIT_SUCCESS : EXIT_FAILURE;
 }
 

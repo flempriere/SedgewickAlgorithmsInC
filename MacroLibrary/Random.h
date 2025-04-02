@@ -10,6 +10,7 @@
  */
 #pragma once
 
+#include "DefaultArguments.h"
 #include "Utility.h"
 
 #include <stdlib.h>
@@ -26,16 +27,22 @@
  * @param ub positive integer < @RAND_MAX
  * @return unsigned int from [0, ub).
  */
-static inline unsigned int RANDuint(unsigned int ub) {
-    return CAST(unsigned) rand() % ub;
+static inline unsigned int RANDuint(unsigned int scale, unsigned int shift) {
+    return (CAST(unsigned) rand() % scale) + shift;
 }
+
+#define RANDUINT(...) CALL2(RANDuint, RAND_MAX, 0, __VA_ARGS__)
 
 /**
  * @brief Generate a random float between 0 and 1.0.
  *
  * @return double
  */
-static inline double RANDuniform(void) { return 1.0 * rand() / RAND_MAX; }
+static inline double RANDuniform(double scale, double shift) {
+    return scale * rand() / RAND_MAX + shift;
+}
+
+#define RANDUNIFORM(...) CALL2(RANDuniform, 1.0, 0, __VA_ARGS__)
 
 /**
  * @brief Performs a weighted coin toss
@@ -45,7 +52,7 @@ static inline double RANDuniform(void) { return 1.0 * rand() / RAND_MAX; }
  * @return false
  */
 static inline bool RANDcoin_toss(long double weight) {
-    return (RANDuniform() < weight);
+    return (RANDUNIFORM() < weight);
 }
 
-#define RAND_COIN_TOSS(...) CALL1(RANDcoin_toss, 0.5, __VA_ARGS__)
+#define RANDCOIN_TOSS(...) CALL1(RANDcoin_toss, 0.5, __VA_ARGS__)

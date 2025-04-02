@@ -15,7 +15,7 @@ we have to update all entries
             equality.
 */
 
-#include "../../../MacroLibrary/Utility.h"
+#include "MacroLibrary/Utility.h"
 
 #include <stdio.h>
 #include <stdlib.h>

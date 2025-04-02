@@ -6,8 +6,8 @@ of all the root nodes. When performing a union, the smaller tree is attached
 to the larger tree.
 */
 
-#include "../../../MacroLibrary/Generic.h"
-#include "../../../MacroLibrary/Utility.h"
+#include "MacroLibrary/Generic.h"
+#include "MacroLibrary/Utility.h"
 
 #include <stdio.h>
 #include <stdlib.h>
