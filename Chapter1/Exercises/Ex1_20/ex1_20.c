@@ -69,7 +69,7 @@ int main(int argc, char* argv[argc + 1]) {
         printf(" %zu %zu\n", p, q);
         // printArr(N, id);
     }
-    return read_ended_successfully(stdin) ? EXIT_SUCCESS : EXIT_FAILURE;
+    return read_reached_feof(stdin) ? EXIT_SUCCESS : EXIT_FAILURE;
 }
 
 void printArr(size_t const len, size_t a[len]) {

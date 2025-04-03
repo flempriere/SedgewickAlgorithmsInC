@@ -8,6 +8,7 @@ Path compression by halving: During find operations every node touched is has
 its parent replaced by its grandparent.
 */
 
+#include "MacroLibrary/Defaultfgets.h"
 #include "MacroLibrary/Generic.h"
 #include "MacroLibrary/Utility.h"
 
@@ -59,8 +60,7 @@ int main(int argc, char* argv[argc + 1]) {
         id[i] = i;
         sz[i] = 1;
     }
-    while (fgets(line, sizeof(line), stdin) &&
-           sscanf(line, "%zu %zu", &p, &q) == 2) {
+    while (FGETS(line) && sscanf(line, "%zu %zu", &p, &q) == 2) {
         if (p >= N || q >= N) continue;
 
         size_t i;
@@ -76,5 +76,5 @@ int main(int argc, char* argv[argc + 1]) {
 
         printf(" %zu %zu\n", p, q);
     }
-    return read_ended_successfully(stdin) ? EXIT_SUCCESS : EXIT_FAILURE;
+    return read_reached_feof(stdin) ? EXIT_SUCCESS : EXIT_FAILURE;
 }

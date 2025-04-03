@@ -6,6 +6,7 @@ of all the root nodes. When performing a union, the smaller tree is attached
 to the larger tree.
 */
 
+#include "MacroLibrary/Defaultfgets.h"
 #include "MacroLibrary/Generic.h"
 #include "MacroLibrary/Utility.h"
 
@@ -46,8 +47,7 @@ int main(int argc, char* argv[argc + 1]) {
         id[i] = i;
         sz[i] = 1;
     }
-    while (fgets(line, sizeof(line), stdin) &&
-           sscanf(line, "%zu %zu", &p, &q) == 2) {
+    while (FGETS(line) && sscanf(line, "%zu %zu", &p, &q) == 2) {
         size_t i;
         size_t j;
         if (p >= N || q >= N) continue;    // bounds checking
@@ -62,5 +62,5 @@ int main(int argc, char* argv[argc + 1]) {
 
         printf(" %zu %zu\n", p, q);
     }
-    return read_ended_successfully(stdin) ? EXIT_SUCCESS : EXIT_FAILURE;
+    return read_reached_feof(stdin) ? EXIT_SUCCESS : EXIT_FAILURE;
 }

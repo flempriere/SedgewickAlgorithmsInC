@@ -19,7 +19,7 @@
  *
  * @param x variable to instance.
  */
-#define DEFAULTCallocVAR(x) calloc(1, sizeof(x))
+#define CALLOCVAR(x) calloc(1, sizeof(x))
 
 /**
  * @brief Allocate enough memory for n instances of a variable x.
@@ -27,7 +27,7 @@
  * @param n Number of instances of x to instantiate.
  * @param x Variable to instance.
  */
-#define DEFAULTCallocVAR_N(n, x) calloc(n, sizeof(x))
+#define CALLOCVAR_N(n, x) calloc(n, sizeof(x))
 
 /**
  * @brief Calloc with optional arguments, by default takes in one variable
@@ -41,8 +41,8 @@
  *
  * use case 4: DEFAULTCalloc(x, n, t) - fails too many args supplied. 
  */
-#define DEFAULTCALLOC(x, ...) \
-    DEFAULTCallocVAR##__VA_OPT__(_N)(x __VA_OPT__(, ) __VA_ARGS__)
+#define CALLOC(x, ...) \
+    CALLOCVAR##__VA_OPT__(_N)(x __VA_OPT__(, ) __VA_ARGS__)
 
 /**
  * @brief Variant of calloc that checks alloc succeeds and calls exit if
@@ -52,7 +52,7 @@
  * @param size
  * @return void* allocated memory.
  */
-static inline void* calloc_exit_on_fail(size_t const nmemb, size_t const size) {
+static inline void* CALLOCexit_on_fail(size_t const nmemb, size_t const size) {
     void* res = calloc(nmemb, size);
     if (!res) {
         TRACE_CALL("Failed to allocate memory");
@@ -67,7 +67,7 @@ static inline void* calloc_exit_on_fail(size_t const nmemb, size_t const size) {
  *
  * @param x variable to instance.
  */
- #define CallocEXIT_FAIL_VAR(x) calloc_exit_on_fail(1, sizeof(x))
+ #define CALLOCEXIT_FAIL_VAR(x) CALLOCexit_on_fail(1, sizeof(x))
 
  /**
   * @brief Allocate enough memory for n instances of a variable x.
@@ -75,12 +75,12 @@ static inline void* calloc_exit_on_fail(size_t const nmemb, size_t const size) {
   * @param n Number of instances of x to instantiate.
   * @param x Variable to instance.
   */
- #define CallocEXIT_FAIL_VAR_N(n, x) calloc_exit_on_fail(n, sizeof(x))
+ #define CALLOCEXIT_FAIL_VAR_N(n, x) CALLOCexit_on_fail(n, sizeof(x))
  
 /**
  * @brief Version of @DEFAULTCALLOC that exits the program if
  * the allocation fails. 
  * 
  */
-#define CALLOC_FAILS_EXIT(x, ...) \
+#define CALLOCEXIT_ON_FAIL(x, ...) \
     CallocEXIT_FAIL_VAR##__VA_OPT__(_N)(x __VA_OPT__(, ) __VA_ARGS__)

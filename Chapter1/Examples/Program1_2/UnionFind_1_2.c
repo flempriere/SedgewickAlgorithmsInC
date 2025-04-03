@@ -10,6 +10,7 @@ Program 1.2: Quick Union solution to the connectivity problem
 - all array.
 */
 
+#include "MacroLibrary/Defaultfgets.h"
 #include "MacroLibrary/Utility.h"
 
 #include <stdio.h>
@@ -46,8 +47,7 @@ int main(void) {
     char line[MAXLINE];
 
     for (register size_t i = 0; i < N; i++) id[i] = i;
-    while (fgets(line, sizeof(line), stdin) &&
-           sscanf(line, "%zu %zu", &p, &q) == 2) {
+    while (FGETS(line) && sscanf(line, "%zu %zu", &p, &q) == 2) {
         if (p >= N || q >= N) continue;    // bounds checking
         register size_t i;
         register size_t j;
@@ -59,5 +59,5 @@ int main(void) {
 
         printf(" %zu %zu\n", p, q);
     }
-    return read_ended_successfully(stdin) ? EXIT_SUCCESS : EXIT_FAILURE;
+    return read_reached_feof(stdin) ? EXIT_SUCCESS : EXIT_FAILURE;
 }

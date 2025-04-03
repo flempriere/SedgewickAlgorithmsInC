@@ -79,7 +79,7 @@ int main(int argc, char* argv[argc + 1]) {
         tot_acc += n_acc;
     }
     printf("Total accesses: %zu\n", tot_acc);
-    return read_ended_successfully(stdin) ? EXIT_SUCCESS : EXIT_FAILURE;
+    return read_reached_feof(stdin) ? EXIT_SUCCESS : EXIT_FAILURE;
 }
 
 void printArr(size_t const len, size_t const a[len]) {

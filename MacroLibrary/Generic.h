@@ -21,7 +21,7 @@
 #include <stdio.h>
 
 // Assert types are compatible
-#define static_assert_compatible(A, B, REASON)                            \
+#define GENERICstatic_assert_compatible(A, B, REASON)                     \
     static_assert(                                                        \
         _Generic((typeof(A)*) nullptr, typeof(B)*: true, default: false), \
         "Expected compatible types: " REASON " have " #A " and " #B "\n");
@@ -59,7 +59,7 @@
     do {                                                                   \
         auto const SWAPA = &(A);                                           \
         auto const SWAPB = &(B);                                           \
-        static_assert_compatible(                                          \
+        GENERICstatic_assert_compatible(                                   \
             *SWAPA, *SWAPB, #A " and " #B "must have compatible types\n"); \
         auto SWAPtmp = *SWAPA;                                             \
         *SWAPA = *SWAPB;                                                   \
@@ -313,7 +313,7 @@ char* create_formatted_string(char s[static 1], ...) {
     }
 
     size_t buf_sz = CAST(size_t) sz + 1;
-    char* buf = DEFAULTCALLOC(buf_sz, *buf);
+    char* buf = CALLOC(buf_sz, *buf);
     if (!buf) goto cleanup;
 
     va_end(args1);

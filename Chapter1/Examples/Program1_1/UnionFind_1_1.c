@@ -15,6 +15,7 @@ we have to update all entries
             equality.
 */
 
+#include "MacroLibrary/Defaultfgets.h"
 #include "MacroLibrary/Utility.h"
 
 #include <stdio.h>
@@ -51,8 +52,7 @@ int main(void) {
     char line[MAXLINE];    // input buffer
 
     for (register size_t i = 0; i < N; i++) id[i] = i;
-    while (fgets(line, sizeof(line), stdin) &&
-           sscanf(line, "%zu %zu", &p, &q) == 2) {
+    while (FGETS(line) && sscanf(line, "%zu %zu", &p, &q) == 2) {
         if (p >= N || q >= N) continue;    // bounds checking
         if (id[p] == id[q]) continue;
         register size_t t = id[p];
@@ -62,5 +62,5 @@ int main(void) {
 
         printf(" %zu %zu\n", p, q);
     }
-    return read_ended_successfully(stdin) ? EXIT_SUCCESS : EXIT_FAILURE;
+    return read_reached_feof(stdin) ? EXIT_SUCCESS : EXIT_FAILURE;
 }

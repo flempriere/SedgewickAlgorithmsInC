@@ -5,6 +5,7 @@ Exercise 1-5:
     - count the total number of array accesses (overall and per edge)
     - Using Quick Union algorithm
 */
+#include "MacroLibrary/Defaultfgets.h"
 #include "MacroLibrary/Utility.h"
 
 #include <stdio.h>
@@ -28,7 +29,7 @@ constexpr size_t MAXLINE = 100u;
  * @param len size_t type, length of the array
  * @param a size_t type, must be of size at least len.
  */
-void printArr(size_t const len, size_t const a[len]);
+void printArr(size_t const len, size_t const a[static len]);
 
 /**
  * @brief Reads input pairs `p,q < N` from
@@ -51,7 +52,7 @@ int main(void) {
 
     for (register size_t i = 0; i < N; i++) id[i] = i;
 
-    while (fgets(line, sizeof(line), stdin) &&
+    while (FGETS(line) &&
            sscanf(line, "%zu %zu", &p, &q) == 2) {
         if (p >= N || q >= N) continue;
 
@@ -74,10 +75,12 @@ int main(void) {
         tot_accesses += n_acc;
     }
     printf("Total accesses: %zu\n", tot_accesses);
-    return read_ended_successfully(stdin) ? EXIT_SUCCESS : EXIT_FAILURE;
+
+    return read_reached_feof(stdin) ? EXIT_SUCCESS : EXIT_FAILURE;
 }
 
-void printArr(size_t const len, size_t const a[len]) {
+void printArr(size_t const len, size_t const a[static len]) {
+    if (!len) return;
     for (register size_t i = 0; i < len; i++) printf(" %zu", a[i]);
     printf("\n");
 }

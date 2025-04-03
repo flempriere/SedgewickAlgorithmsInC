@@ -18,6 +18,7 @@
  * @brief Make a cast explicit
  *
  */
+
 #include <stdint.h>
 #include <stdio.h>
 
@@ -42,7 +43,34 @@ struct do_not_use_this_otherwise;
  */
 #define isice(...) is_zero_ice(!((__VA_ARGS__) || 1))
 
-//
+#ifndef isvla
+#    define isvla(...) ((bool) !isice(sizeof(__VA_ARGS__)))
+#endif
+
+struct do_not_use_this_otherwise {
+    char c;
+};
+
+#define get_fla(...)               \
+    GENERIC_IF(isvla(__VA_ARGS__), \
+               (struct do_not_use_this_otherwise[1]) { 0 }, (__VA_ARGS__))
+
+#define is_pointer_nvla(...)                       \
+    (_Generic((typeof(__VA_ARGS__)*) 0,            \
+         typeof(get_fla(*(__VA_ARGS__)))* *: true, \
+         default: false))
+
+#define is_pointer_vla(...)                                  \
+    (_Generic((typeof(get_fla(*(__VA_ARGS__)))*) 0,          \
+         typeof(struct do_not_use_this_otherwise[1])*: true, \
+         default: false))
+
+#define is_pointer(...) \
+    ((bool) (is_pointer_nvla(__VA_ARGS__) || is_pointer_vla(__VA_ARGS__)))
+
+#define is_array(...) ((bool) !is_pointer(__VA_ARGS__))
+
+#define is_fla(...) ((bool) (is_array(__VA_ARGS__) && !isvla(__VA_ARGS__)))
 
 // Sizeof
 
@@ -99,9 +127,11 @@ struct do_not_use_this_otherwise;
  * @return true if feof is true else,
  * @return false and print error message.
  */
-static inline bool read_ended_successfully(FILE* stream) {
+static inline bool read_reached_feof(FILE* stream) {
     bool result = feof(stream);
-    if (!result) fprintf(stderr, "Error occured during read\n");
+    if (!result)
+        fprintf(stderr, "Error encountered in stream read: %p\n",
+                CAST(void*) stream);
     return result;
 }
 

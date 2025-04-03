@@ -21,7 +21,7 @@
 /* Macros to set default arguments */
 
 /**
- * @brief Output the second argument, if any, or DEF0 as a default.
+ * @brief Output the second argument, if any, or use DEF0 as the fallback default value when no second argument is provided.
  *
  * @remark Error if more than two arguments are given.
  */
@@ -31,13 +31,13 @@
 #define ID_IIplus_DEFAULT(_01, ...) ID_I(__VA_ARGS__)
 
 /**
- * @brief Output comma seperated arguments from the third position onwards.
+ * @brief Output comma separated arguments from the third position onwards.
  * Fill with defaults from the first two.
  */
 #define DEFAULT2(DEF0, DEF1, ...) \
     ID_II##__VA_OPT__(Iplus_DEFAULT)(DEF0, DEF1 __VA_OPT__(, ) __VA_ARGS__)
 
-#define ID_IIIplus_DEFAULT(DEFO, DEF1, _01, ...) \
+#define ID_IIIplus_DEFAULT(DEF0, DEF1, _01, ...) \
     DEFAULT1(DEF0, _01), DEFAULT1(DEF1, __VA_ARGS__)
 
 #define DEFAULT3(DEF0, DEF1, DEF2, ...)           \
@@ -106,7 +106,7 @@
 #define DEFAULT2OPT(DEF0, DEF1, ...) \
     IDOPT_II##__VA_OPT__(Iplus_DEFAULT)(DEF0, DEF1 __VA_OPT__(, ) __VA_ARGS__)
 
-#define IDOPT_IIIplus_DEFAULT(DEFO, DEF1, _01, ...) \
+#define IDOPT_IIIplus_DEFAULT(DEF0, DEF1, _01, ...) \
     DEFAULT1(DEF0, _01), DEFAULT1OPT(DEF1, __VA_ARGS__)
 
 #define DEFAULT3OPT(DEF0, DEF1, DEF2, ...)           \
