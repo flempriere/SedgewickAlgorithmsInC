@@ -1,10 +1,25 @@
-/*
-Exercise 1-8:
-    - show that state of the id array at each stage of reading from
-    sample_data.dat.
-    - count the total number of array accesses (overall and per edge)
-    - Using Path compression by halving algorithm
-*/
+/**
+ * @file ex1_8.c
+ * @author Felix Lempriere
+ * @brief Implementation of Exercise 1-8 from Chapter 1 of Sedgewick's
+ * Algorithms in C.
+ *
+ * This program demonstrates the [Path Compression by
+ * Halving](../../Examples/Program1_4/UnionFind_1_4.c) algorithm by:
+ * - Showing the state of the `id` array after processing each input pair.
+ * - Counting the total number of array accesses (overall and per edge).
+ *
+ * @details For each valid pair of integers `p` and `q` (both less than `N`):
+ * - If `p` and `q` are not connected, it connects them and prints the pair.
+ * - After each union operation, the program prints the current state of the
+ *   `id[]` array.
+ * - Tracks and displays the number of array accesses for each pair and the
+ *   cumulative total of array accesses.
+ *
+ * @version 0.1
+ * @date 2025-03-28
+ * @copyright Copyright (c) 2025
+ */
 
 #include "MacroLibrary/Generic.h"
 #include "MacroLibrary/Utility.h"
@@ -13,36 +28,45 @@ Exercise 1-8:
 #include <stdlib.h>
 
 /**
- * @brief Input pair values must be less than N
+ * @brief Maximum number of elements in the union-find structure. All valid
+ * input pairs must be non-negative integers less than N.
  *
  */
 constexpr size_t N = 16u;
 
 /**
- * @brief size of the input buffer for fgets.
+ * @brief Maximum number of characters, including the null terminator,
+ * that can be read into the input buffer for fgets.
  *
  */
 constexpr size_t MAXLINE = 100u;
 
 /**
- * @brief Prints the first @len elements of an array a
+ * @brief Outputs the specified number of elements from an array to the standard
+ * output.
  *
- * @param len size_t type, length of the array
- * @param a size_t type, must be of size at least len.
+ * @param len length of the array, should be greater than zero.
+ * @param a An array with a minimum size of `len`.
  */
-void printArr(size_t const len, size_t const a[len]);
+void print_array(size_t const len, size_t const a[static len]);
 
 /**
- * @brief Reads input pairs `p,q < N` from
- * standard input and performs a union operation. If
- * `p` and `q` where not already connected they are
- * printed to output.
+ * @brief Reads input pairs `p` and `q` from standard input and performs union
+ * operations using the Weighted Quick Union with path compression by halving
+ * algorithm showing the array state and number of array accesses
+ * after each pair is processed..
  *
- * @exception if p or q is not less than N the input
- * pair is ignored
+ * For each valid pair of integers `p` and `q` (both less than `N`):
+ * - If `p` and `q` are not connected, it connects them and prints the pair.
+ * - After each union operation, the program prints the current state of the
+ * `id[]` array.
+ * - Tracks and displays the number of array accesses for each pair and the
+ * cumulative total of array accesses.
  *
- * @return EXIT_SUCCESS on exit.
- *
+ * @exception Pairs where either `p` or `q` is greater than or equal to `N` are
+ * ignored.
+ * @return EXIT_SUCCESS if the program completes successfully, or EXIT_FAILURE
+ * if an error occurs while reading input.
  */
 int main(int argc, char* argv[argc + 1]) {
     size_t id[N];
@@ -77,7 +101,7 @@ int main(int argc, char* argv[argc + 1]) {
         sz[i] += sz[j];
         n_access += 5;
         printf(" %zu %zu\n", p, q);
-        printArr(N, id);
+        print_array(N, id);
     updateArrayAccesses:
         printf("array acceses for (%zu, %zu): %zu\n", p, q, n_access);
         tot_access += n_access;
@@ -86,7 +110,7 @@ int main(int argc, char* argv[argc + 1]) {
     return read_reached_feof(stdin) ? EXIT_SUCCESS : EXIT_FAILURE;
 }
 
-void printArr(size_t const len, size_t const a[len]) {
+void print_array(size_t const len, size_t const a[static len]) {
     for (register size_t i = 0; i < len; i++) printf(" %zu", a[i]);
     printf("\n");
 }

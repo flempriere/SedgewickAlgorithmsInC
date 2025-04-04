@@ -1,6 +1,6 @@
 # A Simple Makefile
 # Template VERSION = 1.0.0
-# Date generated on: 2025-03-20
+# Date generated on: 2025-04-02
 
 ##############
 # BUILD Mode #
@@ -16,8 +16,9 @@ BUILDDIR = $(CURDIR)/$(BUILD)
 # Search Directories for Code #
 ###############################
 
-INCLUDE_DIRS = . ./includes
-SOURCE_DIRS = . ./src
+PROJECT_DIR = /home/flempriere/personal_projects/SedgewickAlgorithmsInC
+INCLUDE_DIRS = . ./include /home/flempriere/personal_projects/SedgewickAlgorithmsInC /home/flempriere/personal_projects/SedgewickAlgorithmsInC/Interfaces
+SOURCE_DIRS = . ./src ./include/src
 SOURCE_VPATHS = 
 
 vpath %.c $(sort $(dir) $(SOURCE_DIRS) $(SOURCE_VPATHS))
@@ -43,6 +44,7 @@ CEXTRA =
 CFILES := $(notdir $(foreach D, $(SOURCE_DIRS), $(wildcard $(D)/*.c)))
 CFILES += $(notdir $(CEXTRA))
 OBJS := $(addprefix $(BUILDDIR)/, $(CFILES:.c=.o))
+DEPS := $(OBJS:.o=.d)
 
 #####################
 # Compiler Settings #
@@ -75,6 +77,7 @@ FLAGS_linker =
 
 # Select the flags
 BUILDFLAGS = $(FLAGS_$(BUILD))
+BUILDFLAGS += $(OPT_$(BUILD))
 
 CFLAGS = $(STD) $(FLAGS_warning) $(FLAGS_address) $(INCLUDES) $(BUILDFLAGS) $(FLAGS_dependencies)
 

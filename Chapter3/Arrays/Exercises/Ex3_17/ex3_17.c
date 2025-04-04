@@ -45,5 +45,5 @@ int main(int argc, char* argv[argc + 1]) {
     for (register size_t i = 0; i < MAX_NUM; i++) {
         if (a[i]) printf("%4zu:%4zu\n", i, a[i]);
     }
-    return read_ended_successfully(stdin) ? EXIT_SUCCESS : EXIT_FAILURE;
+    return read_reached_feof(stdin) ? EXIT_SUCCESS : EXIT_FAILURE;
 }
