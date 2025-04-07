@@ -3,12 +3,12 @@
  * @author Felix Lempriere
  * @brief Quick Union solution to the connectivity problem.
  *
+ * @details
  * This program implements the Quick Union algorithm to solve the
  * connectivity problem. It provides a way to determine whether
  * two elements are in the same connected component and to merge
  * two components.
  *
- * @details
  * - **Complexity**:
  *   - **Union Operations**: Performed in constant time by connecting
  *     the root of one tree to another.
@@ -23,7 +23,7 @@
  *   avoids traversing the entire array during union operations.
  *
  * @version 0.1
- * @date 2025-03-28
+ * @date 2025-04-07
  * @copyright Copyright (c) 2025
  */
 

@@ -1,7 +1,7 @@
 /**
  * @file ex1_5.c
  * @author Felix Lempriere
- * @brief Implementation of Exercise 1-5 from Chapter 1 of Sedgewick's
+ * @brief Solution to Exercise 1-5 from Chapter 1 of Sedgewick's
  * Algorithms in C.
  *
  * This program demonstrates the [Quick
@@ -10,10 +10,11 @@
  * - Counting the total number of array accesses (overall and per edge).
  *
  * @version 0.1
- * @date 2025-03-28
+ * @date 2025-04-07
  * @copyright Copyright (c) 2025
  */
 
+#include "MacroLibrary/Array.h"
 #include "MacroLibrary/Defaultfgets.h"
 #include "MacroLibrary/Utility.h"
 
@@ -35,25 +36,10 @@ constexpr size_t N = 10u;
 constexpr size_t MAXLINE = 100u;
 
 /**
- * @brief Outputs the specified number of elements from an array to the standard
- * output.
- *
- * @param len length of the array, should be greater than zero.
- * @param a An array with a minimum size of `len`.
- */
-void print_array(size_t const len, size_t const a[static len]);
-
-/**
  * @brief Reads input pairs `p` and `q` from standard input and performs union
  * operations using the Quick Union algorithm showing the array state and number
- * of array accesses after each pair is processed..
+ * of array accesses after each pair is processed.
  *
- * For each valid pair of integers `p` and `q` (both less than `N`):
- * - If `p` and `q` are not connected, it connects them and prints the pair.
- * - After each union operation, the program prints the current state of the
- * `id[]` array.
- * - Tracks and displays the number of array accesses for each pair and the
- * cumulative total of array accesses.
  *
  * @exception Pairs where either `p` or `q` is greater than or equal to `N` are
  * ignored.
@@ -88,7 +74,7 @@ int main(void) {
         n_acc++;
 
         printf(" %zu %zu\n", p, q);
-        print_array(N, id);
+        ARRAYPRINT(N, id);
     updateArrayAccesses:
         printf("array accesses for (%zu, %zu): %zu\n", p, q, n_acc);
         tot_accesses += n_acc;
@@ -96,9 +82,4 @@ int main(void) {
     printf("Total accesses: %zu\n", tot_accesses);
 
     return read_reached_feof(stdin) ? EXIT_SUCCESS : EXIT_FAILURE;
-}
-
-void print_array(size_t const len, size_t const a[static len]) {
-    for (register size_t i = 0; i < len; i++) printf(" %zu", a[i]);
-    printf("\n");
 }

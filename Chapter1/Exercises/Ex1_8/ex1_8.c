@@ -1,7 +1,7 @@
 /**
  * @file ex1_8.c
  * @author Felix Lempriere
- * @brief Implementation of Exercise 1-8 from Chapter 1 of Sedgewick's
+ * @brief Solution to Exercise 1-8 from Chapter 1 of Sedgewick's
  * Algorithms in C.
  *
  * This program demonstrates the [Path Compression by
@@ -9,18 +9,13 @@
  * - Showing the state of the `id` array after processing each input pair.
  * - Counting the total number of array accesses (overall and per edge).
  *
- * @details For each valid pair of integers `p` and `q` (both less than `N`):
- * - If `p` and `q` are not connected, it connects them and prints the pair.
- * - After each union operation, the program prints the current state of the
- *   `id[]` array.
- * - Tracks and displays the number of array accesses for each pair and the
- *   cumulative total of array accesses.
- *
  * @version 0.1
- * @date 2025-03-28
+ * @date 2025-04-07
  * @copyright Copyright (c) 2025
  */
 
+#include "MacroLibrary/Array.h"
+#include "MacroLibrary/Defaultfgets.h"
 #include "MacroLibrary/Generic.h"
 #include "MacroLibrary/Utility.h"
 
@@ -42,26 +37,10 @@ constexpr size_t N = 16u;
 constexpr size_t MAXLINE = 100u;
 
 /**
- * @brief Outputs the specified number of elements from an array to the standard
- * output.
- *
- * @param len length of the array, should be greater than zero.
- * @param a An array with a minimum size of `len`.
- */
-void print_array(size_t const len, size_t const a[static len]);
-
-/**
  * @brief Reads input pairs `p` and `q` from standard input and performs union
  * operations using the Weighted Quick Union with path compression by halving
  * algorithm showing the array state and number of array accesses
  * after each pair is processed..
- *
- * For each valid pair of integers `p` and `q` (both less than `N`):
- * - If `p` and `q` are not connected, it connects them and prints the pair.
- * - After each union operation, the program prints the current state of the
- * `id[]` array.
- * - Tracks and displays the number of array accesses for each pair and the
- * cumulative total of array accesses.
  *
  * @exception Pairs where either `p` or `q` is greater than or equal to `N` are
  * ignored.
@@ -79,8 +58,7 @@ int main(int argc, char* argv[argc + 1]) {
         id[i] = i;
         sz[i] = 1;
     }
-    while (fgets(line, sizeof(line), stdin) &&
-           sscanf(line, "%zu %zu", &p, &q) == 2) {
+    while (FGETS(line) && sscanf(line, "%zu %zu", &p, &q) == 2) {
         if (p >= N || q >= N) continue;
         register size_t n_access = 0;
 
@@ -101,16 +79,11 @@ int main(int argc, char* argv[argc + 1]) {
         sz[i] += sz[j];
         n_access += 5;
         printf(" %zu %zu\n", p, q);
-        print_array(N, id);
+        ARRAYPRINT(N, id);
     updateArrayAccesses:
         printf("array acceses for (%zu, %zu): %zu\n", p, q, n_access);
         tot_access += n_access;
     }
     printf("Total accesses: %zu\n", tot_access);
     return read_reached_feof(stdin) ? EXIT_SUCCESS : EXIT_FAILURE;
-}
-
-void print_array(size_t const len, size_t const a[static len]) {
-    for (register size_t i = 0; i < len; i++) printf(" %zu", a[i]);
-    printf("\n");
 }

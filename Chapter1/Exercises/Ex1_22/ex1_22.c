@@ -1,7 +1,7 @@
 /**
  * @file ex1_22.c
  * @author Felix Lempriere
- * @brief Implementation of Exercise 1-22 from Chapter 1 of Sedgewick's
+ * @brief Solution to Exercise 1-22 from Chapter 1 of Sedgewick's
  * Algorithms in C.
  *
  * This program generates random pairs of integers between 0 and N - 1 and
@@ -14,11 +14,10 @@
  * - N = 10^5
  * - N = 10^6
  *
- * @date 2025-03-28
+ * @date 2025-04-07
  * @version 0.1
  * @copyright Copyright (c) 2025
  */
-
 #include "MacroLibrary/Generic.h"
 #include "MacroLibrary/Random.h"
 
@@ -51,6 +50,7 @@ static size_t sz[MAX_VERTEX];
  * @brief Evaluates the performance of Weighted Union-Find with Path
  * Compression.
  *
+ * @details
  * This function tests the efficiency of the union-find algorithm by iterating
  * through different values of N: 10^3, 10^4, 10^5, and 10^6. For each value of
  * N:

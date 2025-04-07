@@ -2,13 +2,13 @@
  * @file UnionFind_1_4.c
  * @brief Weighted Quick Union with Path Compression by Halving.
  *
+ * @details
  * This program improves the Weighted Quick Union algorithm by implementing
  * path compression by halving during find operations. Path compression
  * ensures that every node touched during a find operation has its parent
  * replaced by its grandparent, effectively flattening the tree structure
  * and improving performance.
  *
- * @details
  * - **Weighted Quick Union**:
  *   - Maintains a tree structure where smaller trees are always attached
  *     under larger trees to keep the tree height minimal.
@@ -23,7 +23,7 @@
  * datasets.
  *
  * @version 0.1
- * @date 2025-03-28
+ * @date 2025-04-07
  *
  * @copyright Copyright (c) 2025
  */
@@ -53,13 +53,6 @@ constexpr size_t MAXLINE = 100u;
  * @brief Processes input pairs of integers `p` and `q` (both less than N)
  * from standard input, checks their connectivity, and performs a union
  * operation if they are not already connected.
- *
- * @details
- * - Reads pairs of non-negative integers `p` and `q` from standard input.
- * - If `p` and `q` are already connected (i.e., they have the same root), no
- * action is taken.
- * - If `p` and `q` are not connected, performs a union operation to merge
- * their components and prints the pair to the output.
  *
  * @exception Input pairs where either `p` or `q` is not less than `N` are
  * ignored.

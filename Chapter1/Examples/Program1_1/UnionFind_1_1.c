@@ -3,6 +3,7 @@
  * @author Felix Lempriere
  * @brief Quick-find solution to the connectivity problem.
  *
+ * @details
  * This program reads a sequence of pairs of non-negative integers less than N
  * from standard input. Each pair `p q` represents a connection between `p` and
  * `q`.
@@ -10,7 +11,6 @@
  * The array `id[N]` maintains the property that `id[p]` and `id[q]` are equal
  * if and only if `p` and `q` are connected.
  *
- * @details
  * - **Complexity**:
  *   - Each union operation is linear in length because all entries need to be
  * updated.
@@ -22,7 +22,7 @@
  * linear-time union operation.
  *
  * @version 0.1
- * @date 2025-03-28
+ * @date 2025-04-07
  *
  * @copyright Copyright (c) 2025
  */
@@ -51,13 +51,6 @@ constexpr size_t MAXLINE = 100u;
  * @brief Processes input pairs of integers `p` and `q` (both less than N)
  * from standard input, checks their connectivity, and performs a union
  * operation if they are not already connected.
- *
- * @details
- * - Reads pairs of non-negative integers `p` and `q` from standard input.
- * - If `p` and `q` are already connected (i.e., `id[p] == id[q]`), no action is
- * taken.
- * - If `p` and `q` are not connected, updates the `id` array to reflect the
- * union of the two components and prints the pair to the output.
  *
  * @exception Input pairs where either `p` or `q` is not less than `N` are
  * ignored.

@@ -1,8 +1,19 @@
-/*
-Exercise 2-2:
-    Determine the runtime of the inner triple loop for N = 10, 100, 1000
-*/
-
+/**
+ * @file ex2_2.c
+ * @author Felix Lempriere
+ * @brief Implementation of Exercise 2-2 from Chapter 2 of Sedgewick's
+ * Algorithms in C.
+ *
+ * This program analyzes the runtime of a triple nested loop for different
+ * values of N (10, 100, 1000). The goal is to determine the computational
+ * complexity and runtime behavior of the loop structure.
+ *
+ * The program outputs the results of the runtime analysis for each value of N.
+ *
+ * @date 2025-04-07
+ * @version 0.1
+ * @copyright Copyright (c) 2025
+ */
 #include "MacroLibrary/Utility.h"
 
 #include <stdio.h>
@@ -10,24 +21,26 @@ Exercise 2-2:
 #include <time.h>
 
 /**
- * @brief Number of different N values to use.
+ * @brief Defines the number of distinct N values to test.
  *
  */
 constexpr size_t N_SCALES = 3u;
 
 /**
- * @brief Iterates a nested set of three loops each from 0 up to N (exclusive).
+ * @brief Executes three nested loops, each iterating from 0 to N (exclusive).
  *
- * @param n
- * @return size_t sum.
+ * @param n The upper limit for the loops.
+ *
+ * @return size_t The total count of iterations.
  */
 static inline size_t triple_loop(size_t const n);
+
 /**
- * @brief times the runtime of a triple nested
- * for loop each iterating N = 10, 100, 1000
- * times. The results printed to stdout.
+ * @brief Measures and prints the runtime of a triple nested loop
+ * for different values of N (10, 100, 1000). Outputs the results
+ * to stdout.
  *
- * @return EXIT_SUCCESS on success completion
+ * @return EXIT_SUCCESS upon successful execution.
  */
 int main(int argc, char* argv[argc + 1]) {
     size_t LIMITS[N_SCALES] = { 10, 100, 1000 };

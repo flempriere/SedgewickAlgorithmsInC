@@ -325,3 +325,173 @@ cleanup:
     va_end(args2);
     return nullptr;
 }
+
+// Type generic void comparison functions
+
+static inline int cmpf(void const* a, void const* b) {
+    float const af = *(CAST(float const*) a);
+    float const bf = *(CAST(float const*) b);
+    return (af > bf) - (af < bf);
+}
+static inline int cmpd(void const* a, void const* b) {
+    double const ad = *(CAST(double const*) a);
+    double const bd = *(CAST(double const*) b);
+    return (ad > bd) - (ad < bd);
+}
+static inline int cmpld(void const* a, void const* b) {
+    long double const ald = *(CAST(long double const*) a);
+    long double const bld = *(CAST(long double const*) b);
+    return (ald > bld) - (ald < bld);
+}
+static inline int cmpi(void const* a, void const* b) {
+    int const ai = *(CAST(int const*) a);
+    int const bi = *(CAST(int const*) b);
+    return (ai > bi) - (ai < bi);
+}
+static inline int cmpu(void const* a, void const* b) {
+    unsigned int const au = *(CAST(unsigned int const*) a);
+    unsigned int const bu = *(CAST(unsigned int const*) b);
+    return (au > bu) - (au < bu);
+}
+static inline int cmpl(void const* a, void const* b) {
+    long const al = *(CAST(long const*) a);
+    long const bl = *(CAST(long const*) b);
+    return (al > bl) - (al < bl);
+}
+static inline int cmpul(void const* a, void const* b) {
+    unsigned long const aul = *(CAST(unsigned long const*) a);
+    unsigned long const bul = *(CAST(unsigned long const*) b);
+    return (aul > bul) - (aul < bul);
+}
+static inline int cmpll(void const* a, void const* b) {
+    long long const all = *(CAST(long long const*) a);
+    long long const bll = *(CAST(long long const*) b);
+    return (all > bll) - (all < bll);
+}
+static inline int cmpull(void const* a, void const* b) {
+    unsigned long long const aull = *(CAST(unsigned long long const*) a);
+    unsigned long long const bull = *(CAST(unsigned long long const*) b);
+    return (aull > bull) - (aull < bull);
+}
+static inline int cmpc(void const* a, void const* b) {
+    char const ac = *(CAST(char const*) a);
+    char const bc = *(CAST(char const*) b);
+    return (ac > bc) - (ac < bc);
+}
+static inline int cmpuc(void const* a, void const* b) {
+    unsigned char const auc = *(CAST(unsigned char const*) a);
+    unsigned char const buc = *(CAST(unsigned char const*) b);
+    return (auc > buc) - (auc < buc);
+}
+static inline int cmpsc(void const* a, void const* b) {
+    signed char const asc = *(CAST(signed char const*) a);
+    signed char const bsc = *(CAST(signed char const*) b);
+    return (asc > bsc) - (asc < bsc);
+}
+static inline int cmps(void const* a, void const* b) {
+    short const as = *(CAST(short const*) a);
+    short const bs = *(CAST(short const*) b);
+    return (as > bs) - (as < bs);
+}
+static inline int cmpus(void const* a, void const* b) {
+    unsigned short const aus = *(CAST(unsigned short const*) a);
+    unsigned short const bus = *(CAST(unsigned short const*) b);
+    return (aus > bus) - (aus < bus);
+}
+
+/**
+ * @brief Returns a function pointer to a comparison function for the type of A.
+ *
+ * These comparison functions use the appropriate interface for a qsort
+ * comparison function, i.e. their signature is `int cmp(const void* a, const
+ * void* b)` and they return
+ *  - a negative value if the first argument is less than the second,
+ *  - zero if they are equal,
+ *  - a positive value if the first argument is greater than the second.
+ *
+ * @return function pointer to a comparison function for the type of A.
+ */
+#define GET_CMP(A)                  \
+    _Generic((A), float: cmpf,       \
+        double: cmpd,               \
+        long double: cmpld,         \
+        int: cmpi,                  \
+        unsigned: cmpu,             \
+        long: cmpl,                 \
+        unsigned long: cmpul,       \
+        long long: cmpll,           \
+        unsigned long long: cmpull, \
+        char: cmpc,                 \
+        unsigned char: cmpuc,       \
+        signed char: cmpsc,         \
+        short: cmps,                \
+        unsigned short: cmpus)
+
+// type generic print function
+static inline void printf_float(void const* a) {
+    printf("%.8f", *(CAST(float const*) a));
+}
+static inline void printf_double(void const* a) {
+    printf("%.12lf", *(CAST(double const*) a));
+}
+static inline void printf_long_double(void const* a) {
+    printf("%.20Lf", *(CAST(long double const*) a));
+}
+static inline void printf_int(void const* a) {
+    printf("%d", *(CAST(int const*) a));
+}
+static inline void printf_unsigned_int(void const* a) {
+    printf("%u", *(CAST(unsigned int const*) a));
+}
+static inline void printf_long(void const* a) {
+    printf("%ld", *(CAST(long const*) a));
+}
+static inline void printf_unsigned_long(void const* a) {
+    printf("%lu", *(CAST(unsigned long const*) a));
+}
+static inline void printf_long_long(void const* a) {
+    printf("%lld", *(CAST(long long const*) a));
+}
+static inline void printf_unsigned_long_long(void const* a) {
+    printf("%llu", *(CAST(unsigned long long const*) a));
+}
+static inline void printf_char(void const* a) {
+    printf("%c", *(CAST(char const*) a));
+}
+static inline void printf_unsigned_char(void const* a) {
+    printf("%c", *(CAST(unsigned char const*) a));
+}
+static inline void printf_signed_char(void const* a) {
+    printf("%c", *(CAST(signed char const*) a));
+}
+static inline void printf_short(void const* a) {
+    printf("%hd", *(CAST(short const*) a));
+}
+static inline void printf_unsigned_short(void const* a) {
+    printf("%hu", *(CAST(unsigned short const*) a));
+}
+static inline void printf_void(void const* a) { printf("%p", a); }
+
+/**
+ * @brief Returns a function pointer to a print function for the type of A.
+ * If no type is inferred the type is printed as a void pointer.
+ *
+ * @return function pointer to a print function for the type of A.
+ */
+#define GET_PRINT(A)                                   \
+    _Generic((A),                                      \
+        float: printf_float,                           \
+        double: printf_double,                         \
+        long double: printf_long_double,               \
+        int: printf_int,                               \
+        unsigned: printf_unsigned_int,                 \
+        long: printf_long,                             \
+        unsigned long: printf_unsigned_long,           \
+        long long: printf_long_long,                   \
+        unsigned long long: printf_unsigned_long_long, \
+        char: printf_char,                             \
+        unsigned char: printf_unsigned_char,           \
+        signed char: printf_signed_char,               \
+        short: printf_short,                           \
+        unsigned short: printf_unsigned_short,         \
+        default: printf_void)

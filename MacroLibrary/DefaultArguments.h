@@ -17,11 +17,13 @@
 #define ID_II(_01, _2) _01, _2
 #define ID_III(_01, _2, _3) _01, _2, _3
 #define ID_IIII(_01, _2, _3, _4) _01, _2, _3, _4
+#define ID_IIIII(_01, _2, _3, _4, _5) _01, _2, _3, _4, _5
 
 /* Macros to set default arguments */
 
 /**
- * @brief Output the second argument, if any, or use DEF0 as the fallback default value when no second argument is provided.
+ * @brief Output the second argument, if any, or use DEF0 as the fallback
+ * default value when no second argument is provided.
  *
  * @remark Error if more than two arguments are given.
  */
@@ -78,6 +80,15 @@
     FUNC(_0, _1, DEFAULT1(DEF0, __VA_ARGS__))
 #define CALL4_ND2(FUNC, _0, _1, DEF0, DEF1, ...) \
     FUNC(_0, _1, DEFAULT2(DEF0, DEF1, __VA_ARGS__))
+
+// fixed first three arguments.
+#define CALL4_ND3(FUNC, _0, _1, _2, DEF0, ...) \
+    FUNC(_0, _1, _2, DEFAULT1(DEF0, __VA_ARGS__))
+
+// fixed first 5 arguments
+#define CALL5_ND4(FUNC, _0, _1, _2, _3, DEF0, ...) \
+    FUNC(_0, _1, _2, _3, DEFAULT1(DEF0, __VA_ARGS__))
+
 
 // Want to have same call structure but with optional vargs
 
@@ -149,3 +160,5 @@
     FUNC(_0, _1, DEFAULT1OPT(DEF0, __VA_ARGS__))
 #define CALL4_ND2OPT(FUNC, _0, _1, DEF0, DEF1, ...) \
     FUNC(_0, _1, DEFAULT2OPT(DEF0, DEF1, __VA_ARGS__))
+
+

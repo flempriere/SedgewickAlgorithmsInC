@@ -3,6 +3,7 @@
  * @author Felix Lempriere
  * @brief Weighted Quick Union algorithm for dynamic connectivity.
  *
+ * @details
  * This program implements the Weighted Quick Union algorithm to solve the
  * dynamic connectivity problem. It reads a sequence of pairs of non-negative
  * integers from standard input, where each pair `p q` represents a connection
@@ -12,7 +13,6 @@
  * to ensure smaller trees are always attached under larger trees, reducing
  * the height of the trees and improving performance.
  *
- * @details
  * - **Complexity**:
  *   - Union and find operations have logarithmic time complexity in the worst
  * case.
@@ -28,7 +28,7 @@
  * Quick-Union approaches, especially for large datasets.
  *
  * @version 0.1
- * @date 2025-03-28
+ * @date 2025-04-07
  *
  * @copyright Copyright (c) 2025
  */
@@ -56,11 +56,6 @@ constexpr size_t MAXLINE = 100u;
 
 /**
  * @brief Perform the Weighted Quick Union algorithm.
- *
- * This program reads input pairs `p` and `q` (where `p, q < N`) from standard
- * input and performs a union operation. If `p` and `q` were not already
- * connected, they are printed to the output. The algorithm uses a weighted
- * quick union approach to optimize the union-find operations.
  *
  * @param argc Number of command-line arguments.
  * @param argv Array of command-line arguments.

@@ -1,81 +1,87 @@
-/*
-Exercise 2-7:
-    Determine for what values of N is 2*N*H_n - N < Nlg(N) + 10N
-    where H_n is the n-th harmonic number
-
-    H_n approx = ln(N) + 0.5
-    -> 2*N*H_N - N ~= 2*Nln(N) + 2*N*0.5 - N = 2*N*Ln(N)
-    -> so approx 2*N*ln(N) < Nlg(N) + 10N
-    -> N*ln(N) < 10*N
-    ln(N) approx 10 when N = 2^10
-*/
-
+/**
+ * @file ex2_7.c
+ * @author Felix Lempriere
+ * @brief Solution to Exercise 2-7 from Chapter 2 of Sedgewick's Algorithms in
+ * C.
+ *
+ * This program determines the range of values for N where the inequality
+ * 2N*H_n - N < Nlg(N) + 10N holds, where H_n is the n-th harmonic number.
+ * Newtons method is used to solve the inequality.
+ *
+ * The harmonic number H_n is approximated as:
+ * H_n ≈ ln(N) + 0.57721 (Euler-Mascheroni constant) + 1/(12N).
+ *
+ * Analysis:
+ * We estimate the root of 2N*H_n - N - (Nlg(N) + 10(N)) as
+ * - 2N*H_n - N ≈ 2Nln(N) + N - N = 2Nln(N).
+ * - The inequality becomes approximately:
+ *   2Nln(N) < Nlg(N) + 10N.
+ * - Simplifying further:
+ *   Nln(N) < 10N.
+ * - ln(N) ≈ 10 when N ≈ 2^10.
+ *
+ * @date 2025-04-07
+ * @version 0.1
+ * @copyright Copyright (c) 2025
+ */
+#include "MacroLibrary/Mathematics.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <tgmath.h>
 
 /**
- * @brief Tolerance value for root finding
- * with newtons_method.
+ * @brief Evaluates the expression 2N*H_n - N - (NlgN + 10N).
  *
- * @see newtons_method
+ * @param x Input value for the function.
+ * @return long double Result of the evaluation.
  */
- constexpr long double eps = 1e-6L;
+static inline long double fn(long double const x);
 
 /**
- * @brief Finds a root of the the function @f
- * using [newtons method](https://en.wikipedia.org/wiki/Newton%27s_method)
- * with an initial guess of x
+ * @brief Determines the range of values for N where the inequality
+ * 2N*H_n - N < Nlg(N) + 10N holds.
  *
- * Stops once f(x) < eps
+ * This function uses Newton's method to approximate the roots of the function
+ * 2N*H_n - N - (Nlg(N) + 10N), which represents the boundary of the inequality.
+ * The results are printed as the range of N values satisfying the condition.
  *
- * @param f
- * @param x
- * @return long double, root of f if found
- *
- * @see eps
- */
-long double newtons_method(long double (*const f)(long double), long double x);
-/**
- * @brief Calculates 2NH_n - N < NlgN + 10N
- *
- * @param x
- * @return long double
- */
-long double fn(long double const x);
-
-/**
- * @brief Finds the region where
- * 2NH_N - N < NlgN + 10N
- *
- * @return EXIT_SUCCESS on completion
+ * @return EXIT_SUCCESS on successful execution.
  */
 int main(int argc, char* argv[argc + 1]) {
     long double N_0 = 0.0L;
     long double N_1 = 2e+10L;
-    N_0 = newtons_method(fn, N_0);
-    N_1 = newtons_method(fn, N_1);
+    N_0 = MATHnewtons_method(fn, N_0);
+    N_1 = MATHnewtons_method(fn, N_1);
     printf("solution: %Lf ~< N ~< %Lf\n", N_0, N_1);
 
     return EXIT_SUCCESS;
 }
 
-long double n_harmonic(long double const x) {
+/**
+ * @brief Computes the nth harmonic number.
+ *
+ * The nth harmonic number is defined as the sum of the reciprocals of the first
+ * n natural numbers: H(n) = 1 + 1/2 + 1/3 + ... + 1/n.
+ *
+ * @note This function uses as approximation to calculate the nth harmonic
+ * number: H(n) ≈ ln(n) + 0.57721 + 1/(12n).
+ *
+ * @param x Index of the Harmonic number ( > 0).
+ * @return The nth harmonic number as a long double.
+ */
+static inline long double n_harmonic(long double const x) {
     long double euler_constant = 0.57721;
     return log(x) + euler_constant + 1.0L / (12.0L * x);
 }
 
-long double fn(long double const x) {
+/**
+ * @brief Evaluates the expression 2N*H_n - N - (NlgN + 10N).
+ *
+ * This function is fed into Newton's Method to evaluate the inequality.
+ *
+ * @param x input value to the function.
+ * @return long double Result of the evaluation.
+ */
+static long double fn(long double const x) {
     return 2 * x * n_harmonic(x) - 11 * x - x * log2(x);
-}
-
-long double newtons_method(long double (*const f)(long double), long double x) {
-    register long double const h = eps;
-    while (fabs((*f)(x)) > eps) {
-        register long double const xph = (*f)(x + h);
-        register long double const xmh = (*f)(x - h);
-        register long double const dx = (xph - xmh) / (2.0L * h);
-        x -= ((*f)(x) / dx);
-    }
-    return x;
 }

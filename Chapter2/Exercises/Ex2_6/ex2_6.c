@@ -1,77 +1,68 @@
-/*
-Exercise 2-6:
-    Determine for what values of N is N^(3/2) between N(lg(N)^2)/2
-    and 2N(lgN)^2
+/**
+ * @file ex2_6.c
+ * @author Felix Lempriere
+ * @brief Solution to Exercise 2-6 from Chapter 2 of Sedgewick's Algorithms in
+ * C.
+ *
+ * This program determines the range of values for N where the inequality
+ * N^(3/2) lies between N(lg(N)^2)/2 and 2N(lg(N)^2). The analysis involves
+ * identifying the crossover points of the functions using Newton's method.
+ *
+ * @note For N < 1, N^(3/2) is a small positive value. At N = 1, the functions
+ * begin to interact. The first crossover point is near N = 1. For larger N,
+ * the second crossover point is estimated around N = 4, based on calculations:
+ * - For N = 4:
+ *   - N^(3/2) = 8
+ *   - N(lg(N)^2)/2 = 8
+ *   - 2N(lg(N)^2) = 16
+ *
+ * @date 2025-04-07
+ * @version 0.1
+ * @copyright Copyright (c) 2025
+ */
 
-    for N < 1 -> N^(3/2) -> small positive, N = 1, positive
-    lg(N) -> -inf -> lg(N)^2 -> inf, but zeroed implies first crossover near 1
-
-    sqrt(4) = 2, 2^3 = 8
-    lg(4) = 2 -> Nlg(N)^2/2 = 4*2*2/2 = 8
-    2N(lgN)^2 = 2*2*2*2 = 16
-    so second root is around 4
-*/
+#include "MacroLibrary/Mathematics.h"
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <tgmath.h>
 
 /**
- * @brief Tolerance value for root finding
- * with newtons_method.
+ * @brief Computes the difference: N(lg(N)^2)/2 - N^(3/2)
  *
- * @see newtons_method
+ * @param x Input value
+ * @return long double Result of the computation
  */
- constexpr long double eps = 1e-6L;
+static inline long double fn1(long double const x);
 
 /**
- * @brief Finds a root of the the function @f
- * using [newtons method](https://en.wikipedia.org/wiki/Newton%27s_method)
- * with an initial guess of x
+ * @brief Computes the value of 2N(lg(N)^2).
  *
- * Stops once f(x) < eps
- *
- * @param f
- * @param x
- * @return long double, root of f if found
- *
- * @see eps
+ * @param x Input value
+ * @return long double Result of the computation
  */
-long double newtons_method(long double (*const f)(long double), long double x);
+static long double fn2(long double const x);
 
 /**
- * @brief Calculates N(lg(N)^2/2) - N^(3/2)
+ * @brief Identifies the intervals of N where the inequality
+ * N^(3/2) lies between N(lg(N)^2)/2 and 2N(lg(N)^2).
  *
- * @param x
- * @return long double
- */
-long double fn1(long double const x);
-
-/**
- * @brief Calculates 2N(lg(N)^2)
+ * This involves finding the crossover points of the functions
+ * N^(3/2), N(lg(N)^2)/2, and 2N(lg(N)^2) using Newton's method.
  *
- * @param x
- * @return long double
- */
-long double fn2(long double const x);
-
-/**
- * @brief Finds the regions where N^(3/2) is
- * between Nlg(N)^2/2 and 2Nlg(N)^2.
- *
- * @return EXIT_SUCCESS on completion
+ * @return EXIT_SUCCESS upon successful completion of the program.
  */
 int main(int argc, char* argv[argc + 1]) {
     long double const N_0 = 1.0L;
     long double const N_1 = 8.0L;
 
-    long double f1N_0 = newtons_method(fn1, N_0);
-    long double f1N_1 = newtons_method(fn1, N_1);
+    long double f1N_0 = MATHnewtons_method(fn1, N_0);
+    long double f1N_1 = MATHnewtons_method(fn1, N_1);
 
     printf("N^(3/2) > Nlg(N)^2/2 for %Lf ~< N ~< %Lf\n", f1N_0, f1N_1);
 
-    long double f2N_0 = newtons_method(fn2, N_0);
-    long double f2N_1 = newtons_method(fn2, N_1);
+    long double f2N_0 = MATHnewtons_method(fn2, N_0);
+    long double f2N_1 = MATHnewtons_method(fn2, N_1);
 
     printf("N^(3/2) > 2Nlg(N)^2 for %Lf ~< N ~< %Lf\n", f2N_0, f2N_1);
 
@@ -82,21 +73,10 @@ int main(int argc, char* argv[argc + 1]) {
     return EXIT_SUCCESS;
 }
 
-long double fn1(long double const x) {
+static inline long double fn1(long double const x) {
     return x * pow(log2(x), 2) / 2 - pow(x, 3.0L / 2.0L);
 }
 
-long double fn2(long double const x) {
+static inline long double fn2(long double const x) {
     return 2 * x * pow(log2(x), 2) - pow(x, 3.0L / 2.0L);
-}
-
-long double newtons_method(long double (*const f)(long double), long double x) {
-    register long double const h = eps;
-    while (fabs((*f)(x)) > eps) {
-        register long double const xph = (*f)(x + h);
-        register long double const xmh = (*f)(x - h);
-        register long double const dx = (xph - xmh) / (2.0L * h);
-        x -= ((*f)(x) / dx);
-    }
-    return x;
 }
