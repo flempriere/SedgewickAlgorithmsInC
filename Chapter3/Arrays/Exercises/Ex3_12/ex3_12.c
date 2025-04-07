@@ -1,23 +1,21 @@
-/*
-Exercise 3.12
+/**
+ * @file ex3_12.c
+ * @author Felix Lempriere
+ * @brief Solution to Exercise 3-12.
+ *
+ *Implement the seive of eratosthenes using an array of char and an array of
+ *bits. Compare the differences in time and space.
+ *
+ * Bool has the same size as a char, so we'll only focus on a bit implementation
+ *
+ * Our bit implementation is slower!
+ *
+ * @date 2025-04-07
+ * @version 0.1
+ *
+ * @copyright Copyright (c) 2025
+ */
 
-Implement the seive of eratosthenes using an array of char and an array of bits.
-Compare the differences in time and space.
-
-Bool has the same size as a char, so we'll only focus on a bit implementation
-
-Our bit implementation is slower!
-*/
-
-/*
-Program 3.5
-Sieve of Eratosthemes, determines the primes up to N using an array.
-
-a[i] is set to true to indicate i being prime else 0.
-First we assume each number is prime, then we get the smallest prime p we have
-yet to examine and set all a[j*p] to 0 for all j > 2 s.t jp <= N
-
-*/
 #include "MacroLibrary/Utility.h"
 
 #include <assert.h>
@@ -72,6 +70,9 @@ bit_component BITa[NCOMPONENTS];
  * @brief Perform the Sieve of Erasthothenes calculation
  * using a boolean array.
  *
+ * @pre a[i] = 0 for all i < N
+ * @pre The indices [0, N) are valid in the array a.
+ * @post a[i] = 1 if i is prime else 0.
  */
 static inline void sieve_of_erastothenes_bool(void) {
     for (register size_t i = 2; i < N; i++) {
@@ -93,9 +94,12 @@ static inline bool BITa_ith_bit(size_t i) {
 }
 
 /**
- * @brief Perform the sieve of erastothenes using
- * an underlying bit array representation.
+ * @brief Perform the Sieve of Erasthothenes calculation
+ * using a bit array.
  *
+ * @pre a[i] = 0 for all i < N
+ * @pre The indices [0, N) are valid in the array a.
+ * @post a[i] = 1 if i is prime else 0.
  */
 static inline void sieve_of_erastothenes_bit(void) {
     for (register size_t i = 2; i < N; i++) {

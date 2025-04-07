@@ -17,6 +17,8 @@
 /**
  * @brief enum for card value,
  * supports JOKERS
+ *
+ * @details
  */
 typedef enum : uint8_t {
     PLAYINGCARD_JOKER,
@@ -33,8 +35,8 @@ typedef enum : uint8_t {
     PLAYINGCARD_JACK,
     PLAYINGCARD_QUEEN,
     PLAYINGCARD_KING
-} e_PLAYINGCARDValue; /*joker set to 0, so
-other cards indices line up with their traditional points value */
+} e_PLAYINGCARDValue;
+
 /**
  * @brief enum for suit,
  * supports cards that can be multisuit.

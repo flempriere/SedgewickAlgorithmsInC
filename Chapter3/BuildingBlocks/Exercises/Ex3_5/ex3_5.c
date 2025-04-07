@@ -1,7 +1,17 @@
-/*
-Exercise 3.5. Implement a version of Program 3.2 that supports bit types
-(values that can be zero or one)
-*/
+/**
+ * @file Ex3-5
+ * @author Felix Lempriere
+ * @brief Solution to Exercise 3.5.
+ *
+ * Implements a variant of Program 3.2 that supports bit types. We take this
+ * to mean 0 or 1 values (like bool) rather than explicitly bit-sized types.
+ *
+ * @date 2025-04-07
+ * @version 0.1
+ *
+ * @copyright Copyright (c) 2025
+ */
+
 #include "MacroLibrary/NumberParse.h"
 #include "MacroLibrary/Random.h"
 #include "MacroLibrary/Statistics.h"
@@ -18,6 +28,7 @@ Exercise 3.5. Implement a version of Program 3.2 that supports bit types
  * @return double
  */
 double rand_num_to_double(void);
+
 /**
  * @brief Performs avg and std. dev calculations
  * on random bits.

@@ -1,10 +1,18 @@
-/*
-Program 3.15
-Determine the effect of removing the if (a[i]) test in the inner loop of
-Program 3.5.
+/**
+ * @file ex3_15.c
+ * @author Felix Lempriere
+ * @brief Solution to Exercise 3-15.
+ *
+ * Determine the effect of removing the if (a[i]) test in the inner loop of
+ * Program 3.5.
+ *
+ * The approaches agree, but the program runs slower
+ * @date 2025-04-07
+ * @version 0.1
+ *
+ * @copyright Copyright (c) 2025
+ */
 
-The approaches agree, but the program runs slower
-*/
 #include "MacroLibrary/Utility.h"
 
 #include <assert.h>
@@ -69,9 +77,16 @@ static inline void sieve_of_eratosthenes_unguarded(size_t const n) {
     }
 }
 
-long double time_function(void (*const f)(size_t), size_t n) {
+/**
+ * @brief Times the function f by calling it with n
+ *
+ * @param f function to time
+ * @param n function argument.
+ * @return long double time in seconds it takes for the function to run.
+ */
+long double time_function(void f(size_t), size_t n) {
     register clock_t const tic = clock();
-    (*f)(n);
+    f(n);
     register clock_t const toc = clock();
 
     return CAST(long double)(toc - tic) / CLOCKS_PER_SEC;

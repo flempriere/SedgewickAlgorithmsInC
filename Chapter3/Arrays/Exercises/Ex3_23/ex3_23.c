@@ -1,8 +1,15 @@
-/*
-Exercise 3.23
-
-Modify Program 3.8 to work for a d-dimensional point.
-*/
+/**
+ * @file ex3_23.c
+ * @author Felix Lempriere
+ * @brief Solution to Exercise 3-23.
+ *
+ * Modify Program 3.8 to work with a d-dimensional point implementation.
+ *
+ * @date 2025-04-07
+ * @version 0.1
+ *
+ * @copyright Copyright (c) 2025
+ */
 
 #include "MacroLibrary/DefaultCalloc.h"
 #include "MacroLibrary/Generic.h"
@@ -17,24 +24,28 @@ Modify Program 3.8 to work for a d-dimensional point.
 /**
  * @brief Fill an array @a of @dim dimensional points with @n randomly
  * generated points.
- * 
- * @param dim 
- * @param n 
- * @param a 
+ *
+ * @param dim dimension of the points.
+ * @param n length of the array.
+ * @param a array of points to fill.
  */
-void generate_random_points(Dimension dim, size_t const n, Point_DDIM a[n]);
+void generate_random_points(Dimension const dim, size_t const n,
+                            Point_DDIM a[const static n]);
 
 /**
  * @brief Count the number of edges between @dim dimensional points in the
- * array @a of length less than @d. 
- * 
- * @param d 
- * @param dim 
- * @param n 
- * @param a 
- * @return size_t 
+ * array @a of length less than @d.
+ *
+ * @param d Maximum length of an edge.
+ * @param n length of the array.
+ * @param a array of points to search.
+ *
+ * @pre The indices [0, n) are valid in the array a.
+ * @post count is the number of edges in a with length less than d.
+ * @return size_t The number of edges in a with length less than d.
  */
-size_t count_close_pairs(double const d, Dimension dim, size_t const n, Point_DDIM const a[n]);
+size_t count_close_pairs(double const d, size_t const n,
+                         Point_DDIM const a[const static n]);
 /**
  * @brief Extract dimension from an input string.
  *
@@ -65,9 +76,9 @@ int main(int argc, char* argv[argc + 1]) {
     register size_t const N = NUMPARSEexit_on_fail(N, argv[2]);
     register double const d = NUMPARSEexit_on_fail(d, argv[3]);
 
-    Point_DDIM* const a = CALLOC_FAILS_EXIT(N, *a);
+    Point_DDIM* const a = CALLOCEXIT_ON_FAIL(N, *a);
     generate_random_points(dim, N, a);
-    register size_t count = count_close_pairs(d, dim, N, a);
+    register size_t count = count_close_pairs(d, N, a);
     printf("%zu edges shorter than %f\n", count, d);
 
     free(a);
@@ -81,17 +92,19 @@ Dimension getDim(char s[static 1]) {
 
 void generate_random_points(Dimension dim, size_t const n, Point_DDIM a[n]) {
     for (register size_t i = 0; i < n; i++) {
+        a[i].dim = dim;
         for (register Dimension idx = 0; idx < dim; idx++) {
             a[i].x[idx] = RANDUNIFORM();
         }
     }
 }
 
-size_t count_close_pairs(double const d, Dimension dim, size_t const n, Point_DDIM const a[n]) {
+size_t count_close_pairs(double const d, size_t const n,
+                         Point_DDIM const a[n]) {
     register size_t count = 0;
     for (register size_t i = 0; i < n; i++) {
         for (register size_t j = i + 1; j < n; j++) {
-            if (POINT_DDIMdistance(a[i], a[j], dim) < d) { count++; }
+            if (POINT_DDIMdistance(a[i], a[j]) < d) { count++; }
         }
     }
     return count;

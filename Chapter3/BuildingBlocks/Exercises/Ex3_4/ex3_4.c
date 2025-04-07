@@ -1,7 +1,17 @@
-/*
-Exercise 3_4 implementation utilising num.c and num.h from Program 3.2
-based on the implementations in exercise 3.2 and exercise 3.3
-*/
+/**
+ * @file Ex3-4
+ * @author Felix Lempriere
+ * @brief Solution to Exercise 3.4.
+ * 
+ * Compares the random number generation strategies used in Exercise 3.2
+ * and Exercise 3.3.
+ *
+ * @date 2025-04-07
+ * @version 0.1
+ *
+ * @copyright Copyright (c) 2025
+ */
+
 #include "MacroLibrary/Random.h"
 #include "MacroLibrary/Statistics.h"
 #include "MacroLibrary/Utility.h"
@@ -12,12 +22,14 @@ based on the implementations in exercise 3.2 and exercise 3.3
 #include <tgmath.h>
 
 /**
- * @brief Number of test cases for N
+ * @brief Number of test cases for N. Each successive test case is 10x larger
+ * than the previous case.
  *
  */
 constexpr size_t N_CASES = 4u;
 /**
- * @brief Number of test cases for r
+ * @brief Number of test cases for R. Each successive test case is the square
+ * of the previous test case.
  *
  */
 constexpr size_t R_CASES = 3u;
@@ -34,6 +46,11 @@ constexpr size_t N_INIT = 10000u;
  */
 constexpr Number R_INIT = 2u;
 
+
+/**
+ * @brief Size of the results array.
+ * 
+ */
 constexpr size_t RESULTS_ARR_SIZE = N_CASES * R_CASES;
 
 /**

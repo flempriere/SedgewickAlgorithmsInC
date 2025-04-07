@@ -1,7 +1,18 @@
-/*
-Multifile implementation of Program 3.2 that utilises a client file (avg.c)
-an interface file (num.h) and an implementation file (num.c)
-*/
+/**
+ * @file avg.c
+ * @author Felix Lempriere
+ * @brief Multifile implementation of Program 3.2.
+ *
+ * This file serves as the client file in a multifile implementation
+ * that utilizes an interface file (num.h) and an implementation file (num.c).
+ * It demonstrates the use of modular programming by separating the client,
+ * interface, and implementation logic.
+ *
+ * @date 2025-04-07
+ * @version 0.1
+ *
+ * @copyright Copyright (c) 2025
+ */
 #include "MacroLibrary/NumberParse.h"
 #include "MacroLibrary/Random.h"
 #include "MacroLibrary/Statistics.h"
@@ -18,7 +29,7 @@ an interface file (num.h) and an implementation file (num.c)
  * Designed to wrap the NUMBERrandom in the interface for calculateStatistics
  * @return double
  */
-static inline double rand_num_to_double(double ub);
+static inline double rand_num_to_double(double const ub);
 /**
  * @brief Calculate the average and standard deviation
  * of a collection of random numbers.

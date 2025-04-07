@@ -66,6 +66,6 @@ int main(int argc, char* argv[argc + 1]) {
 
 size_t coefficient_N(size_t n) {
     register size_t i;
-    for (i = 0; n != 0; n /= 2, i++);
+    for (i = 1; n != 1; n /= 2, i++);
     return i;
 }

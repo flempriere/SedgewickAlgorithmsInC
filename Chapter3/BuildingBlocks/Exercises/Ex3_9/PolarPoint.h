@@ -1,7 +1,16 @@
-/*
-Interface for a point data structure representing a point in a 2d plane,
-using a polar representation
-*/
+/**
+ * @file PolarPoint.h
+ * @author Felix Lempriere
+ * @brief Variant of the Point.h interface utilising polar coordinates as
+ * the underlying representation.
+ *
+ *
+ * @date 2025-04-07
+ * @version 0.1
+ *
+ * @copyright Copyright (c) 2025
+ */
+#pragma once
 
 /**
  * @brief Numerical tolerance for
@@ -18,7 +27,7 @@ typedef double Number;
 
 /**
  * @brief Two-dimensional Point data type
- * consisting of an x and y coordinate.
+ * consisting of an r and theta coordinate.
  *
  */
 typedef struct {
@@ -45,8 +54,9 @@ double POLARPOINTdistance(PolarPoint const p, PolarPoint const q);
  * @return true
  * @return false
  */
-static inline bool POLARPOINTequal(PolarPoint const p, PolarPoint const q) {
-    return POLARPOINTdistance(p, q) < POLARPOINTTOLERANCE;
+static inline bool POLARPOINTequal(PolarPoint const POLARPOINTp,
+                                   PolarPoint const POLARPOINTq) {
+    return POLARPOINTdistance(POLARPOINTp, POLARPOINTq) < POLARPOINTTOLERANCE;
 }
 
 /**
@@ -59,7 +69,7 @@ static inline bool POLARPOINTequal(PolarPoint const p, PolarPoint const q) {
  * @return true if collinear else
  * @return false
  *
- * @see TOLERANCE
+ * @see POLARPOINTTOLERANCE
  */
 bool POLARPOINTcollinear(PolarPoint const p, PolarPoint const q,
                          PolarPoint const r);

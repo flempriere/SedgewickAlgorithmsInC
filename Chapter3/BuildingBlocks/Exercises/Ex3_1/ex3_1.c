@@ -1,10 +1,16 @@
-
-/*
-Chapter 3, Exercise 1
-
-Calculates the limits of char, int, floats and doubles by
-reference to <limits.h> and <float.h> and integer types by hand.
-*/
+/**
+ * @file Ex3-1
+ * @author Felix Lempriere
+ * @brief Solution to Exercise 3.1.
+ *
+ * Calculates the limits of char, int, floats and doubles by
+ * reference to <limits.h> and <float.h>.
+ *
+ * @date 2025-04-07
+ * @version 0.1
+ *
+ * @copyright Copyright (c) 2025
+ */
 
 #include <float.h>
 #include <limits.h>

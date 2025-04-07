@@ -1,13 +1,20 @@
-/*
-Exercise 3.19
+/**
+ * @file ex3_19.c
+ * @author Felix Lempriere
+ * @brief Solution to Exercise 3-19.
+ *
+ * Empirically determine the number of random positive integers less than 1000
+ * that you can expect to generate before getting all values.
+ * 
+ * This implementation repeats the experiment M times where M is a command line
+ * argument.
+ *
+ * @date 2025-04-07
+ * @version 0.1
+ *
+ * @copyright Copyright (c) 2025
+ */
 
-Empirically determine the number of random positive integers less than 1000
-that you can expect to generate before getting all values.
-
-This implementation repeats the experiment M times where M is a command line
-argument.
-
-*/
 #include "MacroLibrary/NumberParse.h"
 #include "MacroLibrary/Random.h"
 #include "MacroLibrary/Statistics.h"
@@ -26,12 +33,13 @@ constexpr size_t MAX_NUM = 1000u;
  * @brief generates numbers until all possible values are computed and returns
  * the number of numbers generated.
  *
- * @return double
+ * @return double > 0.0
  */
 double n_generated(void);
+
 /**
  * @brief Generates random positive integers
- * up to MAX_NUM until all values are generated.
+ * with values up to MAX_NUM until all values are generated.
  *
  * This process is repeated @M times and the
  * average and std. dev computed.

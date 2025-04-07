@@ -1,9 +1,16 @@
-/*
-Exercise 3.20
-
-Modify program 3.7 to generate a heads with probability p and then test the
-results for p = 1/6.
-*/
+/**
+ * @file ex3_20.c
+ * @author Felix Lempriere
+ * @brief Solution to Exercise 3-20.
+ *
+ * Modify program 3.7 to generate a heads with probability p and then test the
+ * results for p = 1/6.
+ *
+ * @date 2025-04-07
+ * @version 0.1
+ *
+ * @copyright Copyright (c) 2025
+ */
 
 #include "MacroLibrary/DefaultCalloc.h"
 #include "MacroLibrary/NumberParse.h"
@@ -51,7 +58,7 @@ int main(int argc, char* argv[argc + 1]) {
 
     RAND_SEED_TIME;
 
-    size_t* const f = CALLOC_FAILS_EXIT(N + 1, *f);
+    size_t* const f = CALLOCEXIT_ON_FAIL(N + 1, *f);
 
     for (register size_t i = 0; i < M; i++) {
         register size_t cnt = 0;

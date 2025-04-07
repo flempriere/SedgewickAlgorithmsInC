@@ -1,6 +1,17 @@
-// Interface for the number type
-// utilises C23 for bool, otherwise use _Bool or <stdbool.h>
+/**
+ * @file NumberBit.h
+ * @author Felix Lempriere
+ * @brief Provides a variant of the Number Interface wrapping a Bool type
+ * to provide Bit-like values.
+ *
+ *
+ * @date 2025-04-07
+ * @version 0.1
+ *
+ * @copyright Copyright (c) 2025
+ */
 #pragma once
+
 /**
  * @brief Bit type support is
  * implemented by using the bool type.

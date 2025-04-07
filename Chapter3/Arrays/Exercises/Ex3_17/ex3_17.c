@@ -1,10 +1,18 @@
-/*
-Exercise 3.17
+/**
+ * @file ex3_17.c
+ * @author Felix Lempriere
+ * @brief Solution to Exercise 3-17.
+ *
+ * Count the number of different (positive) integers less than 1000 that appear
+ * in an input stream.
+ *
+ * @date 2025-04-07
+ * @version 0.1
+ *
+ * @copyright Copyright (c) 2025
+ */
 
-Count the number of different (positive) integers less than 1000 that appear
-in an input stream.
-
-*/
+#include "MacroLibrary/Defaultfgets.h"
 #include "MacroLibrary/NumberParse.h"
 #include "MacroLibrary/Utility.h"
 
@@ -37,7 +45,7 @@ int main(int argc, char* argv[argc + 1]) {
     char line[MAXLINE];
     size_t a[MAX_NUM] = {};
 
-    while (fgets(line, sizeof(line), stdin) != nullptr) {
+    while (FGETS(line)) {
         size_t i;
         if (!NUMPARSE(&i, line) || i > MAX_NUM) continue;
         a[i]++;

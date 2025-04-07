@@ -1,10 +1,18 @@
-/*
-Program 3.8 closest point computation.
-
-This utilises an array of structures. We count the number of pairs of N
-randomly generated points in the unit square that can be connected by a
-straight line of length < d using the point datatype introduced earlier.
-*/
+/**
+ * @file program3_8_closest_point.c
+ * @author Felix Lempriere
+ * @brief Program 3.8: Closest Point Calculation.
+ *
+ * Program 3.8 closest point computation.
+ * This utilises an array of structures. We count the number of pairs of N
+ * randomly generated points in the unit square that can be connected by a
+ * straight line of length < d using the point datatype introduced earlier.
+ *
+ * @date 2025-04-07
+ * @version 0.1
+ *
+ * @copyright Copyright (c) 2025
+ */
 
 #include "MacroLibrary/DefaultCalloc.h"
 #include "MacroLibrary/NumberParse.h"
@@ -16,23 +24,32 @@ straight line of length < d using the point datatype introduced earlier.
 #include <tgmath.h>
 
 /**
- * @brief Fills an array @a of length n with randomly generated points.
+ * @brief Fills an array a of length n with randomly generated points in the
+ * unit square.
  *
- * @param n
- * @param a
+ * @param n size of the array > 0.
+ * @param a pointer to the array.
+ *
+ * @pre The indices [0, n) are valid in the array a.
+ * @post The array a is filled with random points.
  */
-void generate_random_points(size_t const n, Point a[n]);
+void generate_random_points(size_t const n, Point a[const static n]);
 
 /**
  * @brief Counts the number of edges between points in the array @a
  * of length less than @d.
  *
- * @param d
- * @param n
- * @param a
- * @return size_t
+ * @param d length of the edge.
+ * @param n length of the array.
+ * @param a pointer to the array.
+ *
+ * @pre d > 0
+ * @pre n > 0
+ * @pre The indices [0, n) are valid in the array a.
+ * 
+ * @return size_t The number of edges shorter than d.
  */
-size_t count_close_pairs(double const d, size_t const n, Point const a[n]);
+size_t count_close_pairs(double const d, size_t const n, Point const a[const static n]);
 /**
  * @brief Generates N random points
  * and counts how many can be connected with
@@ -54,7 +71,7 @@ int main(int argc, char* argv[argc + 1]) {
     register double const d = NUMPARSEexit_on_fail(d, argv[2]);
     register size_t const N = NUMPARSEexit_on_fail(N, argv[1]);
 
-    register Point* const a = CALLOC_FAILS_EXIT(N, *a);
+    register Point* const a = CALLOCEXIT_ON_FAIL(N, *a);
 
     generate_random_points(N, a);
     size_t cnt = count_close_pairs(d, N, a);

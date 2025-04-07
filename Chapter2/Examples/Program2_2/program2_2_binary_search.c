@@ -109,7 +109,8 @@ int main(int argc, char* argv[argc + 1]) {
     return EXIT_SUCCESS;
 }
 
-size_t search(Item const v, size_t l, size_t r, Item const a[const static r + 1]) {
+size_t search(Item const v, size_t l, size_t r,
+              Item const a[const static r + 1]) {
     assert(ARRAYIS_SORTED(r - l + 1, a + l, a[l]) && "Array is not sorted");
     while (r >= l) {
         register size_t m = (l + r) / 2;

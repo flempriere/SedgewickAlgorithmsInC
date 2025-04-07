@@ -1,6 +1,15 @@
-/*
-Provides the implementation for the distance function provided in point.h
-*/
+/**
+ * @file Point_v3.c
+ * @author Felix Lempriere
+ * @brief Implementation of verson 3 of the Point Interface.
+ *
+ * Extends the Point interface with POINTrandom, to generate random points.
+ *
+ * @date 2025-04-07
+ * @version 0.1
+ *
+ * @copyright Copyright (c) 2025
+ */
 
 #include "../Point_v3.h"
 

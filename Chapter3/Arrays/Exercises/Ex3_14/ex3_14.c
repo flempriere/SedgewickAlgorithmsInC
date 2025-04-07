@@ -1,8 +1,16 @@
-/*
-Program 3.14
-Using the sieve of eratosthenes print out the number of
-primes less than N for for 1 <= N <= 1000
-*/
+/**
+ * @file ex3_14.c
+ * @author Felix Lempriere
+ * @brief Solution to Exercise 3-14.
+ *
+ * Using the sieve of eratosthenes print out the number of
+ * primes less than N for for 1 <= N <= 1000
+ * @date 2025-04-07
+ * @version 0.1
+ *
+ * @copyright Copyright (c) 2025
+ */
+
 #include <stdio.h>
 #include <stdlib.h>
 

@@ -1,13 +1,20 @@
-/*
-Exercise 3.18
+/**
+ * @file ex3_18.c
+ * @author Felix Lempriere
+ * @brief Solution to Exercise 3-18.
+ *
+ * Empirically determine the number of random positive integers less than 1000
+ * that you can expect to generate before getting a repeated value.
+ *
+ * This implementation repeats the experiment M times where M is a command line
+ * argument.
+ *
+ * @date 2025-04-07
+ * @version 0.1
+ *
+ * @copyright Copyright (c) 2025
+ */
 
-Empirically determine the number of random positive integers less than 1000
-that you can expect to generate before getting a repeated value.
-
-This implementation repeats the experiment M times where M is a command line
-argument.
-
-*/
 #include "MacroLibrary/NumberParse.h"
 #include "MacroLibrary/Random.h"
 #include "MacroLibrary/Statistics.h"
@@ -27,12 +34,12 @@ constexpr size_t MAX_NUM = 1000u;
  * @brief Returns the number of random positive integers generated before
  * a repeat.
  *
- * @return double
+ * @return double > 0.0
  */
 double n_generated(void);
 /**
  * @brief Generates random positive integers
- * up to MAX_NUM until a value is repeated.
+ * with values up to MAX_NUM until a value is repeated.
  *
  * This process is repeated @M times and the
  * average and std. dev computed.

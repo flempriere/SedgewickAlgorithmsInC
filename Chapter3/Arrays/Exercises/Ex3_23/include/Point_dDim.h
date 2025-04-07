@@ -1,7 +1,17 @@
-/*
-Interface for a point data structure representing a point in a d-dimensional
-space
-*/
+/**
+ * @file Point_dDim.h
+ * @author Felix Lempriere
+ * @brief Version of the Point interface supporting a d-dimensional point.
+ *
+ * Extends the Point interface with POINTrandom, to generate random points.
+ *
+ * @date 2025-04-07
+ * @version 0.1
+ *
+ * @copyright Copyright (c) 2025
+ */
+#pragma once
+
 #include <stddef.h>
 
 /**
@@ -31,6 +41,7 @@ typedef size_t Dimension;
  *
  */
 typedef struct {
+    Dimension dim;
     Number x[POINT_DDIMMAX_DIM];
 } Point_DDIM;
 
@@ -43,5 +54,4 @@ typedef struct {
  * @param d dimension, p,q must have the same dimension d
  * @return double
  */
-double POINT_DDIMdistance(Point_DDIM const p, Point_DDIM const q,
-                          Dimension const d);
+double POINT_DDIMdistance(Point_DDIM const p, Point_DDIM const q);

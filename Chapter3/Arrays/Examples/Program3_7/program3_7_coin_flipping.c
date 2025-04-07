@@ -1,18 +1,24 @@
-/*
-Program 3.7
-
-This program runs a coin flipping experiment M times with each runc consisting
-of N flips. An array f keeps track of the frequency of occurance of 0 <= i <= N
-where i is the number of heads.
-
-A histogram is then printed out, with one asterisk corresponding to 10
-occurences.
-
-The operation on which this program is based -- indexing an array with computed
-value -- is critical to the efficiency of many computational procedures
-
-utilises C23 bool, use _Bool or <stdbool.h> for older standards
-*/
+/**
+ * @file program3_7_coin_flippong.c
+ * @author Felix Lempriere
+ * @brief Program 3.7: Coin Flipping simulation.
+ *
+ * This program runs a coin flipping experiment M times with each runc
+ * consisting of N flips. An array f keeps track of the frequency of occurance
+ * of 0 <= i <= N where i is the number of heads.
+ *
+ * A histogram is then printed out, with one asterisk corresponding to 10
+ * occurences.
+ *
+ * The operation on which this program is based -- indexing an array with
+ * computed value -- is critical to the efficiency of many computational
+ * procedures
+ *
+ * @date 2025-04-07
+ * @version 0.1
+ *
+ * @copyright Copyright (c) 2025
+ */
 #include "MacroLibrary/DefaultCalloc.h"
 #include "MacroLibrary/NumberParse.h"
 #include "MacroLibrary/Random.h"
@@ -51,7 +57,7 @@ int main(int argc, char* argv[argc + 1]) {
 
     RAND_SEED_TIME;
 
-    size_t* const f = CALLOC_FAILS_EXIT(N + 1, f);
+    size_t* const f = CALLOCEXIT_ON_FAIL(N + 1, *f);
 
     for (register size_t i = 0; i < M; i++) {
         register size_t cnt = 0;

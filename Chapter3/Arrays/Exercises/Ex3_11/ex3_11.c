@@ -1,14 +1,25 @@
-/*
-Program 3.11
-    Suppose that a is declared as int a[99], give the array contents after
-    the following statements
-    for (i = 0; i < 99; i++) a[i] = 98-i;
-    for (i = 0; i < 99; i++) a[i] = a[a[i]];
-*/
+/**
+ * @file ex3_11.c
+ * @author Felix Lempriere
+ * @brief Solution to Exercise 3-11.
+ *
+ * Suppose that a is declared as int a[99], give the array contents after
+ * the following statements for (i = 0; i < 99; i++) a[i] = 98-i;
+ * for (i = 0; i < 99; i++) a[i] = a[a[i]];
+ *
+ * @date 2025-04-07
+ * @version 0.1
+ *
+ * @copyright Copyright (c) 2025
+ */
 
 #include <stdio.h>
 #include <stdlib.h>
 
+/**
+ * @brief Number of elements in the array.
+ *
+ */
 constexpr size_t size = 99u;
 
 /**

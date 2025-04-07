@@ -1,11 +1,16 @@
-/*
-Program 3.6
-Demonstrates dynamic memory allocation to have a variably sized array for use
-in programs such as the sieve of eratosthenes.
+/**
+ * @file program3_6_dynamic_allocation.c
+ * @author Felix Lempriere
+ * @brief Program 3.6: Dynamic Allocation of an Array.
+ *
+ * Demonstrates dynamically allocating an array.
+ *
+ * @date 2025-04-07
+ * @version 0.1
+ *
+ * @copyright Copyright (c) 2025
+ */
 
-This takes in the size of the array to allocate as a command line argument
-
-*/
 #include "MacroLibrary/DefaultCalloc.h"
 #include "MacroLibrary/NumberParse.h"
 
@@ -26,7 +31,7 @@ int main(int argc, char* argv[argc + 1]) {
 
     register size_t const N = NUMPARSEexit_on_fail(N, argv[1]);
 
-    size_t* const a = CALLOC_FAILS_EXIT(N, *a);
+    size_t* const a = CALLOCEXIT_ON_FAIL(N, *a);
 
     printf("Allocated array of %zu bytes\n", N * sizeof(*a));
     free(a);

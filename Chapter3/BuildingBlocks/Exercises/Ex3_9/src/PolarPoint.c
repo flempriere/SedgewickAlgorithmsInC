@@ -1,12 +1,13 @@
-/*
-Exercise 3.9
-
-Implementation for the point interface using a polar coordinate representation
-*/
-
-/*
-Provides the implementation for the distance function provided in point.h
-*/
+/**
+ * @file PolarPoint.c
+ * @author Felix Lempriere
+ * @brief Implementation of the PolarPoint interface.
+ *
+ * @date 2025-04-07
+ * @version 0.1
+ *
+ * @copyright Copyright (c) 2025
+ */
 
 #include "../PolarPoint.h"
 
@@ -18,8 +19,8 @@ Provides the implementation for the distance function provided in point.h
  * @param p
  * @return double
  */
-static inline double POLARPOINTx(PolarPoint const p) {
-    return p.r * cos(p.theta);
+static inline double POLARPOINTx(PolarPoint const POLARPOINTp) {
+    return POLARPOINTp.r * cos(POLARPOINTp.theta);
 }
 
 /**
@@ -28,8 +29,8 @@ static inline double POLARPOINTx(PolarPoint const p) {
  * @param p
  * @return double
  */
-static inline double POLARPOINTy(PolarPoint const p) {
-    return p.r * sin(p.theta);
+static inline double POLARPOINTy(PolarPoint const POLARPOINTp) {
+    return POLARPOINTp.r * sin(POLARPOINTp.theta);
 }
 
 /**
@@ -39,8 +40,9 @@ static inline double POLARPOINTy(PolarPoint const p) {
  * @param q
  * @return double
  */
-static inline double POLARPOINTdx(PolarPoint const p, PolarPoint const q) {
-    return POLARPOINTx(q) - POLARPOINTx(p);
+static inline double POLARPOINTdx(PolarPoint const POLARPOINTp,
+                                  PolarPoint const POLARPOINTq) {
+    return POLARPOINTx(POLARPOINTq) - POLARPOINTx(POLARPOINTp);
 }
 
 /**
@@ -50,8 +52,9 @@ static inline double POLARPOINTdx(PolarPoint const p, PolarPoint const q) {
  * @param q
  * @return double
  */
-static inline double POLARPOINTdy(PolarPoint const p, PolarPoint const q) {
-    return POLARPOINTy(q) - POLARPOINTy(p);
+static inline double POLARPOINTdy(PolarPoint const POLARPOINTp,
+                                  PolarPoint const POLARPOINTq) {
+    return POLARPOINTy(POLARPOINTq) - POLARPOINTy(POLARPOINTp);
 }
 
 /**
@@ -63,9 +66,10 @@ static inline double POLARPOINTdy(PolarPoint const p, PolarPoint const q) {
  * @return double slope of the line
  * @remark for the case +X/0.0 -> INFINITY, 0.0/0.0 -> NaN, -X/0.0 -> -INFINITY
  */
-static inline double POLARPOINTslope(PolarPoint const p, PolarPoint const q) {
-    double dy = POLARPOINTdy(p, q);
-    double dx = POLARPOINTdx(p, q);
+static inline double POLARPOINTslope(PolarPoint const POLARPOINTp,
+                                     PolarPoint const POLARPOINTq) {
+    double dy = POLARPOINTdy(POLARPOINTp, POLARPOINTq);
+    double dx = POLARPOINTdx(POLARPOINTp, POLARPOINTq);
     if (dx) return dy / dx;
 
     if (fabs(dy) < POLARPOINTTOLERANCE)    // 0/0 undefined

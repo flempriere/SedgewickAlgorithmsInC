@@ -1,7 +1,20 @@
 /**
- * @brief Updated Point interface including a test for colinearity.
+ * @file Point_v2.h
+ * @author Felix Lempriere
+ * @brief Version 2 of the Interface for the Point type.
  *
+ * This header file defines the interface for a Point type representing points
+ * in a 2D space.
+ *
+ * This extends the interface in Program 3.3 to support a  colinearity test
+ * on three points.
+ *
+ * @date 2025-04-07
+ * @version 0.1
+ *
+ * @copyright Copyright (c) 2025
  */
+#pragma once
 
 /**
  * @brief Numerical tolerance for
@@ -44,8 +57,8 @@ double POINTdistance(Point const p, Point const q);
  * @return true  if points equal,
  * @return false if points differ
  */
-static inline bool POINTequal(Point const p, Point const q) {
-    return POINTdistance(p, q) < POINTTOLERANCE;
+static inline bool POINTequal(Point const POINTp, Point const POINTq) {
+    return POINTdistance(POINTp, POINTq) < POINTTOLERANCE;
 }
 
 /**
@@ -58,6 +71,6 @@ static inline bool POINTequal(Point const p, Point const q) {
  * @return true if collinear else
  * @return false
  *
- * @see TOLERANCE
+ * @see POINTTOLERANCE
  */
 bool POINTcollinear(Point const p, Point const q, Point const r);

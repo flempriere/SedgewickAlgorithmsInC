@@ -1,14 +1,21 @@
-/*
-Exercise 3.3
-
-Test the random number generator ny generating N
-random numbers of type double between 0 and 1
-and transforming to them to integers between 0 and r - 1
-by multiplying by r and truncating.
-
-Calc. avg, std.dev and use the same r and N cases
-as Exercise 3.2
-*/
+/**
+ * @file Ex3-3
+ * @author Felix Lempriere
+ * @brief Solution to Exercise 3.3.
+ * 
+ * Test the random number generator ny generating N
+ * random numbers of type double between 0 and 1
+ * and transforming to them to integers between 0 and r - 1
+ * by multiplying by r and truncating.
+ *
+ * Calc. avg, std.dev and use the same r and N cases
+ * as Exercise 3.2
+ *
+ * @date 2025-04-07
+ * @version 0.1
+ *
+ * @copyright Copyright (c) 2025
+ */
 #include "MacroLibrary/Random.h"
 #include "MacroLibrary/Statistics.h"
 #include "MacroLibrary/Utility.h"
@@ -19,12 +26,14 @@ as Exercise 3.2
 #include <tgmath.h>
 
 /**
- * @brief Number of test cases for N
+ * @brief Number of test cases for N. Each successive test case is 10x larger
+ * than the previous case.
  *
  */
 constexpr size_t N_CASES = 4u;
 /**
- * @brief Number of test cases for r
+ * @brief Number of test cases for r. As with @N_CASES each case is 10x larger
+ * than the previous case.
  *
  */
 constexpr size_t R_CASES = 3u;

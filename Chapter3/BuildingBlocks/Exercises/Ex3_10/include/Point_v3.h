@@ -1,6 +1,14 @@
 /**
- * @brief Updates the Point_v2 interface with a slope function.
+ * @file Point_v3.h
+ * @author Felix Lempriere
+ * @brief Version 3 of the Interface for the Point type.
  *
+ * Extends the Point interface with POINTrandom, to generate random points.
+ *
+ * @date 2025-04-07
+ * @version 0.1
+ *
+ * @copyright Copyright (c) 2025
  */
 #pragma once
 #include "Number/v1/NumberDouble/NumberDouble.h"
@@ -39,8 +47,8 @@ double POINTdistance(Point const p, Point const q);
  * @return true  if points equal,
  * @return false if points differ
  */
-static inline bool POINTequal(Point const p, Point const q) {
-    return POINTdistance(p, q) < POINTTOLERANCE;
+static inline bool POINTequal(Point const POINTp, Point const POINTq) {
+    return POINTdistance(POINTp, POINTq) < POINTTOLERANCE;
 }
 
 /**
@@ -60,6 +68,7 @@ bool POINTcollinear(Point const p, Point const q, Point const r);
 /**
  * @brief Generates a random point in the unit square.
  *
- * @return Point
+ * @post 0 <= x_i < 1.0 for (x,y) in a randomly generated point.
+ * @return Point, a point in the unit square.
  */
 Point POINTrandom(void);

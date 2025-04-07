@@ -1,11 +1,19 @@
-/*
-Exercise 3_2
+/**
+ * @file Ex3-2
+ * @author Felix Lempriere
+ * @brief Solution to Exercise 3.2.
+ *
+ * Test the random number generator on your system by generating
+ * N random integers from 0 to r-1 with rand() % r and computing
+ * the avg and std. dev. for r = 10, 100, 1000, N = 10^3, 10^4,
+ * 10^5, 10^6.
+ *
+ * @date 2025-04-07
+ * @version 0.1
+ *
+ * @copyright Copyright (c) 2025
+ */
 
-Test the random number generator on your system by generating
-N random integers from 0 to r-1 with rand() % r and computing
-the avg and std. dev. for r = 10, 100, 1000, N = 10^3, 10^4,
-10^5, 10^6.
-*/
 #include "MacroLibrary/Random.h"
 #include "MacroLibrary/Statistics.h"
 #include "MacroLibrary/Utility.h"
@@ -16,12 +24,14 @@ the avg and std. dev. for r = 10, 100, 1000, N = 10^3, 10^4,
 #include <tgmath.h>
 
 /**
- * @brief Number of test cases for N
+ * @brief Number of test cases for N. Each successive test case is 10x larger
+ * than the previous case.
  *
  */
 constexpr size_t N_CASES = 4u;
 /**
- * @brief Number of test cases for r
+ * @brief Number of test cases for r. As with @N_CASES each case is 10x larger
+ * than the previous case.
  *
  */
 constexpr size_t R_CASES = 3u;

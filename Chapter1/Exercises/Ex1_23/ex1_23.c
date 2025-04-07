@@ -84,6 +84,5 @@ int main(int argc, char* argv[argc + 1]) {
         }
         printf("%u:\t%zu\n", N, n_edges);
     }
-    // printGraph(MIN_VERTEX, MAX_VERTEX + 1, result);
     return EXIT_SUCCESS;
 }

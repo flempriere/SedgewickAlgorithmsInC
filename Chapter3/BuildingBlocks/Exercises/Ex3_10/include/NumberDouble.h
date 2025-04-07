@@ -17,8 +17,11 @@
 typedef double Number;
 
 /**
- * @brief Generates a random number between 0 and 1
+ * @brief Generates a random number between [0, 1.0)
  *
- * @return Number randomly generated number.
+ * @note The number is approximately uniformly distributed.
+ *
+ * @post returns i \in [0, 1.0).
+ * @return Random number in [0, min(upper_bound, rand_max)
  */
 Number NUMBERrandom(void);

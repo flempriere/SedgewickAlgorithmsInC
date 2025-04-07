@@ -1,12 +1,19 @@
-/*
-Program 3.5
-Sieve of Eratosthemes, determines the primes up to N using an array.
+/**
+ * @file program3_5_sieve.c
+ * @author Felix Lempriere
+ * @brief Program 3.5: Sieve of Eratosthemes.
+ *
+ * Determines the primes up to N using an array. a[i] is set to true to indicate
+ * i being prime else 0. First we assume each number is prime, then we get the
+ * smallest prime p we have yet to examine and set all a[j*p] to 0 for all j > 2
+ * s.t jp <= N
+ * 
+ * @date 2025-04-07
+ * @version 0.1
+ *
+ * @copyright Copyright (c) 2025
+ */
 
-a[i] is set to true to indicate i being prime else 0.
-First we assume each number is prime, then we get the smallest prime p we have
-yet to examine and set all a[j*p] to 0 for all j > 2 s.t jp <= N
-
-*/
 #include <stdio.h>
 #include <stdlib.h>
 

@@ -1,8 +1,15 @@
-/*
-Exercise 3.21
-
-Modify program 3.7 to generate a heads with probability lambda/N
-*/
+/**
+ * @file ex3_21.c
+ * @author Felix Lempriere
+ * @brief Solution to Exercise 3-21.
+ *
+ * Modify program 3.7 to generate a heads with probability lambda/N
+ *
+ * @date 2025-04-07
+ * @version 0.1
+ *
+ * @copyright Copyright (c) 2025
+ */
 
 #include "MacroLibrary/DefaultCalloc.h"
 #include "MacroLibrary/NumberParse.h"
@@ -51,7 +58,7 @@ int main(int argc, char* argv[argc + 1]) {
 
     RAND_SEED_TIME;
 
-    size_t* const f = CALLOC_FAILS_EXIT(N + 1, *f);
+    size_t* const f = CALLOCEXIT_ON_FAIL(N + 1, *f);
 
     for (register size_t i = 0; i < M; i++) {
         register size_t cnt = 0;

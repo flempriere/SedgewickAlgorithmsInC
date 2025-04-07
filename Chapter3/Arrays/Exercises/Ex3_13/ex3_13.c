@@ -1,8 +1,17 @@
-/*
-Program 3.13
-Using the sieve of eratosthenes determine the number of primes less than
-N for N = 10^3, 10^4, 10^5, 10^6.
-*/
+/**
+ * @file ex3_13.c
+ * @author Felix Lempriere
+ * @brief Solution to Exercise 3-13.
+ *
+ * Using the sieve of eratosthenes determine the number of primes less than
+ * N for N = 10^3, 10^4, 10^5, 10^6.
+ *
+ * @date 2025-04-07
+ * @version 0.1
+ *
+ * @copyright Copyright (c) 2025
+ */
+
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -17,7 +26,7 @@ constexpr size_t N = 10000000u;
  */
 constexpr size_t N_INIT = 10000u;
 /**
- * @brief Number of times to iterate N
+ * @brief Number of times to iterate N, each time N is 10x larger.
  *
  */
 constexpr size_t N_CASES = 4u;
