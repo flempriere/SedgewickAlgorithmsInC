@@ -18,6 +18,19 @@ sorted array for greater efficiency.
 
 # Exercises
 
+## [Exercise 2.1](./Exercises/Ex2_1/unionFind.py)
+*Translate the programs in Chapter 1 to another programming language, and answer Exercise 1.22 for your implementations*
+
+For simplicity we have reimplemented [Exercise 1.22](../Chapter1/index.md#exercise-122) and the underlying [Program 1.4](../Chapter1/index.md#program-14) in python. We have additionally
+compared the average time it takes both implementations to run.
+
+The results abbreviated from [results.txt](./Exercises/Ex2_1/20250408/results.txt) are:
+
+| Implementation | Real   | User   | System |
+|----------------|--------|--------|--------|
+| C              | 0.589  | 0.584  | 0.004  |
+| Python         | 11.658 | 11.616 | 0.041  |
+
 ## [Exercise 2.2](./Exercises/Ex2_2/ex2_2.c)
 
 *Determine the amount of time it takes to run the 
@@ -36,6 +49,56 @@ for (i = 0; i < N; i++) {
 }
 ```
 Sample timings on my machine can be found in [ex2_2.dat](./Exercises/Ex2_2/ex2_2.dat).
+
+## Exercise 2.3
+
+*Develop an expression of the form $c_o + c_1N + c_2N^2 + c_3N^3$ to describe the runtime of [Exercise 2.2](#exercise-22).*
+
+We estimate by converting the loops to machine code, each loop effectively has 4 machine steps
+1. branch if condition fails
+2. reset the next inner loop variable (if it exists)
+3. execute the inner loop or increment count
+3. increment loop variable
+4. goto branch check
+Each loop does this $N$ times, then has a final instruction consisting of the branch check failing and jumping to another.
+
+So the inner loop has a term like $4*N + 1$. While the outer
+loops have expressions like $4*N + N*\text{loop} + 1$. 
+
+We then have the initialisation of $\text{count} = 0$ and the initialisation of $i = 0$. We can assume that declaring the variables `i,j,k` without values does not need machine instructions.
+
+These leads to a runtime expression:
+$$
+\begin{align}
+f\left(N\right) &= 4n^3 + 5n^2 + 5n + 3
+\end{align}
+$$
+Using [Godbolt](https://godbolt.org/) we get for gcc-14 x86-64, the following expression
+for machine instructions in the result (ignoring setup and teardown instructions).
+$$
+\begin{align}
+f\left(N\right) &= 4n^3 + 7n^2 + 6n + 5.
+\end{align}
+$$
+Which shows that our estimate was pretty good!
+
+## Exercise 2.4
+*Develop an expression that accurately describes the running time of [Program 1.1](../Chapter1/index.md#program-11).*
+
+Using a similar strategy and considering all conditional `if` statements to always execute, and that the I/O functions only need 2 instructions (one for each variable) we get
+
+$$
+\begin{align}
+f\left(M, N\right) &= 5NM + 3M + 4N + 2
+\end{align}
+$$
+Again putting only the core in godbolt:
+$$
+\begin{align}
+f\left(M, N\right) &= 90MN + 315M + 4N + 3
+\end{align}
+$$
+where the large factor in just $M$ largely comes from error-checking code and calls to `printf`, `fgets` and `sscanf`. 
 
 ## [Exercise 2.5](./Exercises/Ex2_5/ex2_5.c)
 
@@ -123,6 +186,35 @@ $$
 \end{align}
 $$
 
+## Exercise 2.9
+
+*Prove that $floor(lg(N)) + 1$ is the number of bits required to represent $N$ in binary.*
+
+**Proof**.
+Suppose $N$ has d binary digits. Then
+$$
+\begin{align}
+    2^{d - 1} &\leq n \leq 2^{d} - 1 \\
+    \implies  d - l &\leq \lg\left(N\right) \leq \lg\left(2^d - 1\right) \\
+    \implies d - 1 &\leq \text{floor}\left(\lg\left(N\right)\right) \leq \text{floor}\left(\lg\left(2^d - 1\right)\right).
+\end{align}
+$$
+Examining the term on the right we have.
+$$
+\begin{align}
+\lg\left(2^d - 1\right) &< \lg\left(2^d\right)\\
+\implies \text{floor}\left(\lg\left(2^d - 1\right)\right) &< d\\
+&\leq d - 1.
+\end{align}
+$$
+Which returning to the original expression gives
+$$
+\begin{align}
+d - 1 &\leq \text{floor}\left(\lg\left(N\right)\right) \leq d -1 \\
+\implies d &= \text{floor}\left(\lg\left(N\right)\right) + 1.
+\end{align}
+$$
+
 ## Exercise 2.10-11
 
 *Add columns to Table 2.1 for $N(\lg(N))^2$, $N^{(3/2)}$, and $10^7$, $10^8$ operations per second*
@@ -153,6 +245,59 @@ function from the standard math library.*
 ## [Exercise 2.13](./Exercises/Ex2_13/ex2_13.c)
 
 *Write an efficient C function that computes $ceil(lg(lg(N)))$ without use of a library function.*
+
+## [Exercise 2.14](./Exercises/Ex2_14/ex2_14.c)
+
+*How many digits are there in decimal representation of 1 million factorial?*
+
+We can represent this easily since,
+$$
+\begin{align}
+d &= \text{floor}\left(\log\left(n!\right)\right) + 1 \\
+ &= \text{floor}\left(\log\left(\Pi_{m=1}^{n}m\right)\right) + 1 \\
+ &= \text{floor}\left(\Sigma_{m = 2}^{n}\log\left(m\right)\right) + 1
+\end{align}
+$$
+Which can be easily computed programatically to generate the following table:
+| N!      | Digits   |
+|---------|----------|
+| 1       | 1        |
+| 10      | 7        |
+| 100     | 158      |
+| 1000    | 2568     |
+| 10000   | 35660    |
+| 100000  | 456574   |
+| 1000000 | 5565709  |
+
+As to be expected from the results above, the digits show approximately linear growth in N.
+
+## Exercise 2.15
+
+*How many bits are there in the binary representation of `lg(N!)`?*
+
+In principle `lg(N!)` is not a positive real number, so we cannot guarantee that it has an
+exact representation in binary.
+
+But from stirlings formula assuming it is representable, as N gets large $\lg\left(N!\right) \approx N\lg\left(N\right).$
+
+## Exercise 2.16
+
+*How many bits are there in the binary representation of `H_n`?*
+
+In principle `H_n` is not a positive real number, so we cannot guarantee that it has an
+exact representation in binary.
+
+If we were to truncate `H_n` as an integer, then we
+could approximate the number of digits as,
+$$
+\begin{align}
+H_n \approx \ln\left(n\right) + \gamma\\
+\implies \lg\left(H_n\right) \approx \lg\left(\lg\left(n\right)/\lg\left(e\right)\right) \\
+\approx \lg\left(\lg\left(n\right)\right) - \lg\left(e\right)\\
+\text{digits}\left(H_n\right) \approx \lg\lg\left(n\right).
+\end{align}
+$$
+Recall that the double logarithm of $2^{256}$ is `8`, this means that `H_n` never grows very large.  
 
 ## [Exercise 2.17](./Exercises/Ex2_17/ex2_17.c)
 

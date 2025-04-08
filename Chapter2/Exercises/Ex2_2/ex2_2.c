@@ -24,7 +24,7 @@
  * @brief Defines the number of distinct N values to test.
  *
  */
-constexpr size_t N_SCALES = 3u;
+constexpr size_t N_SCALES = 5u;
 
 /**
  * @brief Executes three nested loops, each iterating from 0 to N (exclusive).
@@ -43,7 +43,7 @@ static inline size_t triple_loop(size_t const n);
  * @return EXIT_SUCCESS upon successful execution.
  */
 int main(int argc, char* argv[argc + 1]) {
-    size_t LIMITS[N_SCALES] = { 10, 100, 1000 };
+    size_t LIMITS[N_SCALES] = { 10, 50, 100, 500, 1000 };
 
     for (register size_t i = 0; i < N_SCALES; i++) {
         register clock_t const tic = clock();

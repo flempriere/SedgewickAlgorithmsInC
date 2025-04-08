@@ -28,8 +28,8 @@ vpath %.c $(sort $(dir) $(SOURCE_DIRS) $(SOURCE_VPATHS))
 # Explicitly stated Input and Output #
 ######################################
 
-EXE = ex2_2.exe
-PROJECT = ex2_2
+EXE = ex2_14.exe
+PROJECT = ex2_14
 #Any .c files to be included, without including their whole directory
 # should not include their directory.
 # Their directory must be put in the .c vpath variable.
@@ -73,7 +73,7 @@ FLAGS_release = -g -march=native
 FLAGS_debug = -g3
 
 #Linker
-FLAGS_linker = 
+FLAGS_linker = -lm
 
 # Select the flags
 BUILDFLAGS = $(FLAGS_$(BUILD))
