@@ -134,13 +134,16 @@ For find operations the loop
 - At most `log(N)` updates `i = id[i]` for the same argument above.
 
 This leads to an upper bound of:
+
 $$
 \begin{align}
 2c\left(log\left(N\right) + 1\right)
 \end{align}
 $$
+
 per find. We then have to node that for $M$ connections we have
 to perform the find on both elements, giving a total of
+
 $$
 \begin{align}
 4Mc\left(log\left(N\right) + 1\right)
