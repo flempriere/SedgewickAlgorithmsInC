@@ -119,6 +119,76 @@ Repeats [Exercise 1.4](#exercise-14) but for
 [Weighted QuickUnion with Path Compression by Halving](#program-14). 
 See [ex1_8.dat](./Exercises/Ex1_8/ex1_8.dat) for output.
 
+## Exercise 1.9
+
+*Prove an upper bound on the number of machine instructions required to process $M$ connections on $N$ objects using [Program 1.3](#program-13). You may assume, that any C assignment operation always requires less than $c$ instructions.*
+
+**Solution**
+
+For simplicity we will ignore all the setup and I/O, to focus purely on the union find loops. We also assume that each `for` loop can be counted as purely it's number of assignment operations with some $c$ being a sufficiently large constant to bound the loop overhead.
+
+For find operations the loop
+`for (i = p; i != id[i]; i = id[i])` consists of
+- One loop variable initialisation
+- At most `log(N) + 1` checks `i != id[i]` since the distance from any node to the root is at most `log(N)` and we check every node on the path.
+- At most `log(N)` updates `i = id[i]` for the same argument above.
+
+This leads to an upper bound of:
+$$
+\begin{align}
+2c\left(log\left(N\right) + 1\right)
+\end{align}
+$$
+per find. We then have to node that for $M$ connections we have
+to perform the find on both elements, giving a total of
+$$
+\begin{align}
+4Mc\left(log\left(N\right) + 1\right)
+\end{align}
+$$
+
+Next we consider the union. We have to perform the check, 
+`id[i] == id[j]` $M$ times. But note, that this can only **fail**
+`N - 1` times. (Since after `N - 1` unions everything must be in
+the same component). This means that the following union can happen at most `min(M, N - 1)` times.
+
+The union itself consists of one comparison `sz[i] < sz[j]` and
+then two assignments `id[i] = j; sz[j] += sz[i]`. (Or `i` and `j` swapped if the comparison fails). This means there are `3c` operations in the union.
+
+Thus the total number of operations from the union is
+$$
+\begin{align}
+c\left(3\text{min}\left(M, N - 1\right) + M\right)
+\end{align}
+$$
+The total upper bound is then
+$$\begin{align}
+c\left(3\text{min}\left(M, N-1\right) + M\left(4log\left(N\right) + 5\right)\right)
+\end{align}
+$$
+Assuming $M$ is less than $N$ lets us simplify this down to
+$$\begin{align}
+4Mc\left(2 + log\left(N\right)\right)
+\end{align}
+$$
+## Exercise 1.10
+
+*Estimate the minimum amount of time to run [QuickFind](#program-11) to solve a problem with $10^6$ objects and $10^9$ input edges on a computer capable of executing $10^9$ instructions per second. Assume each iteration of the while loop requires at least $10$ instructions*.
+
+**Solution**:
+Ignoring the initialisation code, the algorithm takes
+- at least $10^2$ instructions per while loop iteration
+- at least $N$ instructions per for loop iteration
+- performs at least $M$ iterations over the while loop.
+
+$$
+\begin{align}
+10^2 \times 10^9 \times 10^6 &= 10^{17} \text{instructions} \\
+&= 10^8 \text{seconds}
+\end{align}
+$$
+Which is more than $3$ years.
+
 ## Exercise 1.11
 
 *Estimate the maximum amount of time to run [Weighted QuickUnion](#program-13) to solve a problem with $10^6$ objects and $10^9$ input edges on a computer capable of executing $10^9$ instructions per second. Assume each iteration of the while loop requires at most $100$ instructions*.
@@ -169,6 +239,35 @@ $$
 $$
 For fun lets check, $n = 3$, by formula $\bar{d} = \frac{3}{2}$. By first principles $\bar{d} = \frac{1}{8}\left(0 + 3 \times 1 + 3 \times 2 + 3\right) = \frac{12}{8} = \frac{3}{2}$. 
 
+## Exercise 1.13
+
+*Illustrate path compression by halving on a chain of length `8`.*
+
+**Solution**
+
+Initial:
+```mermaid
+graph TD;
+    0-->1;
+    1-->2;
+    2-->3;
+    3-->4;
+    4-->5;
+    5-->6;
+    6-->7;
+```
+
+Compressed:
+```mermaid
+graph TD;
+    0-->1;
+    1-->2;
+    1-->3;
+    3-->4;
+    3-->5;
+    5-->6;
+    5-->7;
+```
 ## [Exercise 1.14](./Exercises/Ex1_14/ex1_14.dat)
 
 Gives a sequence of input pairs that causes the [Weighted QuickUnion](#program-13)
@@ -227,6 +326,35 @@ results when taking the average over $50$ runs on
 randomly generated inputs, involving $5000$ randomly generated pairs containing numbers from $0-9999$
 shows that the average difference is around $30$ milliseconds, with the tree implementation being slightly
 better. This is not a huge difference however and we do not measure the std deviation.
+
+## Exercise 1.21
+
+*Prove for the [Weighted Quick Union using height](#exercise-120) that the property below holds*
+
+*The weighted quick-union algorithm follows at most $2lgN$ pointers to determine whether two of $N$ objects are connected*.
+
+**Solution**
+
+**Lemma 1**
+The number of pointers followed in a tree of height $h$ is at most $h$. (Trivially true).
+
+**Lemma 2**
+A tree built by Exercise 1.20 is always of height $h \leq lgN$ where $N$ is the number of nodes in the tree.
+
+**Proof**
+*Base case:* a single node forms a tree of height $0$. $0 \leq lg(1) = 0$, so trivially true.
+
+*Inductive case:* Consider the merging of two trees of height $h_i$ and $h_j$ with $i$ and $j$ nodes respectively each satisfying, $h \leq lg(N)$.
+
+W.l.o.g $i \leq j$. The height of $j$ is now either the height $h_i$ + 1 or the height $h_j$ (if it already contains a subtree of height $(h_j - 1) \geq h_i$). In the later case the inequality is trivially satisfied. In the former case we then have,
+$$
+\begin{align}
+h_i + 1 \leq 1 + lg(i) = lg(2i) \leq lg(i + j).
+\end{align}
+$$
+and as the size of the new tree is $i + j$ the inequality is satisfed.
+
+The proof of the combined statement then follows trivially from **Lemma 1** and **Lemma 2**.
 
 ## [Exercise 1.22](./Exercises/Ex1_22/ex1_22.c)
 
