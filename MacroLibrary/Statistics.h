@@ -57,7 +57,7 @@ typedef struct STATSmeasures {
  */
 static inline STATSmoments STATSmeasures_to_moments(STATSmeasures const sm) {
     return CAST(STATSmoments){ .m1 = sm.avg,
-                               .m2 = pow(sm.std_dev, 2) + sm.avg * sm.avg };
+                               .m2 = sm.std_dev * sm.std_dev + sm.avg * sm.avg };
 }
 
 /**

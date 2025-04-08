@@ -68,18 +68,22 @@ loops have expressions like $4*N + N*\text{loop} + 1$.
 We then have the initialisation of $\text{count} = 0$ and the initialisation of $i = 0$. We can assume that declaring the variables `i,j,k` without values does not need machine instructions.
 
 These leads to a runtime expression:
+
 $$
 \begin{align}
 f\left(N\right) &= 4n^3 + 5n^2 + 5n + 3
 \end{align}
 $$
+
 Using [Godbolt](https://godbolt.org/) we get for gcc-14 x86-64, the following expression
 for machine instructions in the result (ignoring setup and teardown instructions).
+
 $$
 \begin{align}
 f\left(N\right) &= 4n^3 + 7n^2 + 6n + 5.
 \end{align}
 $$
+
 Which shows that our estimate was pretty good!
 
 ## Exercise 2.4
@@ -92,12 +96,15 @@ $$
 f\left(M, N\right) &= 5NM + 3M + 4N + 2
 \end{align}
 $$
+
 Again putting only the core in godbolt:
+
 $$
 \begin{align}
 f\left(M, N\right) &= 90MN + 315M + 4N + 3
 \end{align}
 $$
+
 where the large factor in just $M$ largely comes from error-checking code and calls to `printf`, `fgets` and `sscanf`. 
 
 ## [Exercise 2.5](./Exercises/Ex2_5/ex2_5.c)
@@ -107,6 +114,7 @@ where the large factor in just $M$ largely comes from error-checking code and ca
 **Solution**:
 
 Observe the following:
+
 $$
 \begin{align*}
 N = 1 \implies 10N\lg(N) &= 0\\
@@ -119,6 +127,7 @@ N = 32 \implies 10N\lg(N) &= 1600\\
 2N^2 &= 2048
 \end{align*}
 $$
+
 So the we have that the crossover points must be at
 some $x_1 < 2$ and $x_2 < 32$. Using [Newtons Method](./Exercises/Ex2_5/ex2_5.c) to solve numerically leads to
 $ 1.177 < N < 22.44$.
@@ -129,6 +138,7 @@ $ 1.177 < N < 22.44$.
 
 **Solution**:
 Observe the following:
+
 $$
 \begin{align*}
 N = 1 \implies N\lg(N)^2 &= 0\\
@@ -138,9 +148,11 @@ N = 4 \implies N\lg(N)^2 &= 16\\
 2N^(3/2) & = 8\\
 \end{align*}
 $$
+
 So we can see that regions of interest are around $N=1$
 and $N = 4$. Using newton's method again we find the regions
 to be
+
 $$
 \begin{align}
 0.448369 \leq N \leq 0.6445474\\
@@ -154,12 +166,15 @@ $$
 
 **Solution**:
 We approximate $H_N$ by
+
 $$
 \begin{align}
 H_n = \lg(N) + \gamma
 \end{align}
 $$
+
 where $\gamma$ is Euler's constant. Then
+
 $$
 \begin{align}
 2NH_N - N &< NlgN + 10N\\
@@ -168,7 +183,9 @@ $$
 \implies N &< 2^{10}.
 \end{align}
 $$
+
 Solving using Newtons Method we find
+
 $$
 \begin{align}
 0 < N < 47035526.49.
@@ -179,6 +196,7 @@ $$
 *what is the smallest value of $N$ for which $\log_{10}\log_{10}N > 8$?*
 
 **Solution**:
+
 $$
 \begin{align}
 \log_{10}N > 10^{8}\\
@@ -192,6 +210,7 @@ $$
 
 **Proof**.
 Suppose $N$ has d binary digits. Then
+
 $$
 \begin{align}
     2^{d - 1} &\leq n \leq 2^{d} - 1 \\
@@ -199,7 +218,9 @@ $$
     \implies d - 1 &\leq \text{floor}\left(\lg\left(N\right)\right) \leq \text{floor}\left(\lg\left(2^d - 1\right)\right).
 \end{align}
 $$
+
 Examining the term on the right we have.
+
 $$
 \begin{align}
 \lg\left(2^d - 1\right) &< \lg\left(2^d\right)\\
@@ -207,7 +228,9 @@ $$
 &\leq d - 1.
 \end{align}
 $$
+
 Which returning to the original expression gives
+
 $$
 \begin{align}
 d - 1 &\leq \text{floor}\left(\lg\left(N\right)\right) \leq d -1 \\
@@ -251,6 +274,7 @@ function from the standard math library.*
 *How many digits are there in decimal representation of 1 million factorial?*
 
 We can represent this easily since,
+
 $$
 \begin{align}
 d &= \text{floor}\left(\log\left(n!\right)\right) + 1 \\
@@ -258,6 +282,7 @@ d &= \text{floor}\left(\log\left(n!\right)\right) + 1 \\
  &= \text{floor}\left(\Sigma_{m = 2}^{n}\log\left(m\right)\right) + 1
 \end{align}
 $$
+
 Which can be easily computed programatically to generate the following table:
 | N!      | Digits   |
 |---------|----------|
@@ -289,6 +314,7 @@ exact representation in binary.
 
 If we were to truncate `H_n` as an integer, then we
 could approximate the number of digits as,
+
 $$
 \begin{align}
 H_n \approx \ln\left(n\right) + \gamma\\
@@ -297,6 +323,7 @@ H_n \approx \ln\left(n\right) + \gamma\\
 \text{digits}\left(H_n\right) \approx \lg\lg\left(n\right).
 \end{align}
 $$
+
 Recall that the double logarithm of $2^{256}$ is `8`, this means that `H_n` never grows very large.  
 
 ## [Exercise 2.17](./Exercises/Ex2_17/ex2_17.c)
@@ -305,12 +332,14 @@ Recall that the double logarithm of $2^{256}$ is `8`, this means that `H_n` neve
 where $F_N$ is the $N$-th fibbonaci number.*
 
 **Solution:** An approximate solution is given by noting
+
 $$
 \begin{align}
 F_N &= \frac{\phi^N}{\sqrt{5}}\\
 \implies \log(F_N) &= N\lg(\phi) - \frac{1}{2}\lg(5)
 \end{align}
 $$
+
 where $\phi$ is the golden ratio. See the implementation
 in [exercise 2.17](./Exercises/Ex2_17/ex2_17.c).
 
@@ -331,6 +360,94 @@ for $i \leq i \leq 10$.*
 | 8  | 1674  | 8.0005  |
 | 9  | 4550  | 9.0002  |
 | 10 | 12367 | 10.0000 |
+
+## [Exercise 2.19](./Exercises/Ex2_19/ex2_19.c)
+
+*Give the largest value of N for which you can solve
+a problem requiring $f\left(N\right)$ instructions on a machine that can execute $10^9$ instructions per second for the following functions*
+1. $N^{3/2}$
+2. $N^{5/4}$
+3. $2NH_{n}$
+4. $N\lg\left(N\right)\lg\left(\lg\left(N\right)\right)$
+5. $N^2\lg\left(N\right)$
+
+We take the largest value to mean that the computation completes in less than a second. Similar to the previous exercises we use an
+implementation of Newton's method to calculate the
+points.
+
+| f(N)        | Largest N |
+|-------------|-----------|
+| $N^{3/2}$   | 1000000   |
+| $N^{5/4}$   | 15848932  |
+| $2NH_{n}$   | 28197672  |
+| $NlgNlglgN$ | 9512470   |
+| $N^2lgN$    | 8739      |
+
+## Big-O Notation
+
+For the next section recall the definition of Big-O is given by: $g$ is $\mathcal{O}\left(f\right)$ if there $c_0, N_0$ s.t.
+
+$$
+\begin{align}
+\left|g\left(N\right)\right| \leq c_o \left|f\left(N\right)\right| \; \text{for all} \;  N > N_0
+\end{align}
+$$
+
+## Exercise 2.20
+*Prove that $\mathcal{O}\left(1\right)$ is the same as $\mathcal{O}\left(2\right)$.*
+
+**Solution**
+By definition a function $g$ is $\mathcal{O}\left(1\right)$ means, there exists $c_o$, $N_0$ s.t
+
+$$
+\begin{align}
+\left|g\left(N\right)\right| \leq c_o \; \text{for all} \;  N > N_0
+\end{align}
+$$
+
+Trivially define $c_1 = c_0/2$ then $g$ satisfies
+
+$$
+\begin{align}
+\left|g\left(N\right)\right| < c_1 2 \; \text{for all} \;  N > N_0
+\end{align}
+$$
+
+and is thus trivially also $\mathcal{O}\left(2\right)$.
+
+## Exercise 2.21
+
+*Prove that we can make any of the following transformations in the expression that uses the $\mathcal{O}$ notation:*
+
+-  $f\left(N\right) \rightarrow \mathcal{O}\left(f\left(N\right)\right)$
+
+**Solution**
+By definition a function $f$ is $\mathcal{O}\left(f\left(N\right)\right)$. Take any $c_0 = 1$ then any choice of $N_0$.
+
+- $c\mathcal{O}\left(f\left(N\right)\right) \rightarrow \mathcal{O}\left(f\left(N\right)\right)$.
+
+**Solution**
+from the definition, let $g$ be a function that is $\mathcal{O}\left(f\left(N\right)\right)$. Then by definition there exists $c_0, N_0$ s.t. 
+
+$$
+\begin{align}
+\left|g\left(N\right)\right| \leq c_o\left|f\left(N\right)\right| \; \text{for all} \;  N > N_0
+\end{align}
+$$
+
+Then define the function $\tilde{g} = cg$ and define, $c_1 = cc_0$. Then,
+
+$$
+\begin{align}
+\left|\tilde{g}\left(N\right)\right| \leq c\left|g\left(N\right)\right| \; \text{for all} \;  N > N_0 \\
+\left|\tilde{g}\left(N\right)\right| \leq c_1\left|f\left(N\right)\right| \; \text{for all} \;  N > N_0.
+\end{align}
+$$
+
+Which is by definition $\mathcal{O}\left(f\left(N\right)\right)$.
+
+
+
 
 ## [Exercise 2.33](./Exercises/Ex2_33/ex2_33.c)
 

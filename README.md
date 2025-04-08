@@ -121,7 +121,7 @@ We use the following naming conventions:
 ## Use of A.I Tools
 
 Github Copilot has been used sparingly in this project. It's use has been restricted to the following cases
-1. Autocomplete of short code fragments
+1. Autocomplete of short code fragments (Mostly repeated inline functions for generics)
 2. Assistance generating Doxygen comment blocks
 
 Since the whole point of this project is to learn Data Structures and Algorithms from first principles, there's

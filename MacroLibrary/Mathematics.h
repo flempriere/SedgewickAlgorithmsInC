@@ -25,14 +25,14 @@ constexpr long double MATHeps = 1e-6L;
  * method](https://en.wikipedia.org/wiki/Newton%27s_method) to find a root of
  * the function `MATHf`, starting with an initial guess `MATHx`.
  *
- * Iterates until |f(x)| < eps.
+ * Iterates until |f(x)| < MATHeps.
  *
  * @param MATHf Pointer to the function whose root is to be found.
  * @param MATHx Initial guess for the root.
  * @return long double, the root of the function if found, or NaN if the
  * function fails to converge.
  *
- * @see eps
+ * @see MATHeps
  */
 static inline long double MATHnewtons_method(long double MATHf(long double),
                                              long double MATHx) {
@@ -48,4 +48,15 @@ static inline long double MATHnewtons_method(long double MATHf(long double),
         MATHx -= (MATHf(MATHx) / dx);
     }
     return MATHx;
+}
+
+
+static inline long double MATHharmonic_number(long double const x) {
+    if (x == 1)
+        return 1.0L;
+    else if (x == 2)
+        return 1.5L;
+
+    constexpr long double EULER_CONSTANT = 0.57721L;
+    return log(CAST(long double) x) + EULER_CONSTANT + 1.0L / (12.0L * x);
 }

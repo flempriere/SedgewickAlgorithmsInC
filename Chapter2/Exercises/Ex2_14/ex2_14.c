@@ -11,7 +11,7 @@
  *
  */
 
- #include "MacroLibrary/Utility.h"
+#include "MacroLibrary/Utility.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -24,9 +24,9 @@ constexpr size_t N = 1000000u;
 
 /**
  * @brief Calculates the number of digits in the representation of N!
- * 
- * @param argc 
- * @param argv 
+ *
+ * @param argc
+ * @param argv
  * @return EXIT_SUCCESS
  */
 int main(int argc, char* argv[argc + 1]) {
@@ -35,8 +35,7 @@ int main(int argc, char* argv[argc + 1]) {
         for (register size_t j = 1; j <= i; j++) {
             sum_lg += log10(CAST(long double) j);
         }
-        printf("N: %zu, digits: %Lf\n", i,
-               floor(sum_lg) + 1);
+        printf("N: %zu, digits: %Lf\n", i, floor(sum_lg) + 1);
     }
     return EXIT_SUCCESS;
 }

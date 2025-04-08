@@ -299,7 +299,7 @@ static inline int vsnprintf_swapped(size_t n, char s[restrict static n],
  * @return char* - null-terminated string on success, else
  * @return nullptr.
  */
-char* create_formatted_string(char s[static 1], ...) {
+static inline char* create_formatted_string(char s[static 1], ...) {
     va_list args1;
     va_start(args1);
     va_list args2;

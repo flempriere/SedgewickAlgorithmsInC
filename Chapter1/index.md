@@ -134,13 +134,16 @@ For find operations the loop
 - At most `log(N)` updates `i = id[i]` for the same argument above.
 
 This leads to an upper bound of:
+
 $$
 \begin{align}
 2c\left(log\left(N\right) + 1\right)
 \end{align}
 $$
+
 per find. We then have to node that for $M$ connections we have
 to perform the find on both elements, giving a total of
+
 $$
 \begin{align}
 4Mc\left(log\left(N\right) + 1\right)
@@ -156,21 +159,27 @@ The union itself consists of one comparison `sz[i] < sz[j]` and
 then two assignments `id[i] = j; sz[j] += sz[i]`. (Or `i` and `j` swapped if the comparison fails). This means there are `3c` operations in the union.
 
 Thus the total number of operations from the union is
+
 $$
 \begin{align}
 c\left(3\text{min}\left(M, N - 1\right) + M\right)
 \end{align}
 $$
+
 The total upper bound is then
+
 $$\begin{align}
 c\left(3\text{min}\left(M, N-1\right) + M\left(4log\left(N\right) + 5\right)\right)
 \end{align}
 $$
+
 Assuming $M$ is less than $N$ lets us simplify this down to
+
 $$\begin{align}
 4Mc\left(2 + log\left(N\right)\right)
 \end{align}
 $$
+
 ## Exercise 1.10
 
 *Estimate the minimum amount of time to run [QuickFind](#program-11) to solve a problem with $10^6$ objects and $10^9$ input edges on a computer capable of executing $10^9$ instructions per second. Assume each iteration of the while loop requires at least $10$ instructions*.
@@ -187,6 +196,7 @@ $$
 &= 10^8 \text{seconds}
 \end{align}
 $$
+
 Which is more than $3$ years.
 
 ## Exercise 1.11
@@ -195,12 +205,14 @@ Which is more than $3$ years.
 
 **Solution**:
 Ignoring the initialisation code, the algorithm takes
+
 $$
 \begin{align}
 10^2 \times 10^9 \times 6\lg(10) &= 2\times 10^{12} \text{ instructions} \\
 &= 2 \times 10^{3} \text{ seconds}.
 \end{align}
 $$
+
 Note $2000$ seconds is rougly $33$ minutes.
 
 ## Exercise 1.12
@@ -220,23 +232,29 @@ $n = 2$. Tree is one root, two nodes at depth $1$, and one node at depth $2$. $\
 
 Observe the pattern, at each step, the path length of each node of one of the subtrees consisting of $2^{n - 1}$ elements increases by one. While the other stays the same. This lets us write the average
 $\bar{d}_{2^n}$ in terms of the previous $\bar{d}_{2^{n-1}}$ as
+
 $$
 \begin{align}
 \bar{d}_{2^n} & = \frac{1}{2^n}\left(2^{n}\bar{d}_{2^{n-1}} + 2^{n-1}\right)
 \end{align}
 $$
+
 Where the first term is the sum of the path lengths of two worst case subtrees of size $2^{n-1}$ and the second term accounts for the path lengths of nodes in the second subtree increasing by $1$. This simplifies to
+
 $$
 \begin{align}
 \bar{d}_{2^n} & = \bar{d}_{2^{n-1}} + \frac{1}{2}.
 \end{align}
 $$
+
 Which starting from $\bar{d}_{2^0} = 0$ gives the simple formula
+
 $$
 \begin{align}
     \bar{d}_{2^n} & = \frac{n}{2}.
 \end{align}
 $$
+
 For fun lets check, $n = 3$, by formula $\bar{d} = \frac{3}{2}$. By first principles $\bar{d} = \frac{1}{8}\left(0 + 3 \times 1 + 3 \times 2 + 3\right) = \frac{12}{8} = \frac{3}{2}$. 
 
 ## Exercise 1.13
@@ -347,11 +365,13 @@ A tree built by Exercise 1.20 is always of height $h \leq lgN$ where $N$ is the 
 *Inductive case:* Consider the merging of two trees of height $h_i$ and $h_j$ with $i$ and $j$ nodes respectively each satisfying, $h \leq lg(N)$.
 
 W.l.o.g $i \leq j$. The height of $j$ is now either the height $h_i$ + 1 or the height $h_j$ (if it already contains a subtree of height $(h_j - 1) \geq h_i$). In the later case the inequality is trivially satisfied. In the former case we then have,
+
 $$
 \begin{align}
 h_i + 1 \leq 1 + lg(i) = lg(2i) \leq lg(i + j).
 \end{align}
 $$
+
 and as the size of the new tree is $i + j$ the inequality is satisfed.
 
 The proof of the combined statement then follows trivially from **Lemma 1** and **Lemma 2**.
@@ -376,23 +396,29 @@ Give an approximate formula for the number of random eges that are required to c
 **Solution**:
 Consider a graph $G$, with $N$ vertices, and $M$
 edges. The total number of such graphs $G$ is
+
 $$
 \begin{align}
   G(N, M) & = ^{^NC_2}C_M
 \end{align}
 $$
+
 The probability of being fully connected is
+
 $$
 \begin{align}
     P(N, M) & = \frac{C(N, M)}{G(N, M)}
 \end{align}
 $$
+
 where $C(N,M)$ is the number of fully connected graphs containing $N$ vertices and $M$ edges.
 
 Unfortunately this is a hard number to compute. The paper [On Random Graphs (I)](https://snap.stanford.edu/class/cs224w-readings/erdos59random.pdf) gives the formula 
+
 $$
 E(n) \approx \frac{1}{2}n\log(n).
 $$
+
 derived through random graph theory.
 
 ## Exercise 1.25
@@ -401,12 +427,14 @@ derived through random graph theory.
 
 **Solution**
 Weighted QuickUnion requires $CM\lg(N)$ instructions where $C$ is a fixed constant, $M$ is the number of connections, and $N$ is the number of edges. We can convert this to a rate by introducing the constant $\bar{C}$ which is $C$ divided by the speed of the computer. Then the ratio of time between $B$ and $A$ is
+
 $$
 \begin{align}
 \frac{B}{A} & = \frac{\bar{C}_BM_B\lg(N)}{\bar{C}_AM_A\lg(N)} \\
 &= \frac{10}{10} = 1.
 \end{align}
 $$
+
 In other words $B$ will take just as long as $A$.
 
 ## Exercise 1.26
@@ -414,10 +442,12 @@ In other words $B$ will take just as long as $A$.
 *Repeat the same analysis as [Exercise 1.25](#exercise-125) for an algorithm that requires $N^3$ instructions.*
 
 **Solution**:
+
 $$
 \begin{align}
 \frac{B}{A} & = \frac{1}{10}\left(\frac{\left(10N_A\right)^3}{N_A^3}\right) \\
 & = \frac{10^3}{10} = 100.
 \end{align}
 $$
+
 So B will take $100$ times longer than $A$.

@@ -20,7 +20,7 @@ avg_time() {
     test_executable=$1;
     tests=$2;
     echo "=====$test_executable=====" >> results.txt
-    for i in $(seq 0 9);
+    for i in $(seq 0 $((tests - 1)));
     do
         { time -p $test_executable < test_$i.testdat  &>/dev/null; } 2>&1
     done | awk '

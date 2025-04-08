@@ -34,12 +34,12 @@
  * and returns enough memory for one instance of the variable. If a size is
  * optionally provided then
  *
- * @remark use case 1: DEFAULTCalloc(x) - returns a block of memory for one x
- * use case 2: DEFAULTCalloc(n, x) - returns a block of memory for n instances
+ * @remark 
+ * - use case 1: DEFAULTCalloc(x) - returns a block of memory for one x
+ * - use case 2: DEFAULTCalloc(n, x) - returns a block of memory for n instances
  * of x
- * use case 3: DEFAULTCalloc(x, n) - fails, must follow calloc call structure.
- *
- * use case 4: DEFAULTCalloc(x, n, t) - fails too many args supplied. 
+ * - use case 3: DEFAULTCalloc(x, n) - fails, must follow calloc call structure.
+ * - use case 4: DEFAULTCalloc(x, n, t) - fails too many args supplied. 
  */
 #define CALLOC(x, ...) \
     CALLOCVAR##__VA_OPT__(_N)(x __VA_OPT__(, ) __VA_ARGS__)
@@ -48,9 +48,11 @@
  * @brief Variant of calloc that checks alloc succeeds and calls exit if
  * unsuccessful.
  *
- * @param nmemb
- * @param size
- * @return void* allocated memory.
+ * @param nmemb Number of elements to allocate.
+ * @param size Size of each element.
+ * @return void* allocated memory on success.
+ *
+ * @warning If the allocation fails, the program will exit with EXIT_FAILURE.
  */
 static inline void* CALLOCexit_on_fail(size_t const nmemb, size_t const size) {
     void* res = calloc(nmemb, size);
@@ -66,6 +68,8 @@ static inline void* CALLOCexit_on_fail(size_t const nmemb, size_t const size) {
  * Exits the program if allocation fails.
  *
  * @param x variable to instance.
+ *
+ * @see CALLOCexit_on_fail
  */
  #define CALLOCEXIT_FAIL_VAR(x) CALLOCexit_on_fail(1, sizeof(x))
 
@@ -74,6 +78,8 @@ static inline void* CALLOCexit_on_fail(size_t const nmemb, size_t const size) {
   *
   * @param n Number of instances of x to instantiate.
   * @param x Variable to instance.
+  *
+  * @see CALLOCexit_on_fail
   */
  #define CALLOCEXIT_FAIL_VAR_N(n, x) CALLOCexit_on_fail(n, sizeof(x))
  
@@ -81,6 +87,7 @@ static inline void* CALLOCexit_on_fail(size_t const nmemb, size_t const size) {
  * @brief Version of @DEFAULTCALLOC that exits the program if
  * the allocation fails. 
  * 
+ * @see CALLOCexit_on_fail, @see CALLOC
  */
 #define CALLOCEXIT_ON_FAIL(x, ...) \
-    CallocEXIT_FAIL_VAR##__VA_OPT__(_N)(x __VA_OPT__(, ) __VA_ARGS__)
+    CALLOCEXIT_FAIL_VAR##__VA_OPT__(_N)(x __VA_OPT__(, ) __VA_ARGS__)
