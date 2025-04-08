@@ -235,7 +235,7 @@ $\bar{d}_{2^n}$ in terms of the previous $\bar{d}_{2^{n-1}}$ as
 
 $$
 \begin{align}
-\bar{d}_{2^n} & = \frac{1}{2^n}\left(2^{n}\bar{d}_{2^{n-1}} + 2^{n-1}\right)
+    \bar{d}_{2^n} & = \frac{1}{2^n}\left(2^{n}\bar{d}_{2^{n-1}} + 2^{n-1}\right)
 \end{align}
 $$
 
@@ -243,7 +243,7 @@ Where the first term is the sum of the path lengths of two worst case subtrees o
 
 $$
 \begin{align}
-\bar{d}_{2^n} & = \bar{d}_{2^{n-1}} + \frac{1}{2}.
+    \bar{d}_{2^n} &= \bar{d}_{2^{n-1}} + \frac{1}{2}.
 \end{align}
 $$
 
@@ -251,7 +251,7 @@ Which starting from $\bar{d}_{2^0} = 0$ gives the simple formula
 
 $$
 \begin{align}
-    \bar{d}_{2^n} & = \frac{n}{2}.
+    \bar{d}_{2^n} &= \frac{n}{2}.
 \end{align}
 $$
 

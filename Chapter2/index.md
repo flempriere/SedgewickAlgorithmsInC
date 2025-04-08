@@ -80,7 +80,7 @@ for machine instructions in the result (ignoring setup and teardown instructions
 
 $$
 \begin{align}
-f\left(N\right) &= 4n^3 + 7n^2 + 6n + 5.
+    f\left(N\right) &= 4n^3 + 7n^2 + 6n + 5.
 \end{align}
 $$
 
@@ -93,7 +93,7 @@ Using a similar strategy and considering all conditional `if` statements to alwa
 
 $$
 \begin{align}
-f\left(M, N\right) &= 5NM + 3M + 4N + 2
+    f\left(M, N\right) &= 5NM + 3M + 4N + 2
 \end{align}
 $$
 
@@ -101,7 +101,7 @@ Again putting only the core in godbolt:
 
 $$
 \begin{align}
-f\left(M, N\right) &= 90MN + 315M + 4N + 3
+    f\left(M, N\right) &= 90MN + 315M + 4N + 3
 \end{align}
 $$
 
@@ -117,14 +117,12 @@ Observe the following:
 
 $$
 \begin{align*}
-N = 1 \implies 10N\lg(N) &= 0\\
-2N^2 &= 1\\
-
-N = 2 \implies 10N\lg(N) &= 20\\
-2N^2 & = 8\\
-
-N = 32 \implies 10N\lg(N) &= 1600\\
-2N^2 &= 2048
+    N = 1 \implies 10N\lg(N) &= 0\\
+    2N^2 &= 1 \\
+    N = 2 \implies 10N\lg(N) &= 20\\
+    2N^2 & = 8\\
+    N = 32 \implies 10N\lg(N) &= 1600\\
+    2N^2 &= 2048
 \end{align*}
 $$
 
@@ -141,11 +139,10 @@ Observe the following:
 
 $$
 \begin{align*}
-N = 1 \implies N\lg(N)^2 &= 0\\
-N^(3/2) &= 1\\
-
-N = 4 \implies N\lg(N)^2 &= 16\\
-2N^(3/2) & = 8\\
+    N = 1 \implies N\lg(N)^2 &= 0 \\
+    N^(3/2) &= 1\\
+    N = 4 \implies N\lg(N)^2 &= 16\\
+    2N^(3/2) & = 8
 \end{align*}
 $$
 
@@ -155,8 +152,8 @@ to be
 
 $$
 \begin{align}
-0.448369 \leq N \leq 0.6445474\\
-1.7584 \leq N \leq 4.
+    0.448369 \leq N \leq 0.6445474\\
+    1.7584 \leq N \leq 4.
 \end{align}
 $$
 
@@ -389,7 +386,7 @@ For the next section recall the definition of Big-O is given by: $g$ is $\mathca
 
 $$
 \begin{align}
-\left|g\left(N\right)\right| \leq c_o \left|f\left(N\right)\right| \; \text{for all} \;  N > N_0
+\left|g\left(N\right)\right| \leq c_0 \left|f\left(N\right)\right| \; \text{for all} \;  N > N_0
 \end{align}
 $$
 
@@ -401,7 +398,7 @@ By definition a function $g$ is $\mathcal{O}\left(1\right)$ means, there exists 
 
 $$
 \begin{align}
-\left|g\left(N\right)\right| \leq c_o \; \text{for all} \;  N > N_0
+\left|g\left(N\right)\right| \leq c_0 \; \text{for all} \;  N > N_0
 \end{align}
 $$
 
@@ -427,24 +424,134 @@ By definition a function $f$ is $\mathcal{O}\left(f\left(N\right)\right)$. Take 
 - $c\mathcal{O}\left(f\left(N\right)\right) \rightarrow \mathcal{O}\left(f\left(N\right)\right)$.
 
 **Solution**
-from the definition, let $g$ be a function that is $\mathcal{O}\left(f\left(N\right)\right)$. Then by definition there exists $c_0, N_0$ s.t. 
+from the definition, let $g$ be a function that is c $\mathcal{O}\left(f\left(N\right)\right)$. Then by definition there exists $c_0, N_0$ s.t. 
 
 $$
 \begin{align}
-\left|g\left(N\right)\right| \leq c_o\left|f\left(N\right)\right| \; \text{for all} \;  N > N_0
+\left|g\left(N\right)\right| \leq c\left(c_0\left|f\left(N\right)\right|\right) \; \text{for all} \;  N > N_0
 \end{align}
 $$
 
-Then define the function $\tilde{g} = cg$ and define, $c_1 = cc_0$. Then,
+Then define $c_1 = cc_0$. Then,
 
 $$
 \begin{align}
-\left|\tilde{g}\left(N\right)\right| \leq c\left|g\left(N\right)\right| \; \text{for all} \;  N > N_0 \\
-\left|\tilde{g}\left(N\right)\right| \leq c_1\left|f\left(N\right)\right| \; \text{for all} \;  N > N_0.
+    \left|g\left(N\right)\right| \leq c_1\left|f\left(N\right)\right| \; \text{for all} \;  N > N_0.
 \end{align}
 $$
 
 Which is by definition $\mathcal{O}\left(f\left(N\right)\right)$.
+
+- $\mathcal{O}\left(f\left(cN\right)\right) \rightarrow \mathcal{O}\left(f\left(N\right)\right)$
+
+**Solution**
+from the definition, let $g$ be a function that is $\mathcal{O}\left(cf\left(N\right)\right)$. Then by definition there exists $c_0, N_0$ s.t. 
+
+$$
+\begin{align}
+\left|g\left(N\right)\right| \leq c_0\left|cf\left(N\right)\right| \; \text{for all} \;  N > N_0
+\end{align}
+$$
+
+Then define $c_1 = cc_0$. Then,
+
+$$
+\begin{align}
+    \left|g\left(N\right)\right| \leq c_0c\left|f\left(N\right)\right| \; \text{for all} \;  N > N_0.\\
+    \left|g\left(N\right)\right| \leq c_1\left|f\left(N\right)\right| \; \text{for all} \;  N > N_0.\\
+\end{align}
+$$
+Which is by definition $\mathcal{O}\left(f\left(N\right)\right)$.
+
+- $f\left(N\right) - g\left(N\right) = \mathcal{O}\left(h\left(N\right)\right) \rightarrow f\left(N\right) = g\left(N\right) + \mathcal{O}\left(h\left(N\right)\right)$.
+
+**Solution**
+
+
+$$
+\begin{align}
+    \left|f\left(N\right) - g\left(N\right)\right| &\leq c_0\left|h\left(N\right)\right| \; \text{for all} \;  N > N_0. \\
+    \left|f\left(N\right) - g\left(N\right)\right| + g\left(N\right) &\leq c_0\left|h\left(N\right)\right| +g\left(N\right) \; \text{for all} \;  N > N_0 \\
+    \left|f\left(N\right)\right| &\leq  c_0\left|h\left(N\right)\right| +g\left(N\right) \; \text{for all} \;  N > N_0\\
+    \implies f\left(N\right) &= g\left(N\right) + \mathcal{O}\left(h\left(N\right)\right).   
+\end{align}
+$$
+
+- $\mathcal{O}\left(f\left(N\right)\right)\mathcal{O}\left(g\left(N\right)\right) \rightarrow \mathcal{O}\left(f\left(N\right)g\left(N\right)\right)$
+
+**Solution**: 
+
+Let $\tilde{f}$ be a function s.t $\tilde{f} = \mathcal{O}\left(f\left(N\right)\right)$ and $\tilde{g}$ be a function s.t $\tilde{g} = \mathcal{O}\left(g\left(N\right)\right)$ with coefficients, $c_f$, $N_f$ and $c_g$, $N_g$ respectively. Then
+
+$$
+\begin{align}
+\left|\tilde{f}\left(N\right)\tilde{g}\left(N\right)\right| &= \left|\tilde{f}\left(N\right)\right|\left|\tilde{g}\left(N\right)\right| \\
+&\leq c_f\left|f\left(N\right)\right|c_g\left|g\left(N\right)\right| \; \text{ for all } N > N_f \text{ and } N_g\\
+\end{align}
+$$
+
+Define $c = c_fc_g$ and $N_0 = \text{max}\left(N_f, N_g\right)$, then
+
+$$
+\begin{align}
+\left|\tilde{f}\left(N\right)\tilde{g}\left(N\right)\right| &\leq c\left|f\left(N\right)g\left(N\right)\right| \text{ for all } N > N_0.\\
+\implies \left|\tilde{f}\left(N\right)\tilde{g}\left(N\right)\right| &= \mathcal{O}\left(f\left(N\right)g\left(N\right)\right)\\
+\implies \mathcal{O}\left(f\left(N\right)\right)\mathcal{O}\left(g\left(N\right)\right) &\rightarrow \mathcal{O}\left(f\left(N\right)g\left(N\right)\right)
+\end{align}
+$$
+
+- $\mathcal{O}\left(f\left(N\right)\right) + \mathcal{O}\left(g\left(N\right)\right) \rightarrow \mathcal{O}\left(g\left(N\right)\right)$ if $f\left(N\right) =  \mathcal{O}\left(g\left(N\right)\right)$
+
+**Solution**
+
+Let $\tilde{f}\left(N\right)$ and $\tilde{g}\left(N\right)$ be $\mathcal{O}\left(f\left(N\right)\right)$ and $\mathcal{O}\left(g\left(N\right)\right)$ with coefficients and indices,
+$c_f, N_f$ and $c_g$, $N_g$ respectively. Moreover assume $f\left(N\right)$ is $\mathcal{O}\left(g\left(N\right)\right)$ with coefficients and indices $c_h$ and $N_h$.
+
+$$
+
+\begin{align}
+\left|\tilde{f}\left(N\right) + \tilde{g}\left(N\right)\right| &\leq  \left|\tilde{f}\left(N\right)\right| + \left|\tilde{g}\left(N\right)\right|\\
+&\leq c_f\left|f\left(N\right)\right| + c_g\left|g\left(N\right)\right| \text { for all } N > N_f \text{ and } N_g\\
+&\leq (c_fc_h + c_g)\left|g\left(N\right)\right| \text{ for all } N > N_f, N_h \text{ and } N_g.
+\end{align}
+$$
+
+Take $c = c_fc_h + c_g$ and $N_0 = \text{max}\left(N_f, N_h, N_g\right)$ and the result follows trivially.
+
+
+## Exercise 2.22
+
+*Show that $\left(N + 1\right)\left(H_n + \mathcal{O}\left(1\right)\right) = NlnN + \mathcal{O}\left(N\right)$.*
+
+**Solution**
+
+Expanding out:
+
+$$
+\begin{align}
+\left(N + 1\right)\left(H_n + \mathcal{O}\left(1\right)\right) &= NH_n + H_n + N\mathcal{O}\left(1\right) + \mathcal{O}\left(1\right) \\
+&= NH_n + H_n + \mathcal{O}\left(N\right) + \mathcal{O}\left(N\right) \\
+&= NH_n + H_n + \mathcal{O}\left(N\right).
+\end{align}
+$$
+From the approximation $H_n = log(N) + \gamma + 1/\left(2N\right)$ we can see than $H_n$ is $\mathcal{O}\left(\log\left(N\right)\right)$. So we have,
+
+$$
+\begin{align}
+\left(N + 1\right)\left(H_n + \mathcal{O}\left(1\right)\right) &= N\log N + \mathcal{O}\left(N\right)
+\end{align}
+$$
+
+Where we have used some notational abuse to illustrate that the leading term is the $N\log N$ factor.
+
+## Exercise 2.23
+
+
+
+
+
+
+
 
 
 
