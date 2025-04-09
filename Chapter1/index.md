@@ -51,7 +51,9 @@ Asymptotically this flattens the tree giving near constant runtime.
 # Exercises
 ## Exercise 1.1
 
-*Give the output that a connectivity algorithm should produce when given the input*
+**Problem Statement**
+
+Give the output that a connectivity algorithm should produce when given the input
 ```
 0 2
 1 4
@@ -62,7 +64,8 @@ Asymptotically this flattens the tree giving near constant runtime.
 1 3
 ```
 
-**Solution**:
+**Solution**
+
 ```
 0 2 // All nodes isolated
 1 4 // 0-2
@@ -76,22 +79,30 @@ Observe that only in the last input `1 3` do we have an already implied connecti
 
 ## Exercise 1.2
 
-*List all the different ways to connect two different objects for the example in Figure 1.1*
+**Problem Statement**
 
-**Solution**: Unclear if this is asking after the connectivity problem has run, in which case all the objects are connected or at the start in which case there are $\sum_{N=0}^{8} {^8P_N}$ ways to do so.
+List all the different ways to connect two different objects for the example in Figure 1.1
+
+**Solution**
+
+ Unclear if this is asking after the connectivity problem has run, in which case all the objects are connected or at the start in which case there are $\sum_{N=0}^{8} {^8P_N}$ ways to do so.
 
 (Pick two vertices, then either connect them directly ($N=0$), or pick a permutation of $N$ of the remaining $8$ vertices and use that permutation to connect them) which is too many to list.
 
 ## Exercise 1.3
 
-*Describe a simple method for counting the number of sets remaining after using `union` and `find` operations to solve the connnectivity problem as described in the text.*
+**Problem Statement**
 
-**Solution**:
+Describe a simple method for counting the number of sets remaining after using `union` and `find` operations to solve the connnectivity problem as described in the text.
+
+**Solution**
+
 - Assuming an `id` array representation, count the number of unique root nodes.
 - If we can only use the Connectivity problem as described: Insert the edge `0-M` for `M = 1 to N - 1`, the number of connected components is the number of output pairs + 1.
     - Works since pairs only input if connected components merge, and this will merge all components that are not connected to `0`. (+1 includes the component originally containing `0`)
 
 ## [Exercise 1.4](./Exercises/Ex1_4/ex1_4.c)
+
 Shows the contents of the `id` after each `union` operation using [QuickFind](#program-11)
 for the input contained in [sample_data.dat](./Exercises/sample_data.dat). Also counts
 the number of times the `id` array is accessed. See [ex1_4.dat](./Exercises/Ex1_4/ex1_4.dat)
@@ -99,29 +110,35 @@ for output.
 
 
 ## [Exercise 1.5](./Exercises/Ex1_5/ex1_5.c)
+
 Repeats [Exercise 1.4](#exercise-14) but for [QuickUnion](#program-12). 
 See [ex1_5.dat](./Exercises/Ex1_6/ex1_5.dat) for output.
 
 
 ## [Exercise 1.6](./Exercises/Ex1_6/ex1_6.dat)
+
 Gives the contents of the `id` array after each `union` for [Weighted QuickUnion](#program-13)
 running on the examples for [Figure 1.7](./Exercises/Ex1_6/figure1_6-7.dat) and [Figure 1.8](./Exercises/Ex1_6/figure1_8.dat). See [ex1_6.dat](./Exercises/Ex1_6/ex1_6.dat)
 for output.
 
 
 ## [Exercise 1.7](./Exercises/Ex1_7/ex1_7.c)
+
 Repeats [Exercise 1.4](#exercise-14) but for [Weighted QuickUnion](#program-13). 
 See [ex1_4.dat](./Exercises/Ex1_7/ex1_7.dat) for output.
 
 
 ## [Exercise 1.8](./Exercises/Ex1_8/ex1_8.c)
+
 Repeats [Exercise 1.4](#exercise-14) but for 
 [Weighted QuickUnion with Path Compression by Halving](#program-14). 
 See [ex1_8.dat](./Exercises/Ex1_8/ex1_8.dat) for output.
 
 ## Exercise 1.9
 
-*Prove an upper bound on the number of machine instructions required to process $M$ connections on $N$ objects using [Program 1.3](#program-13). You may assume, that any C assignment operation always requires less than $c$ instructions.*
+**Problem Statement**
+
+Prove an upper bound on the number of machine instructions required to process $M$ connections on $N$ objects using [Program 1.3](#program-13). You may assume, that any C assignment operation always requires less than $c$ instructions.
 
 **Solution**
 
@@ -137,7 +154,7 @@ This leads to an upper bound of:
 
 $$
 \begin{align}
-2c\left(log\left(N\right) + 1\right)
+2c\left(\log\left(N\right) + 1\right)
 \end{align}
 $$
 
@@ -146,7 +163,7 @@ to perform the find on both elements, giving a total of
 
 $$
 \begin{align}
-4Mc\left(log\left(N\right) + 1\right)
+4Mc\left(\log\left(N\right) + 1\right)
 \end{align}
 $$
 
@@ -182,9 +199,12 @@ $$
 
 ## Exercise 1.10
 
-*Estimate the minimum amount of time to run [QuickFind](#program-11) to solve a problem with $10^6$ objects and $10^9$ input edges on a computer capable of executing $10^9$ instructions per second. Assume each iteration of the while loop requires at least $10$ instructions*.
+**Problem Statement**
 
-**Solution**:
+Estimate the minimum amount of time to run [QuickFind](#program-11) to solve a problem with $10^6$ objects and $10^9$ input edges on a computer capable of executing $10^9$ instructions per second. Assume each iteration of the while loop requires at least $10$ instructions.
+
+**Solution**
+
 Ignoring the initialisation code, the algorithm takes
 - at least $10^2$ instructions per while loop iteration
 - at least $N$ instructions per for loop iteration
@@ -201,9 +221,12 @@ Which is more than $3$ years.
 
 ## Exercise 1.11
 
-*Estimate the maximum amount of time to run [Weighted QuickUnion](#program-13) to solve a problem with $10^6$ objects and $10^9$ input edges on a computer capable of executing $10^9$ instructions per second. Assume each iteration of the while loop requires at most $100$ instructions*.
+**Problem Statement**
 
-**Solution**:
+Estimate the maximum amount of time to run [Weighted QuickUnion](#program-13) to solve a problem with $10^6$ objects and $10^9$ input edges on a computer capable of executing $10^9$ instructions per second. Assume each iteration of the while loop requires at most $100$ instructions.
+
+**Solution**
+
 Ignoring the initialisation code, the algorithm takes
 
 $$
@@ -217,9 +240,12 @@ Note $2000$ seconds is rougly $33$ minutes.
 
 ## Exercise 1.12
 
-*Compute the **average** distance from a node to the root in a worst case tree of $2^n$ nodes built by [Weighted QuickUnion](#program-13).*
+**Problem Statement**
+
+Compute the **average** distance from a node to the root in a worst case tree of $2^n$ nodes built by [Weighted QuickUnion](#program-13).
 
 **Solution**
+
 Recall the worst case occurs when we link two trees of equal size. So to have a worst case tree of size $2^n$ we must merge two worst-case trees of size $2^{n - 1}$ etc. So we can focus on trees of size $2^M$.
 
 Consider a few cases:
@@ -259,7 +285,9 @@ For fun lets check, $n = 3$, by formula $\bar{d} = \frac{3}{2}$. By first princi
 
 ## Exercise 1.13
 
-*Illustrate path compression by halving on a chain of length `8`.*
+**Problem Statement**
+
+Illustrate path compression by halving on a chain of length `8`.
 
 **Solution**
 
@@ -288,19 +316,27 @@ graph TD;
 ```
 ## [Exercise 1.14](./Exercises/Ex1_14/ex1_14.dat)
 
-Gives a sequence of input pairs that causes the [Weighted QuickUnion](#program-13)
+**Problem Statement**
+
+Give a sequence of input pairs that causes the [Weighted QuickUnion](#program-13)
 to produce a path of length $4$. Use [Exercise 1.7](./Exercises/Ex1_7/ex1_7.c) to validate.
 (This will need to be compiled with `N >= 16`)
+
+**Solution**
 
 We simply Extend Figure 1.8 (where the path from 7->0 has length 3) to the next power of two
 ($2^4 = 16$) and copy the pattern to generate a path length of 4 in this case.
 
 ## [Exercise 1.15](./Exercises/Ex1_15/ex1_15.dat)
 
+**Problem Statement**
+
 Give a sequence of input pairs that causes the Weighted Quick Union algorithim to produce
 a path of length $4$.
 
-**Solution:** Path compression only occurs when we perform a `find` on a non-root node. In
+**Solution:** 
+
+Path compression only occurs when we perform a `find` on a non-root node. In
 the solution for exercise 1.14 we only ever input edges between root nodes. Hence no `finds` are performed on non-root nodes and no path compression occurs. Since we know for [Weighted QuickUnion](./Examples/UnionFind_1_3.c) the input for [exercise 1.14](./Exercises/Ex1_14/ex1_14.dat) leads to a path length of 4 the same input also holds in the case of path compression. See [ex1_15.dat](./Exercises/Ex1_15/ex1_15.dat) to validate.
 
 ## [Exercise 1.16](./Exercises/Ex1_16-17/ex1_16.c)
@@ -310,22 +346,31 @@ complete each `union` operation by making every node that we touch point to the 
 the new tree.
 
 ## [Exercise 1.17](./Exercises/Ex1_16-17/ex1_17.dat)
+
 Repeats [Exercise 1.4](#exercise-14) but for [Weighted Quick Union with full compression](#exercise-116). 
 See [ex1_17.dat](./Exercises/Ex1_16-17/ex1_17.dat) for output.
 
 ## [Exercise 1.18](./Exercises/Ex1_18/ex1_18.dat)
 
+**Problem Statement**
+
 Give a sequence of input pairs that causes the Weighted QuickUnion algorithm with full path
 compression ([Exercise 1.16](#exercise-116)) to produce a path of length $4$.
 
-**Solution**: Observe that our same observation for path compression with halving holds. There is no
+**Solution**
+
+Observe that our same observation for path compression with halving holds. There is no
 compression when we perform a `find` and `union` of two root nodes. This means that the input for [exercise 1.14](./Exercises/Ex1_14/ex1_14.dat)
 also leads to a path length of 4. See [ex1_18.dat](./Exercises/Ex1_18/ex1_18.dat) to validate.
 
 ## [Exercise 1.19](./Exercises/Ex1_19/ex1_19.dat)
 
+**Problem Statement**
+
 Demonstrate that modifying [QuickUnion](#program-12) to implement [full path compression](#exercise-116)
 is not sufficient to ensure that trees have no long paths.
+
+**Solution**
 
 See the implementation in [ex1_16.c](./Exercises/Ex1_16-17/ex1_16.c). A path of length $N - 1$ on $N$ input
 objects and $N - 1$ input edges can be generated by the pattern $(N-2, N-1), (N-3, N-2) ...$, where we
@@ -334,9 +379,13 @@ sample input and [ex1_19.dat](./Exercises/Ex1_19/ex1_19.dat) for the correspondi
 
 ## [Exercise 1.20](./Exercises/Ex1_20/ex1_20.c)
 
+**Problem Statement**
+
 Modify [Program 1.3](#program-13) to use the *height* of the trees (longest path from any node to the
 root), instead of the weight, to decide wether to set `id[i] = j` or `id[j] = i`. Run emprical studies
 to compare this variant with [Program 1.3](#program-13).
+
+**Solution**
 
 We use a [Shell Script](./Exercises/Ex1_20/TimingStudies/testRuntime.sh) to time the program, (this has
 some inefficiencies due to timing factors other than just the inner loop, such as debugging I/O.) Our
@@ -347,9 +396,11 @@ better. This is not a huge difference however and we do not measure the std devi
 
 ## Exercise 1.21
 
-*Prove for the [Weighted Quick Union using height](#exercise-120) that the property below holds*
+**Problem Statement**
 
-*The weighted quick-union algorithm follows at most $2lgN$ pointers to determine whether two of $N$ objects are connected*.
+Prove for the [Weighted Quick Union using height](#exercise-120) that the property below holds
+
+The weighted quick-union algorithm follows at most $2lgN$ pointers to determine whether two of $N$ objects are connected.
 
 **Solution**
 
@@ -391,9 +442,12 @@ $N$ items for $100 \leq N \leq 1000$. See [ex1_23.dat](./Exercises/Ex1_23/ex1_23
 
 ## Exercise 1.24
 
+**Problem Statement**
+
 Give an approximate formula for the number of random eges that are required to connect $N$ objects, as a function of $N$.
 
-**Solution**:
+**Solution**
+
 Consider a graph $G$, with $N$ vertices, and $M$
 edges. The total number of such graphs $G$ is
 
@@ -423,9 +477,12 @@ derived through random graph theory.
 
 ## Exercise 1.25
 
-*Consider a Computer A, and a Computer B that is 10 faster than Computer A. If we run [Weighted QuickUnion](#program-13) on both computers, but give Computer B 10 times as many connections to process, how much longer would it take computer B to finish than computer A?*
+**Problem Statement**
+
+Consider a Computer A, and a Computer B that is 10 faster than Computer A. If we run [Weighted QuickUnion](#program-13) on both computers, but give Computer B 10 times as many connections to process, how much longer would it take computer B to finish than computer A?
 
 **Solution**
+
 Weighted QuickUnion requires $CM\lg(N)$ instructions where $C$ is a fixed constant, $M$ is the number of connections, and $N$ is the number of edges. We can convert this to a rate by introducing the constant $\bar{C}$ which is $C$ divided by the speed of the computer. Then the ratio of time between $B$ and $A$ is
 
 $$
@@ -439,9 +496,11 @@ In other words $B$ will take just as long as $A$.
 
 ## Exercise 1.26
 
-*Repeat the same analysis as [Exercise 1.25](#exercise-125) for an algorithm that requires $N^3$ instructions.*
+**Problem Statement**
 
-**Solution**:
+Repeat the same analysis as [Exercise 1.25](#exercise-125) for an algorithm that requires $N^3$ instructions.
+
+**Solution**
 
 $$
 \begin{align}
