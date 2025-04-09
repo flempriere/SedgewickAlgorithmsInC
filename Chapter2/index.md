@@ -8,7 +8,7 @@ stored set of numbers in `a[1],...,a[r]`, by comparing
 against each number sequentially, starting at the beginning.
 
 If we reach the end without finding the number stored, then 
-we return `NOT_FOUND` (an alias for `SIZE_MAX`).
+we return `NOT_FOUND`.
 
 ## [Program 2.2](./Examples/Program2_2/program2_2_binary_search.c)
 ### Binary Search
@@ -19,7 +19,12 @@ sorted array for greater efficiency.
 # Exercises
 
 ## [Exercise 2.1](./Exercises/Ex2_1/unionFind.py)
-*Translate the programs in Chapter 1 to another programming language, and answer Exercise 1.22 for your implementations*
+
+**Problem Statement**
+
+Translate the programs in Chapter 1 to another programming language, and answer Exercise 1.22 for your implementations
+
+**Solution**
 
 For simplicity we have reimplemented [Exercise 1.22](../Chapter1/index.md#exercise-122) and the underlying [Program 1.4](../Chapter1/index.md#program-14) in python. We have additionally
 compared the average time it takes both implementations to run.
@@ -33,10 +38,12 @@ The results abbreviated from [results.txt](./Exercises/Ex2_1/20250408/results.tx
 
 ## [Exercise 2.2](./Exercises/Ex2_2/ex2_2.c)
 
-*Determine the amount of time it takes to run the 
-following code snippet for $N = 10, 100, 1000$. If
+**Problem Statement**
+
+Determine the amount of time it takes to run the 
+following code snippet for $`N = 10, 100, 1000`$. If
 your compiler has optimisation features test the
-impact of these.*
+impact of these.
 
 ```
 int i, j, k, count = 0
@@ -48,11 +55,18 @@ for (i = 0; i < N; i++) {
     }
 }
 ```
+
+**Solution**
+
 Sample timings on my machine can be found in [ex2_2.dat](./Exercises/Ex2_2/ex2_2.dat).
 
 ## Exercise 2.3
 
-*Develop an expression of the form $c_o + c_1N + c_2N^2 + c_3N^3$ to describe the runtime of [Exercise 2.2](#exercise-22).*
+**Problem Statement**
+
+Develop an expression of the form $`c_o + c_1N + c_2N^2 + c_3N^3`$ to describe the runtime of [Exercise 2.2](#exercise-22).
+
+**Solution**
 
 We estimate by converting the loops to machine code, each loop effectively has 4 machine steps
 1. branch if condition fails
@@ -60,62 +74,69 @@ We estimate by converting the loops to machine code, each loop effectively has 4
 3. execute the inner loop or increment count
 3. increment loop variable
 4. goto branch check
-Each loop does this $N$ times, then has a final instruction consisting of the branch check failing and jumping to another.
+Each loop does this $`N`$ times, then has a final instruction consisting of the branch check failing and jumping to another.
 
-So the inner loop has a term like $4*N + 1$. While the outer
-loops have expressions like $4*N + N*\text{loop} + 1$. 
+So the inner loop has a term like $`4N + 1`$. While the outer
+loops have expressions like $`4*N + N*\text{loop} + 1`$. 
 
-We then have the initialisation of $\text{count} = 0$ and the initialisation of $i = 0$. We can assume that declaring the variables `i,j,k` without values does not need machine instructions.
+We then have the initialisation of $`\text{count} = 0`$ and the initialisation of $`i = 0`$. We can assume that declaring the variables `i,j,k` without values does not need machine instructions.
 
 These leads to a runtime expression:
 
-$$
+```math
 \begin{align}
 f\left(N\right) &= 4n^3 + 5n^2 + 5n + 3
 \end{align}
-$$
+```
 
 Using [Godbolt](https://godbolt.org/) we get for gcc-14 x86-64, the following expression
 for machine instructions in the result (ignoring setup and teardown instructions).
 
-$$
+```math
 \begin{align}
     f\left(N\right) &= 4n^3 + 7n^2 + 6n + 5.
 \end{align}
-$$
+```
 
 Which shows that our estimate was pretty good!
 
 ## Exercise 2.4
-*Develop an expression that accurately describes the running time of [Program 1.1](../Chapter1/index.md#program-11).*
+
+**Problem Statement**
+
+Develop an expression that accurately describes the running time of [Program 1.1](../Chapter1/index.md#program-11).
+
+**Solution**
 
 Using a similar strategy and considering all conditional `if` statements to always execute, and that the I/O functions only need 2 instructions (one for each variable) we get
 
-$$
+```math
 \begin{align}
     f\left(M, N\right) &= 5NM + 3M + 4N + 2
 \end{align}
-$$
+```
 
 Again putting only the core in godbolt:
 
-$$
+```math
 \begin{align}
     f\left(M, N\right) &= 90MN + 315M + 4N + 3
 \end{align}
-$$
+```
 
-where the large factor in just $M$ largely comes from error-checking code and calls to `printf`, `fgets` and `sscanf`. 
+where the large factor in just $`M`$ largely comes from error-checking code and calls to `printf`, `fgets` and `sscanf`. 
 
 ## [Exercise 2.5](./Exercises/Ex2_5/ex2_5.c)
 
-*For what values of $N$ is $10N\lg(N) > 2N^2$?*
+**Problem Statement**
+
+For what values of $`N`$ is $`10N\lg(N) > 2N^2`$?
 
 **Solution**:
 
 Observe the following:
 
-$$
+```math
 \begin{align*}
     N = 1 \implies 10N\lg(N) &= 0\\
     2N^2 &= 1 \\
@@ -124,73 +145,80 @@ $$
     N = 32 \implies 10N\lg(N) &= 1600\\
     2N^2 &= 2048
 \end{align*}
-$$
+```
 
 So the we have that the crossover points must be at
-some $x_1 < 2$ and $x_2 < 32$. Using [Newtons Method](./Exercises/Ex2_5/ex2_5.c) to solve numerically leads to
-$ 1.177 < N < 22.44$.
+some $`x_1 < 2`$ and $`x_2 < 32`$. Using [Newtons Method](./Exercises/Ex2_5/ex2_5.c) to solve numerically leads to
+$` 1.177 < N < 22.44`$.
 
 ## [Exercise 2.6](./Exercises/Ex2_6/ex2_6.c)
 
-*For what values of N is $N^{3/2}$ between $N\left(\lg(N)^2/2\right)$ and $2N\left(\lg(N)^2\right)$?*
+**Problem Statement**
+
+For what values of N is $`N^{3/2}`$ between $`N\left(\lg(N)^2/2\right)`$ and $`2N\left(\lg(N)^2\right)`$?
 
 **Solution**:
 Observe the following:
 
-$$
+```math
 \begin{align*}
     N = 1 \implies N\lg(N)^2 &= 0 \\
     N^(3/2) &= 1\\
     N = 4 \implies N\lg(N)^2 &= 16\\
     2N^(3/2) & = 8
 \end{align*}
-$$
+```
 
-So we can see that regions of interest are around $N=1$
-and $N = 4$. Using newton's method again we find the regions
+So we can see that regions of interest are around $`N=1`$
+and $`N = 4`$. Using newton's method again we find the regions
 to be
 
-$$
+```math
 \begin{align}
     0.448369 \leq N \leq 0.6445474\\
     1.7584 \leq N \leq 4.
 \end{align}
-$$
+```
 
 ## [Exercise 2.7](./Exercises/Ex2_7/ex2_7.c)
 
-*For what values of $N$ is $2NH_N - N < NlgN + 10N$?*
+**Problem Statement**
+
+For what values of $`N`$ is $`2NH_N - N < NlgN + 10N`$?
 
 **Solution**:
-We approximate $H_N$ by
+We approximate $`H_N`$ by
 
-$$
+```math
 \begin{align}
 H_n = \lg(N) + \gamma
 \end{align}
-$$
+```
 
-where $\gamma$ is Euler's constant. Then
+where $`\gamma`$ is Euler's constant. Then
 
-$$
+```math
 \begin{align}
 2NH_N - N &< NlgN + 10N\\
 2N\lg(N) + 2N\gamma - N &< N\lg(N) + 10N\\
 \implies \lg(N) &< 10\\
 \implies N &< 2^{10}.
 \end{align}
-$$
+```
 
 Solving using Newtons Method we find
 
-$$
+```math
 \begin{align}
 0 < N < 47035526.49.
 \end{align}
-$$
+```
 
 ## Exercise 2.8
-*what is the smallest value of $N$ for which $\log_{10}\log_{10}N > 8$?*
+
+**Problem Statement**
+
+What is the smallest value of $`N`$ for which $`\log_{10}\log_{10}N > 8`$?
 
 **Solution**:
 
@@ -203,7 +231,7 @@ $$
 
 ## Exercise 2.9
 
-*Prove that $floor(lg(N)) + 1$ is the number of bits required to represent $N$ in binary.*
+*Prove that $`\text{floor}(\lg(N)) + 1`$ is the number of bits required to represent $N$ in binary.*
 
 **Proof**.
 Suppose $N$ has d binary digits. Then
