@@ -48,7 +48,7 @@ int main(int argc, char* argv[argc + 1]) {
     long double x_0[n_functions] = { 1e+7, 1e+7, 1e+9, 1e+3, 1e+3 };
 
     for (register size_t i = 0; i < n_functions; i++) {
-        printf("%s: N = %Lf\n", fn_description[i],
+        printf("%s:  \tN = %Lf\n", fn_description[i],
                MATHnewtons_method(functions[i], x_0[i]));
     }
     return EXIT_SUCCESS;

@@ -7,7 +7,7 @@
  * This program provides a simple expression for calculating the floor of the
  * base-2 logarithm of the Fibonacci number F_n, denoted as floor(lg(F_n)).
  *
- * The Fibonacci number approximation is defined as:
+ * The Fibonacci number approximation is derived from:
  * F_n = round(phi^N / sqrt(5)),
  * where phi is the golden ratio (approximately 1.618).
  *
@@ -28,11 +28,16 @@
 #include <assert.h>
 #include <limits.h>
 #include <stdio.h>
-#include <stdlib.h> 
+#include <stdlib.h>
 #include <tgmath.h>
 
 /**
  * @brief Maximum Fibonacci number index to compute.
+ *
+ * @warning This is chosen based on the overflow of a 64bit unsigned integer
+ * type, you may need to adjust this for your platform to avoid overflow.
+ *
+ * @todo: Convert this to use the chcksum library instead of a fixed cutoff.
  */
 constexpr size_t MAX_FIB = 93u;
 
@@ -53,24 +58,24 @@ constexpr size_t MAX_FIB = 93u;
 static inline size_t fibonacci_number(size_t const n);
 
 /**
- * @brief Approximates the base-2 logarithm of the Nth Fibonacci number
- * (lg(F_N)).
+ * @brief Approximates the floor of the base-2 logarithm of the Nth Fibonacci
+ * number (lg(F_N)).
  *
  * @param n The index of the Fibonacci number for which the logarithm is to be
  * approximated. Must be a non-negative integer.
  *
  * @pre n > 0.
- * @return The approximate value of lg(F_N).
+ * @return The approximate value of floor(lg(F_N)).
  */
 static inline unsigned int approx_floor_lg_fib(size_t const n);
 
 /**
- * @brief Calculates the exact value of the base-2 logarithm of the Nth
- * Fibonacci number (lg(F_N)).
+ * @brief Calculates the exact value of the floor of the base-2 logarithm of the
+ * Nth Fibonacci number floor(lg(F_N)).
  *
  * @param n The index of the Fibonacci number for which the logarithm is to be
  * calculated. Must be a non-negative integer.
- * @return The exact value of lg(F_N) as a double.
+ * @return The exact value of floor(lg(F_N)).
  */
 static inline unsigned int exact_floor_lg_fib(size_t const n);
 
@@ -85,7 +90,7 @@ static inline unsigned int exact_floor_lg_fib(size_t const n);
  * @return int Returns EXIT_SUCCESS upon successful execution.
  */
 int main(int argc, char* argv[argc + 1]) {
-    for (register size_t i = 0; i <= MAX_FIB; i++) {
+    for (register size_t i = 1; i <= MAX_FIB; i++) {
         printf("N: %zu, F_n: %zu, approx: %u, exact: %u\n", i,
                fibonacci_number(i), approx_floor_lg_fib(i),
                exact_floor_lg_fib(i));

@@ -1,6 +1,6 @@
 # A Simple Makefile
 # Template VERSION = 1.0.0
-# Date generated on: 2025-04-08
+# Date generated on: 2025-04-10
 
 ##############
 # BUILD Mode #
@@ -28,8 +28,8 @@ vpath %.c $(sort $(dir) $(SOURCE_DIRS) $(SOURCE_VPATHS))
 # Explicitly stated Input and Output #
 ######################################
 
-EXE = ex2_14.exe
-PROJECT = ex2_14
+EXE = ex2_15.exe
+PROJECT = ex2_15
 #Any .c files to be included, without including their whole directory
 # should not include their directory.
 # Their directory must be put in the .c vpath variable.
