@@ -1,7 +1,10 @@
 /**
  * @file ex2_15.c
  * @author Felix Lempriere
- * @brief Demonstrates the growth rate of the number of digits in the
+ * @brief Solution to Exercise 2-15 from Chapter 2 of Sedgewick's Algorithms in
+ * C.
+ *
+ * Demonstrates the growth rate of the number of digits in the
  * binary representation of the integer truncation of lg(N!).
  *
  * @version 0.1
@@ -37,8 +40,8 @@ int main(int argc, char* argv[argc + 1]) {
         for (register size_t j = 1; j <= i; j++) {
             sum_lg += log2(CAST(long double) j);
         }
-        register long double const digits = ceil(log2(sum_lg));
-        printf("N: %zu, digits: %Lf, lg(N): %Lf\n", i, digits + 1,
+        register long double const digits = (sum_lg) ? ceil(log2(sum_lg)) + 1 : 0;
+        printf("N: %zu, digits: %Lf, lg(N): %Lf\n", i, digits,
                log2(CAST(long double) i));
     }
     return EXIT_SUCCESS;

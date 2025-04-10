@@ -1,15 +1,22 @@
-/*
-Program 3.11 List Insertion Sort
-
-Generates N random integers between 0 and 999, builds a linked list with one
-number per Node and then rearranges the list so that the numbers appear in
-order when traversed.
-
-To sort, two lists arre maintained an unsorted input, and a sorted output. At
-each step a Node is removed from the input, and inserted into position in
-the output.
-
-We use dummy head nodes that point to the first true Node of the list.
+/**
+ * @file program3_11_list_insertion_sort.c
+ * @author Felix Lempriere
+ * @brief Program 3-11: List Insertion Sort.
+ *
+ * Generates N random integers between 0 and 999, builds a linked list with one
+ * number per Node and then rearranges the list so that the numbers appear in
+ * order when traversed.
+ *
+ * To sort, two lists arre maintained an unsorted input, and a sorted output. At
+ * each step a Node is removed from the input, and inserted into position in
+ * the output.
+ * 
+ * We use dummy head nodes that point to the first true Node of the list.
+ *
+ * @date 2025-04-07
+ * @version 0.1
+ *
+ * @copyright Copyright (c) 2025
  */
 
 #include "MacroLibrary/DefaultCalloc.h"
@@ -81,6 +88,11 @@ void print_list(Node* h, bool const freeList);
  *
  * @param in dummy head of the input unsorted list.
  * @param out dummy head to attach the sorted output list to.
+ *
+ * @pre in->next is the first true Node of the list.
+ * 
+ * @post out points to sorted list such that t->key <= t->next->key for all
+ * nodes t on the list pointed to by out.
  */
 void insertion_sort(Node in[const static 1], Node out[const static 1]);
 
@@ -113,7 +125,7 @@ int main(int argc, char* argv[argc + 1]) {
 
 void build_list(Node h[static 1], size_t const n) {
     for (register size_t i = 0; i < n; i++) {
-        h->next = CALLOC_FAILS_EXIT(*h);
+        h->next = CALLOCEXIT_ON_FAIL(*h);
         h = h->next;
         h->next = nullptr;
 

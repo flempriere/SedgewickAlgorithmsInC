@@ -1,7 +1,17 @@
-/*
-This function reverses a list, returning a pointer to the final Node,
-which is now the new head Node. The first Node link is now a nullptr.
-*/
+/**
+ * @file program3_10_list_reversal.c
+ * @author Felix Lempriere
+ * @brief Program 3-10: List Reversal.
+ *
+ * This function reverses a list, returning a pointer to the final Node,
+ * which is now the new head Node. The first Node link is now a nullptr.
+ *
+ * @date 2025-04-07
+ * @version 0.1
+ *
+ * @copyright Copyright (c) 2025
+ */
+
 #include "MacroLibrary/DefaultCalloc.h"
 #include "MacroLibrary/Utility.h"
 
@@ -62,7 +72,7 @@ Node* reverse(Node* const x);
 int main(int argc, char* argv[argc + 1]) {
     constexpr size_t N = 10u;
 
-    Node* const head = CALLOC_FAILS_EXIT(*head);
+    Node* const head = CALLOCEXIT_ON_FAIL(*head);
     *head = CAST(Node){ .k = 0, .next = nullptr };
     build_list(head, N);
     print_list(head, false);
@@ -88,7 +98,7 @@ Node* reverse(Node* const x) {
 
 void build_list(Node h[static 1], size_t const n) {
     for (register size_t i = 1; i < n; i++) {
-        register Node* const t = CALLOC_FAILS_EXIT(*t);
+        register Node* const t = CALLOCEXIT_ON_FAIL(*t);
         t->next = nullptr;
         t->k = i;
         h->next = t;

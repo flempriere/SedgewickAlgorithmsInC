@@ -1,7 +1,10 @@
 /**
  * @file ex2_16.c
  * @author Felix Lempriere
- * @brief Demonstrates the growth rate of the number of digits of the integer
+ * @brief Solution to Exercise 2-16 from Chapter 2 of Sedgewick's Algorithms in
+ * C.
+ * 
+ * Demonstrates the growth rate of the number of digits of the integer
  * truncation of the Harmonic numbers and compares this to the assymptotic
  * estimate of lglg(n).
  * 
@@ -36,7 +39,7 @@
      for (register size_t i = 1; i <= N; i *= 10) {
         register long double const h_n = MATHharmonic_number(CAST(long double) i);
          register long double const digits = floor(log2(floor(h_n)));
-         printf("N: %zu\tH_n: %Lf\tdigits: %Lf\tlg(N): %Lf\n", i, h_n, digits + 1, floor(log2(log2(h_n))) + 1);
+         printf("N: %10zu\tH_n: %Lf\tdigits: %Lf\tlglg(N): %Lf\n", i, h_n, digits + 1, floor(log2(log2(h_n))) + 1);
      }
      return EXIT_SUCCESS;
  }

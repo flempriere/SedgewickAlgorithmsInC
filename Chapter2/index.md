@@ -158,7 +158,7 @@ $` 1.177 < N < 22.44`$.
 
 **Problem Statement**
 
-_For what values of N is $`N^{3/2}`$ between $`N\left(\lg(N)^2/2\right)`$ and $`2N\left(\lg(N)^2\right)`$?_
+_For what values of $`N`$ is $`N^{3/2}`$ between $`N\left(\lg(N)^2/2\right)`$ and $`2N\left(\lg(N)^2\right)`$?_
 
 **Solution**:
 Observe the following:
@@ -187,7 +187,7 @@ to be
 
 **Problem Statement**
 
-_For what values of $`N`$ is $`2NH_N - N < NlgN + 10N`$?_
+_For what values of $`N`$ is $`2NH_N - N < N\lg N + 10N`$?_
 
 **Solution**:
 We approximate $`H_N`$ by
@@ -279,7 +279,7 @@ _Add columns to Table 2.1 for $`N(\lg(N))^2`$, $`N^{(3/2)}`$, and $`10^7`$, $`10
 
 | Operations per second | Problem size 1 million |              |              |         |         |
 | --------------------- | ---------------------- | ------------ | ------------ | ------- | ------- |
-|                       | N                      | NlgN         | N(lgN)^2     | N^(3/2) | N^2     |
+|                       | $`N`$                      | $`NlgN`$         | $`N(lgN)^2`$     | $`N^(3/2)`$ | $`N^2`$     |
 | 10^6                  | seconds                | seconds      | seconds      | minutes | weeks   |
 | 10^7                  | milliseconds           | milliseconds | seconds      | minutes | days    |
 | 10^8                  | instant                | instant      | milliseconds | seconds | hours   |
@@ -288,7 +288,7 @@ _Add columns to Table 2.1 for $`N(\lg(N))^2`$, $`N^{(3/2)}`$, and $`10^7`$, $`10
 
 | Operations per second | Problem size 1 billion |         |          |         |         |
 | --------------------- | ---------------------- | ------- | -------- | ------- | ------- |
-|                       | N                      | NlgN    | N(lgN)^2 | N^(3/2) | N^2     |
+|                       | $`N`$                      | $`NlgN`$    | $`N(lgN)^2`$ | $`N^(3/2)`$ | $`N^2`$     |
 | 10^6                  | hours                  | hours   | days     | years   | never   |
 | 10^7                  | minutes                | minutes | hours    | weeks   | never   |
 | 10^8                  | seconds                | minutes | minutes  | days    | never   |
@@ -373,7 +373,7 @@ d &= \text{floor}\left(\log\left(n!\right)\right) + 1 \\
 ```
 
 Which can be easily computed programatically to generate the following table:
-| N! | Digits |
+| $`N!`$ | Digits |
 |---------|----------|
 | 1 | 1 |
 | 10 | 7 |
@@ -415,8 +415,19 @@ The number of digits is then approximated as
 \end{align}
 ```
 
-We [compare](./Exercises/Ex2_15/sample_output.dat) the computation of $`lg\left(\lg\left(N!\right)\right)`$ to $`\lg\left(N\right)`$ to
-demonstrate the relative growth rates.
+We [compare](./Exercises/Ex2_15/sample_output.dat) the computation of $`\lg\left(\lg\left(N!\right)\right)`$ to $`\lg\left(N\right)`$ to demonstrate the relative growth rates. Which is repeated in the below table.
+
+| $`N`$     | Digits | $`\lg\left(N\right)`$ |
+|-----------|--------|-----------------------|
+| 1         | 0      | 0                     |
+| 10        | 6      | 3.321928              |
+| 100       | 11     | 6.643856              |
+| 1000      | 15     | 9.965784              |
+| 10000     | 18     | 13.287712             |
+| 100000    | 22     | 16.609640             |
+| 1000000   | 29     | 23.253497             |
+| 10000000  | 33     | 26.575425             |
+| 100000000 | 36     | 29.897353             |
 
 ## Exercise 2.16
 
@@ -443,7 +454,19 @@ H_n \approx \ln\left(n\right) + \gamma\\
 
 Recall that the double logarithm of $`2^{256}`$ is $`8`$, this means that $`H_n`$ never grows very large.
 
-See the comparison in the provided [data](./Exercises/Ex2_16/sample_output.dat) which looks at harmonic numbers indexed up to $`N = 1,000,000,000`$.
+See the comparison in the provided [data](./Exercises/Ex2_16/sample_output.dat) which looks at harmonic numbers indexed up to $`N = 1,000,000,000`$. The table is repeated below
+
+| $`N`$     | $`H_n`$   | digits | $`\lg\lg\left(N\right)`$ |
+|-----------|-----------|--------|------------------------|
+| 1         | 1         | 1      | $`-\infty`$            |
+| 10        | 2.888128  | 2      | 1                      |
+| 100       | 5.183214  | 3      | 2                      |
+| 1000      | 7.485049  | 3      | 2                      |
+| 10000     | 9.787559  | 4      | 2                      |
+| 100000    | 14.392721 | 4      | 2                      |
+| 1000000   | 16.695306 | 5      | 3                      |
+| 10000000  | 18.997891 | 5      | 3                      |
+| 100000000 | 21.300476 | 5      | 3                      |
 
 ## [Exercise 2.17](./Exercises/Ex2_17/ex2_17.c)
 
@@ -478,7 +501,7 @@ The following table was generated using the linked c implementation. We also com
 
 There are discrepencies between the exact and approximate methods for $`1 < i \leq 5`$ but after that both methods agree.
 
-| i   | N     | $`H_N`$   |
+| $`i`$   | $`N`$     | $`H_N`$   |
 | --- | ----- | --------- |
 | 1   | 1     | 1.0000    |
 | 2   | 4     | 2.0833    |
@@ -510,15 +533,17 @@ We take the largest value to mean that the computation completes in less than a 
 implementation of Newton's method to calculate the
 points.
 
-| f(N)          | Largest N |
+| $`f\left(N\right)`$          | Largest $`N`$ |
 | ------------- | --------- |
 | $`N^{3/2}`$   | 1000000   |
 | $`N^{5/4}`$   | 15848932  |
 | $`2NH_{n}`$   | 28197672  |
-| $`NlgNlglgN`$ | 9512470   |
-| $`N^2lgN`$    | 8739      |
+| $`N\lg N\lg\lg N`$ | 9512470   |
+| $`N^2\lg N`$    | 8739      |
 
 The raw data can be seen in the [output](./Exercises/Ex2_19/sample_output.dat).
+
+We can see that the relative growth rates of the functions are then $`2NH_n < N^{5/4} < N\lg N\lg\lg N < N^{3/2} < N^2\lg N`$.
 
 ## Big-O Notation
 
@@ -683,7 +708,7 @@ Take $`c = c_fc_h + c_g`$ and $`N_0 = \text{max}\left(N_f, N_h, N_g\right)`$ and
 
 **Problem Statement**
 
-*Show that $`\left(N + 1\right)\left(H_n + \mathcal{O}\left(1\right)\right) = NlnN + \mathcal{O}\left(N\right)`$.*
+*Show that $`\left(N + 1\right)\left(H_n + \mathcal{O}\left(1\right)\right) = N\ln N + \mathcal{O}\left(N\right)`$.*
 
 **Solution**
 
@@ -697,7 +722,13 @@ Expanding out:
 \end{align}
 ```
 
-From the approximation $`H_n = log(N) + \gamma + 1/\left(2N\right)`$ we can see than $`H_n`$ is $`\mathcal{O}\left(\log\left(N\right)\right)`$. So we have,
+From the approximation $`H_n = \log\left(N\right) + \gamma + 1/\left(2N\right)`$ we then have
+```math
+\begin{align}
+\left(N + 1\right)\left(H_n + \mathcal{O}\left(1\right)\right) &= N\log\left(N\right) + \left(N + 1\right)\gamma + \frac{1}{2}\left(1 + \frac{1}{N}\right) + \log\left(N\right) + \mathcal{O}\left(N\right). 
+\end{align}
+```
+We can see that all of the terms besides the leading $`N\log\left(N\right)`$ term are $`\mathcal{O}\left(N\right)`$ and can be absorbed into the big-O to give,
 
 ```math
 \begin{align}
@@ -705,9 +736,167 @@ From the approximation $`H_n = log(N) + \gamma + 1/\left(2N\right)`$ we can see 
 \end{align}
 ```
 
-Where we have used some notational abuse to illustrate that the leading term is the $`N\log N`$ factor.
-
 ## Exercise 2.23
+
+**Problem Statement**
+
+*Show that $`N\log\left(N\right) = \mathcal{O}\left(N^{3/2}\right)`$*
+
+**Solution**
+
+For this we need the brief lemma below
+
+**Lemma 1**
+
+```math
+\begin{align}
+\lim_{x \rightarrow \infty}\frac{f\left(x\right)}{g\left(x\right)} \neq \infty &\implies f\left(x\right) = \mathcal{O}\left(g\left(x\right)\right).
+\end{align}
+```
+
+**Proof**
+
+Let the limit be $`x_0`$, then by the limit definition $`\forall \epsilon > 0 \text{ } \exists c > 0`$ such that
+```math
+\begin{align}
+\left|\frac{f\left(x\right)}{g\left(x\right)} - x_0\right| &< \epsilon, \text{ } \forall x > c.\\
+\implies \left|f\left(x\right) - x_0g\left(x\right)\right| &< \epsilon\left|g\left(x\right)\right|, \text{ } \forall x > c.
+\end{align}
+```
+Let any $`c`$ be $`N_0`$ and let $`c_0`$ be the corresponding $`\epsilon`$ then, we easily see that
+```math
+\begin{align}
+f\left(x\right) - x_0g\left(x\right) &= \mathcal{O}\left(g\left(x\right)\right)\\
+\implies f\left(x\right) &= \mathcal{O}\left(g\left(x\right)\right)
+\end{align}
+```
+
+Now we can prove the main statement indirectly, consider the limit
+```math
+\begin{align}
+\lim_{x \to \infty}\frac{N\ln N}{N^{3/2}} &= \lim_{x \to \infty}\frac{\ln N + 1}{\frac{3}{2}N^{1/2}}\\
+&= \lim_{x \to \infty}\frac{\frac{1}{N}}{\frac{3}{4N^{1/2}}}\\
+&= \lim_{x \to \infty}\frac{4}{3N^{1/2}} \\
+&= 0.
+\end{align}
+```
+Which from the above lemma gives $`N\lg N = \mathcal{O}\left(N^{3/2}\right)`$.
+
+## Exercise 2.24
+
+**Problem Statement**
+
+*Show that $`N^{M} = \mathcal{O}\left(\alpha^{N}\right)`$ for any $`M`$ and any constant $`\alpha > 1`$.*
+
+**Solution**
+
+Consider the limit
+```math
+\lim_{x \rightarrow \infty}\frac{N^{M}}{\alpha^N}.
+```
+For $`\alpha > 1`$,  $\alpha^N$ clearly goes to $`\infty`$. If $`M < 0`$, then $`N^M`$ clearly goes to $`0`$. Else if $`M < 1`$, $`N^{M} < N`$ so we need only examine $`M \geq 1`$.
+
+Then
+```math
+\begin{align}
+\lim_{x \rightarrow \infty} \frac{N^{M}}{\alpha} &= \lim_{x \rightarrow \infty} \left(\frac{N}{\alpha^{N/M}}\right)^{M}
+\end{align}
+```
+Consider the $`M`$-th root of the above, then this defines a sequence
+```math
+a_n = \left(\frac{N}{c^N}\right)
+```
+where $`c = \alpha^{M} > 1`$. Now let $`c = d + 1`$, then from the binomial theorem
+```math
+\begin{align}
+c^n = \left(1 + d \right)^n &\geq 1 + 2n + \frac{d}{2}n\left(n - 1\right) > \frac{d^2}{2}n\left(n - 1\right)\\
+\implies \frac{n}{c^n} &< \frac{2n}{d^2n\left(n - 1\right)}\\
+\implies \lim_{x \rightarrow \infty} 0 &< \lim_{x \rightarrow \infty}\frac{n}{c^n} < \lim_{x \to \infty}\frac{2}{d^2\left(n - 1\right)} \rightarrow 0
+\end{align}
+```
+So we have the limit of $n/c^n$ goes to $0$. But we then also have $`\left(n/c^n\right)^M < \left(n/c^n\right)`$ so
+
+```math
+\begin{align}
+\lim_{x \to \infty}\frac{N^M}{\alpha^N} \rightarrow 0.
+\end{align}
+```
+
+and from our initial case analysis this holds for all $`M`$ and all $`\alpha > 1`$.
+
+Which from the previous exercise immediately tells us that under the same conditions,
+
+```math
+\begin{align}
+N^M = \mathcal{O}\left(\alpha^N\right).
+\end{align}
+```
+
+## Exercise 2.24
+
+**Problem Statement**
+
+*Prove that*
+
+```math
+\begin{align}
+\frac{N}{N + \mathcal{O}\left(1\right)} &= 1 + \mathcal{O}\left(\frac{1}{N}\right)
+\end{align}
+```
+
+**Solution**
+
+We are asked to prove that
+```math
+\begin{align}
+f\left(N\right) = 1 + \mathcal{O}\left(\frac{1}{n}\right)
+\end{align}
+```
+or formally,
+```math
+\begin{align}
+f\left(N\right) - 1 = \mathcal{O}\left(\frac{1}{N}\right)
+\end{align}
+```
+We can also say that
+```math
+\begin{align}
+f\left(N\right) &= \frac{N}{N + \mathcal{O}\left(1\right)} \\
+\implies f\left(N\right) &= \frac{N}{N + g\left(N\right)}
+\end{align}
+```
+where $`g\left(N\right)`$ is some $`\mathcal{O}\left(1\right)`$ function. Combining the two equations gives,
+```math
+\begin{align}
+\left|f\left(N\right) - 1\right| &= \left|\frac{N}{N + g\left(N\right)} - 1\right| \\
+&= \left|\frac{g\left(N\right)}{N + g\left(N\right)}\right| \\
+&< \left|\frac{g\left(N\right)}{N}\right| \\
+\end{align}
+```
+But since $`g\left(N\right)`$ is $`\mathcal{O}\left(1\right)`$ there exists $`c_0, N_0`$ s.t for all $`N > N_0`$
+```math
+\begin{align}
+\left|f\left(N\right)\right| &< c_0\left|\frac{1}{N}\right| \\
+\implies f\left(N\right) - 1 &= \mathcal{O}\left(\frac{1}{N}\right)\\
+\implies f\left(N\right) &= 1 + \mathcal{O}\left(1\right).
+\end{align}
+```
+**Note** here we need the leading order in exact form else we can't bound the denominator.
+
+## [Exercise 2.26](./Exercises/Ex2_26/ex2_26.c)
+
+**Problem Statement**
+
+*Suppose that $`H_{k} = N`$, give an approximate formula that expresses $`k`$ as a function of $`N`$.*
+
+**Solution**
+
+Recall we have the approximation
+
+
+
+
+
 
 ## [Exercise 2.33](./Exercises/Ex2_33/ex2_33.c)
 

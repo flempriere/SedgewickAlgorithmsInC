@@ -1,7 +1,11 @@
 /**
  * @file ex2_19.c
  * @author Felix Lempriere
- * @brief *Give the largest value of N for which you can solve
+ * @brief Solution to Exercise 2-19 from Chapter 2 of Sedgewick's Algorithms in
+ * C.
+ *
+ * @details
+ * Give the largest value of N for which you can solve
  * a problem requiring $f\left(N\right)$ instructions on a machine that can
  * execute $10^9$ instructions per second for the following functions
  * 1. $N^{3/2}$

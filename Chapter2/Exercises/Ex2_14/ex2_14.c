@@ -1,7 +1,10 @@
 /**
  * @file ex2_14.c
  * @author Felix Lempriere
- * @brief Determines how many digits there are in the decimal representation of
+ * @brief Solution to Exercise 2-14 from Chapter 2 of Sedgewick's Algorithms in
+ * C.
+ * 
+ * Determines how many digits there are in the decimal representation of
  * 1 million factorial using the fact that log(n!) = sum_{m=2}^{n}log(m) and the
  * number of digits to represent n is given by floor(log(n!)) + 1.
  *

@@ -80,8 +80,9 @@ static bool ARRAYis_sorted_ascending(size_t len, void const* a,
  * @return true if all parameters are valid and the array is sorted, else
  * @return false.
  */
-bool ARRAYis_sorted(size_t len, void const* a, size_t elem_size,
-                    int cmp(const void* a, const void* b), bool descending) {
+static bool ARRAYis_sorted(size_t len, void const* a, size_t elem_size,
+                           int cmp(const void* a, const void* b),
+                           bool descending) {
     if (!len) { return true; }
     if (!a) {
         TRACE_CALL("Error: nullptr passed as array");

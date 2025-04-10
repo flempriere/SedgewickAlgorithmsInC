@@ -14,6 +14,7 @@
 
 #include <tgmath.h>
 
+
 /**
  * @brief Tolerance value used to determine convergence or equality in
  * iterative methods and floating point comparisons.
@@ -36,27 +37,40 @@ constexpr long double MATHeps = 1e-6L;
  */
 static inline long double MATHnewtons_method(long double MATHf(long double),
                                              long double MATHx) {
-    register long double const h = MATHeps;
+    register long double const MATHh = MATHeps;
     while (fabs(MATHf(MATHx)) > MATHeps) {
-        register long double const xph = MATHf(MATHx + h);
-        register long double const xmh = MATHf(MATHx - h);
-        register long double const dx = (xph - xmh) / (2.0L * h);
-        if (fabs(dx) < MATHeps) {
-            TRACE_VALUE("Error: Derivative is zero or too small.", dx);
+        register long double const MATHxph = MATHf(MATHx + MATHh);
+        register long double const MATHxmh = MATHf(MATHx - MATHh);
+        register long double const MATHdx =
+            (MATHxph - MATHxmh) / (2.0L * MATHh);
+        if (fabs(MATHdx) < MATHeps) {
+            TRACE_VALUE("Error: Derivative is zero or too small.", MATHdx);
             return NAN;    // Return NaN to indicate failure
         }
-        MATHx -= (MATHf(MATHx) / dx);
+        MATHx -= (MATHf(MATHx) / MATHdx);
     }
     return MATHx;
 }
 
+/**
+ * @brief Computes ceil(lg(MATHn))
+ * 
+ * @param MATHn integer to compute ceil(lg()) of must be > 0
+ * @return unsigned 
+ */
+static inline unsigned MATHlg(size_t MATHn) {
+    register unsigned MATHlgN;
+    for (MATHlgN = 0; MATHn > 0; MATHlgN++, MATHn /= 2);
+    return MATHlgN;
+}
 
-static inline long double MATHharmonic_number(long double const x) {
-    if (x == 1)
+static inline long double MATHharmonic_number(long double const MATHx) {
+    if (MATHx == 1)
         return 1.0L;
-    else if (x == 2)
+    else if (MATHx == 2)
         return 1.5L;
 
-    constexpr long double EULER_CONSTANT = 0.57721L;
-    return log(CAST(long double) x) + EULER_CONSTANT + 1.0L / (12.0L * x);
+    constexpr long double MATHEULER_CONSTANT = 0.57721L;
+    return log(CAST(long double) MATHx) + MATHEULER_CONSTANT +
+           1.0L / (12.0L * MATHx);
 }

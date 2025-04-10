@@ -86,7 +86,10 @@ Observe that only in the last input `1 3` do we have an already implied connecti
 
 **Solution**
 
- Unclear if this is asking after the connectivity problem has run, in which case all the objects are connected or at the start in which case there are $`\sum_{N=0}^{8} {^8P_N}`$ ways to do so.
+Unclear what this question is exactly asking. If we fix two objects to connect, then we can either
+connect them directly, or transitively. Thus with the $`8`$ remaining nodes, we select $`n`$ of them
+organise them in some permutation representing a connection chain, then attach the fixed nodes to the
+start and end. Thus there are $`\sum_{N=0}^{8} {^8P_N}`$, when we sum over all possible choices of $`n`$.
 
 (Pick two vertices, then either connect them directly ($`N=0`$), or pick a permutation of $`N`$ of the remaining $`8`$ vertices and use that permutation to connect them) which is too many to list.
 
