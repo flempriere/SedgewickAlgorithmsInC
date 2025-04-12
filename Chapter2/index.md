@@ -992,8 +992,9 @@ We want to put the right hand side in the form $` we^w `$, so we rewrite the log
 \implies k &= \frac{\left(\ln\left(2\right)N - \frac{1}{2}\ln\left(2\pi\right)\right)}{W\left(\frac{1}{e}\left(\ln\left(2\right)N - \frac{1}{2}\ln\left(2\pi\right)\right)\right)} - \frac{1}{2}
 \end{align}
 ```
-where $`W\left(x\right)`$ is the [Lambert W function](https://en.wikipedia.org/wiki/Lambert_W_function#) (the inverse of $`ye^y`$).
-by running the code we generally see this is an overestimate, and so take the floor. This formula noticably also fails for the case $`\lg\left(k!\right) = 0`$, where it predicts $`0`$ not $`1`$.
+where $`W\left(x\right)`$ is the [Lambert W function](https://en.wikipedia.org/wiki/Lambert_W_function#) (the inverse of $`ye^y`$). To ensure we get an integer we take the ceil.
+
+$`\lg\left(k!\right) = 0`$, where it predicts $`0`$ not $`1`$.
 | $`k`$ | $`lgk!`$  | $`\text{InvLogFactorial}\left(N\right)`$ |
 |-------|-----------|------------------------------------------|
 | 1     | 0         | 1                                        |
