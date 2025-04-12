@@ -988,34 +988,24 @@ We want to put the right hand side in the form $` we^w `$, so we rewrite the log
 ```math
 \begin{align}
 \frac{1}{e}\left(\ln\left(2\right)N - \frac{1}{2}\ln\left(2\pi e\right)\right) &\approx \frac{k + 1/2}{e}\ln\left(\frac{k + 1/2}{e}\right) - \frac{1}{2e}\\
-\implies \ln\left(\frac{k + 1/2}{e}\right) &= W\left(\frac{1}{e}\left(\ln\left(2\right)N - \frac{1}{2}\ln\left(2\pi\right) + \frac{1}{2}\right)\right)\\
-\implies k &= \frac{\left(\ln\left(2\right)N - \frac{1}{2}\ln\left(2\pi\right) + \frac{1}{2}\right)}{W\left(\frac{1}{e}\left(\ln\left(2\right)N - \frac{1}{2}\ln\left(2\pi\right) + \frac{1}{2}\right)\right)} - \frac{1}{2}
+\implies \ln\left(\frac{k + 1/2}{e}\right) &= W\left(\frac{1}{e}\left(\ln\left(2\right)N - \frac{1}{2}\ln\left(2\pi e\right) + \frac{1}{2}\right)\right)\\
+\implies k &= \frac{\left(\ln\left(2\right)N - \frac{1}{2}\ln\left(2\pi\right)\right)}{W\left(\frac{1}{e}\left(\ln\left(2\right)N - \frac{1}{2}\ln\left(2\pi\right)\right)\right)} - \frac{1}{2}
 \end{align}
 ```
 where $`W\left(x\right)`$ is the [Lambert W function](https://en.wikipedia.org/wiki/Lambert_W_function#) (the inverse of $`ye^y`$).
 by running the code we generally see this is an overestimate, and so take the floor. This formula noticably also fails for the case $`\lg\left(k!\right) = 0`$, where it predicts $`0`$ not $`1`$.
-
-We can improve by instead using a similar approximation derived directly from the gamma function $`\Gamma`$, the approximation of which is [given here](https://web.archive.org/web/20171104030158/http://mathforum.org/kb/message.jspa?messageID=342551&tstart=0), with a more complete explanation [given here](https://math.stackexchange.com/questions/430167/is-there-an-inverse-to-stirlings-approximation/461207#461207). 
-
-Let
-```math
-\begin{align}
-k &\approx \frac{\ln\left(2\right)N - \ln\left(\sqrt{2\pi}\right)}{W\left(\frac{1}{e}\left(\ln\left(2\right)N - \ln\left(\sqrt{2\pi}\right)\right)\right)} - \frac{1}{2}.
-\end{align}
-```
-Our results are then,
-| $`k`$ | $`lgk!`$  | $`\text{InvLgFactorial}\left(N\right)`$ | $`\text{InvGamma}\left(2^N\right) - 1`$ |
-|-------|-----------|---------------------------------------|---------------------------------------|
-| 1     | 0         | 2                                     | 1                                     |
-| 2     | 1         | 2                                     | 2                                     |
-| 3     | 2.584963  | 3                                     | 3                                     |
-| 4     | 4.584963  | 4                                     | 4                                     |
-| 5     | 6.906891  | 5                                     | 5                                     |
-| 6     | 9.491853  | 6                                     | 6                                     |
-| 7     | 12.299208 | 7                                     | 7                                     |
-| 8     | 15.299208 | 8                                     | 8                                     |
-| 9     | 18.469133 | 9                                     | 9                                     |
-| 10    | 21.791061 | 10                                    | 10                                    |
+| $`k`$ | $`lgk!`$  | $`\text{InvLogFactorial}\left(N\right)`$ |
+|-------|-----------|------------------------------------------|
+| 1     | 0         | 1                                        |
+| 2     | 1         | 2                                        |
+| 3     | 2.584963  | 3                                        |
+| 4     | 4.584963  | 4                                        |
+| 5     | 6.906891  | 5                                        |
+| 6     | 9.491853  | 6                                        |
+| 7     | 12.299208 | 7                                        |
+| 8     | 15.299208 | 8                                        |
+| 9     | 18.469133 | 9                                        |
+| 10    | 21.791061 | 10                                       |
 
 Which can also be viewed in the [sample data](./Exercises/Ex2_27/sample_output.dat).
 

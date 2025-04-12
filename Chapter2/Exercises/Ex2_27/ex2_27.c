@@ -6,26 +6,21 @@
  *
  * @details
  * Calculates the inverse of the base-2 logarithm of the factorial function
- * using two methods.
- *
- * First an inverse f(n) = k s.t ln(k!) = N, is calculated using an approxmation
- * derived from Stirlings approximation
+ *derived with Stirlings approximation.
  *
  * ```math
- * \begin{align}
- * k &= \frac{\left(\ln\left(2\right)N - \frac{1}{2}\ln\left(2\pi\right) +
- * \frac{1}{2}\right)}{W\left(\frac{1}{e}\left(\ln\left(2\right)N -
- * \frac{1}{2}\ln\left(2\pi\right) + \frac{1}{2}\right)\right)} - \frac{1}{2}
+ *\begin{align}
+ * \frac{1}{e}\left(\ln\left(2\right)N - \frac{1}{2}\ln\left(2\pi
+ *e\right)\right) &\approx \frac{k + 1/2}{e}\ln\left(\frac{k + 1/2}{e}\right) -
+ *\frac{1}{2e}\\
+ * \implies \ln\left(\frac{k + 1/2}{e}\right) &=
+ *W\left(\frac{1}{e}\left(\ln\left(2\right)N - \frac{1}{2}\ln\left(2\pi e\right)
+ *+ \frac{1}{2}\right)\right)\\
+ * \implies k &= \frac{\left(\ln\left(2\right)N -
+ *\frac{1}{2}\ln\left(2\pi\right)\right)}{W\left(\frac{1}{e}\left(\ln\left(2\right)N
+ *- \frac{1}{2}\ln\left(2\pi\right)\right)\right)} - \frac{1}{2}
  * \end{align}
  * ```
- *
- * Second an inverse is computed from the Inverse Gamma function
- * ```math
- * \begin{align}
- * k \approx
- * \frac{Nln\left(2/\sqrt{2\pi}\right)}{W\left(\frac{N}{e}\ln\left(2/\sqrt{2\pi}\right)\right)}
- * + \frac{1}{2}
- * \end{align}
  *
  * @version 0.1
  * @date 2025-04-12
@@ -48,10 +43,16 @@
  * approxmation derived from Stirlings approximation
  *
  * ```math
- * \begin{align}
- * k &= \frac{\left(\ln\left(2\right)N - \frac{1}{2}\ln\left(2\pi\right) +
- * \frac{1}{2}\right)}{W\left(\frac{1}{e}\left(\ln\left(2\right)N -
- * \frac{1}{2}\ln\left(2\pi\right) + \frac{1}{2}\right)\right)} - \frac{1}{2}
+ *\begin{align}
+ * \frac{1}{e}\left(\ln\left(2\right)N - \frac{1}{2}\ln\left(2\pi
+ *e\right)\right) &\approx \frac{k + 1/2}{e}\ln\left(\frac{k + 1/2}{e}\right) -
+ *\frac{1}{2e}\\
+ * \implies \ln\left(\frac{k + 1/2}{e}\right) &=
+ *W\left(\frac{1}{e}\left(\ln\left(2\right)N - \frac{1}{2}\ln\left(2\pi e\right)
+ *+ \frac{1}{2}\right)\right)\\
+ * \implies k &= \frac{\left(\ln\left(2\right)N -
+ *\frac{1}{2}\ln\left(2\pi\right)\right)}{W\left(\frac{1}{e}\left(\ln\left(2\right)N
+ *- \frac{1}{2}\ln\left(2\pi\right)\right)\right)} - \frac{1}{2}
  * \end{align}
  * ```
  *
@@ -59,34 +60,8 @@
  * @return size_t
  */
 size_t inverse_lg_factorial(long double n) {
-    register long double const discrim =
-        log(2) * n - 0.5 * log(sqrt(2 * MATHPI)) + 0.5;
-    return CAST(size_t)
-        floor((discrim / MATHLambert_W0(discrim / MATHe)) - 0.5);
-}
-
-/**
- * @brief  Computes an inverse to lg(k!) = n from the Inverse Gamma function
- *
- * Uses the approximation
- * ```math
- * \begin{align}
- * k \approx
- * \frac{Nln\left(2/\sqrt{2\pi}\right)}{W\left(\frac{N}{e}\ln\left(2/\sqrt{2\pi}\right)\right)}
- * + \frac{1}{2}
- * \end{align}
- *
- * @param n
- * @return size_t
- */
-size_t inverse_lg_gamma(long double n) {
-    register long double const tol = 1e-6;
-    if (fabs(n) < tol) return 1.0;
-
-    register long double const y = n * log(2) - log(sqrt(2.0L * MATHPI));
-    register long double const lambert = MATHLambert_W0(y / MATHe);
-
-    return CAST(size_t) ceil(y / lambert - 0.5L);
+    register long double const discrim = log(2) * n - log(sqrt(2 * MATHPI));
+    return CAST(size_t) ceil((discrim / MATHLambert_W0(discrim / MATHe)) - 0.5);
 }
 
 int main(int argc, char* argv[argc + 1]) {
@@ -100,10 +75,9 @@ int main(int argc, char* argv[argc + 1]) {
         factorial *= k;
         register long double const n = log2(CAST(long double) factorial);
         register size_t const invlgf = inverse_lg_factorial(n);
-        register size_t const invlgg = inverse_lg_gamma(n);
         printf(
-            "k: %4zu\tlgk: %8Lf\tInvFactorial(lgk):%4zu\tInvGamma(lgk):%4zu\n",
-            k, n, invlgf, invlgg);
+            "k: %4zu\tlgk: %8Lf\tInvFactorial(lgk):%4zu\n",
+            k, n, invlgf);
     }
 
     return EXIT_SUCCESS;
