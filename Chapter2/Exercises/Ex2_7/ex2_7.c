@@ -70,8 +70,7 @@ int main(int argc, char* argv[argc + 1]) {
  * @return The nth harmonic number as a long double.
  */
 static inline long double n_harmonic(long double const x) {
-    long double euler_constant = 0.57721;
-    return log(x) + euler_constant + 1.0L / (12.0L * x);
+    return log(x) + MATHEULER_CONSTANT + 1.0L / (12.0L * x);
 }
 
 /**

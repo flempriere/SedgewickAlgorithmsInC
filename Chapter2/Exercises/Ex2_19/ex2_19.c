@@ -41,6 +41,7 @@ long double n_lg_n_lglg_n(long double const x);
 long double n_squared_lg_n(long double const x);
 
 constexpr size_t n_functions = 5u;
+
 int main(int argc, char* argv[argc + 1]) {
     long double (*functions[n_functions])(
         long double) = { n_cubed_square_root, n_quintic_quartic_root,

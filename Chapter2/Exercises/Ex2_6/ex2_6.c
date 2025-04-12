@@ -53,16 +53,16 @@ static long double fn2(long double const x);
  * @return EXIT_SUCCESS upon successful completion of the program.
  */
 int main(int argc, char* argv[argc + 1]) {
-    long double const N_0 = 1.0L;
-    long double const N_1 = 8.0L;
+    register long double const N_0 = 1.0L;
+    register long double const N_1 = 8.0L;
 
-    long double f1N_0 = MATHnewtons_method(fn1, N_0);
-    long double f1N_1 = MATHnewtons_method(fn1, N_1);
+    register long double const f1N_0 = MATHnewtons_method(fn1, N_0);
+    register long double const f1N_1 = MATHnewtons_method(fn1, N_1);
 
     printf("N^(3/2) > Nlg(N)^2/2 for %Lf ~< N ~< %Lf\n", f1N_0, f1N_1);
 
-    long double f2N_0 = MATHnewtons_method(fn2, N_0);
-    long double f2N_1 = MATHnewtons_method(fn2, N_1);
+    register long double const f2N_0 = MATHnewtons_method(fn2, N_0);
+    register long double const f2N_1 = MATHnewtons_method(fn2, N_1);
 
     printf("N^(3/2) > 2Nlg(N)^2 for %Lf ~< N ~< %Lf\n", f2N_0, f2N_1);
 
@@ -74,9 +74,9 @@ int main(int argc, char* argv[argc + 1]) {
 }
 
 static inline long double fn1(long double const x) {
-    return x * pow(log2(x), 2) / 2 - pow(x, 3.0L / 2.0L);
+    return x * pow(log2(x), 2) / 2.0 - pow(x, 3.0L / 2.0L);
 }
 
 static inline long double fn2(long double const x) {
-    return 2 * x * pow(log2(x), 2) - pow(x, 3.0L / 2.0L);
+    return 2.0 * x * pow(log2(x), 2) - pow(x, 3.0L / 2.0L);
 }

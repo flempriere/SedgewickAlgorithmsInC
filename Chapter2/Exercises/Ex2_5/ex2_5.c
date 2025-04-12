@@ -51,8 +51,8 @@ static inline long double logTerm(long double const x);
  * @return EXIT_SUCCESS on successful computation and output.
  */
 int main(int argc, char* argv[argc + 1]) {
-    long double N_0 = 2.0L;
-    long double N_1 = 36.0L;
+    register long double N_0 = 2.0L;
+    register long double N_1 = 36.0L;
     N_0 = MATHnewtons_method(fn, N_0);
     N_1 = MATHnewtons_method(fn, N_1);
     printf("10Nlg(N) > 2N^2 for %Lf ~< N ~< %Lf\n", N_0, N_1);
@@ -65,7 +65,7 @@ static inline long double logTerm(long double const x) {
 }
 
 static inline long double quadraticTerm(long double const x) {
-    return 2 * pow(x, 2);
+    return 2.0L * pow(x, 2);
 }
 
 static inline long double fn(long double const x) {

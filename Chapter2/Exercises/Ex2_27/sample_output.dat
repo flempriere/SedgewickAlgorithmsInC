@@ -1,0 +1,10 @@
+k:    1	lgk: 0.000000	InvFactorial(lgk):   2	InvGamma(lgk):   1
+k:    2	lgk: 1.000000	InvFactorial(lgk):   2	InvGamma(lgk):   2
+k:    3	lgk: 2.584963	InvFactorial(lgk):   3	InvGamma(lgk):   3
+k:    4	lgk: 4.584963	InvFactorial(lgk):   4	InvGamma(lgk):   4
+k:    5	lgk: 6.906891	InvFactorial(lgk):   5	InvGamma(lgk):   5
+k:    6	lgk: 9.491853	InvFactorial(lgk):   6	InvGamma(lgk):   6
+k:    7	lgk: 12.299208	InvFactorial(lgk):   7	InvGamma(lgk):   7
+k:    8	lgk: 15.299208	InvFactorial(lgk):   8	InvGamma(lgk):   8
+k:    9	lgk: 18.469133	InvFactorial(lgk):   9	InvGamma(lgk):   9
+k:   10	lgk: 21.791061	InvFactorial(lgk):  10	InvGamma(lgk):  10

@@ -832,7 +832,7 @@ N^M = \mathcal{O}\left(\alpha^N\right).
 \end{align}
 ```
 
-## Exercise 2.24
+## Exercise 2.25
 
 **Problem Statement**
 
@@ -893,10 +893,131 @@ But since $`g\left(N\right)`$ is $`\mathcal{O}\left(1\right)`$ there exists $`c_
 
 Recall we have the approximation
 
+```math
+\begin{align}
+H_k = N &\approx \lg\left(k\right) + \gamma + \frac{1}{12k} \\
+\implies N - \gamma &\approx \lg\left(k\right) + \frac{1}{12k} \\
+\implies ke^{1/12k} &\approx e^{-\gamma}e^{N}.
+\end{align}
+```
+To proceed we observe that in the limit of large $`k`$ the exponential term goes to zero. This leads to
+```math
+\begin{align}
+k &= e^{-\gamma}e^{N}\\
+&\approx 0.56146e^{N}.
+\end{align}
+```
+Since we want $k$ to be an integer, and we've thrown away a positive contribution, our final approximation becomes
+```math
+\begin{align}
+k &= \text{ceil}\left(0.56146e^{N}\right).
+\end{align}
+```
+We compare the results of inverse with the results of [Exercise 2.18](#exercise-218), in the table below.
 
+| $`H_k`$ | $`\text{Inv}H_k`$ | Ex2.18 |
+|---------|------------|--------|
+| 1       | 1          | 1      |
+| 2       | 5          | 4      |
+| 3       | 12         | 11     |
+| 4       | 31         | 31     |
+| 5       | 84         | 83     |
+| 6       | 227        | 227    |
+| 7       | 616        | 616    |
+| 8       | 1674       | 1674   |
+| 9       | 4550       | 4550   |
+| 10      | 12368      | 12367  |
 
+Which we can see leads to some discrepencies.
 
+An alternative approach is outlined in the [linked article](https://www.jstor.org/stable/2691241) by using integrals to bound $`H_k`$ by the logarithm as
+```math
+\begin{align}
+\ln\left(k + \frac{1}{2}\right) + \gamma &< H_k < \ln\left(k + \frac{1}{2}\right) + \gamma + \frac{1}{24k^2}
+\end{align}
+```
+The left and the right sides of the inequality have the same floor for $`n > 1`$ with probability of $`97\%`$, so the new inverse becomes
+```math
+\begin{align}
+k = \text{floor}\left(e^{n - \gamma} + \frac{1}{2}\right).
+\end{align}
+```
 
+Using our new inverse we find,
+
+| $`H_k`$ | $`\text{Inv}H_k`$ | Ex2.18 |
+|---------|------------|--------|
+| 1       | 1          | 1      |
+| 2       | 4          | 4      |
+| 3       | 11         | 11     |
+| 4       | 31         | 31     |
+| 5       | 83         | 83     |
+| 6       | 227        | 227    |
+| 7       | 616        | 616    |
+| 8       | 1674       | 1674   |
+| 9       | 4550       | 4550   |
+| 10      | 12367      | 12367  |
+
+## [Exercise 2.27]()
+
+**Problem Statement**
+
+*Suppose that $`\lg\left(k!\right) = N`$. Give an approximate formula for $`k`$ as a function of $`N`$.*
+
+**Solution**
+
+Stirlings Formula gives,
+```math
+\begin{align}
+\lg\left(k!\right) = N \approx k\lg\left(k\right) - k\lg\left(e\right) + \lg\left(\sqrt{2\pi k}\right)
+\end{align}
+```
+Let us rewrite this in terms of the natural logarithm and $`\lg\left(k!\right) = N`$.
+```math
+\begin{align}
+\ln\left(2\right)N &\approx k\ln\left(\frac{k}{e}\right) + \frac{1}{2}\ln\left(k\right) + \frac{1}{2}\ln\left(2 \pi\right)
+\end{align}
+```
+Multiplying by $`1/e`$ and subtracting $`\frac{1}{2e}\ln\left(2\pi e\right)`$ gives,
+```math
+\begin{align}
+\frac{1}{e}\left(\ln\left(2\right)N - \frac{1}{2}\ln\left(2\pi e\right)\right) &\approx \frac{k + 1/2}{e}\ln\left(\frac{k}{e}\right)
+\end{align}
+```
+We want to put the right hand side in the form $` we^w `$, so we rewrite the logarithm as $`\ln(\frac{k}{e} + \frac{1}{2e} - \frac{1}{2e})`$ and taylor expand to get,
+```math
+\begin{align}
+\frac{1}{e}\left(\ln\left(2\right)N - \frac{1}{2}\ln\left(2\pi e\right)\right) &\approx \frac{k + 1/2}{e}\ln\left(\frac{k + 1/2}{e}\right) - \frac{1}{2e}\\
+\implies \ln\left(\frac{k + 1/2}{e}\right) &= W\left(\frac{1}{e}\left(\ln\left(2\right)N - \frac{1}{2}\ln\left(2\pi\right) + \frac{1}{2}\right)\right)\\
+\implies k &= \frac{\left(\ln\left(2\right)N - \frac{1}{2}\ln\left(2\pi\right) + \frac{1}{2}\right)}{W\left(\frac{1}{e}\left(\ln\left(2\right)N - \frac{1}{2}\ln\left(2\pi\right) + \frac{1}{2}\right)\right)} - \frac{1}{2}
+\end{align}
+```
+where $`W\left(x\right)`$ is the [Lambert W function](https://en.wikipedia.org/wiki/Lambert_W_function#) (the inverse of $`ye^y`$).
+by running the code we generally see this is an overestimate, and so take the floor. This formula noticably also fails for the case $`\lg\left(k!\right) = 0`$, where it predicts $`0`$ not $`1`$.
+
+We can improve by instead using a similar approximation derived directly from the gamma function $`\Gamma`$, the approximation of which is [given here](https://web.archive.org/web/20171104030158/http://mathforum.org/kb/message.jspa?messageID=342551&tstart=0), with a more complete explanation [given here](https://math.stackexchange.com/questions/430167/is-there-an-inverse-to-stirlings-approximation/461207#461207). 
+
+Let
+```math
+\begin{align}
+k &\approx \frac{\ln\left(2\right)N - \ln\left(\sqrt{2\pi}\right)}{W\left(\frac{1}{e}\left(\ln\left(2\right)N - \ln\left(\sqrt{2\pi}\right)\right)\right)} - \frac{1}{2}.
+\end{align}
+```
+Our results are then,
+| $`k`$ | $`lgk!`$  | $`\text{InvLgFactorial}\left(N\right)`$ | $`\text{InvGamma}\left(2^N\right) - 1`$ |
+|-------|-----------|---------------------------------------|---------------------------------------|
+| 1     | 0         | 2                                     | 1                                     |
+| 2     | 1         | 2                                     | 2                                     |
+| 3     | 2.584963  | 3                                     | 3                                     |
+| 4     | 4.584963  | 4                                     | 4                                     |
+| 5     | 6.906891  | 5                                     | 5                                     |
+| 6     | 9.491853  | 6                                     | 6                                     |
+| 7     | 12.299208 | 7                                     | 7                                     |
+| 8     | 15.299208 | 8                                     | 8                                     |
+| 9     | 18.469133 | 9                                     | 9                                     |
+| 10    | 21.791061 | 10                                    | 10                                    |
+
+Which can also be viewed in the [sample data](./Exercises/Ex2_27/sample_output.dat).
 
 ## [Exercise 2.33](./Exercises/Ex2_33/ex2_33.c)
 

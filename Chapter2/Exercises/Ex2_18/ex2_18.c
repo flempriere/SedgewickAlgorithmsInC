@@ -26,6 +26,7 @@
  */
 
 #include "MacroLibrary/Utility.h"
+#include "MacroLibrary/Mathematics.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -139,8 +140,7 @@ int main(int argc, char* argv[argc + 1]) {
 
 long double Harmonic_N(size_t const x) {
     if (x == 1) return 1.0L;
-    long double const EULER_CONSTANT = 0.57721L;
-    return log(CAST(double) x) + EULER_CONSTANT + 1.0L / (12.0L * x);
+    return log(CAST(double) x) + MATHEULER_CONSTANT + 1.0L / (12.0L * x);
 }
 
 long double Harmonic_N_Exact(size_t const x) {

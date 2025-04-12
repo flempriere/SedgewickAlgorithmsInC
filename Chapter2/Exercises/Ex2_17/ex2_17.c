@@ -34,7 +34,7 @@
 /**
  * @brief Maximum Fibonacci number index to compute.
  *
- * @warning This is chosen based on the overflow of a 64bit unsigned integer
+ * @warning This is chosen based on the overflow of a 64bit size_t
  * type, you may need to adjust this for your platform to avoid overflow.
  *
  * @todo: Convert this to use the chcksum library instead of a fixed cutoff.
@@ -52,7 +52,7 @@ constexpr size_t MAX_FIB = 93u;
  *
  * @param n The position (0-based) in the Fibonacci sequence to calculate.
  *
- * @note Overflows for n > 93.
+ * @note Overflows for n > 93 on 64bit size_t.
  * @return The N-th Fibonacci number.
  */
 static inline size_t fibonacci_number(size_t const n);

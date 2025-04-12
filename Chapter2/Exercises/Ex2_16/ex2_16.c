@@ -5,7 +5,7 @@
  * C.
  * 
  * Demonstrates the growth rate of the number of digits of the integer
- * truncation of the Harmonic numbers and compares this to the assymptotic
+ * truncation of the Harmonic numbers and compares this to the asymptotic
  * estimate of lglg(n).
  * 
  * @version 0.1

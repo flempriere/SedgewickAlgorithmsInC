@@ -17,6 +17,7 @@
  * @version 0.1
  * @copyright Copyright (c) 2025
  */
+#include "MacroLibrary/Mathematics.h"
 #include "MacroLibrary/Utility.h"
 
 #include <stdio.h>
@@ -65,6 +66,5 @@ static inline long double Harmonic_N(size_t const x) {
     else if (x == 2)
         return 1.5L;
 
-    constexpr long double EULER_CONSTANT = 0.57721L;
-    return log(CAST(long double) x) + EULER_CONSTANT + 1.0L / (12.0L * x);
+    return log(CAST(long double) x) + MATHEULER_CONSTANT + 1.0L / (12.0L * x);
 }
