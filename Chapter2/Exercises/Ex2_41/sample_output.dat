@@ -1,0 +1,9 @@
+N:    1	log2(N):    1	log4(N):    1	log16(N):    1
+N:    2	log2(N):    2	log4(N):    1	log16(N):    1
+N:    4	log2(N):    3	log4(N):    2	log16(N):    1
+N:    8	log2(N):    4	log4(N):    2	log16(N):    1
+N:   16	log2(N):    5	log4(N):    3	log16(N):    2
+N:   32	log2(N):    6	log4(N):    3	log16(N):    2
+N:   64	log2(N):    7	log4(N):    4	log16(N):    2
+N:  128	log2(N):    8	log4(N):    4	log16(N):    2
+N:  256	log2(N):    9	log4(N):    5	log16(N):    3

@@ -958,7 +958,7 @@ Using our new inverse we find,
 | 9       | 4550       | 4550   |
 | 10      | 12367      | 12367  |
 
-## [Exercise 2.27]()
+## [Exercise 2.27](./Exercises/Ex2_27/ex2_27.c)
 
 **Problem Statement**
 
@@ -988,14 +988,14 @@ We want to put the right hand side in the form $` we^w `$, so we rewrite the log
 ```math
 \begin{align}
 \frac{1}{e}\left(\ln\left(2\right)N - \frac{1}{2}\ln\left(2\pi e\right)\right) &\approx \frac{k + 1/2}{e}\ln\left(\frac{k + 1/2}{e}\right) - \frac{1}{2e}\\
-\implies \ln\left(\frac{k + 1/2}{e}\right) &= W\left(\frac{1}{e}\left(\ln\left(2\right)N - \frac{1}{2}\ln\left(2\pi e\right) + \frac{1}{2}\right)\right)\\
-\implies k &= \frac{\left(\ln\left(2\right)N - \frac{1}{2}\ln\left(2\pi\right)\right)}{W\left(\frac{1}{e}\left(\ln\left(2\right)N - \frac{1}{2}\ln\left(2\pi\right)\right)\right)} - \frac{1}{2}
+\implies \ln\left(\frac{k + 1/2}{e}\right) &= W_0\left(\frac{1}{e}\left(\ln\left(2\right)N - \frac{1}{2}\ln\left(2\pi e\right) + \frac{1}{2}\right)\right)\\
+\implies k &= \frac{\left(\ln\left(2\right)N - \frac{1}{2}\ln\left(2\pi\right)\right)}{W_0\left(\frac{1}{e}\left(\ln\left(2\right)N - \frac{1}{2}\ln\left(2\pi\right)\right)\right)} - \frac{1}{2}
 \end{align}
 ```
-where $`W\left(x\right)`$ is the [Lambert W function](https://en.wikipedia.org/wiki/Lambert_W_function#) (the inverse of $`ye^y`$). To ensure we get an integer we take the ceil.
+where $`W_0\left(x\right)`$ is the principle branch of the [Lambert W function](https://en.wikipedia.org/wiki/Lambert_W_function#) (the inverse of $`ye^y`$). To ensure we get an integer we take the ceil.
 
 $`\lg\left(k!\right) = 0`$, where it predicts $`0`$ not $`1`$.
-| $`k`$ | $`lgk!`$  | $`\text{InvLogFactorial}\left(N\right)`$ |
+| $`k`$ | $`\lg k!`$  | $`\text{InvLogFactorial}\left(N\right)`$ |
 |-------|-----------|------------------------------------------|
 | 1     | 0         | 1                                        |
 | 2     | 1         | 2                                        |
@@ -1009,6 +1009,129 @@ $`\lg\left(k!\right) = 0`$, where it predicts $`0`$ not $`1`$.
 | 10    | 21.791061 | 10                                       |
 
 Which can also be viewed in the [sample data](./Exercises/Ex2_27/sample_output.dat).
+
+## Exercise 2.28
+
+**Problem Statement**
+
+*You are given the information that the running time of one algorithm is $`\mathcal{O}\left(N\log\left(N\right)\right)`$ and the running time of another algorithm is $`\mathcal{O}\left(N^3\right)`$. What does this statement imply about the relative performance of the algorithm?*
+
+**Solution**
+
+From the definition we cannot tell a huge amount about the relative performance, other than to say in the worst case, the large $`N`$ performance of the $`\mathcal{O}\left(N^3\right)`$ will eventually be worse than the $`\mathcal{O}\left(N\log\left(N\right)\right)`$. 
+
+Without knowing the exact form of the leading term of each algorithm, or the magnitude of the coefficient in the Big-O we cannot make a concrete comparison. As the book states the first algorithm may be $`N\log\left(N\right)`$ centuries and the second might be $`N^3`$ seconds. The other option is that the first algorithm is $`N\log\left(N\right)`$ most of the time while the second is normally $`N`$ on most input but $`N^3`$ on some rare pathalogical inputs.
+
+## Exercise 2.29
+
+**Problem Statement**
+
+*You are given the information that the running time of one algorithm is always about $`N\log\left(N\right)`$ and that the running time of one algorithm is $`\mathcal{O}\left(N^3\right)`$. What does this say about the relative performance?.*
+
+**Solution**
+
+The same conclusion as above holds. While we have good information about the performance of the first algorithm, we don't have good information for the performance of the second.
+
+## Exercise 2.30
+
+**Problem Statement**
+
+*You are given the information that the running time of one algorithm is always about $`N\log\left(N\right)`$ and that the running time of another algorithm is always about $`N^3`$. What does this statement imply about the relative performance of the algorithms?*
+
+**Solution**
+
+Now we can make comments. Since we know that both algorithms are always similar to their runtime we can say that the $`N\log\left(N\right)`$ algorithm will have better relative performance than the $`N^3`$ algorithm in nearly all cases.
+
+## Exercise 2.31
+
+**Problem Statement**
+
+*You are given the information that the running time of one algorithm is always proportional to $`N\log\left(N\right)`$ and that the running time of another algorithm is always proportional to $`N^3`$. What does this statement imply about the relative performance of the algorithms.*
+
+**Solution**
+
+We can make a weaker promise than the previous case. Since we do not know the magnitude of the proportionality of the two algorithms we can say that the first algorithm will eventually have better performance than the second for sufficiently large values of $`N`$ determined by the relative size of the proportionality coefficients.
+
+## Exercise 2.32
+
+**Problem Statement**
+
+For each of the functions below, find an asymptotic formula for $`f\left(2 N\right)/f\left(N\right)`$.
+
+- $`f\left(N\right) = 1`$.
+
+**Solution**
+```math
+\begin{align}
+\frac{f\left(2N\right)}{f\left(N\right)} = \frac{1}{1} &= 1.
+\end{align}
+```
+
+- $`f\left(N\right) = \lg\left(N\right)`$.
+
+**Solution** 
+```math
+\begin{align}
+\frac{f\left(2N\right)}{f\left(N\right)} = \frac{\lg\left(2N\right)}{\lg\left(N\right)} &= \frac{1 + \lg\left(N\right)}{\lg\left(N\right)}\\
+&= 1 + \frac{1}{\lg\left(N\right)}.
+\end{align}
+```
+
+- $`f\left(N\right) = N`$.
+
+**Solution**
+```math
+\begin{align}
+\frac{f\left(2N\right)}{f\left(N\right)} = \frac{2N}{N} &= 2.
+\end{align}
+```
+
+- $`f\left(N\right) = N\lg\left(N\right)`$.
+
+**Solution**
+```math
+\begin{align}
+\frac{f\left(2N\right)}{f\left(N\right)} = \frac{2N\lg\left(2N\right)}{N\lg\left(N\right)} &= \frac{2\left(1 + \lg\left(N\right)\right)}{\lg\left(N\right)}\\
+&= 2 + \frac{2}{\lg\left(N\right)}.
+\end{align}
+```
+
+- $`N^{3/2}`$.
+
+**Solution**
+```math
+\begin{align}
+\frac{f\left(2N\right)}{f\left(N\right)} = \frac{\left(2N\right)^{3/2}}{N^{3/2}} &= 2\sqrt{2}.
+\end{align}
+```
+- $`N^2`$.
+
+**Solution**
+```math
+\begin{align}
+\frac{f\left(2N\right)}{f\left(N\right)} = \frac{4N^2}{N} &= 4.
+\end{align}
+```
+
+- $`N^3`$.
+
+**Solution**
+```math
+\begin{align}
+\frac{f\left(2N\right)}{f\left(N\right)} = \frac{8N^3}{N^3} &= 8.
+\end{align}
+```
+
+- $`2^{N}`$.
+
+**Solution**
+```math
+\begin{align}
+\frac{f\left(2N\right)}{f\left(N\right)} = \frac{2^{2N}}{2^N} &= 2^{2N}\times2^{-N} \\
+&= 2^{N} = f\left(N\right)\\
+\implies f\left(2N\right) &= f\left(N\right)^2. 
+\end{align}
+```
 
 ## [Exercise 2.33](./Exercises/Ex2_33/ex2_33.c)
 
@@ -1025,7 +1148,7 @@ C_N = C_{N/2} + 1
 **Solution**
 
 For $`1 \leq N \leq 32`$, interpreting $`N/2`$ to mean
-the $`floor(N/2)`$ we generate the below table from our
+the $`\text{floor}(N/2)`$ we generate the below table from our
 C implementation.
 
 | N   | $C_N$ |
@@ -1173,6 +1296,440 @@ See the table generated below
 | 32  | 62    |
 
 and the corresponding raw [output](./Exercises/Ex2_35/sample_output.dat) file.
+
+## Exercise 2.36
+
+**Problem Statement**
+
+*Suppose that $`f_N`$ is proportional to a constant and that*
+```math
+\begin{align}
+C_N &= C_{N/2} + f_N 
+\end{align}
+```
+*for $`N \geq t`$ with $`0 \leq C_N \leq c`$ for $`N < t`$*, where $`c`$ and $`t`$ are both constants. Show that $`C_N`$ is proportional to $`\lg N`$.
+
+**Solution**
+
+Observe that for $`N < t`$, the recurrence is simply a constant. So we can ignore $`t`$. For arbitrarily large $`N`$, this means that a finite number of recurrence terms are replaced with a constant, which won't affect the overall growth behaviour. 
+
+We then treat $`f_n`$ as constant (since it is proportional to a constant we are effectively relabelling it with this proportional constant). Then observe if we make the coordinate shift $`N = 2^n`$ we have
+
+```math
+\begin{align}
+C_n &= c_{n-1} + f_{n} \\
+\implies C_{n} - C_{n - 1} &= C_{n - 1} - C_{n - 2}.
+\implies C_{n} - 2C_{n - 1} - C_{n - 2} &= 0.
+\end{align}
+```
+The line is in the form of a homogenous linear recurrence, so substitute in $`r^n`$ to get
+```math
+\begin{align}
+r^{n - 2}\left(r - 1\right)^2 &= 0\\
+\implies r &= 1
+\end{align}
+```
+Since the roots are degenerate this leads to
+```math
+\begin{align}
+C_n &= a\left(1\right)^{n} + bn\left(1\right)^{n}\\
+&= b\lg\left(N\right) + a
+\end{align}
+```
+for some constants $`b`$ and $`a`$  (fixed by $`f_n`$ and $`c, t`$). E.g. if we set $`C_1 = 1`$ and $`C_2 = 2`$, then we have
+```math
+\begin{align}
+C_n &= \lg\left(N\right) + 1
+\end{align}
+```
+
+## Exercise 2.37
+
+**Problem Statement**
+
+*State and prove generalised versions of **Formula 2.3** through **Formula 2.5** that are analogous to the previous exercises*.
+
+**Formula 2.3 Reworked**
+```math
+\begin{align}
+C_N &= C_{N/2} + f_N 
+\end{align}
+```
+*for $`N \geq t`$ with $`0 \leq C_N \leq g_N`$ for $`N < t`$*, where $`t`$ is a constant, and $`g_N`$ and $`f_N`$ are both proportional to $`N`$. Show that $`C_N`$ is proportional to $`N`$.
+
+**Solution**
+
+Again ignore the $`t`$, this will add a constant amount of linear time work and thus not impact the overall runtime proportionality.
+
+The recurrence then telescopes to
+```math
+\begin{align}
+C_{2^n} &= C_{2^{n-1}} + f_{N} \\
+&= C_{2^{n - 2}} + f_{N} + f_{N/2} \\
+&\dots \sum_{i = 0}^{n - 1}f_{2^i} \\
+&\propto a\sum_{i = 0}^{n}2^{i} + \sum_{i = 0}^{n}b\\
+&= aN\left(\sum_{i = 0}^{\lg\left(N\right)}\frac{1}{2^i}\right) + \mathcal{O}\left(\lg\left(N\right)\right)\\
+& 2dN\left(1 - \frac{1}{2N}\right) + \mathcal{O}\left(\lg\left(N\right)\right)
+\end{align}
+```
+Where we have used the truncation of the [geometric series](https://en.wikipedia.org/wiki/Geometric_series) to solve the first sum and the results of [Exercise 2.36](#exercise-236) to bound the impact of the second.
+
+**Formula 2.4 Revised**
+
+```math
+\begin{align}
+C_N &= 2C_{N/2} + f_N 
+\end{align}
+```
+*for $`N \geq t`$ with $`0 \leq C_N \leq g_N`$ for $`N < t`$*, where $`t`$ is a constant, and $`g_N`$ and $`f_N`$ are both proportional to $`N`$. Show that $`C_N`$ is proportional to $`N\lg\left(N\right)`$.
+
+**Solution**
+
+As before the region $`N < t`$ only adds a constant amount of linear work, so we can disregard it for our analysis.
+
+Just repeat the analysis in the textbook but make the substitution,
+$`2^n \rightarrow d2^{n}`$ where $`d`$ is the constant of proportionality for $`f_n`$.
+
+The proof then leads to
+```math
+\begin{align}
+C_{2^n} &= 2C_{2^{n - 1}} + 2^{n}\\
+\frac{C_{2^n}}{d2^n} &= \frac{C_{2^{n-1}}}{d2^{n - 1}} + 1\\
+&\ldots n \\
+\implies C_{2^n} &= nd2^{n}\\
+C_{N} &= dN\lg\left(N\right).
+\end{align}
+```
+So the recurrence is proportional to $`N\lg\left(N\right)`$.
+
+**Formula 2.5 Revised**
+
+```math
+\begin{align}
+C_N &= 2C_{N/2} + f_N 
+\end{align}
+```
+*for $`N \geq t`$ with $`0 \leq C_N \leq c`$ for $`N < t`$*, where $`t, c`$ are a constant and $`f_N`$ is proportional to a constant. Show that $`C_N`$ is proportional to $`N`$.
+
+**Solution**
+
+As before the region $`N < t`$ only adds a constant amount of linear work, so we can disregard it for our analysis. Use a similar telescoping argument
+```math
+\begin{align}
+C_{2^n} &= 2C_{2^{n - 1}} + d\\
+\frac{C_{2^n}}{d2^n} &= \frac{C_{2^{n-1}}}{d2^{n - 1}} + \frac{1}{2^{n}}\\
+&\ldots \sum_{i = 0}^{n - 1}\frac{1}{2^i}\\
+\implies \frac{C_{2^n}}{d2^{n}} &= 2\left(1 - 2^{-n}\right)\\
+C_{N} &= 2d\left(N - 1\right).
+\end{align}
+```
+Which is again proportional to $`N`$.
+
+## [Exercise 2.38](./Exercises/Ex2_38/ex2_38.c)
+
+**Problem Statement**
+
+*Give a table of the values of $`C_{N}`$ in*
+```math
+\begin{align}
+C_N &= 2C_{N/2} + N^2 \text{ for } N \geq 2 \text{ with } C_1 = 0
+\end{align}
+```
+*for $`1 \geq N \geq 32`$ for the following three cases*
+1. *Interpret $`N/2`$ as $`\text{floor}\left(N/2\right)`$*
+2. *Interpret $`N/2`$ as $`\text{ceil}\left(N/2\right)`$*
+3. *Interpret $`2C_{N/2}`$ as $`C_{\text{ceil}\left(N/2\right)} + C_{\text{floor}\left(N/2\right)}`$*
+
+**Solution**
+
+We compute the results to generate the resulting table
+
+| N  | $`C_{\text{floor}\left(N/2\right)}`$ | $`C_{\text{ceil}\left(N/2\right)}`$ | $`2C_{N/2} = C_{\text{floor}\left(N/2\right)} + C_{\text{ceil}\left(N/2\right)}`$ |
+|----|--------------------------------------|-------------------------------------|-----------------------------------------------------------------------------------|
+| 1  | 0                                    | 0                                   | 0                                                                                 |
+| 2  | 2                                    | 2                                   | 2                                                                                 |
+| 3  | 3                                    | 7                                   | 5                                                                                 |
+| 4  | 8                                    | 8                                   | 8                                                                                 |
+| 5  | 9                                    | 19                                  | 12                                                                                |
+| 6  | 12                                   | 20                                  | 16                                                                                |
+| 7  | 13                                   | 23                                  | 20                                                                                |
+| 8  | 24                                   | 24                                  | 24                                                                                |
+| 9  | 25                                   | 47                                  | 29                                                                                |
+| 10 | 28                                   | 48                                  | 34                                                                                |
+| 11 | 29                                   | 51                                  | 39                                                                                |
+| 12 | 36                                   | 52                                  | 44                                                                                |
+| 13 | 37                                   | 59                                  | 49                                                                                |
+| 14 | 40                                   | 60                                  | 54                                                                                |
+| 15 | 41                                   | 63                                  | 59                                                                                |
+| 16 | 64                                   | 64                                  | 64                                                                                |
+| 17 | 65                                   | 111                                 | 70                                                                                |
+| 18 | 68                                   | 112                                 | 76                                                                                |
+| 19 | 69                                   | 115                                 | 82                                                                                |
+| 20 | 76                                   | 116                                 | 88                                                                                |
+| 21 | 77                                   | 123                                 | 94                                                                                |
+| 22 | 80                                   | 124                                 | 100                                                                               |
+| 23 | 81                                   | 127                                 | 106                                                                               |
+| 24 | 96                                   | 128                                 | 112                                                                               |
+| 25 | 97                                   | 143                                 | 118                                                                               |
+| 26 | 100                                  | 144                                 | 124                                                                               |
+| 27 | 101                                  | 147                                 | 130                                                                               |
+| 28 | 108                                  | 148                                 | 136                                                                               |
+| 29 | 109                                  | 155                                 | 142                                                                               |
+| 30 | 112                                  | 156                                 | 148                                                                               |
+| 31 | 113                                  | 159                                 | 154                                                                               |
+| 32 | 160                                  | 160                                 | 160                                                                               |
+
+The raw data can be accessed [here](./Exercises/Ex2_38/sample_data.dat). We see that the three techniques agree when $`N`$ is a power of $`2`$. However the technique of using treating $`N/2`$ as the floor grows faster between powers of two.
+
+When $`N`$ is not much larger than a power of two the *averaged* technique is close to that acheived by taking the floor, but as we get closer to the next power of two, it becomes closer to that acheived by taking the ceil. Finally we see that the value of the coefficient when taking the floor jumps significantly at powers of $2$, while the value of the coefficient when taking the ceil jumps even more significantly when $`N`$ is one greater than a power of two.
+
+**Note**: Codewise the simple techniques of taking the floor and the ceil result in recursions that are relatively easy to perform loop unrolling on, using a simple counter $`i`$ to track how *deep* we are in the recursion to apply the $`2^i`$ factor to multiply the current $`n`$ value by.
+
+Since in the hybrid version these powers are interleaved we have left it in the recursive format.
+
+## [Exercise 2.40](./Exercises/Ex2_40/ex2_40.c)
+
+**Problem Statement**
+
+*Solve the recurrence*
+```math
+\begin{align}
+C_N &= C_{N/2} + N^2, \text{ for } N \geq 2 \text{ with } C_1 = 0,
+\end{align}
+```
+*when $`N`$ is a power of $`2`$*.
+
+**Solution**
+
+Observe the pattern
+```math
+\begin{align}
+C_{2^n} &= C_{2^{n - 1}} + 2^{2n} \\
+&= C_{2^{n - 2}} + 2^{2n}\left(1 + 2^{-2}\right)\\
+\ldots &= 2^{2n}\sum_{i = 0}^{n - 1}\left(\frac{1}{4}\right)^i
+\end{align}
+```
+Which is again the geometric series, and leads to
+```math
+\begin{align}
+C_{N} &= \frac{4}{3}N^2\left(1 - \frac{1}{N^2}\right).
+\end{align}
+```
+
+We can check this by calculation in the provided [code](./Exercises/Ex2_40/ex2_40.c) by comparing the use of the
+formula above against a direct calculation which is given in the table below. We can see for the values we have examined they agree. 
+
+| $`N`$ | By Formula | By Calculation |
+|-------|------------|----------------|
+| 1     | 0          | 0              |
+| 2     | 4          | 4              |
+| 4     | 20         | 20             |
+| 8     | 84         | 84             |
+| 16    | 340        | 340            |
+| 32    | 1364       | 1364           |
+
+Raw data available [here](./Exercises/Ex2_40/sample_data.dat).
+
+## [Exercise 2.41](./Exercises/Ex2_41/ex2_41.c)
+
+**Problem Statement**
+
+*Solve the recurrence*
+```math
+\begin{align}
+C_{N} &= C_{N/\alpha} + 1, \text{ for } N \geq 2 \text{ with } C_1 = 0.
+\end{align}
+```
+*where $`N`$ is a power of $`\alpha`$.*
+
+**Solution**
+
+This follows by indentical argument to that provided in
+the book for the case $`\alpha = 2`$, except we have which leads to $`N = \alpha^n \implies n = \log_{\alpha}\left(N\right).`$
+
+So the solution is
+```math
+\begin{align}
+C_{N} &= \log_{\alpha}\left(N\right) + 1
+\end{align}
+```
+which is the same Big-O performance as $`\lg\left(N\right)`$, but if we for example consider base-$`2`$ compared to base-$`4`$. Then
+```math
+\begin{align}
+C_{16}^4 &= \log_4\left(16\right) + 1\\
+&= 3\\
+C_{16}^2 &= \log_2\left(16\right) + 1\\
+&= 5
+\end{align}
+```
+where the superscript denotes the base of the logarithm. We can see in the case the coefficient derived from the log-$`4`$ coefficient is just over half the size of the coefficient derived from the log-$`2`$ term (we can show the ratio of these two logarithms is exactly $`1/2`$.)
+
+We perform some comparisons using the attached [code](./Exercises/Ex2_41/) to generate the table below
+| $`N`$ | $`\lg\left(N\right) + 1`$ | $`\log_{4}\left(N\right) + 1`$ | $`\log_{16}\left(N\right) + 1`$ |
+|-------|---------------------------|--------------------------------|---------------------------------|
+| 1     | 1                         | 1                              | 1                               |
+| 2     | 2                         | 1                              | 1                               |
+| 4     | 3                         | 2                              | 1                               |
+| 8     | 4                         | 2                              | 1                               |
+| 16    | 5                         | 3                              | 2                               |
+| 32    | 6                         | 3                              | 2                               |
+| 64    | 7                         | 4                              | 2                               |
+| 128   | 8                         | 4                              | 2                               |
+| 256   | 9                         | 5                              | 3                               |
+
+The raw data is available [here](./Exercises/Ex2_41/sample_output.dat).
+
+## [Exercise 2.42](./Exercises/Ex2_42/ex2_42.c)
+
+**Problem Statement**
+
+*Solve the recurrence*
+```math
+\begin{align}
+C_N &= \alpha C_{N/2}, \text{ for } N \geq 2 \text{ with } C_1 = 1,
+\end{align}
+```
+*when $`N`$ is a power of $`2`$*.
+
+**Solution**
+
+This one's pretty straightforward,
+```math
+\begin{align}
+C_N &= \alpha C_{N/2}\\
+C_{2^n} &= \alpha C_{2^{n - 1}} \\
+&= \alpha\left(\alpha C_{2^{n - 2}}\right)\\
+&= \alpha^n \\
+&= \alpha^{\lg\left(N\right)}
+\end{align}
+```
+Observe that this has interesting behaviour depending on the value of $`\alpha`$. For Example if $`\alpha = 2`$ or $`\alpha = 4`$ we get the following,
+
+```math
+\begin{align}
+C_N^{2} &= N\\
+C_N^{4} &= N^2
+\end{align}
+```
+
+The code provided calculates the coefficients for $`1 \leq N \leq 32`$  for $`\alpha = 2,4, 8`$. A snippet is in the table provided below 
+| N  | $`C_{N}^2`$ | $`C_{N}^4`$ | $`C_{N}^8`$ |
+|----|-------------|-------------|-------------|
+| 1  | 1           | 1           | 1           |
+| 2  | 2           | 4           | 8           |
+| 3  | 3           | 9           | 27          |
+| 4  | 4           | 16          | 64          |
+| 5  | 5           | 25          | 125         |
+| 6  | 6           | 36          | 216         |
+| 7  | 7           | 49          | 343         |
+| 8  | 8           | 64          | 512         |
+| 9  | 9           | 81          | 729         |
+| 10 | 10          | 100         | 1000        |
+
+See the raw data [here](./Exercises/Ex2_42/sample_output.dat).
+
+## [Exercise 2.43](./Exercises/Ex2_43/ex2_43.c)
+
+**Problem Statement**
+
+*Solve the recurrrence*
+```math
+\begin{align}
+C_N &= \left(C_{N/2}\right)^2 \text{ for } N \geq 2 \text{ with } C_1 = 1,
+\end{align}
+```
+*when $`N`$ is a power of $`2`$.*
+
+**Solution**
+
+This one should be trivial by inspection, but lets make
+it a bit more obvious,
+```math
+\begin{align}
+C_{2^n} &= \left(C_{2^{n - 1}}\right)^2 \\
+&= \left(C_{2^{n - 1}}\right)\left(C_{2^{n - 1}}\right)\\
+&= \left(C_{2^{n - 2}}\right)\left(C_{2^{n - 2}}\right)\left(C_{2^{n - 2}}\right)\left(C_{2^{n - 2}}\right) \\
+&\ldots\text{ }\prod_{i = 0}^{2^n}C_{1}\\
+&= 1.
+\end{align}
+```
+Since there are $`n - 1`$ expansions each doubling the number of multiplications there are $`2^{n - 1}`$ total multiplications until we reach the base case $`C_{1}`$. However since $`C_1 = 1`$ this means the entire multiplication is $`1`$.
+
+Observe that if $`C_1`$ was not $`1`$ but rather some constant $`\alpha`$ then the result would be
+```math
+\begin{align}
+C_{2^n} &= \prod_{i = 0}^{2^n}\alpha \\
+&= \alpha^{2^n} \\
+\implies C_{N} &= \alpha^N.
+\end{align}
+```
+
+We compare the resulting coefficients for various initial conditions using the attached code for $`1 \leq N \leq 16`$. A snippet of which is shown in the table below
+| N | $`C_{1} = 1`$ | $`C_{1} = 2`$ | $`C_{1} = 4`$ |
+|---|----------------|----------------|----------------|
+| 1 | 1              | 2              | 4              |
+| 2 | 1              | 4              | 16             |
+| 3 | 1              | 8              | 64             |
+| 4 | 4              | 16             | 64             |
+| 5 | 5              | 25             | 125            |
+| 6 | 6              | 36             | 216            |
+| 7 | 7              | 49             | 343            |
+| 8 | 8              | 64             | 512            |
+
+The full data is available [here](./Exercises/Ex2_43/sample_output.dat).
+
+## [Exercise 2.44](./Exercises/Ex2_44/ex2_44.c)
+
+**Problem Statement**
+
+*Solve the recurrence*
+```math
+\begin{align}
+C_{N} = \left(2 + \frac{1}{\lg\left(N\right)}\right)C_{N/2}, \text{ for } N \geq 2 \text{ with } C_1 = 1.
+\end{align}
+```
+*when $`N`$ is a power of $`2`$*.
+
+**Solution**
+
+Rewriting the recurrence leads to
+```math
+\begin{align}
+C_{2^n} &= \left(2 + \frac{1}{n}\right)C_{2^{n - 1}} \\
+&= \left(\frac{2n + 1}{n}\right)\left(\frac{2n - 1}{n - 1}\right)C_{2^{n - 2}} \\
+\ldots &= \prod_{i = 1}^{n}\left(\frac{2i + 1}{i}\right)C_1
+\end{align}
+```
+Which bears some commenting. If we examine this we can see that the product is dividing the product of the first $`n`$ odd integers by the product of the first $`n`$ integers ($`n!`$).  So We can rewrite this as
+```math
+\begin{align}
+C_{2^n} &= \frac{\left(2n + 1\right)!!}{n!}
+\end{align}
+```
+where $`\left(2n + 1\right)!!`$ is the [double factorial](https://en.wikipedia.org/wiki/Double_factorial). Which leads to
+```math
+\begin{align}
+C_{2^n} &= \frac{1}{n!}\frac{\left(2n + 1\right)!}{2^n\left(n\right)!}\\
+&= \frac{\left(2\lg\left(N\right) + 1\right)!}{N\left[\lg\left(N\right)!\right]^2}
+\end{align}
+```
+The computed results for $`N = 2^i`$ with $`1 \leq i \leq 8`$ are shown in the table below.
+
+| $`N`$ | $`C_{N}`$ (By definition) | $`C_{N}`$ (By Formula) |
+|-------|---------------------------|------------------------|
+| 1     | 1                         | 1                      |
+| 2     | 3                         | 3                      |
+| 4     | 7.5                       | 7.5                    |
+| 8     | 17.5                      | 17.5                   |
+| 16    | 39.375                    | 39.375                 |
+| 32    | 86.625                    | 86.625                 |
+| 64    | 187.6875                  | 187.6875               |
+| 128   | 402.1875                  | 402.1875               |
+| 256   | 854.648438                | 854.648438             |
+
+With the raw results available [here](./Exercises/Ex2_44//sample_data.dat).
+
+
 
 ## [Exercise 2.49](./Exercises/Ex2_49/ex2_49.c)
 

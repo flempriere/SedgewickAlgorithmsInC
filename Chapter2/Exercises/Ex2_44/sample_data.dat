@@ -1,0 +1,9 @@
+N:        1	i:    0	C_n (definition): 1.000000	C_n (formula): 1.000000
+N:        2	i:    1	C_n (definition): 3.000000	C_n (formula): 3.000000
+N:        4	i:    2	C_n (definition): 7.500000	C_n (formula): 7.500000
+N:        8	i:    3	C_n (definition): 17.500000	C_n (formula): 17.500000
+N:       16	i:    4	C_n (definition): 39.375000	C_n (formula): 39.375000
+N:       32	i:    5	C_n (definition): 86.625000	C_n (formula): 86.625000
+N:       64	i:    6	C_n (definition): 187.687500	C_n (formula): 187.687500
+N:      128	i:    7	C_n (definition): 402.187500	C_n (formula): 402.187500
+N:      256	i:    8	C_n (definition): 854.648438	C_n (formula): 854.648438

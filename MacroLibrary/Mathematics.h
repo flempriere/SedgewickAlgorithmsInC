@@ -12,6 +12,7 @@
 
 #include "MacroLibrary/TraceMacro.h"
 
+#include <stddef.h>
 #include <tgmath.h>
 
 /**
@@ -37,6 +38,50 @@ constexpr long double MATHEULER_CONSTANT = 0.5772156649015L;
  * iterative methods and floating point comparisons.
  */
 constexpr long double MATHeps = 1e-6L;
+
+
+/**
+ * @brief Computes the smallest integer larger than lg(MATHn) where
+ * lg is the base-2 logarithm.
+ * 
+ * @param MATHn > 0.
+ * 
+ * @remark
+ * The returned number is also equivalent to the number of digits required
+ * to represent MATHn in binary.
+ *
+ * @warning
+ * Behaviour is undefined when MATHn = 0.
+ * 
+ * @return size_t equivalent to floor(lg(N)) + 1.
+ */
+static inline size_t MATHlg(size_t MATHn) {
+    register size_t lgN = 0;
+    for (lgN = 0; MATHn > 0; lgN++, MATHn /= 2);
+    return lgN;
+}
+
+/**
+ * @brief Computes the factorial of MATHn.
+ * 
+ * @param MATHn
+ *
+ * @warning may overflow if MATHn is to large.
+ * @return size_t 
+ */
+static inline size_t MATHfactorial(size_t MATHn) {
+    constexpr static size_t MAX_CACHE = 25;
+    static size_t MATHfactorial_cache[MAX_CACHE] = {[0] = 1};
+    static size_t cache_top = 0;
+
+    register size_t f = 1;
+    for (; MATHn >= MAX_CACHE; ) f *= MATHn;
+    for (cache_top++; cache_top <= MATHn; cache_top++) {
+        MATHfactorial_cache[cache_top] = cache_top*MATHfactorial_cache[cache_top - 1];
+    }
+    cache_top--; //goes one past where we need.
+    return f*MATHfactorial_cache[MATHn];
+}
 
 /**
  * @brief Uses [Newton's

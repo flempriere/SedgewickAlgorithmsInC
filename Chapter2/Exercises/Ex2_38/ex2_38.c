@@ -61,8 +61,8 @@ size_t coefficient_N_hybrid(size_t n);
  */
 int main(int argc, char* argv[argc + 1]) {
     for (register size_t i = 1; i <= N; i++) {
-        printf("N: %zu\tC_ceil(N): %zu\tC_floor(N): %zu\tC_hybrid: %zu\n", i,
-               coefficient_N_ceil(i), coefficient_N_floor(i),
+        printf("N: %zu\tC_floor(N): %zu\tC_ceil(N): %zu\tC_hybrid: %zu\n", i,
+               coefficient_N_floor(i), coefficient_N_ceil(i),
                coefficient_N_hybrid(i));
     }
     return EXIT_SUCCESS;
